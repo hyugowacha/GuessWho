@@ -14,6 +14,7 @@ public class TestinNPC : MonoBehaviour
     void Start()
     {
         selfAgent.SetDestination(tempDestination.transform.position);
+     //   selfAgent.
     }
 
     // Update is called once per frame
