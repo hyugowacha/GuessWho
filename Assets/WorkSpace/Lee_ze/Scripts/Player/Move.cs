@@ -13,6 +13,9 @@ public class Move : MonoBehaviour
 
     private Vector3 moveDir;
 
+    [SerializeField]
+    private Animator playerAnim;
+
     private void FixedUpdate()
     {
         if (moveDir != Vector3.zero)
@@ -20,6 +23,14 @@ public class Move : MonoBehaviour
             Vector3 move = moveSpeed * Time.fixedDeltaTime * new Vector3(moveDir.x, 0, moveDir.z);
 
             rb.MovePosition(transform.position + move);
+
+            rb.MoveRotation(Quaternion.LookRotation(moveDir));
+
+            playerAnim.SetBool("IsWalking", true);
+        }
+        else
+        {
+            playerAnim.SetBool("IsWalking", false);
         }
     }
 
