@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 121723132}
   - component: {fileID: 121723131}
+  - component: {fileID: 121723133}
   - component: {fileID: 121723130}
   m_Layer: 0
   m_Name: Main Camera
@@ -208,13 +209,30 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 121723129}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: 0, y: 6.81, z: -7.22}
+  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
+  m_LocalPosition: {x: 0, y: 2.9, z: -2.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
+--- !u!114 &121723133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121723129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6503e840b2b1ac34e883a3fe7febcf78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraPos: {fileID: 121723132}
+  targetToFollow: {fileID: 1171843533433144656}
+  distance: 0
+  height: 0
+  rotationSpeed: 0
 --- !u!1 &750770501
 GameObject:
   m_ObjectHideFlags: 0
@@ -740,7 +758,7 @@ Transform:
   m_GameObject: {fileID: 1948063921557430250}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.094611615, y: 0, z: -1.6793604}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
