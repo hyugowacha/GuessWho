@@ -14,6 +14,9 @@ public class Move : MonoBehaviour
     private Vector3 moveDir;
 
     [SerializeField]
+    private RotateModel modelRotator;
+
+    [SerializeField]
     private Animator playerAnim;
 
     private void FixedUpdate()
@@ -24,7 +27,7 @@ public class Move : MonoBehaviour
 
             rb.MovePosition(transform.position + move);
 
-            rb.MoveRotation(Quaternion.LookRotation(moveDir));
+            modelRotator.SetTargetDirection(moveDir);
 
             playerAnim.SetBool("IsWalking", true);
         }
