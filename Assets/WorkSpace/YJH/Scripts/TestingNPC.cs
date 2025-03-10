@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class TestinNPC : MonoBehaviour
 {
 
-
+    //상태 패턴
     [SerializeField] GameObject tempDestination;
     [SerializeField] NavMeshAgent selfAgent;
 
@@ -21,5 +21,12 @@ public class TestinNPC : MonoBehaviour
     void Update()
     {
         
+    }
+
+
+
+    public void SetNPCState()
+    {
+
     }
 }
