@@ -13,7 +13,7 @@ public interface INPCState
     
     public void PlayAnimation();
     public void StopAnimation();
-    public void SetState();
+    public void EnterState(NPC npc);
 
     public void StateAction();
     public bool CheckStateEnd();
@@ -21,10 +21,10 @@ public interface INPCState
 
 public class NPCMove : MonoBehaviour, INPCState
 {
-    private List<Vector3> destinations;//navmesh 안쓰면 
-    private bool isMoveEnd;
+    //private List<Vector3> destinations;//navmesh 안쓰면 
+    //private bool isMoveEnd;
     private Transform destination;
-    private Transform nowTransform;
+    private NPC nowNPC;
     private NavMeshAgent selfAgent;
     public void PlayAnimation()
     {
@@ -37,16 +37,16 @@ public class NPCMove : MonoBehaviour, INPCState
         //animator관련
 
     }
-    public void SetState()
+    public void EnterState(NPC npc)
     {
-        destinations = new List<Vector3>();
-        destination.position=destinations[0];
-        
+        nowNPC = npc;
+        selfAgent = nowNPC.gameObject.GetComponent<NavMeshAgent>();
+        //isMoveEnd = false;
        
     }
     public void AddDestination(Transform transform)
     {
-
+        destination = transform;
     }
     //public void SetState(Transform destination)
     //{
@@ -59,9 +59,21 @@ public class NPCMove : MonoBehaviour, INPCState
     {
         selfAgent.SetDestination(destination.position);
     }
-    public bool CheckStateEnd(Transform npcTransform)
+    //public bool CheckStateEnd(Transform npcTransform)
+    //{
+    //    if ((destination.position - npcTransform.position).magnitude < 0.2f)
+    //    {
+    //        return true;
+    //    }
+    //    else
+    //    {
+    //        return false;
+    //    }
+    //
+    //}
+    public bool CheckStateEnd()
     {
-        if ((destination.position - npcTransform.position).magnitude < 0.2f)
+        if ((destination.position - nowNPC.transform.position).magnitude < 0.2f)
         {
             return true;
         }
@@ -69,11 +81,6 @@ public class NPCMove : MonoBehaviour, INPCState
         {
             return false;
         }
-
-    }
-    public bool CheckStateEnd()
-    {
-        return false;
     }
 
 }
@@ -81,6 +88,7 @@ public class NPCMove : MonoBehaviour, INPCState
 public class NPCHit : MonoBehaviour,INPCState
 {
     private bool isHit;
+    private NPC nowNPC;
     //private bool isEnd;
     public void PlayAnimation()
     {
@@ -95,9 +103,10 @@ public class NPCHit : MonoBehaviour,INPCState
     }
 
 
-    public void SetState()
+    public void EnterState(NPC npc)
     {
         isHit = false;
+        nowNPC = npc;
     }
     public void NPCGetHit()
     {
@@ -126,7 +135,8 @@ public class NPCIdle : MonoBehaviour,INPCState
 {
     private float idleTime;
     private bool isEnd;
-    
+    private NPC nowNPC;
+
     public void PlayAnimation()
     {
         //animator관련
@@ -139,10 +149,11 @@ public class NPCIdle : MonoBehaviour,INPCState
         isEnd = true;
     }
 
-    public void SetState()
+    public void EnterState(NPC npc)
     {
         isEnd = false;
         idleTime = UnityEngine.Random.Range(0.5f,2f);//대기 시간 설정
+        nowNPC = npc;
     }
 
     public void StateAction()

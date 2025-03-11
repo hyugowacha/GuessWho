@@ -12,7 +12,7 @@ public class TestingNPC : NPC
     [SerializeField] NavMeshAgent selfAgent;
     private INPCState nowState;
     private NavMeshSurface gamefield;
-    private bool haveToChangeState;
+    private bool haveToChangeState;//현재로서는 필요 없으나 게임매니저에 사용할 수도 있을거 같기에 선언해 놓음
 
     // Start is called before the first frame update
     void Start()
@@ -46,7 +46,7 @@ public class TestingNPC : NPC
     public void ChangeState(INPCState changeState)
     {
         nowState = changeState;
-        nowState.SetState();
+        nowState.EnterState(this);
         nowState.StateAction();
        
     }
@@ -60,6 +60,15 @@ public class TestingNPC : NPC
                 if (nowState.CheckStateEnd() == true)
                 {
                     haveToChangeState=true;
+                    if(nowState is NPCIdle)
+                    {
+                        ChangeState(new NPCMove());
+                        haveToChangeState = false;
+                    }else if(nowState is NPCMove)
+                    {
+                        ChangeState(new NPCIdle());
+                        haveToChangeState = false;
+                    }
                 }
                 else
                 {
@@ -73,6 +82,12 @@ public class TestingNPC : NPC
         }
     }
 
+
+    public void HitByPlayer()
+    {
+        ChangeState(new NPCHit());
+        haveToChangeState = false;
+    }
     //public void SetNPCState()
     //{
     //
