@@ -6,7 +6,7 @@ using UnityEngine.Pool;
 public class NPCManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    private ObjectPool<NPC> npcs;
+    private ObjectPool<NPC> npcs;//필드에 존재하는 엔피시들 
 
 
     void Start()
@@ -28,4 +28,10 @@ public class NPCManager : MonoBehaviour
         destination = new Vector3(Random.Range(1,100),0, Random.Range(1, 100));
         return destination;
     }
+
+    
+
+
+
+
 }
