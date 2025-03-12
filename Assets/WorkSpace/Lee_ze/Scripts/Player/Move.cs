@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum PlayerState
+{
+    Idle, Walk, Run
+}
+
 public class Move : MonoBehaviour
 {
     [SerializeField]
-    private float moveSpeed = 0.01f;
+    private float moveSpeed;
 
     [SerializeField]
     private Rigidbody rb;
@@ -18,6 +23,11 @@ public class Move : MonoBehaviour
     private Animator playerAnim;
 
     private Vector2 direction;
+
+    private void Start()
+    {
+        moveSpeed = 0.06f;
+    }
 
     private void FixedUpdate()
     {
@@ -33,7 +43,7 @@ public class Move : MonoBehaviour
         {
             Vector3 moveDir = (camRight * direction.x + camForward * direction.y).normalized;
 
-            Vector3 move = moveSpeed * Time.fixedDeltaTime * new Vector3(moveDir.x, 0, moveDir.z);
+            Vector3 move = moveSpeed * new Vector3(moveDir.x, 0, moveDir.z);
 
             rb.MovePosition(transform.position + move);
 
@@ -52,12 +62,24 @@ public class Move : MonoBehaviour
         if (ctx.phase == InputActionPhase.Performed)
         {
             direction = ctx.ReadValue<Vector2>();
-        }
+        } 
         else if (ctx.phase == InputActionPhase.Canceled)
         {
             direction = Vector2.zero;
 
             rb.velocity = Vector3.zero;
+        }
+    }
+
+    public void OnRun(InputAction.CallbackContext ctx)
+    {
+        if (ctx.phase == InputActionPhase.Performed)
+        {
+            moveSpeed = 0.12f;
+        }
+        else if (ctx.phase == InputActionPhase.Canceled)
+        {
+            moveSpeed = 0.06f;
         }
     }
 }
