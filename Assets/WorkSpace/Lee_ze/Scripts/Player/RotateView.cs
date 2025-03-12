@@ -32,7 +32,7 @@ public class RotateView : MonoBehaviour
 
     private void Start()
     {
-        distance = 2.8f;
+        distance = 4f;
 
         height = 3f;
 
