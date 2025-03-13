@@ -9,9 +9,13 @@ public class NPCManager : MonoBehaviour
     //필드에 존재하는 엔피시들 
     //public GameObject npcPrefab;
     private NPCPool pool;
+    [SerializeField] GameObject npc;
     void Start()
     {
         pool = new NPCPool();//풀 생성
+        pool.SetPrefab(npc);
+        //pool.NPCS.Get();//NPC 생성
+
     }
 
     // Update is called once per frame
@@ -20,12 +24,19 @@ public class NPCManager : MonoBehaviour
         
     }
     
-    public void InitialSet()
+    public void InitialSet()//맵 리셋시 NPC 뿌리기 
     {
         
     }
     
+    public void SetNPCTransform()
+    {
 
+    }
+    public void SpawNPC()
+    {
+        pool.NPCS.Get();
+    }
     public static Vector3 ReturnRandomDestination()
     {
         Vector3 destination;

@@ -10,13 +10,22 @@ public class NPCPool : MonoBehaviour
     public ObjectPool<GameObject> NPCS { get { return npcs; } set { npcs = value; } }
         
 
-    public GameObject npcPrefab;
+    private GameObject npcPrefab;
     public NPCPool()
     {
         npcs = new ObjectPool<GameObject>(CreateNPC,NPCActivate,NPCDisable,NPCDestroy,true ,50,100);
     }
+    public void SetPrefab(GameObject prefab)
+    {
+        npcPrefab= prefab;
+    }
     public GameObject CreateNPC()
     {
+        if (npcs == null)
+        {
+            Debug.Log("no prefab");
+            return null;
+        }
         return Instantiate(npcPrefab);
     }
     public void NPCActivate(GameObject npc)
@@ -48,14 +57,6 @@ public class NPCPool : MonoBehaviour
         npcs.Clear();
     }
 
-    void Start()
-    {
-        //npcs = new ObjectPool<NPC>();//오브젝트 생성함수, 오브젝트 풀에서 가져오는 함수, 오브젝트를 비활성화 하면 호출되는 함수, 오브젝트 파괴 함수,중복 반환 체크 함수(bool), 최초 생성시 오브젝트 개수, 최대 개수
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
+   
 }
