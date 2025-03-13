@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 490890}
   - component: {fileID: 3337954}
   - component: {fileID: 2395688}
-  - component: {fileID: 6416270}
+  - component: {fileID: 4970412569321382779}
   m_Layer: 0
   m_Name: sptp_street_light_02
   m_TagString: Untagged
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 140358}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -84,8 +84,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6416270
-MeshCollider:
+--- !u!65 &4970412569321382779
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -102,7 +102,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 99c8d99cb2b5cb747926f046a5dde01f, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.43246856, y: 6.2817826, z: 0.38994008}
+  m_Center: {x: 0.021263756, y: 3.1408913, z: 8.013159e-17}
