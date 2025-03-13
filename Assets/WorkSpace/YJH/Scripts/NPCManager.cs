@@ -6,12 +6,12 @@ using UnityEngine.Pool;
 public class NPCManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    private ObjectPool<NPC> npcs;//필드에 존재하는 엔피시들 
-
-
+    //필드에 존재하는 엔피시들 
+    //public GameObject npcPrefab;
+    private NPCPool pool;
     void Start()
     {
-        
+        pool = new NPCPool();//풀 생성
     }
 
     // Update is called once per frame
@@ -19,8 +19,12 @@ public class NPCManager : MonoBehaviour
     {
         
     }
-
-
+    
+    public void InitialSet()
+    {
+        
+    }
+    
 
     public static Vector3 ReturnRandomDestination()
     {
