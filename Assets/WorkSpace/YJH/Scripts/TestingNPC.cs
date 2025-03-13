@@ -8,7 +8,7 @@ public class TestingNPC : NPC
 {
 
     //상태 패턴
-    [SerializeField] GameObject tempDestination;
+    [SerializeField] GameObject tempDestination;// 랜덤 목적지 지정 시스템 만들기 전에 사용하는 임시 변수
     [SerializeField] NavMeshAgent selfAgent;
     private INPCState nowState;
     private NavMeshSurface gamefield;
@@ -17,7 +17,9 @@ public class TestingNPC : NPC
     // Start is called before the first frame update
     void Start()
     {
-        selfAgent.SetDestination(tempDestination.transform.position);
+        selfAgent.SetDestination(tempDestination.transform.position);//랜덤 목적지 지정 시스템 만들기 전에 사용하는 임시 코드 
+
+
         haveToChangeState = false;
         if (Random.Range(0,1) < 0.5f)
         {
