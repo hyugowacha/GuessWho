@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public enum PlayerState
-{
-    Idle, Walk, Run
-}
-
 public class Move : MonoBehaviour
 {
     [SerializeField]
     private float moveSpeed;
 
+    private float targetSpeed;
+
     [SerializeField]
     private Rigidbody rb;
+
+    private Vector2 direction;
+
+    private bool isRunning;
 
     [SerializeField]
     private RotateModel modelRotator;
@@ -22,11 +23,13 @@ public class Move : MonoBehaviour
     [SerializeField]
     private Animator playerAnim;
 
-    private Vector2 direction;
-
     private void Start()
     {
-        moveSpeed = 0.06f;
+        isRunning = false;
+
+        moveSpeed = 0f;
+
+        targetSpeed = 0f;
     }
 
     private void FixedUpdate()
@@ -41,6 +44,10 @@ public class Move : MonoBehaviour
 
         if (direction != Vector2.zero)
         {
+            targetSpeed = isRunning ? 0.12f : 0.06f;
+
+            moveSpeed = Mathf.Lerp(moveSpeed, targetSpeed, Time.deltaTime * 5f);
+
             Vector3 moveDir = (camRight * direction.x + camForward * direction.y).normalized;
 
             Vector3 move = moveSpeed * new Vector3(moveDir.x, 0, moveDir.z);
@@ -48,13 +55,13 @@ public class Move : MonoBehaviour
             rb.MovePosition(transform.position + move);
 
             modelRotator.SetTargetDirection(move);
-
-            playerAnim.SetBool("IsWalking", true);
         }
         else
         {
-            playerAnim.SetBool("IsWalking", false);
+            moveSpeed = Mathf.Lerp(moveSpeed, 0, Time.deltaTime * 5f); ;
         }
+
+        playerAnim.SetFloat("Speed", moveSpeed / 0.12f);
     }
 
     public void OnMove(InputAction.CallbackContext ctx)
@@ -75,11 +82,11 @@ public class Move : MonoBehaviour
     {
         if (ctx.phase == InputActionPhase.Performed)
         {
-            moveSpeed = 0.12f;
+            isRunning = true;
         }
         else if (ctx.phase == InputActionPhase.Canceled)
         {
-            moveSpeed = 0.06f;
+            isRunning = false;
         }
     }
 }
