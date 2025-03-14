@@ -21,7 +21,7 @@ public class TestingNPC : NPC
 
 
         haveToChangeState = false;
-        if (Random.Range(0,1) < 0.5f)
+        if (Random.Range(0,1) < 0.5f)//일부는 바로 이동 일부는 대기 
         {
             nowState=new NPCIdle();
         }
@@ -81,6 +81,29 @@ public class TestingNPC : NPC
 
 
 
+        }
+    }
+
+    //IEnumerator CheckNPCPlacedRight()
+    //{
+    //    while (true)
+    //    {
+    //        yield return new WaitForSeconds(0.5f);
+    //
+    //
+    //
+    //    }
+    //}
+
+    public bool CheckNPCPlacedRight()
+    {
+        if(selfAgent.isOnNavMesh)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 

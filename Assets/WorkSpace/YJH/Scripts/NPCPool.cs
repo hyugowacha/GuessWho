@@ -8,12 +8,18 @@ public class NPCPool : MonoBehaviour
     // Start is called before the first frame update
     private ObjectPool<GameObject> npcs;
     public ObjectPool<GameObject> NPCS { get { return npcs; } set { npcs = value; } }
-        
+    private int maxNPCNum = 100;
+    private int initialNPCNum = 50;
+    public int InitialNPCNum
+    {
+        get { return initialNPCNum; }
+        set { initialNPCNum = value; }
+    }
 
     private GameObject npcPrefab;
     public NPCPool()
     {
-        npcs = new ObjectPool<GameObject>(CreateNPC,NPCActivate,NPCDisable,NPCDestroy,true ,50,100);
+        npcs = new ObjectPool<GameObject>(CreateNPC,NPCActivate,NPCDisable,NPCDestroy,true , initialNPCNum, maxNPCNum);
     }
     public void SetPrefab(GameObject prefab)
     {
@@ -28,6 +34,10 @@ public class NPCPool : MonoBehaviour
         }
         return Instantiate(npcPrefab);
     }
+    
+
+
+
     public void NPCActivate(GameObject npc)
     {
         npc.SetActive(true);
@@ -42,9 +52,10 @@ public class NPCPool : MonoBehaviour
     {
         Destroy(npc);
     }
-    public GameObject GetNPC()
+    public GameObject GetNPC(GameObject group)
     {
         GameObject npc = npcs.Get();
+        npc.transform.parent = group.transform;
         return npc;
     }
     public void ReturnNPC(GameObject npc)
@@ -56,6 +67,13 @@ public class NPCPool : MonoBehaviour
     {
         npcs.Clear();
     }
+    //public void ActivateAllNPCs()
+    //{
+    //    for (int i = 0; i < InitialNPCNum; i++)
+    //    {
+    //        
+    //    }
+    //}
 
     
    
