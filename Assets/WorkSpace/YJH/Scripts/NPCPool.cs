@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class NPCPool : MonoBehaviour
+public class NPCPool// : MonoBehaviour
 {
     // Start is called before the first frame update
     private ObjectPool<GameObject> npcs;
@@ -32,7 +32,7 @@ public class NPCPool : MonoBehaviour
             Debug.Log("no prefab");
             return null;
         }
-        return Instantiate(npcPrefab);
+        return MonoBehaviour.Instantiate(npcPrefab);
     }
     
 
@@ -50,7 +50,7 @@ public class NPCPool : MonoBehaviour
 
     public void NPCDestroy(GameObject npc)
     {
-        Destroy(npc);
+       MonoBehaviour.Destroy(npc);
     }
     public GameObject GetNPC(GameObject group)
     {
