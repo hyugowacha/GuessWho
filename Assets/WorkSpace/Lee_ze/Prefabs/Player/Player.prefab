@@ -323,6 +323,37 @@ Transform:
   - {fileID: 4996629775977205045}
   m_Father: {fileID: 2343771275018691874}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1313327254505040549
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6173505096128027123}
+  m_Layer: 0
+  m_Name: ItemHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6173505096128027123
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1313327254505040549}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2248203035372265268}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1469680990212461170
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,6 +492,7 @@ GameObject:
   - component: {fileID: 2080353452942337566}
   - component: {fileID: 2597129151206618063}
   - component: {fileID: 503819866982283752}
+  - component: {fileID: 3932184357832727112}
   - component: {fileID: 1757235979601647896}
   - component: {fileID: 5138219754656572060}
   m_Layer: 0
@@ -564,6 +596,20 @@ MonoBehaviour:
   rb: {fileID: 1757235979601647896}
   modelRotator: {fileID: 5602894725191452904}
   playerAnim: {fileID: 9083047734429414456}
+--- !u!114 &3932184357832727112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2490481070707789049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7534154480767134da6349c342f58b40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items: []
+  isBareFoot: 0
 --- !u!54 &1757235979601647896
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1778,7 +1824,8 @@ Transform:
   m_LocalPosition: {x: -0, y: 0.11909891, z: -0.000000014901161}
   m_LocalScale: {x: 1.0000001, y: 0.99999976, z: 0.9999999}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6173505096128027123}
   m_Father: {fileID: 8424665842585494398}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8864874479447627692
