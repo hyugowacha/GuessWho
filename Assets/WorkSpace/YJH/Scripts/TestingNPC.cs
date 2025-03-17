@@ -13,8 +13,10 @@ public class TestingNPC : NPC
     private INPCState nowState;
     private NavMeshSurface gamefield;
     private bool haveToChangeState;//현재로서는 필요 없으나 게임매니저에 사용할 수도 있을거 같기에 선언해 놓음
-
-    public GameObject forTest;
+    [SerializeField] float hitPenaltyTime=1f;
+    [SerializeField] float hitTime = 0;
+    public GameObject forTest;//목적지 디버그용 완제품엔 필요 없음
+    public Animator animator;
     // Start is called before the first frame update
     void Start()
     {
@@ -75,6 +77,18 @@ public class TestingNPC : NPC
             yield return new WaitForSeconds(0.5f);
             if (nowState != null)
             {
+                if(nowState is NPCHit)
+                {
+                    hitTime += Time.deltaTime;
+                    if (hitPenaltyTime <= hitTime)
+                    {
+                        hitTime = 0;
+                        ChangeState(new NPCIdle());
+                    }
+                    
+                }
+
+
                 if (nowState.CheckStateEnd() == true)
                 {
                     haveToChangeState=true;
@@ -142,6 +156,7 @@ public class TestingNPC : NPC
         ChangeState(new NPCHit());
         haveToChangeState = false;
     }
+
     //public void SetNPCState()
     //{
     //

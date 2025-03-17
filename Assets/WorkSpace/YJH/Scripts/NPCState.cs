@@ -27,22 +27,33 @@ public class NPCMove : INPCState
     private NPC nowNPC;
     private NavMeshAgent selfAgent;
     float temp = 0;
+    private Animator npcAnimator;
+    readonly int hashHit = Animator.StringToHash("isHit");
+    readonly int hashMove = Animator.StringToHash("isMove");
+    readonly int hashIdle = Animator.StringToHash("isIdle");
+
     //GameObject forTest;
     public void PlayAnimation()
     {
         //animator관련
         
+        npcAnimator.SetBool(hashIdle, false);
+        npcAnimator.SetBool(hashMove, true);
+
     }
 
     public void StopAnimation()
     {
         //animator관련
+        npcAnimator.SetBool(hashIdle, true);
+        npcAnimator.SetBool(hashMove, false);
 
     }
     public void EnterState(NPC npc)
     {
         nowNPC = npc;
         selfAgent = npc.gameObject.GetComponent<NavMeshAgent>();
+        npcAnimator = (npc as TestingNPC).animator;
         destination = new Vector3();
         //destination.position = NPCManager.ReturnRandomDestination();//npc 매니저에 존재하는 랜덤 좌표 설정 함수를 사용, 현재 예외처리 안되어 있음
         //selfAgent.SetDestination(destination.position);//목적지 설정 
@@ -111,10 +122,17 @@ public class NPCHit : INPCState
 {
     private bool isHit;
     private NPC nowNPC;
+    private Animator npcAnimator;
+    readonly int hashHit = Animator.StringToHash("isHit");
+    readonly int hashMove = Animator.StringToHash("isMove");
+    readonly int hashIdle = Animator.StringToHash("isIdle");
+
     //private bool isEnd;
     public void PlayAnimation()
     {
         //animator관련
+        npcAnimator.SetTrigger(hashHit);
+        npcAnimator.SetBool(hashIdle,true);
 
     }
 
@@ -129,6 +147,7 @@ public class NPCHit : INPCState
     {
         isHit = false;
         nowNPC = npc;
+        npcAnimator = npc.gameObject.GetComponent<Animator>();
     }
     public void NPCGetHit()
     {
@@ -159,17 +178,24 @@ public class NPCIdle : INPCState
     private float delaiedime;//대기한 시간
     private bool isEnd;
     private NPC nowNPC;
-
+    private Animator npcAnimator;
+    readonly int hashHit = Animator.StringToHash("isHit");
+    readonly int hashMove = Animator.StringToHash("isMove");
+    readonly int hashIdle = Animator.StringToHash("isIdle");
     public void PlayAnimation()
     {
+        npcAnimator.SetBool(hashIdle, true);
+        npcAnimator.SetBool(hashMove, false);
         //animator관련
 
     }
 
     public void StopAnimation()
     {
+        npcAnimator.SetBool(hashIdle, false);
+        npcAnimator.SetBool(hashMove, true);
         //animator관련
-        
+
     }
 
     public void EnterState(NPC npc)
@@ -178,6 +204,7 @@ public class NPCIdle : INPCState
         idleTime = UnityEngine.Random.Range(0.5f,2f);//대기 시간 설정
         //Debug.Log(idleTime);
         nowNPC = npc;
+        npcAnimator = npc.gameObject.GetComponent<Animator>();
     }
 
     public void StateAction()
@@ -200,7 +227,7 @@ public class NPCIdle : INPCState
         }
         if (isEnd == true)
         {
-            Debug.Log("endidle");
+            //Debug.Log("endidle");
             StopAnimation();
             return true;
         }
@@ -211,6 +238,18 @@ public class NPCIdle : INPCState
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
 //public class NPCRun : INPCState// 일단 걷기만 구현 달리기는 나중에
 //{
 //    public void PlayAnimation()
