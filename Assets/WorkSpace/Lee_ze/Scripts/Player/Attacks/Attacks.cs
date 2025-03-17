@@ -35,7 +35,7 @@ public class Attacks : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext ctx)
     {
-        if (ctx.phase == InputActionPhase.Started)
+        if (ctx.phase == InputActionPhase.Started && isAttacking == false)
         {
             StartCoroutine(KickAttack());
         }
