@@ -52,7 +52,9 @@ public class GettableItem : MonoBehaviour, IGetable
 
     private void Update()
     {
-        ItemModel.transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime);
+        //ItemModel.transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime, Space.Self);
+        ItemModel.transform.rotation = Quaternion.Euler(ItemModel.transform.rotation.eulerAngles.x, 
+            ItemModel.transform.rotation.eulerAngles.y + (rotSpeed * Time.deltaTime), ItemModel.transform.rotation.eulerAngles.z);
     }
 
     private void OnTriggerEnter(Collider other)
