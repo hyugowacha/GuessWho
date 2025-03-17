@@ -28,6 +28,11 @@ public class Move : MonoBehaviour
     [SerializeField]
     private Animator playerAnim;
 
+    private void OnEnable()
+    {
+        attacks.OnAttackStateChanged += HandleAttackStateChanged;
+    }
+
     private void Start()
     {
         isRunning = false;
@@ -105,15 +110,8 @@ public class Move : MonoBehaviour
         isAttacking = attacking;  // 공격 상태 업데이트
     }
 
-    private void OnEnable()
-    {
-        // Attacks 스크립트의 이벤트 구독
-        attacks.OnAttackStateChanged += HandleAttackStateChanged;
-    }
-
     private void OnDisable()
     {
-        // 구독 해제
         attacks.OnAttackStateChanged -= HandleAttackStateChanged;
     }
 }

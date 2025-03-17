@@ -9,11 +9,29 @@ public class Attacks : MonoBehaviour
     public event Action<bool> OnAttackStateChanged;
 
     [SerializeField]
+    private GameObject kick;
+
+    [SerializeField]
     private Animator kickAnim;
 
     private bool isAttacking;
 
     public bool IsAttacking => isAttacking;
+
+    private void Start()
+    {
+        kick.SetActive(false);
+    }
+
+    public void OnKickEnable()
+    {
+        kick.SetActive(true);
+    }
+
+    public void OnKickDisable()
+    {
+        kick.SetActive(false);
+    }
 
     public void OnAttack(InputAction.CallbackContext ctx)
     {
