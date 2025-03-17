@@ -60,11 +60,11 @@ public class GettableItem : MonoBehaviour, IGetable
         if (other.CompareTag("Player"))
         {
             GetItem(itemData);
-            Instantiate(destroyParticle, transform.position, Quaternion.identity);
+            Instantiate(destroyParticle, transform.TransformPoint(0, 1.0f, 0), Quaternion.identity);
 
             Destroy(gameObject);
 
-           // Destroy(destroyParticle, 2.0f);
+            // Destroy(destroyParticle, 2.0f);
         }
     }
 }
