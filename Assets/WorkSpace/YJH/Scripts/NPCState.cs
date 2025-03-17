@@ -147,7 +147,7 @@ public class NPCHit : INPCState
     {
         isHit = false;
         nowNPC = npc;
-        npcAnimator = npc.gameObject.GetComponent<Animator>();
+        npcAnimator = (npc as TestingNPC).animator;
     }
     public void NPCGetHit()
     {
@@ -204,7 +204,7 @@ public class NPCIdle : INPCState
         idleTime = UnityEngine.Random.Range(0.5f,2f);//대기 시간 설정
         //Debug.Log(idleTime);
         nowNPC = npc;
-        npcAnimator = npc.gameObject.GetComponent<Animator>();
+        npcAnimator = (npc as TestingNPC).animator;
     }
 
     public void StateAction()
