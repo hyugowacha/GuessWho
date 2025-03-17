@@ -18383,6 +18383,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 467858, guid: 61b9c9e3076bd7145a7680b591aab7c0, type: 3}
   m_PrefabInstance: {fileID: 934449956}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &937200167 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4827688357879452591, guid: 29de1016a87184846ad40bf3d5ddae27, type: 3}
+  m_PrefabInstance: {fileID: 7167930644868790910}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &937200172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937200167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9ddbd6aa0daaec4b94c7325cb0c8dcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &940045073
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44012,6 +44029,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2080353452942337566, guid: 29de1016a87184846ad40bf3d5ddae27, type: 3}
   m_PrefabInstance: {fileID: 7167930644868790910}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1171843533433144661 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8560100861968683420, guid: 29de1016a87184846ad40bf3d5ddae27, type: 3}
+  m_PrefabInstance: {fileID: 7167930644868790910}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32fae820fa2474b45aee70b745507189, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7167930644868790910
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44020,6 +44048,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 503819866982283752, guid: 29de1016a87184846ad40bf3d5ddae27, type: 3}
+      propertyPath: attack
+      value: 
+      objectReference: {fileID: 1171843533433144661}
+    - target: {fileID: 503819866982283752, guid: 29de1016a87184846ad40bf3d5ddae27, type: 3}
+      propertyPath: attacks
+      value: 
+      objectReference: {fileID: 1171843533433144661}
     - target: {fileID: 2080353452942337566, guid: 29de1016a87184846ad40bf3d5ddae27, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -44067,7 +44103,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4827688357879452591, guid: 29de1016a87184846ad40bf3d5ddae27, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 937200172}
   m_SourcePrefab: {fileID: 100100000, guid: 29de1016a87184846ad40bf3d5ddae27, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

@@ -21,6 +21,11 @@ public class Move : MonoBehaviour
     private RotateModel modelRotator;
 
     [SerializeField]
+    private Attacks attacks;
+
+    private bool isAttacking;
+
+    [SerializeField]
     private Animator playerAnim;
 
     private void Start()
@@ -34,6 +39,11 @@ public class Move : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isAttacking == true)  // 공격 중이면 이동 및 회전 로직을 실행하지 않음
+        {
+            return;
+        }
+
         Vector3 camForward = Camera.main.transform.forward;
         
         camForward.y = 0;
@@ -88,5 +98,22 @@ public class Move : MonoBehaviour
         {
             isRunning = false;
         }
+    }
+
+    private void HandleAttackStateChanged(bool attacking)
+    {
+        isAttacking = attacking;  // 공격 상태 업데이트
+    }
+
+    private void OnEnable()
+    {
+        // Attacks 스크립트의 이벤트 구독
+        attacks.OnAttackStateChanged += HandleAttackStateChanged;
+    }
+
+    private void OnDisable()
+    {
+        // 구독 해제
+        attacks.OnAttackStateChanged -= HandleAttackStateChanged;
     }
 }
