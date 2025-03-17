@@ -19,13 +19,15 @@ public interface INPCState
     public bool CheckStateEnd();
 }
 
-public class NPCMove : MonoBehaviour, INPCState
+public class NPCMove : INPCState
 {
     //private List<Vector3> destinations;//navmesh 안쓰면 
     //private bool isMoveEnd;
-    private Transform destination;
+    private Vector3 destination;
     private NPC nowNPC;
     private NavMeshAgent selfAgent;
+    float temp = 0;
+    //GameObject forTest;
     public void PlayAnimation()
     {
         //animator관련
@@ -40,13 +42,28 @@ public class NPCMove : MonoBehaviour, INPCState
     public void EnterState(NPC npc)
     {
         nowNPC = npc;
-        selfAgent = nowNPC.gameObject.GetComponent<NavMeshAgent>();
+        selfAgent = npc.gameObject.GetComponent<NavMeshAgent>();
+        destination = new Vector3();
+        //destination.position = NPCManager.ReturnRandomDestination();//npc 매니저에 존재하는 랜덤 좌표 설정 함수를 사용, 현재 예외처리 안되어 있음
+        //selfAgent.SetDestination(destination.position);//목적지 설정 
+        //forTest= npc.GetComponent<TestingNPC>().forTest;
+
+        //temp+= Time.deltaTime;//작동함! 개이득!
+
+        destination = NPCManager.ReturnRandomDestination();//npc 매니저에 존재하는 랜덤 좌표 설정 함수를 사용, 현재 예외처리 안되어 있음-> transform 변수 선언하면 굉장히 귀찮음 벡터3 해서 맞추는게 더 쉬움
+        //이거 navmesh위에 존재하게 해야 할듯 어케 하징 
+        Debug.Log(destination);   
+        
         //isMoveEnd = false;
        
     }
-    public void AddDestination(Transform transform)
+    public Vector3 ReturnDestination()
     {
-        destination = transform;
+        return destination;
+    }
+    public void SetDestination(Vector3 position)
+    {
+        destination = position;
     }
     //public void SetState(Transform destination)
     //{
@@ -57,7 +74,10 @@ public class NPCMove : MonoBehaviour, INPCState
     //}
     public void StateAction()
     {
-        selfAgent.SetDestination(destination.position);
+        PlayAnimation();
+        selfAgent.SetDestination(destination);
+        
+        
     }
     //public bool CheckStateEnd(Transform npcTransform)
     //{
@@ -73,8 +93,10 @@ public class NPCMove : MonoBehaviour, INPCState
     //}
     public bool CheckStateEnd()
     {
-        if ((destination.position - nowNPC.transform.position).magnitude < 0.2f)
+        if ((destination - nowNPC.transform.position).magnitude < 3.0f)
         {
+            Debug.Log((destination - nowNPC.transform.position).magnitude);
+            StopAnimation();
             return true;
         }
         else
@@ -85,7 +107,7 @@ public class NPCMove : MonoBehaviour, INPCState
 
 }
 
-public class NPCHit : MonoBehaviour,INPCState
+public class NPCHit : INPCState
 {
     private bool isHit;
     private NPC nowNPC;
@@ -131,9 +153,10 @@ public class NPCHit : MonoBehaviour,INPCState
 
 
 }
-public class NPCIdle : MonoBehaviour,INPCState
+public class NPCIdle : INPCState
 {
-    private float idleTime;
+    private float idleTime;// 대기해야할 시간
+    private float delaiedime;//대기한 시간
     private bool isEnd;
     private NPC nowNPC;
 
@@ -146,31 +169,39 @@ public class NPCIdle : MonoBehaviour,INPCState
     public void StopAnimation()
     {
         //animator관련
-        isEnd = true;
+        
     }
 
     public void EnterState(NPC npc)
     {
         isEnd = false;
         idleTime = UnityEngine.Random.Range(0.5f,2f);//대기 시간 설정
+        //Debug.Log(idleTime);
         nowNPC = npc;
     }
 
     public void StateAction()
     {
-        StartCoroutine(NPCIdleAnimationPlay());
-    }
-    IEnumerator NPCIdleAnimationPlay()
-    {
+        //StartCoroutine(NPCIdleAnimationPlay());
         PlayAnimation();
-        yield return new WaitForSeconds(idleTime);
-        StopAnimation();
     }
+    
 
     public bool CheckStateEnd()
     {
+        delaiedime += Time.deltaTime;
+        if(delaiedime>idleTime)
+        {
+            isEnd = true;
+        }
+        else
+        {
+            isEnd=false;
+        }
         if (isEnd == true)
         {
+            Debug.Log("endidle");
+            StopAnimation();
             return true;
         }
         else
