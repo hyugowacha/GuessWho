@@ -17,7 +17,11 @@ public class TestingNPC : NPC,IHittable
     [SerializeField] float hitTime = 0;
     public GameObject forTest;//목적지 디버그용 완제품엔 필요 없음
     public Animator animator;
-    // Start is called before the first frame update
+    
+    public NavMeshAgent SelfAgent { get { return selfAgent; } set { selfAgent = value; } }
+
+
+
     void Start()
     {
         //selfAgent.SetDestination(tempDestination.transform.position);//랜덤 목적지 지정 시스템 만들기 전에 사용하는 임시 코드 
@@ -94,17 +98,18 @@ public class TestingNPC : NPC,IHittable
                     haveToChangeState=true;
                     if(nowState is NPCIdle)
                     {
-                        if (Random.Range(0, 100) < 70)
-                        {
-                            //Debug.Log("changetomove");
-                            ChangeState(new NPCMove());
-                            
-                        }
-                        else
-                        {
-                            //Debug.Log("stayidle");
-                            ChangeState(new NPCIdle());
-                        }
+                        ChangeState(new NPCMove());
+                        //if (Random.Range(0, 100) < 70)
+                        //{
+                        //    //Debug.Log("changetomove");
+                        //    ChangeState(new NPCMove());
+                        //    
+                        //}
+                        //else
+                        //{
+                        //    //Debug.Log("stayidle");
+                        //    ChangeState(new NPCIdle());
+                        //}
                         haveToChangeState = false;
 
                     }
@@ -140,13 +145,13 @@ public class TestingNPC : NPC,IHittable
         }
     }
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.transform.tag == "Player")
-    //    {
-    //        HitByPlayer();
-    //    }
-    //}
+    private void OnTriggerEnter(Collider other)//테스트용 플레이어에게 닿으면 hit 재생
+    {
+        if (other.transform.tag == "Player")
+        {
+            GetHit();
+        }
+    }
     //public void HitByPlayer()
     //{
     //    GetHit();
@@ -154,7 +159,7 @@ public class TestingNPC : NPC,IHittable
     public void GetHit()
     {
         ChangeState(new NPCHit());
-        
+        Debug.Log("gethit");
         haveToChangeState = false;
     }
 

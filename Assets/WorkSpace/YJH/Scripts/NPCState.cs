@@ -133,6 +133,7 @@ public class NPCHit : INPCState
     private bool isHit;
     private NPC nowNPC;
     private Animator npcAnimator;
+    private NavMeshAgent npcAgent;
     readonly int hashHit = Animator.StringToHash("isHit");
     readonly int hashMove = Animator.StringToHash("isMove");
     readonly int hashIdle = Animator.StringToHash("isIdle");
@@ -158,6 +159,8 @@ public class NPCHit : INPCState
         isHit = false;
         nowNPC = npc;
         npcAnimator = (npc as TestingNPC).animator;
+        npcAgent= (npc as TestingNPC).SelfAgent;
+        npcAgent.isStopped = true;
     }
     public void NPCGetHit()
     {
@@ -193,6 +196,7 @@ public class NPCIdle : INPCState
     private bool isEnd;
     private NPC nowNPC;
     private Animator npcAnimator;
+    private NavMeshAgent npcAgent;
     readonly int hashHit = Animator.StringToHash("isHit");
     readonly int hashMove = Animator.StringToHash("isMove");
     readonly int hashIdle = Animator.StringToHash("isIdle");
@@ -219,6 +223,8 @@ public class NPCIdle : INPCState
         //Debug.Log(idleTime);
         nowNPC = npc;
         npcAnimator = (npc as TestingNPC).animator;
+        npcAgent = (npc as TestingNPC).SelfAgent;
+        npcAgent.isStopped = true;
     }
 
     public void StateAction()
