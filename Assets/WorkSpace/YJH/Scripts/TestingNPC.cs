@@ -140,17 +140,17 @@ public class TestingNPC : NPC,IHittable
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.transform.tag == "Player")
-        {
-            HitByPlayer();
-        }
-    }
-    public void HitByPlayer()
-    {
-        GetHit();
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.transform.tag == "Player")
+    //    {
+    //        HitByPlayer();
+    //    }
+    //}
+    //public void HitByPlayer()
+    //{
+    //    GetHit();
+    //}
     public void GetHit()
     {
         ChangeState(new NPCHit());
