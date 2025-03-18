@@ -144,13 +144,13 @@ public class NPCHit : INPCState
         //animator관련
         npcAnimator.SetTrigger(hashHit);
         npcAnimator.SetBool(hashIdle,true);
-
+        npcAnimator.SetBool("isAnger", true);
     }
 
     public void StopAnimation()
     {
         //animator관련
-        
+        npcAnimator.SetBool("isAnger", false);
     }
 
 
@@ -176,6 +176,7 @@ public class NPCHit : INPCState
     {
         if (isHit == true)
         {
+            StopAnimation();
             return true;
         }
         else

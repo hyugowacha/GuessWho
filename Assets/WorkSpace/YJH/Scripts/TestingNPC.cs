@@ -13,7 +13,7 @@ public class TestingNPC : NPC,IHittable
     private INPCState nowState;
     private NavMeshSurface gamefield;
     private bool haveToChangeState;//현재로서는 필요 없으나 게임매니저에 사용할 수도 있을거 같기에 선언해 놓음
-    [SerializeField] float hitPenaltyTime=1f;
+    [SerializeField] float hitPenaltyTime=4.1f;
     [SerializeField] float hitTime = 0;
     public GameObject forTest;//목적지 디버그용 완제품엔 필요 없음
     public Animator animator;
@@ -87,6 +87,7 @@ public class TestingNPC : NPC,IHittable
                     if (hitPenaltyTime <= hitTime)
                     {
                         hitTime = 0;
+                        (nowState as NPCHit).StopAnimation();
                         ChangeState(new NPCIdle());
                     }
                     
