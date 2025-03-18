@@ -65,7 +65,7 @@ public class NPCManager : MonoBehaviour
         {
             //Debug.Log(npcSpawnList.Count);
             int spawnIndex = Random.Range(0, npcSpawnList.Count);
-            Debug.Log(spawnIndex);
+            //Debug.Log(spawnIndex);
             SetNPCTransform(npc.gameObject, npcSpawnList[spawnIndex].transform.position);//랜덤하게 위치 설정
 
         }
