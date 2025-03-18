@@ -17,6 +17,7 @@ public interface INPCState
 
     public void StateAction();
     public bool CheckStateEnd();
+    public bool ForceStateEnd();
 }
 
 public class NPCMove : INPCState
@@ -26,7 +27,7 @@ public class NPCMove : INPCState
     private Vector3 destination;
     private NPC nowNPC;
     private NavMeshAgent selfAgent;
-    float temp = 0;
+    //float temp = 0;
     private Animator npcAnimator;
     readonly int hashHit = Animator.StringToHash("isHit");
     readonly int hashMove = Animator.StringToHash("isMove");
@@ -39,7 +40,7 @@ public class NPCMove : INPCState
         
         npcAnimator.SetBool(hashIdle, false);
         npcAnimator.SetBool(hashMove, true);
-
+        
     }
 
     public void StopAnimation()
@@ -47,12 +48,14 @@ public class NPCMove : INPCState
         //animator관련
         npcAnimator.SetBool(hashIdle, true);
         npcAnimator.SetBool(hashMove, false);
+        selfAgent.isStopped = true;
 
     }
     public void EnterState(NPC npc)
     {
         nowNPC = npc;
         selfAgent = npc.gameObject.GetComponent<NavMeshAgent>();
+        selfAgent.isStopped = true;
         npcAnimator = (npc as TestingNPC).animator;
         destination = new Vector3();
         //destination.position = NPCManager.ReturnRandomDestination();//npc 매니저에 존재하는 랜덤 좌표 설정 함수를 사용, 현재 예외처리 안되어 있음
@@ -87,8 +90,10 @@ public class NPCMove : INPCState
     {
         PlayAnimation();
         selfAgent.SetDestination(destination);
-        
-        
+        nowNPC.transform.LookAt(destination);
+
+
+
     }
     //public bool CheckStateEnd(Transform npcTransform)
     //{
@@ -102,9 +107,14 @@ public class NPCMove : INPCState
     //    }
     //
     //}
-    public bool CheckStateEnd()
+
+    public bool ForceStateEnd()
     {
-        if ((destination - nowNPC.transform.position).magnitude < 3.0f)
+        return true;
+    }
+    public bool CheckStateEnd()// 이쪽을 좀 더 신경써야 할듯 건물 안에 생성된 목적지가 있으면 자꾸 고장남
+    {
+        if ((destination - nowNPC.transform.position).magnitude < 5.0f)
         {
             Debug.Log((destination - nowNPC.transform.position).magnitude);
             StopAnimation();
@@ -157,6 +167,7 @@ public class NPCHit : INPCState
     public void StateAction()
     {
         PlayAnimation();
+        
     }
     public bool CheckStateEnd()
     {
@@ -169,7 +180,10 @@ public class NPCHit : INPCState
             return false;
         }
     }
-
+    public bool ForceStateEnd()
+    {
+        return true;
+    }
 
 }
 public class NPCIdle : INPCState
@@ -236,7 +250,10 @@ public class NPCIdle : INPCState
             return false;
         }
     }
-
+    public bool ForceStateEnd()
+    {
+        return true;
+    }
 }
 
 
