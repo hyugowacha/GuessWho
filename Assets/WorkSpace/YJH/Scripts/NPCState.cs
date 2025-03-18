@@ -66,7 +66,7 @@ public class NPCMove : INPCState
 
         destination = NPCManager.ReturnRandomDestination();//npc 매니저에 존재하는 랜덤 좌표 설정 함수를 사용, 현재 예외처리 안되어 있음-> transform 변수 선언하면 굉장히 귀찮음 벡터3 해서 맞추는게 더 쉬움
         //이거 navmesh위에 존재하게 해야 할듯 어케 하징 
-        Debug.Log(destination);   
+        //Debug.Log(destination);   
         
         //isMoveEnd = false;
        
@@ -116,7 +116,7 @@ public class NPCMove : INPCState
     {
         if ((destination - nowNPC.transform.position).magnitude < 5.0f)
         {
-            Debug.Log((destination - nowNPC.transform.position).magnitude);
+            //Debug.Log((destination - nowNPC.transform.position).magnitude);
             StopAnimation();
             return true;
         }

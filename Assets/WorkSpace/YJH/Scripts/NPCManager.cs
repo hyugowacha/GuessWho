@@ -38,12 +38,14 @@ public class NPCManager : MonoBehaviour
         SetSpawnPoint();//초기 스폰 메커니즘 -> 나중에 완성도를 끌어올릴때 다른 로직을 사용해 보자 -> 단점으로는 밀도가 높아져 빈 공간이 생길 수 밖에 없음
         pool.SetPrefab(npc);
         //InitialSet();
-        //InitialSetBySpawnPoint();
-        InitialForDebug();
-        //pool.NPCS.Get();//NPC 생성
+        
+        InitialSetBySpawnPoint();// 스폰포인트용 초기 세팅
+        
+        //InitialForDebug();// 디버그용 하나 생성
+        //pool.NPCS.Get();//NPC 생성코드 전시용
 
     }
-    public void SetSpawnPoint()//일단 스폰 포인트를 바탕으로 랜덤 배치할 예정이기 때문에 사용 X 혹시 모르니 남겨놓기 나중에 삭제
+    public void SetSpawnPoint()
     {
         for (int i = 0; i < spawnGroup.transform.childCount; i++)//스폰 포인트 
         {

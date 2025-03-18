@@ -29,27 +29,27 @@ public class TestingNPC : NPC,IHittable
        // Debug.Log("npcStart");
         haveToChangeState = false;
         #region 디버그용 코드
-        nowState = new NPCMove();
-        (nowState as NPCMove).SetDestination(NPCManager.ReturnRandomDestination());
-        nowState.EnterState(this);
-        nowState.StateAction();
-        Instantiate(forTest, (nowState as NPCMove).ReturnDestination(),Quaternion.identity);
-        StartCoroutine(CheckState());
+        //nowState = new NPCMove();
+        //(nowState as NPCMove).SetDestination(NPCManager.ReturnRandomDestination());
+        //nowState.EnterState(this);
+        //nowState.StateAction();
+        //Instantiate(forTest, (nowState as NPCMove).ReturnDestination(),Quaternion.identity);
+        //StartCoroutine(CheckState());
         #endregion
         #region 실제 사용 코드 
-        //if (Random.Range(0f,1f) < 0.5f)//일부는 바로 이동 일부는 대기 
-        //{
-        //    nowState=new NPCIdle();
-        //    nowState.EnterState(this);
-        //    Debug.Log("setidle");
-        //}
-        //else
-        //{
-        //    nowState = new NPCMove();
-        //    nowState.EnterState(this);
-        //    Debug.Log("setmove");
-        //}
-        //StartCoroutine(CheckState());
+        if (Random.Range(0f,1f) < 0.5f)//일부는 바로 이동 일부는 대기 
+        {
+            nowState=new NPCIdle();
+            nowState.EnterState(this);
+            //Debug.Log("setidle");
+        }
+        else
+        {
+            nowState = new NPCMove();
+            nowState.EnterState(this);
+           // Debug.Log("setmove");
+        }
+        StartCoroutine(CheckState());
         #endregion
         //   selfAgent.
     }
@@ -146,13 +146,13 @@ public class TestingNPC : NPC,IHittable
         }
     }
 
-    private void OnTriggerEnter(Collider other)//테스트용 플레이어에게 닿으면 hit 재생
-    {
-        if (other.transform.tag == "Player")
-        {
-            GetHit();
-        }
-    }
+    //private void OnTriggerEnter(Collider other)//테스트용 플레이어에게 닿으면 hit 재생
+    //{
+    //    if (other.transform.tag == "Player")
+    //    {
+    //        GetHit();
+    //    }
+    //}
     //public void HitByPlayer()
     //{
     //    GetHit();
@@ -160,7 +160,7 @@ public class TestingNPC : NPC,IHittable
     public void GetHit()
     {
         ChangeState(new NPCHit());
-        Debug.Log("gethit");
+        //Debug.Log("gethit");
         haveToChangeState = false;
     }
 

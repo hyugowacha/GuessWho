@@ -481,7 +481,7 @@ Transform:
   m_GameObject: {fileID: 2490481070707789049}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -62.5, y: 2.97, z: 62.4}
+  m_LocalPosition: {x: -59.6, y: 2.97, z: -41.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -511,7 +511,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
@@ -592,6 +592,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 6614401727792779662}
+  - {fileID: 295315517123841422}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -839,6 +840,7 @@ GameObject:
   - component: {fileID: 3217607524755692597}
   - component: {fileID: 9083047734429414456}
   - component: {fileID: 5602894725191452904}
+  - component: {fileID: 295315517123841422}
   m_Layer: 0
   m_Name: Modeling
   m_TagString: Untagged
@@ -901,6 +903,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78eeff586af26648998decae7480272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &295315517123841422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4177234881365357312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 1
+    Name: isMove
+  - Type: 4
+    SynchronizeType: 1
+    Name: isIdle
+  - Type: 9
+    SynchronizeType: 1
+    Name: isHit
+  - Type: 4
+    SynchronizeType: 1
+    Name: isAnger
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1 &4343753532329339303
 GameObject:
   m_ObjectHideFlags: 0
