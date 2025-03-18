@@ -27,7 +27,7 @@ public class NPCManager : MonoBehaviour
     public NavMeshModifierVolume temp;
     void Start()
     {
-        Debug.Log(temp.size.x+","+ temp.size.y+","+ temp.size.z);
+        //Debug.Log(temp.size.x+","+ temp.size.y+","+ temp.size.z);
 
 
         pool = new NPCPool();//풀 생성
@@ -64,7 +64,9 @@ public class NPCManager : MonoBehaviour
         foreach (NPC npc in npcScriptList)//npc들을
         {
             //Debug.Log(npcSpawnList.Count);
-            SetNPCTransform(npc.gameObject, npcSpawnList[Random.Range(0, npcSpawnList.Count)].transform.position);//랜덤하게 위치 설정
+            int spawnIndex = Random.Range(0, npcSpawnList.Count);
+            Debug.Log(spawnIndex);
+            SetNPCTransform(npc.gameObject, npcSpawnList[spawnIndex].transform.position);//랜덤하게 위치 설정
 
         }
     }
