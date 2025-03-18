@@ -25,9 +25,10 @@ public class GettableItem : MonoBehaviour, IGetable
     #endregion
 
     [SerializeField]
-    private ItemData itemData;
+    [Header("아이템 개별 속성 (Scriptable object)")] private ItemData itemData;
+
     [SerializeField]
-    private ParticleSystem destroyParticle;
+    [Header("아이템이 사라질 때 출력되는 효과")] private ParticleSystem destroyParticle;
 
     public void GetItem(ItemData itemData)
     {
