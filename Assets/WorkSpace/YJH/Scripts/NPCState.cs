@@ -55,7 +55,7 @@ public class NPCMove : INPCState
     {
         nowNPC = npc;
         selfAgent = npc.gameObject.GetComponent<NavMeshAgent>();
-        selfAgent.isStopped = true;
+        selfAgent.isStopped = false;
         npcAnimator = (npc as TestingNPC).animator;
         destination = new Vector3();
         //destination.position = NPCManager.ReturnRandomDestination();//npc 매니저에 존재하는 랜덤 좌표 설정 함수를 사용, 현재 예외처리 안되어 있음

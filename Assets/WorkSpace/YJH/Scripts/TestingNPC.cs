@@ -4,7 +4,7 @@ using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class TestingNPC : NPC
+public class TestingNPC : NPC,IHittable
 {
 
     //상태 패턴
@@ -127,18 +127,8 @@ public class TestingNPC : NPC
         }
     }
 
-    //IEnumerator CheckNPCPlacedRight()
-    //{
-    //    while (true)
-    //    {
-    //        yield return new WaitForSeconds(0.5f);
-    //
-    //
-    //
-    //    }
-    //}
-
-    public bool CheckNPCPlacedRight()
+    
+    public bool CheckNPCPlacedRight()//구현해놨지만 사용하지는 않는중 
     {
         if(selfAgent.isOnNavMesh)
         {
@@ -150,15 +140,23 @@ public class TestingNPC : NPC
         }
     }
 
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.tag == "Player")
+        {
+            HitByPlayer();
+        }
+    }
     public void HitByPlayer()
     {
+        GetHit();
+    }
+    public void GetHit()
+    {
         ChangeState(new NPCHit());
+        
         haveToChangeState = false;
     }
 
-    //public void SetNPCState()
-    //{
-    //
-    //}
+    
 }
