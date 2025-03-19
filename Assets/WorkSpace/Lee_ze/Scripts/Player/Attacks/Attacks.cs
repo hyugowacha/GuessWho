@@ -9,7 +9,7 @@ public class Attacks : MonoBehaviour
     public event Action<bool> OnAttackStateChanged;
 
     [SerializeField]
-    private GameObject kick;
+    private GameObject foot;
 
     [SerializeField]
     private Animator kickAnim;
@@ -20,25 +20,25 @@ public class Attacks : MonoBehaviour
 
     private void Start()
     {
-        kick.SetActive(false);
+        foot.SetActive(false);
     }
 
-    public void OnKickEnable()
-    {
-        kick.SetActive(true);
-    }
-
-    public void OnKickDisable()
-    {
-        kick.SetActive(false);
-    }
-
-    public void OnAttack(InputAction.CallbackContext ctx)
+    public void OnAttack(InputAction.CallbackContext ctx) // 좌클릭 바인딩
     {
         if (ctx.phase == InputActionPhase.Started && isAttacking == false)
         {
             StartCoroutine(KickAttack());
         }
+    }
+
+    public void OnKickEnable() // 애니메이션 특정 위치에 이벤트 바인딩했음.
+    {
+        foot.SetActive(true);
+    }
+
+    public void OnKickDisable() // 애니메이션 특정 위치에 이벤트 바인딩했음.
+    {
+        foot.SetActive(false);
     }
 
     IEnumerator KickAttack()

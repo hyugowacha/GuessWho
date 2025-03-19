@@ -503,7 +503,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2080353452942337566
 Transform:
   m_ObjectHideFlags: 0
@@ -661,7 +661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32fae820fa2474b45aee70b745507189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kick: {fileID: 4827688357879452591}
+  foot: {fileID: 4827688357879452591}
   kickAnim: {fileID: 8398335268351583609}
 --- !u!54 &1757235979601647896
 Rigidbody:
