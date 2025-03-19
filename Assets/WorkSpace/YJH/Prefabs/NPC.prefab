@@ -481,7 +481,7 @@ Transform:
   m_GameObject: {fileID: 2490481070707789049}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -59.6, y: 2.97, z: -41.2}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -839,7 +839,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3217607524755692597}
   - component: {fileID: 9083047734429414456}
-  - component: {fileID: 5602894725191452904}
   - component: {fileID: 295315517123841422}
   m_Layer: 0
   m_Name: Modeling
@@ -891,18 +890,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5602894725191452904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4177234881365357312}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b78eeff586af26648998decae7480272, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &295315517123841422
 MonoBehaviour:
   m_ObjectHideFlags: 0

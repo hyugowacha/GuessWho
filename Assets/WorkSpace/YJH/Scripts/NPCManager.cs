@@ -24,12 +24,17 @@ public class NPCManager : MonoBehaviour
     private List<GameObject> npcList;//생성된 NPC들 보유하는 리스트 둘중 택1?
     private List<NPC> npcScriptList;//생성된 NPC들 보유하는 리스트 둘중 택1?
     private List<Vector3> npcDestinations;//npc가 목적지로 정할 위치를 저장할 리스트
-    public NavMeshModifierVolume temp;
+    
+
+
+    public GameObject temp;
+
+    public Transform[] forTestSpawnPoint;
     void Start()
     {
         //Debug.Log(temp.size.x+","+ temp.size.y+","+ temp.size.z);
 
-
+        //forTestSpawnPoint = new Transform[8];
         pool = new NPCPool();//풀 생성
         npcList = new List<GameObject>();
         npcScriptList = new List<NPC>();
@@ -38,9 +43,13 @@ public class NPCManager : MonoBehaviour
         SetSpawnPoint();//초기 스폰 메커니즘 -> 나중에 완성도를 끌어올릴때 다른 로직을 사용해 보자 -> 단점으로는 밀도가 높아져 빈 공간이 생길 수 밖에 없음
         pool.SetPrefab(npc);
         //InitialSet();
+        //foreach(var t in npcSpawnList)
+        //{
+        //    Debug.Log(t.transform.position);
+        //}
         
         InitialSetBySpawnPoint();// 스폰포인트용 초기 세팅
-        
+        //InitialSetForSpawnPointTest();//스폰포인트 포함한 테스트
         //InitialForDebug();// 디버그용 하나 생성
         //pool.NPCS.Get();//NPC 생성코드 전시용
 
@@ -61,20 +70,33 @@ public class NPCManager : MonoBehaviour
     public void InitialSetBySpawnPoint()//스폰포인트를 바탕으로 npc 배치 
     {
         CreateAllNPC();
+        Debug.Log(npcScriptList.Count);
         foreach (NPC npc in npcScriptList)//npc들을
         {
-            //Debug.Log(npcSpawnList.Count);
+            
+           
             int spawnIndex = Random.Range(0, npcSpawnList.Count);
-            //Debug.Log(spawnIndex);
-            SetNPCTransform(npc.gameObject, npcSpawnList[spawnIndex].transform.position);//랜덤하게 위치 설정
+            
+            //npc.transform.position = npcSpawnList[spawnIndex].transform.position*2;
+            (npc as TestingNPC).SelfAgent.enabled = false;
+            SetNPCTransform(npc.gameObject, npcSpawnList[spawnIndex].transform.position + new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2)));//랜덤하게 위치 설정
+            //npc.transform.position = new Vector3(npcSpawnList[spawnIndex].transform.position.x, 1.5f, npcSpawnList[spawnIndex].transform.position.z);
+            (npc as TestingNPC).SelfAgent.enabled = true;
+            
+            //npc.transform.Translate(new Vector3(npcSpawnList[spawnIndex].transform.position.x, 3.0f, npcSpawnList[spawnIndex].transform.position.z));
+            
 
         }
+
     }
 
     public void InitialForDebug()
     {
         SpawNPC();
-        SetNPCTransform(npc.gameObject, npcSpawnList[Random.Range(0, npcSpawnList.Count)].transform.position);
+        SetNPCTransform(temp, new Vector3(0, 1.5f, 0));
+        //SetNPCTransform(npc.gameObject, npcSpawnList[Random.Range(0, npcSpawnList.Count)].transform.position);
+        //SetNPCTransform(npc.gameObject, new Vector3(0, 1.5f, 0));
+        
     }
 
 
@@ -85,6 +107,10 @@ public class NPCManager : MonoBehaviour
         CreateAllNPC();//최초 숫자인 50개만큼 NPC 호출
         foreach(NPC npc in npcScriptList)//npc들을
         {
+
+
+
+
             SetNPCTransform(npc.gameObject, ReturnRandomDestination());//랜덤하게 위치 설정
         }
 
@@ -96,13 +122,14 @@ public class NPCManager : MonoBehaviour
 
 
     
-    public void SetNPCTransform(GameObject npc, Vector3 position)//y 좌표 1.09
+    public void SetNPCTransform(GameObject npc, Vector3 position)//y 좌표 1.09// 작동은 하는데 원하는 위치까지 이동하지 않고 중간에 멈추는 현상 발생 설마 하는데 Agent 때문인가? 
     {
-        npc.transform.position = position;
+        //Vector3 temp = new Vector3(position.x, 1.5f, position.z);
+        npc.transform.position= new Vector3(position.x, 3.0f, position.z);
     }
     public void SpawNPC()
     {
-        pool.NPCS.Get();
+       temp= pool.NPCS.Get();
     }
     public static Vector3 ReturnRandomDestination()
     {
@@ -116,7 +143,10 @@ public class NPCManager : MonoBehaviour
         for(int i=0; i<pool.InitialNPCNum; i++)
         {
             //npcList.Add(pool.NPCS.Get());
-            npcScriptList.Add(pool.GetNPC(npcGroup).GetComponent<NPC>());
+            var tempNPC= pool.GetNPC(npcGroup);
+            npcList.Add(tempNPC);
+            npcScriptList.Add(tempNPC.GetComponent<NPC>());
+            
         }
     }
     
