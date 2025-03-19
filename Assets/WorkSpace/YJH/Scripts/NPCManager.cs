@@ -16,14 +16,14 @@ public class NPCManager : MonoBehaviour
     [SerializeField] GameObject spawnGroup;// 스폰포인트를 가지고 있을 부모 오브젝트
     [SerializeField] List<GameObject> npcSpawnList;// 부모 오브젝트로부터 스폰포인트를 저장할 변수
 
-    [SerializeField] float mapSizeZ1;//z축 최소값
-    [SerializeField] float mapSizeZ2;//z축 최대값
-    [SerializeField] float mapSizeX1;//x축 최소값
-    [SerializeField] float mapSizeX2;//x축 최대값
+    //[SerializeField] float mapSizeZ1;//z축 최소값
+    //[SerializeField] float mapSizeZ2;//z축 최대값
+    //[SerializeField] float mapSizeX1;//x축 최소값
+    //[SerializeField] float mapSizeX2;//x축 최대값
 
-    private List<GameObject> npcList;//생성된 NPC들 보유하는 리스트 둘중 택1?
+    //private List<GameObject> npcList;//생성된 NPC들 보유하는 리스트 둘중 택1?
     private List<NPC> npcScriptList;//생성된 NPC들 보유하는 리스트 둘중 택1?
-    private List<Vector3> npcDestinations;//npc가 목적지로 정할 위치를 저장할 리스트
+    //private List<Vector3> npcDestinations;//npc가 목적지로 정할 위치를 저장할 리스트
     
 
 
@@ -36,10 +36,10 @@ public class NPCManager : MonoBehaviour
 
         //forTestSpawnPoint = new Transform[8];
         pool = new NPCPool();//풀 생성
-        npcList = new List<GameObject>();
+        //npcList = new List<GameObject>();
         npcScriptList = new List<NPC>();
         npcSpawnList = new List<GameObject>();
-        npcDestinations = new List<Vector3>();
+        //npcDestinations = new List<Vector3>();
         SetSpawnPoint();//초기 스폰 메커니즘 -> 나중에 완성도를 끌어올릴때 다른 로직을 사용해 보자 -> 단점으로는 밀도가 높아져 빈 공간이 생길 수 밖에 없음
         pool.SetPrefab(npc);
         //InitialSet();
@@ -62,10 +62,10 @@ public class NPCManager : MonoBehaviour
         }
     }
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //void Update()
+    //{
+    //    
+    //}
     
     public void InitialSetBySpawnPoint()//스폰포인트를 바탕으로 npc 배치 
     {
@@ -90,32 +90,32 @@ public class NPCManager : MonoBehaviour
 
     }
 
-    public void InitialForDebug()
-    {
-        SpawNPC();
-        SetNPCTransform(temp, new Vector3(0, 1.5f, 0));
-        //SetNPCTransform(npc.gameObject, npcSpawnList[Random.Range(0, npcSpawnList.Count)].transform.position);
-        //SetNPCTransform(npc.gameObject, new Vector3(0, 1.5f, 0));
-        
-    }
+    //public void InitialForDebug()
+    //{
+    //    SpawNPC();
+    //    SetNPCTransform(temp, new Vector3(0, 1.5f, 0));
+    //    //SetNPCTransform(npc.gameObject, npcSpawnList[Random.Range(0, npcSpawnList.Count)].transform.position);
+    //    //SetNPCTransform(npc.gameObject, new Vector3(0, 1.5f, 0));
+    //    
+    //}
 
 
 
 
-    public void InitialSet()//맵 리셋시 NPC 뿌리기 
-    {
-        CreateAllNPC();//최초 숫자인 50개만큼 NPC 호출
-        foreach(NPC npc in npcScriptList)//npc들을
-        {
-
-
-
-
-            SetNPCTransform(npc.gameObject, ReturnRandomDestination());//랜덤하게 위치 설정
-        }
-
-
-    }
+    //public void InitialSet()//맵 리셋시 NPC 뿌리기 
+    //{
+    //    CreateAllNPC();//최초 숫자인 50개만큼 NPC 호출
+    //    foreach(NPC npc in npcScriptList)//npc들을
+    //    {
+    //
+    //
+    //
+    //
+    //        SetNPCTransform(npc.gameObject, ReturnRandomDestination());//랜덤하게 위치 설정
+    //    }
+    //
+    //
+    //}
 
     
 
@@ -127,10 +127,10 @@ public class NPCManager : MonoBehaviour
         //Vector3 temp = new Vector3(position.x, 1.5f, position.z);
         npc.transform.position= new Vector3(position.x, 3.0f, position.z);
     }
-    public void SpawNPC()
-    {
-       temp= pool.NPCS.Get();
-    }
+    //public void SpawNPC()
+    //{
+    //   temp= pool.NPCS.Get();
+    //}
     public static Vector3 ReturnRandomDestination()
     {
         Vector3 destination;
@@ -144,7 +144,7 @@ public class NPCManager : MonoBehaviour
         {
             //npcList.Add(pool.NPCS.Get());
             var tempNPC= pool.GetNPC(npcGroup);
-            npcList.Add(tempNPC);
+            //npcList.Add(tempNPC);
             npcScriptList.Add(tempNPC.GetComponent<NPC>());
             
         }
