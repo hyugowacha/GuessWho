@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KickGizmo : MonoBehaviour
+public class FootGizmo : MonoBehaviour
 {
     public float radius = 0.2f;
 
