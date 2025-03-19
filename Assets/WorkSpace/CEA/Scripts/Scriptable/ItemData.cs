@@ -5,6 +5,6 @@ using UnityEngine;
 public class ItemData : ScriptableObject
 {
     public string itemName;
-    public string itemType;
     public int bulletAmount;
+    public ItemType itemType;
 }

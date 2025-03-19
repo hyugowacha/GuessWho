@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: WhistleData
   m_EditorClassIdentifier: 
   itemName: Whistle
-  itemType: NPCAttach
   bulletAmount: 1
+  itemType: 3

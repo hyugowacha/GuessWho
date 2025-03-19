@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: GunData
   m_EditorClassIdentifier: 
   itemName: Gun
-  itemType: Weapon
   bulletAmount: 3
+  itemType: 2

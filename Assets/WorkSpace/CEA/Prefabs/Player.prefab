@@ -76,7 +76,6 @@ GameObject:
   - component: {fileID: 4416268045100025169}
   - component: {fileID: 1095597453046820227}
   - component: {fileID: 6771064120478040595}
-  - component: {fileID: 5270762358764269410}
   - component: {fileID: 7567191456262683552}
   - component: {fileID: 881371746920985589}
   - component: {fileID: 7711199872914619606}
@@ -152,7 +151,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5270762358764269410}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Move, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
@@ -168,7 +167,7 @@ MonoBehaviour:
     m_ActionName: PlayerActions/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5270762358764269410}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Move, Assembly-CSharp
         m_MethodName: OnRun
         m_Mode: 0
@@ -216,23 +215,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knockDown: {fileID: 4416268045100025169}
---- !u!114 &5270762358764269410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 783639741976846116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61639c78e1f47334e8dc3942f86aa729, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 3
-  rb: {fileID: 881371746920985589}
-  modelRotator: {fileID: 1572110770718177586}
-  attacks: {fileID: 7567191456262683552}
-  playerAnim: {fileID: 4416268045100025169}
 --- !u!114 &7567191456262683552
 MonoBehaviour:
   m_ObjectHideFlags: 0

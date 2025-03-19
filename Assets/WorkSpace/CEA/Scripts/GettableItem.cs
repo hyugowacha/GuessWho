@@ -10,6 +10,14 @@ public interface IGetable
     public void GetItem(ItemData itemData);
 }
 
+public enum ItemType
+{
+    None, 
+    Stone,
+    Gun,
+    Whistle
+}
+
 
 public class GettableItem : MonoBehaviour, IGetable
 {
@@ -89,7 +97,7 @@ public class GettableItem : MonoBehaviour, IGetable
                 GetItem(itemData);
                 Instantiate(destroyParticle, transform.TransformPoint(0, 1.0f, 0), Quaternion.identity);
                 ItemInteractImage.gameObject.SetActive(false);
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
     }
