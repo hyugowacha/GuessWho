@@ -4,17 +4,15 @@ using UnityEngine;
 
 public class MoveState : IPlayerStates
 {
-    StateManager player;
+    Player player;
 
-    public void EnterState(StateManager player)
+    public void EnterState(Player player)
     {
         this.player = player;
     }
 
     public void UpdatePerState()
     {
-        Debug.Log("걷기");
-
         Vector3 camForward = Camera.main.transform.forward;
 
         camForward.y = 0;
@@ -41,11 +39,12 @@ public class MoveState : IPlayerStates
         }
         else
         {
-            player.moveSpeed = Mathf.Lerp(player.moveSpeed, 0, Time.deltaTime * 5f); ;
+            player.moveSpeed = Mathf.Lerp(player.moveSpeed, 0, Time.deltaTime * 5f);
         }
 
-        player.playerAnim.SetFloat("Speed", player.moveSpeed / 0.12f);
+        player.moveAnimation.SetFloat("Speed", player.moveSpeed / 0.12f);
 
+        // 움직임이 없을 때 IdleState로 전환
         if (player.direction == Vector2.zero)
         {
             player.ChangeStateTo(new IdleState());

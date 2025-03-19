@@ -1,6 +1,6 @@
 public interface IPlayerStates
 {
-    public void EnterState(StateManager player);
+    public void EnterState(Player player);
 
     public void UpdatePerState();
 

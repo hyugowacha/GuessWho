@@ -44393,8 +44393,8 @@ MonoBehaviour:
     m_ActionName: PlayerActions/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Move, Assembly-CSharp
+      - m_Target: {fileID: 7951386303704868639}
+        m_TargetAssemblyTypeName: StateManager, Assembly-CSharp
         m_MethodName: OnRun
         m_Mode: 0
         m_Arguments:
@@ -44409,8 +44409,8 @@ MonoBehaviour:
     m_ActionName: PlayerActions/Run[/Keyboard/leftShift]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Attacks, Assembly-CSharp
+      - m_Target: {fileID: 7951386303704868639}
+        m_TargetAssemblyTypeName: StateManager, Assembly-CSharp
         m_MethodName: OnAttack
         m_Mode: 0
         m_Arguments:
@@ -45997,7 +45997,11 @@ MonoBehaviour:
   direction: {x: 0, y: 0}
   isRunning: 0
   modelRotator: {fileID: 7266306221588434282}
-  playerAnim: {fileID: 6744845768373575931}
+  moveAnimation: {fileID: 6744845768373575931}
+  holdingWeapon: 0
+  weapons:
+  - {fileID: 7775751626240726573}
+  kickAnimation: {fileID: 6744845768373575931}
 --- !u!137 &7966846945449163007
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0

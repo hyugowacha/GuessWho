@@ -4,22 +4,20 @@ using UnityEngine;
 
 public class IdleState : IPlayerStates
 {
-    StateManager player;
+    Player player;
 
-    Vector2 direction;
-
-    public void EnterState(StateManager player)
+    public void EnterState(Player player)
     {
         this.player = player;
-
-        direction = player.direction;
     }
 
     public void UpdatePerState()
     {
-        direction = player.direction;
+        player.moveSpeed = Mathf.Lerp(player.moveSpeed, 0, Time.deltaTime * 5f);
 
-        if (direction != Vector2.zero)
+        player.moveAnimation.SetFloat("Speed", player.moveSpeed / 0.12f);
+
+        if (player.direction != Vector2.zero)
         {
             player.ChangeStateTo(new MoveState());
         }

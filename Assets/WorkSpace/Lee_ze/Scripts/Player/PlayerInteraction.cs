@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour, IHittable
+public class PlayerInteraction : MonoBehaviour, IHittable
 {
     [SerializeField]
     private Animator knockDown;
