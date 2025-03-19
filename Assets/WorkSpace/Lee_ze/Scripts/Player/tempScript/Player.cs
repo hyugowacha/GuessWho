@@ -17,9 +17,7 @@ public class Player : MonoBehaviour
 
     public Vector2 direction;
 
-    public bool isRunning;
-
-    private bool isAttacking;
+    public bool isRunning = false;
 
     public RotateModel modelRotator;
 
@@ -30,14 +28,14 @@ public class Player : MonoBehaviour
 
     public ItemType holdingWeapon;
 
+    public bool isAttackTriggered = false;
+
     public GameObject[] weapons;
 
     public Animator kickAnimation;
 
     private void OnEnable()
     {
-        isRunning = false;
-
         holdingWeapon = ItemType.None;
 
         foreach (var weapon in weapons)
@@ -93,9 +91,9 @@ public class Player : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext ctx) // 좌클릭 바인딩
     {
-        if (ctx.phase == InputActionPhase.Started && isAttacking == false)
+        if (ctx.phase == InputActionPhase.Started)
         {
-            ChangeStateTo(new AttackState());
+            isAttackTriggered = true;
         }
     }
 

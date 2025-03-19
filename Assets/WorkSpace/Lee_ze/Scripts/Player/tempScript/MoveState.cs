@@ -49,6 +49,11 @@ public class MoveState : IPlayerStates
         {
             player.ChangeStateTo(new IdleState());
         }
+
+        if (player.isAttackTriggered == true)
+        {
+            player.ChangeStateTo(new AttackState());
+        }
     }
 
     public void ExitState()

@@ -21,6 +21,11 @@ public class IdleState : IPlayerStates
         {
             player.ChangeStateTo(new MoveState());
         }
+
+        if (player.isAttackTriggered == true)
+        {
+            player.ChangeStateTo(new AttackState());
+        }
     }
 
     public void ExitState()

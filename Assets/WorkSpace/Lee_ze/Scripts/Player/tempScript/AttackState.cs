@@ -16,10 +16,7 @@ public class AttackState : IPlayerStates
         this.player = player;
 
         itemType = player.holdingWeapon;
-    }
 
-    public void UpdatePerState()
-    {
         player.moveSpeed = 0;
 
         // 공격 로직
@@ -43,8 +40,14 @@ public class AttackState : IPlayerStates
 
                 break;
         }
+    }
 
-        player.ChangeStateTo(new IdleState());
+    public void UpdatePerState()
+    {
+        if (player.isAttackTriggered == false) // ※ 공격 마지막에 player.isAttackTriggered = false;
+        {
+            player.ChangeStateTo(new IdleState());
+        }
     }
 
     public void ExitState()
@@ -59,6 +62,8 @@ public class AttackState : IPlayerStates
         yield return new WaitForSeconds(1f);
 
         player.kickAnimation.SetBool("IsKick", false);
+
+        player.isAttackTriggered = false;
     }
 
     void AttackThrow()
