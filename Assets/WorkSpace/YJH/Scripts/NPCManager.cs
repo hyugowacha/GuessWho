@@ -70,7 +70,7 @@ public class NPCManager : MonoBehaviour
     public void InitialSetBySpawnPoint()//스폰포인트를 바탕으로 npc 배치 
     {
         CreateAllNPC();
-        Debug.Log(npcScriptList.Count);
+        //Debug.Log(npcScriptList.Count);
         foreach (NPC npc in npcScriptList)//npc들을
         {
             
