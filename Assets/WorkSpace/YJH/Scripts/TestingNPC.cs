@@ -39,14 +39,16 @@ public class TestingNPC : NPC,IHittable
         #region 실제 사용 코드 
         if (Random.Range(0f,1f) < 0.5f)//일부는 바로 이동 일부는 대기 
         {
-            nowState=new NPCIdle();
-            nowState.EnterState(this);
+            ChangeState(new NPCIdle());
+            //nowState=;
+            //nowState.EnterState(this);
             //Debug.Log("setidle");
         }
         else
         {
-            nowState = new NPCMove();
-            nowState.EnterState(this);
+            ChangeState(new NPCMove());
+            //nowState = new NPCMove();
+            //nowState.EnterState(this);
            // Debug.Log("setmove");
         }
         StartCoroutine(CheckState());
