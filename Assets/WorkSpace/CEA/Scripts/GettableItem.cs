@@ -10,16 +10,8 @@ public interface IGetable
     public void GetItem(ItemData itemData);
 }
 
-public enum ItemType
-{
-    None, 
-    Stone,
-    Gun,
-    Whistle
-}
 
-
-public class GettableItem : MonoBehaviour, IGetable
+public sealed class GettableItem : MonoBehaviour, IGetable
 {
     #region 아이템 회전 관련 변수
     [SerializeField]
@@ -97,7 +89,7 @@ public class GettableItem : MonoBehaviour, IGetable
                 GetItem(itemData);
                 Instantiate(destroyParticle, transform.TransformPoint(0, 1.0f, 0), Quaternion.identity);
                 ItemInteractImage.gameObject.SetActive(false);
-                gameObject.SetActive(false);
+                this.gameObject.SetActive(false);
             }
         }
     }
