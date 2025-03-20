@@ -419,6 +419,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1827415185105901608, guid: b33f541e653489748ba3ff3d23354b48, type: 3}
+      propertyPath: myParent
+      value: 
+      objectReference: {fileID: 1562217617}
     - target: {fileID: 8779933873964859289, guid: b33f541e653489748ba3ff3d23354b48, type: 3}
       propertyPath: m_Name
       value: WhistleItem
@@ -1175,6 +1179,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8326632660288595753, guid: a7db6cb7667f93040ba8302bf003dc36, type: 3}
+      propertyPath: myParent
+      value: 
+      objectReference: {fileID: 318463500}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1761,6 +1769,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6998196826501317500, guid: 87bb6064c93121d40a071f2aeb819dca, type: 3}
+      propertyPath: myParent
+      value: 
+      objectReference: {fileID: 318463500}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9768,6 +9780,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1827415185105901608, guid: b33f541e653489748ba3ff3d23354b48, type: 3}
+      propertyPath: myParent
+      value: 
+      objectReference: {fileID: 318463500}
     - target: {fileID: 8779933873964859289, guid: b33f541e653489748ba3ff3d23354b48, type: 3}
       propertyPath: m_Name
       value: WhistleItem
@@ -10932,6 +10948,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8326632660288595753, guid: a7db6cb7667f93040ba8302bf003dc36, type: 3}
+      propertyPath: myParent
+      value: 
+      objectReference: {fileID: 1883110796}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12096,6 +12116,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8326632660288595753, guid: a7db6cb7667f93040ba8302bf003dc36, type: 3}
+      propertyPath: myParent
+      value: 
+      objectReference: {fileID: 1562217617}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18700,6 +18724,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6998196826501317500, guid: 87bb6064c93121d40a071f2aeb819dca, type: 3}
+      propertyPath: myParent
+      value: 
+      objectReference: {fileID: 1189255162}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -24679,6 +24707,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6998196826501317500, guid: 87bb6064c93121d40a071f2aeb819dca, type: 3}
+      propertyPath: myParent
+      value: 
+      objectReference: {fileID: 162954495}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -24869,6 +24901,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6998196826501317500, guid: 87bb6064c93121d40a071f2aeb819dca, type: 3}
+      propertyPath: myParent
+      value: 
+      objectReference: {fileID: 1106602193}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -28847,6 +28883,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6998196826501317500, guid: 87bb6064c93121d40a071f2aeb819dca, type: 3}
+      propertyPath: myParent
+      value: 
+      objectReference: {fileID: 1883110796}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -29277,6 +29317,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1827415185105901608, guid: b33f541e653489748ba3ff3d23354b48, type: 3}
+      propertyPath: myParent
+      value: 
+      objectReference: {fileID: 1106602193}
     - target: {fileID: 8779933873964859289, guid: b33f541e653489748ba3ff3d23354b48, type: 3}
       propertyPath: m_Name
       value: WhistleItem
@@ -30727,6 +30771,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1827415185105901608, guid: b33f541e653489748ba3ff3d23354b48, type: 3}
+      propertyPath: myParent
+      value: 
+      objectReference: {fileID: 1883110796}
     - target: {fileID: 8779933873964859289, guid: b33f541e653489748ba3ff3d23354b48, type: 3}
       propertyPath: m_Name
       value: WhistleItem
@@ -32546,6 +32594,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8326632660288595753, guid: a7db6cb7667f93040ba8302bf003dc36, type: 3}
+      propertyPath: myParent
+      value: 
+      objectReference: {fileID: 1189255162}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -33973,6 +34025,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1827415185105901608, guid: b33f541e653489748ba3ff3d23354b48, type: 3}
+      propertyPath: myParent
+      value: 
+      objectReference: {fileID: 1189255162}
     - target: {fileID: 8779933873964859289, guid: b33f541e653489748ba3ff3d23354b48, type: 3}
       propertyPath: m_Name
       value: WhistleItem
@@ -36266,6 +36322,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8326632660288595753, guid: a7db6cb7667f93040ba8302bf003dc36, type: 3}
+      propertyPath: myParent
+      value: 
+      objectReference: {fileID: 162954495}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -40024,6 +40084,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6998196826501317500, guid: 87bb6064c93121d40a071f2aeb819dca, type: 3}
+      propertyPath: myParent
+      value: 
+      objectReference: {fileID: 1562217617}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -42100,6 +42164,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1827415185105901608, guid: b33f541e653489748ba3ff3d23354b48, type: 3}
+      propertyPath: myParent
+      value: 
+      objectReference: {fileID: 162954495}
     - target: {fileID: 8779933873964859289, guid: b33f541e653489748ba3ff3d23354b48, type: 3}
       propertyPath: m_Name
       value: WhistleItem
@@ -44571,6 +44639,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8326632660288595753, guid: a7db6cb7667f93040ba8302bf003dc36, type: 3}
+      propertyPath: myParent
+      value: 
+      objectReference: {fileID: 1106602193}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

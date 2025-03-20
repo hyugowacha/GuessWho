@@ -30,6 +30,9 @@ public sealed class GettableItem : MonoBehaviour, IGetable
     [SerializeField]
     [Header("아이템 근접 시 활성화되는 UI")] private Image ItemInteractImage;
 
+    [SerializeField]
+    [Header("자신의 상위에 위치한 아이템 스포너")] private ItemSpawnctrl myParent;
+
     public void GetItem(ItemData itemData)
     {
         //플레이어가 아이템의 정보를 받아올 메서드
@@ -53,7 +56,6 @@ public sealed class GettableItem : MonoBehaviour, IGetable
 
     private void Update()
     {
-        //ItemModel.transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime, Space.Self);
         ItemModel.transform.rotation = Quaternion.Euler(ItemModel.transform.rotation.eulerAngles.x, 
             ItemModel.transform.rotation.eulerAngles.y + (rotSpeed * Time.deltaTime), ItemModel.transform.rotation.eulerAngles.z);
     }
@@ -90,6 +92,7 @@ public sealed class GettableItem : MonoBehaviour, IGetable
                 Instantiate(destroyParticle, transform.TransformPoint(0, 1.0f, 0), Quaternion.identity);
                 ItemInteractImage.gameObject.SetActive(false);
                 this.gameObject.SetActive(false);
+                myParent.IsAllItemOff = true;
             }
         }
     }

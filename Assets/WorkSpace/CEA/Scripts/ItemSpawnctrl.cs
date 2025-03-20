@@ -13,6 +13,33 @@ public class ItemSpawnctrl : MonoBehaviour
     [SerializeField]
     private GameObject stoneItem;
 
+    private bool isAllItemOff = false;
+
+    public bool IsAllItemOff 
+    {
+        get { return isAllItemOff; }
+        set { isAllItemOff = value; }
+    }
+
+    private float respawnCoolTime = 20.0f;
+    private float respawnElapsedTime;
+
+    private void Update()
+    {
+        if(isAllItemOff == true)
+        {
+            respawnElapsedTime += Time.deltaTime;
+            //Debug.Log("아이템 리스폰 대기중: " + respawnElapsedTime);
+
+            if (respawnCoolTime < respawnElapsedTime)
+            {
+                ItemSpawn();
+                isAllItemOff = false;
+                respawnElapsedTime = 0;
+            }
+        }
+    }
+
     //자식 객체가 모두 꺼져있는지 확인하는 메서드
     public bool AllItemDisabled(Transform parent)
     {
