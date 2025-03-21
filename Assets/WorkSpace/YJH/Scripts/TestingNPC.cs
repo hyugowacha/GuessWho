@@ -210,7 +210,17 @@ public class TestingNPC : NPC,IHittable
         haveToChangeState = false;
     }
 
-    
-        
-    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.root.tag == "Player")
+        {
+            var player = other.transform.root.transform;//플레이어관련 변경 일어날 시에는 코딩 새로 해야 함
+            //Debug.Log("detectplayer");
+            transform.LookAt(player);
+
+
+        }
+    }
+
+
 }
