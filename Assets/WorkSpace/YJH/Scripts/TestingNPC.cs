@@ -187,7 +187,7 @@ public class TestingNPC : NPC,IHittable
     //{
     //    GetHit();
     //}
-    public void GetHit()//puncallback해야 함 
+    public void GetHit()//puncallback해야 함-> 애니메이션 상 로테이션을 변경해서 플레이어쪽을 보고 화내야 함 
     {
         if (PhotonNetwork.IsConnected==false)
         {
