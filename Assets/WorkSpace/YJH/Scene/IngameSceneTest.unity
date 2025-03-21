@@ -12701,7 +12701,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2080353452942337566, guid: 5f3e022cb6dddf84fb8157db71230f28, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 15.1
       objectReference: {fileID: 0}
     - target: {fileID: 2080353452942337566, guid: 5f3e022cb6dddf84fb8157db71230f28, type: 3}
       propertyPath: m_LocalPosition.y
@@ -12709,7 +12709,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2080353452942337566, guid: 5f3e022cb6dddf84fb8157db71230f28, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 2.6
       objectReference: {fileID: 0}
     - target: {fileID: 2080353452942337566, guid: 5f3e022cb6dddf84fb8157db71230f28, type: 3}
       propertyPath: m_LocalRotation.w
@@ -12745,7 +12745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2490481070707789049, guid: 5f3e022cb6dddf84fb8157db71230f28, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2689909880202221650, guid: 5f3e022cb6dddf84fb8157db71230f28, type: 3}
       propertyPath: sceneViewId
