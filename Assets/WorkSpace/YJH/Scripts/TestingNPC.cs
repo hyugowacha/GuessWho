@@ -11,11 +11,12 @@ public class TestingNPC : NPC,IHittable
     //상태 패턴
     //[SerializeField] GameObject tempDestination;// 랜덤 목적지 지정 시스템 만들기 전에 사용하는 임시 변수
     [SerializeField] NavMeshAgent selfAgent;
+    [SerializeField] Collider selfCollider;
     private INPCState nowState;
     //private NavMeshSurface gamefield;
     private bool haveToChangeState;//현재로서는 필요 없으나 게임매니저에 사용할 수도 있을거 같기에 선언해 놓음
     private bool hasHit = false;
-    [SerializeField] float hitPenaltyTime=4.1f;
+    private float hitPenaltyTime=0.15f;
     [SerializeField] float hitTime = 0;
     //public GameObject forTest;//목적지 디버그용 완제품엔 필요 없음
     public Animator animator;
@@ -117,6 +118,7 @@ public class TestingNPC : NPC,IHittable
                     hitTime += Time.deltaTime;
                     if (hitPenaltyTime <= hitTime)
                     {
+                        selfCollider.enabled = true;
                         hitTime = 0;
                         (nowState as NPCHit).StopAnimation();
                         ChangeState(new NPCIdle());
@@ -190,31 +192,25 @@ public class TestingNPC : NPC,IHittable
     //}
     public void GetHit()//puncallback해야 함-> 애니메이션 상 로테이션을 변경해서 플레이어쪽을 보고 화내야 함 
     {
-        if (hasHit == true)
+        selfCollider.enabled = false;
+
+
+        if (PhotonNetwork.IsConnected == false)
         {
-            return;
+            ChangeState(new NPCHit());//포톤 안쓸 때 사용하는 것
+            //Debug.Log("hitmethod");
         }
         else
         {
-            hasHit = true;
-
-            if (PhotonNetwork.IsConnected == false)
-            {
-                ChangeState(new NPCHit());//포톤 안쓸 때 사용하는 것
-                Debug.Log("hitmethod");
-            }
-            else
-            {
-                photonView.RPC("ChangeState", Photon.Pun.RpcTarget.MasterClient, new NPCHit());//포톤일 때 콜백으로 마스터 클라이언트에 전달함
-            }
-
-
-            //Debug.Log("gethit");
-            haveToChangeState = false;
+            photonView.RPC("ChangeState", Photon.Pun.RpcTarget.MasterClient, new NPCHit());//포톤일 때 콜백으로 마스터 클라이언트에 전달함
         }
 
-        hasHit = false;
+
+        //Debug.Log("gethit");
+        haveToChangeState = false;
     }
 
+    
+        
     
 }

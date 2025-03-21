@@ -83,7 +83,8 @@ public class NPCManager : MonoBehaviourPun,IPunObservable
                 //npc.transform.position = npcSpawnList[spawnIndex].transform.position*2;
                 (npc as TestingNPC).SelfAgent.enabled = false;
                 SetNPCTransform(npc.gameObject, npcSpawnList[spawnIndex].transform.position + new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2)));//랜덤하게 위치 설정
-                                                                                                                                                        //npc.transform.position = new Vector3(npcSpawnList[spawnIndex].transform.position.x, 1.5f, npcSpawnList[spawnIndex].transform.position.z);
+                //Quaternion ransRoation= Quaternion
+                npc.gameObject.transform.Rotate(0, Random.Range(0f, 360f), 0);//npc 랜덤 배치시 로테이션도 회전       
                 (npc as TestingNPC).SelfAgent.enabled = true;
 
                 //npc.transform.Translate(new Vector3(npcSpawnList[spawnIndex].transform.position.x, 3.0f, npcSpawnList[spawnIndex].transform.position.z));

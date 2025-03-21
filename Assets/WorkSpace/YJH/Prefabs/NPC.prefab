@@ -550,11 +550,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97e7342fad260e44896c6d10db8d2120, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tempDestination: {fileID: 0}
   selfAgent: {fileID: 8055318035863802900}
+  selfCollider: {fileID: 5138219754656572060}
   hitPenaltyTime: 1
   hitTime: 0
-  forTest: {fileID: 18827226902467069, guid: 2304ccfac258e5b43b31b37191bf3321, type: 3}
   animator: {fileID: 9083047734429414456}
 --- !u!114 &6614401727792779662
 MonoBehaviour:
