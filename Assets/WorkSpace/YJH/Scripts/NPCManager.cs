@@ -27,9 +27,9 @@ public class NPCManager : MonoBehaviour
     
 
 
-    public GameObject temp;
+    //public GameObject temp;
 
-    public Transform[] forTestSpawnPoint;
+    //public Transform[] forTestSpawnPoint;
     void Start()
     {
         //Debug.Log(temp.size.x+","+ temp.size.y+","+ temp.size.z);
