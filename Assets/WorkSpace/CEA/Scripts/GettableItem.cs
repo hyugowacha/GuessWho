@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public interface IGetable
 {
-    public void GetItem(ItemData itemData);
+    public void SendItem(PlayerControl player, ItemData itemData);
 }
 
 
@@ -33,10 +33,12 @@ public sealed class GettableItem : MonoBehaviour, IGetable
     [SerializeField]
     [Header("자신의 상위에 위치한 아이템 스포너")] private ItemSpawnctrl myParent;
 
-    public void GetItem(ItemData itemData)
+    public void SendItem(PlayerControl player, ItemData itemData)
     {
         //플레이어가 아이템의 정보를 받아올 메서드
         //player.getitem(itemdata)
+
+        player.GetItem(itemData);
 
         /*
          * 나 이거 받아왔어
@@ -51,7 +53,7 @@ public sealed class GettableItem : MonoBehaviour, IGetable
          *장착,직접 공격 등
          */
 
-        Debug.Log("플레이어에게 아이템 전달");
+        Debug.Log("플레이어에게 아이템 전달" + itemData.itemName);
     }
 
     private void Update()
@@ -65,6 +67,13 @@ public sealed class GettableItem : MonoBehaviour, IGetable
     {
         if (other.CompareTag("Player"))
         {
+            PlayerControl player = other.GetComponentInParent<PlayerControl>();
+
+            if (player == null)
+            {
+                return;
+            }
+
             Image[] PlayerInteractImages = other.GetComponentsInChildren<Image>(true);
             
             foreach(Image image in PlayerInteractImages)
@@ -88,7 +97,7 @@ public sealed class GettableItem : MonoBehaviour, IGetable
 
             if (Input.GetKeyDown(KeyCode.F))
             {
-                GetItem(itemData);
+                SendItem(player, itemData);
                 Instantiate(destroyParticle, transform.TransformPoint(0, 1.0f, 0), Quaternion.identity);
                 ItemInteractImage.gameObject.SetActive(false);
                 this.gameObject.SetActive(false);
