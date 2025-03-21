@@ -749,18 +749,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f18d3b32c84d09e448f3b2c7a6021cad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerAnim: {fileID: 5987651161342676348}
   moveSpeed: 0
   targetSpeed: 0
   rb: {fileID: 2496250752322582513}
   direction: {x: 0, y: 0}
   isRunning: 0
   modelRotator: {fileID: 8445485349914450246}
-  moveAnimation: {fileID: 5987651161342676348}
   holdingWeapon: 0
   isAttackTriggered: 0
   weapons:
   - {fileID: 2189402587078318518}
-  kickAnimation: {fileID: 5987651161342676348}
+  isHit: 0
+  isNPC: 0
 --- !u!54 &2496250752322582513
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -888,6 +889,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9ddbd6aa0daaec4b94c7325cb0c8dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1160807954787784038}
 --- !u!114 &3131346519971918060
 MonoBehaviour:
   m_ObjectHideFlags: 0

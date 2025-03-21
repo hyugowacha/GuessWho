@@ -38,6 +38,10 @@ public class ApologizeState : IPlayerStates
 
         yield return null;
 
+        player.playerAnim.SetBool("IsNPC", false);
+
+        player.playerAnim.SetBool("Forgived", false);
+
         player.isNPC = false;
     }
 }
