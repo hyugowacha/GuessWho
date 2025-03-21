@@ -14,6 +14,7 @@ public class TestingNPC : NPC,IHittable
     private INPCState nowState;
     //private NavMeshSurface gamefield;
     private bool haveToChangeState;//현재로서는 필요 없으나 게임매니저에 사용할 수도 있을거 같기에 선언해 놓음
+    private bool hasHit = false;
     [SerializeField] float hitPenaltyTime=4.1f;
     [SerializeField] float hitTime = 0;
     //public GameObject forTest;//목적지 디버그용 완제품엔 필요 없음
@@ -189,18 +190,30 @@ public class TestingNPC : NPC,IHittable
     //}
     public void GetHit()//puncallback해야 함-> 애니메이션 상 로테이션을 변경해서 플레이어쪽을 보고 화내야 함 
     {
-        if (PhotonNetwork.IsConnected==false)
+        if (hasHit == true)
         {
-            ChangeState(new NPCHit());//포톤 안쓸 때 사용하는 것
+            return;
         }
         else
         {
-            photonView.RPC("ChangeState", Photon.Pun.RpcTarget.MasterClient, new NPCHit());//포톤일 때 콜백으로 마스터 클라이언트에 전달함
+            hasHit = true;
+
+            if (PhotonNetwork.IsConnected == false)
+            {
+                ChangeState(new NPCHit());//포톤 안쓸 때 사용하는 것
+                Debug.Log("hitmethod");
+            }
+            else
+            {
+                photonView.RPC("ChangeState", Photon.Pun.RpcTarget.MasterClient, new NPCHit());//포톤일 때 콜백으로 마스터 클라이언트에 전달함
+            }
+
+
+            //Debug.Log("gethit");
+            haveToChangeState = false;
         }
-      
-        
-        //Debug.Log("gethit");
-        haveToChangeState = false;
+
+        hasHit = false;
     }
 
     
