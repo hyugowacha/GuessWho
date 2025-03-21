@@ -26,17 +26,17 @@ namespace ZL.Unity
 
         [SerializeField]
 
-        private CanvasGroupFader screenFader;
+        protected CanvasGroupFader screenFader;
 
         [Space]
 
         [SerializeField]
 
-        private float startDelay = 0.5f;
+        private float startDelay = 0f;
 
         [SerializeField]
 
-        private float fadeDuration = 1f;
+        protected float fadeDuration = 0f;
 
         private int pauseCount = 0;
 
@@ -67,14 +67,7 @@ namespace ZL.Unity
             ISingleton<T>.Release((T)this);
         }
 
-        public virtual void EndScene() { }
-
-        public void LoadScene(string scaneName)
-        {
-            StartCoroutine(LoadSceneRoutine(scaneName));
-        }
-
-        private IEnumerator LoadSceneRoutine(string scaneName)
+        public virtual void LoadScene(string sceneName)
         {
             if (ISingleton<AudioListenerVolumeTweener>.Instance != null)
             {
@@ -86,9 +79,14 @@ namespace ZL.Unity
                 screenFader.SetFaded(true, fadeDuration);
             }
 
+            StartCoroutine(LoadSceneRoutine(sceneName));
+        }
+
+        private IEnumerator LoadSceneRoutine(string sceneName)
+        {
             yield return WaitFor.Seconds(fadeDuration);
 
-            SceneManager.LoadScene(scaneName);
+            SceneManager.LoadScene(sceneName);
         }
 
         public void Pause()

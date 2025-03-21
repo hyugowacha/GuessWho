@@ -28,7 +28,15 @@ namespace ZL.Unity.UI
 
         [SerializeField]
 
-        private BoolPrefs displayFrameRate = new("Display Frame Rate", false);
+        [UsingCustomProperty]
+
+        [PropertyField]
+
+        [Button(nameof(Load))]
+
+        [Button(nameof(Save))]
+
+        private BoolPrefs displayFrameRate = new("Display Frame Rate", true);
 
         public BoolPrefs DisplayFrameRate => displayFrameRate;
 
@@ -38,13 +46,17 @@ namespace ZL.Unity.UI
 
         private float fps;
 
+#if UNITY_EDITOR
+
         private void OnValidate()
         {
             if (Application.isPlaying == true)
             {
-                displayFrameRate.OnValueChanged();
+                displayFrameRate.Value = displayFrameRate.Value;
             }
         }
+
+#endif
 
         private void Awake()
         {
@@ -72,6 +84,16 @@ namespace ZL.Unity.UI
         private void OnDestroy()
         {
             ISingleton<FrameRateDisplayer>.Release(this);
+        }
+
+        public void Load()
+        {
+            displayFrameRate.LoadValue();
+        }
+
+        public void Save()
+        {
+            displayFrameRate.SaveValue();
         }
     }
 }

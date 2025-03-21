@@ -13,7 +13,7 @@ namespace ZL.Unity
             return instance.serializedObject.TryFindProperty(propertyPath, out result);
         }
 
-        public static string GetParentPath(SerializedProperty instance)
+        public static string GetParentPath(this SerializedProperty instance)
         {
             int lastIndex = instance.propertyPath.LastIndexOf('.');
 

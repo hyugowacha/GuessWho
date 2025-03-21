@@ -37,6 +37,8 @@ namespace ZL.Unity.UI
                 swapper.Current?.Close();
 
                 swapper.Current = this;
+
+                swapper.Last = this;
             }
 
             if (fader != null)

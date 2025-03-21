@@ -4,11 +4,11 @@ namespace ZL.Unity
 {
     [Conditional("UNITY_EDITOR")]
 
-    public sealed class ReadOnlyWhenAttribute : FieldConditionAttribute
+    public sealed class ReadOnlyIfAttribute : FieldConditionAttribute
     {
-        public ReadOnlyWhenAttribute(string fieldName, bool targetValue) : base(fieldName, targetValue, true) { }
+        public ReadOnlyIfAttribute(string fieldName, bool targetValue) : base(fieldName, targetValue, true) { }
 
-        public ReadOnlyWhenAttribute(string fieldName, object targetValue, bool condition) : base(fieldName, targetValue, condition) { }
+        public ReadOnlyIfAttribute(string fieldName, object targetValue, bool condition) : base(fieldName, targetValue, condition) { }
 
 #if UNITY_EDITOR
 

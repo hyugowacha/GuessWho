@@ -6,7 +6,9 @@ using ZL.Unity.Collections;
 
 namespace ZL.Unity.IO
 {
-    public abstract class SerializablePlayerPrefs<T> : PlayerPrefs, IKeyValueContainer<string, T>
+    public abstract class SerializablePlayerPrefs<T> :
+        
+        PlayerPrefs, IKeyValueContainer<string, T>
     {
         [SerializeField]
 
@@ -26,7 +28,7 @@ namespace ZL.Unity.IO
             {
                 this.value = value;
 
-                OnValueChanged();
+                ActionOnValueChanged?.Invoke(value);
             }
         }
 
@@ -37,11 +39,6 @@ namespace ZL.Unity.IO
             this.key = key;
 
             this.value = value;
-        }
-
-        public void OnValueChanged()
-        {
-            ActionOnValueChanged?.Invoke(value);
         }
 
         public bool TryLoadValue()
