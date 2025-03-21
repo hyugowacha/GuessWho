@@ -47,6 +47,15 @@ public class AttackState : IPlayerStates
         if (player.isAttackTriggered == false) // ※ 공격 마지막에 player.isAttackTriggered = false;
         {
             player.ChangeStateTo(new IdleState());
+
+            return;
+        }
+
+        if (player.isHit == true)
+        {
+            player.ChangeStateTo(new KnockDownState());
+
+            return;
         }
     }
 

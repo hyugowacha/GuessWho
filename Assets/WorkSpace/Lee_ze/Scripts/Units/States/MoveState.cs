@@ -48,11 +48,22 @@ public class MoveState : IPlayerStates
         if (player.direction == Vector2.zero)
         {
             player.ChangeStateTo(new IdleState());
+
+            return;
         }
 
         if (player.isAttackTriggered == true)
         {
             player.ChangeStateTo(new AttackState());
+
+            return;
+        }
+
+        if (player.isHit == true)
+        {
+            player.ChangeStateTo(new KnockDownState());
+
+            return;
         }
     }
 

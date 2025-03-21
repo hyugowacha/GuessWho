@@ -34,6 +34,8 @@ public class PlayerControl : MonoBehaviour, IHittable
 
     public Animator kickAnimation;
 
+    public bool isHit = false;
+
     private void OnEnable()
     {
         holdingWeapon = ItemType.None;
@@ -109,6 +111,6 @@ public class PlayerControl : MonoBehaviour, IHittable
 
     public void GetHit()
     {
-        ChangeStateTo(new KnockDownState());
+        isHit = true;
     }
 }
