@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+public class PlayerControl : MonoBehaviour, IHittable
 {
     private IPlayerStates currentState;
+
+    public Animator playerAnim;
 
     [Header("Move"), Space(10)]
 
@@ -21,8 +23,6 @@ public class Player : MonoBehaviour
 
     public RotateModel modelRotator;
 
-    public Animator moveAnimation;
-
 
     [Space(20), Header("Attack"), Space(10)]
 
@@ -32,7 +32,9 @@ public class Player : MonoBehaviour
 
     public GameObject[] weapons;
 
-    public Animator kickAnimation;
+    public bool isHit = false;
+
+    public bool isNPC = false;
 
     private void OnEnable()
     {
@@ -97,14 +99,23 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void OnKickEnable() // 애니메이션 특정 위치에 이벤트 바인딩했음.
+    public void OnKickEnable() // Kick 애니메이션 특정 위치에 이벤트 바인딩했음.
     {
         weapons[0].SetActive(true);
     }
 
-    public void OnKickDisable() // 애니메이션 특정 위치에 이벤트 바인딩했음.
+    public void OnKickDisable() // Kick 애니메이션 특정 위치에 이벤트 바인딩했음.
     {
         weapons[0].SetActive(false);
     }
 
+    public void GetHit()
+    {
+        isHit = true;
+    }
+
+    public void Apologize()
+    {
+
+    }
 }

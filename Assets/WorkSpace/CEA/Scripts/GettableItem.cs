@@ -99,7 +99,10 @@ public sealed class GettableItem : MonoBehaviour, IGetable
 
     private void OnTriggerExit(Collider other)
     {
-        ItemInteractImage.gameObject.SetActive(false);
+        if (other.CompareTag("Player"))
+        {
+            ItemInteractImage.gameObject.SetActive(false);
+        }
     }
 
 
