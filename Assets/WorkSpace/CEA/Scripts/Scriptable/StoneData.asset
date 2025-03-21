@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: StoneData
   m_EditorClassIdentifier: 
   itemName: Stone
-  itemType: Weapon
   bulletAmount: 1
+  itemType: 1

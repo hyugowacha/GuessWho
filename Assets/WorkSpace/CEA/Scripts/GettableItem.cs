@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
-public enum ItemList
-{
-    stone, gun
-}
 
 public interface IGetable
 {
@@ -14,7 +11,7 @@ public interface IGetable
 }
 
 
-public class GettableItem : MonoBehaviour, IGetable
+public sealed class GettableItem : MonoBehaviour, IGetable
 {
     #region 아이템 회전 관련 변수
     [SerializeField]
@@ -29,6 +26,12 @@ public class GettableItem : MonoBehaviour, IGetable
 
     [SerializeField]
     [Header("아이템이 사라질 때 출력되는 효과")] private ParticleSystem destroyParticle;
+
+    [SerializeField]
+    [Header("아이템 근접 시 활성화되는 UI")] private Image ItemInteractImage;
+
+    [SerializeField]
+    [Header("자신의 상위에 위치한 아이템 스포너")] private ItemSpawnctrl myParent;
 
     public void GetItem(ItemData itemData)
     {
@@ -53,21 +56,51 @@ public class GettableItem : MonoBehaviour, IGetable
 
     private void Update()
     {
-        //ItemModel.transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime, Space.Self);
         ItemModel.transform.rotation = Quaternion.Euler(ItemModel.transform.rotation.eulerAngles.x, 
             ItemModel.transform.rotation.eulerAngles.y + (rotSpeed * Time.deltaTime), ItemModel.transform.rotation.eulerAngles.z);
     }
 
-    private void OnTriggerEnter(Collider other)
+
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            GetItem(itemData);
-            Instantiate(destroyParticle, transform.TransformPoint(0, 1.0f, 0), Quaternion.identity);
+            Image[] PlayerInteractImages = other.GetComponentsInChildren<Image>(true);
+            
+            foreach(Image image in PlayerInteractImages)
+            {
+                if(image.gameObject.name == "PressFImage")
+                {
+                    ItemInteractImage = image;
+                    break;
+                }
+            }
 
-            Destroy(gameObject);
+            if(ItemInteractImage != null)
+            {
+                ItemInteractImage.gameObject.SetActive(true);
+            }
 
-            // Destroy(destroyParticle, 2.0f);
+            else
+            {
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                GetItem(itemData);
+                Instantiate(destroyParticle, transform.TransformPoint(0, 1.0f, 0), Quaternion.identity);
+                ItemInteractImage.gameObject.SetActive(false);
+                this.gameObject.SetActive(false);
+                myParent.IsAllItemOff = true;
+            }
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        ItemInteractImage.gameObject.SetActive(false);
+    }
+
+
 }
