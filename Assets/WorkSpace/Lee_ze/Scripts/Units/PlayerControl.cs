@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+public class PlayerControl : MonoBehaviour, IHittable
 {
     private IPlayerStates currentState;
 
@@ -107,4 +107,8 @@ public class Player : MonoBehaviour
         weapons[0].SetActive(false);
     }
 
+    public void GetHit()
+    {
+        ChangeStateTo(new KnockDownState());
+    }
 }

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class MoveState : IPlayerStates
 {
-    Player player;
+    PlayerControl player;
 
-    public void EnterState(Player player)
+    public void EnterState(PlayerControl player)
     {
         this.player = player;
     }

@@ -7,11 +7,11 @@ using UnityEngine.UIElements;
 
 public class AttackState : IPlayerStates
 {
-    Player player;
+    PlayerControl player;
 
     ItemType itemType;
 
-    public void EnterState(Player player)
+    public void EnterState(PlayerControl player)
     {
         this.player = player;
 

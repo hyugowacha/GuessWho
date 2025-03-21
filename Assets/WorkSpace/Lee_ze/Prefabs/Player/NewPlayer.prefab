@@ -612,8 +612,7 @@ GameObject:
   - component: {fileID: 596734843294998523}
   - component: {fileID: 5987651161342676348}
   - component: {fileID: 1652830854219092037}
-  - component: {fileID: 3695473238159965356}
-  - component: {fileID: 3737195854813121298}
+  - component: {fileID: 1160807954787784038}
   - component: {fileID: 2496250752322582513}
   - component: {fileID: 4072406239528493500}
   m_Layer: 0
@@ -687,8 +686,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3737195854813121298}
-        m_TargetAssemblyTypeName: StateManager, Assembly-CSharp
+      - m_Target: {fileID: 1160807954787784038}
+        m_TargetAssemblyTypeName: PlayerControl, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
@@ -703,8 +702,8 @@ MonoBehaviour:
     m_ActionName: PlayerActions/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3737195854813121298}
-        m_TargetAssemblyTypeName: StateManager, Assembly-CSharp
+      - m_Target: {fileID: 1160807954787784038}
+        m_TargetAssemblyTypeName: PlayerControl, Assembly-CSharp
         m_MethodName: OnRun
         m_Mode: 0
         m_Arguments:
@@ -719,8 +718,8 @@ MonoBehaviour:
     m_ActionName: PlayerActions/Run[/Keyboard/leftShift]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3737195854813121298}
-        m_TargetAssemblyTypeName: StateManager, Assembly-CSharp
+      - m_Target: {fileID: 1160807954787784038}
+        m_TargetAssemblyTypeName: PlayerControl, Assembly-CSharp
         m_MethodName: OnAttack
         m_Mode: 0
         m_Arguments:
@@ -738,7 +737,7 @@ MonoBehaviour:
   m_DefaultActionMap: PlayerActions
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &3695473238159965356
+--- !u!114 &1160807954787784038
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -747,20 +746,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1999031371477897772}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a6f3a89caea08b419e83ed6724055ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  knockDown: {fileID: 5987651161342676348}
---- !u!114 &3737195854813121298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1999031371477897772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a21291ac8d2f2044afe024c7e6fd875, type: 3}
+  m_Script: {fileID: 11500000, guid: f18d3b32c84d09e448f3b2c7a6021cad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0
