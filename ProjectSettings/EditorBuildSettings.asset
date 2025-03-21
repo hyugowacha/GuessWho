@@ -4,5 +4,12 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/WorkSpace/ZL/Unity/Server/Photon/Demo/Photon Lobby Demo/Scenes/Photon
+      Lobby Demo Scene.unity
+    guid: a1186228075c9974780f161bcc3753cc
+  - enabled: 1
+    path: Assets/WorkSpace/COMBINE/IngameScene.unity
+    guid: bf4daf350da61ab439b0a460d8834c3e
   m_configObjects: {}
