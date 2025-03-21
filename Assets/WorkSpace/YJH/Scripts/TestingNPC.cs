@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
@@ -37,37 +38,64 @@ public class TestingNPC : NPC,IHittable
         //StartCoroutine(CheckState());
         #endregion
         #region 실제 사용 코드 
-        if (Random.Range(0f,1f) < 0.5f)//일부는 바로 이동 일부는 대기 
+        //호스트인지 감지해서 호스트일 경우에만 작동
+        if (PhotonNetwork.IsConnected == false)
         {
-            ChangeState(new NPCIdle());
-            //nowState=;
-            //nowState.EnterState(this);
-            //Debug.Log("setidle");
+            if (Random.Range(0f, 1f) < 0.5f)//일부는 바로 이동 일부는 대기 
+            {
+                ChangeState(new NPCIdle());
+                //nowState=;
+                //nowState.EnterState(this);
+                //Debug.Log("setidle");
+            }
+            else
+            {
+                ChangeState(new NPCMove());
+                //nowState = new NPCMove();
+                //nowState.EnterState(this);
+                // Debug.Log("setmove");
+            }
+            StartCoroutine(CheckState());
         }
         else
         {
-            ChangeState(new NPCMove());
-            //nowState = new NPCMove();
-            //nowState.EnterState(this);
-           // Debug.Log("setmove");
+            if (PhotonNetwork.IsMasterClient == true)
+            {
+                if (Random.Range(0f, 1f) < 0.5f)//일부는 바로 이동 일부는 대기 
+                {
+                    ChangeState(new NPCIdle());
+                    //nowState=;
+                    //nowState.EnterState(this);
+                    //Debug.Log("setidle");
+                }
+                else
+                {
+                    ChangeState(new NPCMove());
+                    //nowState = new NPCMove();
+                    //nowState.EnterState(this);
+                    // Debug.Log("setmove");
+                }
+                StartCoroutine(CheckState());
+            }
+
         }
-        StartCoroutine(CheckState());
+        
         #endregion
         //   selfAgent.
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    private void FixedUpdate()
-    {
-        //if(nowState != null)
-        //{
-        //    nowState.StateAction();
-        //}
-    }
+    //void Update()
+    //{
+    //    
+    //}
+    //private void FixedUpdate()
+    //{
+    //    //if(nowState != null)
+    //    //{
+    //    //    nowState.StateAction();
+    //    //}
+    //}
     public void ChangeState(INPCState changeState)
     {
         
@@ -159,9 +187,18 @@ public class TestingNPC : NPC,IHittable
     //{
     //    GetHit();
     //}
-    public void GetHit()
+    public void GetHit()//puncallback해야 함-> 애니메이션 상 로테이션을 변경해서 플레이어쪽을 보고 화내야 함 
     {
-        ChangeState(new NPCHit());
+        if (PhotonNetwork.IsConnected==false)
+        {
+            ChangeState(new NPCHit());//포톤 안쓸 때 사용하는 것
+        }
+        else
+        {
+            photonView.RPC("ChangeState", Photon.Pun.RpcTarget.MasterClient, new NPCHit());//포톤일 때 콜백으로 마스터 클라이언트에 전달함
+        }
+      
+        
         //Debug.Log("gethit");
         haveToChangeState = false;
     }

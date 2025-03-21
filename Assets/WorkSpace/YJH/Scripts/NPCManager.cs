@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Pool;
 
-public class NPCManager : MonoBehaviour
+public class NPCManager : MonoBehaviourPun,IPunObservable
 {
     // Start is called before the first frame update
     //필드에 존재하는 엔피시들 
@@ -71,23 +72,51 @@ public class NPCManager : MonoBehaviour
     {
         CreateAllNPC();
         //Debug.Log(npcScriptList.Count);
-        foreach (NPC npc in npcScriptList)//npc들을
+        if (PhotonNetwork.IsConnected == false)//포톤에 연결되어 있지 않다면
         {
-            
-           
-            int spawnIndex = Random.Range(0, npcSpawnList.Count);
-            
-            //npc.transform.position = npcSpawnList[spawnIndex].transform.position*2;
-            (npc as TestingNPC).SelfAgent.enabled = false;
-            SetNPCTransform(npc.gameObject, npcSpawnList[spawnIndex].transform.position + new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2)));//랜덤하게 위치 설정
-            //npc.transform.position = new Vector3(npcSpawnList[spawnIndex].transform.position.x, 1.5f, npcSpawnList[spawnIndex].transform.position.z);
-            (npc as TestingNPC).SelfAgent.enabled = true;
-            
-            //npc.transform.Translate(new Vector3(npcSpawnList[spawnIndex].transform.position.x, 3.0f, npcSpawnList[spawnIndex].transform.position.z));
-            
+            foreach (NPC npc in npcScriptList)//npc들을
+            {
 
+
+                int spawnIndex = Random.Range(0, npcSpawnList.Count);
+
+                //npc.transform.position = npcSpawnList[spawnIndex].transform.position*2;
+                (npc as TestingNPC).SelfAgent.enabled = false;
+                SetNPCTransform(npc.gameObject, npcSpawnList[spawnIndex].transform.position + new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2)));//랜덤하게 위치 설정
+                                                                                                                                                        //npc.transform.position = new Vector3(npcSpawnList[spawnIndex].transform.position.x, 1.5f, npcSpawnList[spawnIndex].transform.position.z);
+                (npc as TestingNPC).SelfAgent.enabled = true;
+
+                //npc.transform.Translate(new Vector3(npcSpawnList[spawnIndex].transform.position.x, 3.0f, npcSpawnList[spawnIndex].transform.position.z));
+
+
+            }
         }
+        else//포톤에 연결되어 있으면
+        {
+            if (PhotonNetwork.IsMasterClient != true)
+            {
+                return;
+            }
+            else
+            {
+                foreach (NPC npc in npcScriptList)//npc들을
+                {
 
+
+                    int spawnIndex = Random.Range(0, npcSpawnList.Count);
+
+                    //npc.transform.position = npcSpawnList[spawnIndex].transform.position*2;
+                    (npc as TestingNPC).SelfAgent.enabled = false;
+                    SetNPCTransform(npc.gameObject, npcSpawnList[spawnIndex].transform.position + new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2)));//랜덤하게 위치 설정
+                                                                                                                                                            //npc.transform.position = new Vector3(npcSpawnList[spawnIndex].transform.position.x, 1.5f, npcSpawnList[spawnIndex].transform.position.z);
+                    (npc as TestingNPC).SelfAgent.enabled = true;
+
+                    //npc.transform.Translate(new Vector3(npcSpawnList[spawnIndex].transform.position.x, 3.0f, npcSpawnList[spawnIndex].transform.position.z));
+
+
+                }
+            }
+        }
     }
 
     //public void InitialForDebug()
@@ -149,9 +178,9 @@ public class NPCManager : MonoBehaviour
             
         }
     }
-    
 
-
-
-
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        
+    }
 }
