@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class IdleState : IPlayerStates
 {
-    Player player;
+    PlayerControl player;
 
-    public void EnterState(Player player)
+    public void EnterState(PlayerControl player)
     {
         this.player = player;
     }
@@ -15,16 +15,34 @@ public class IdleState : IPlayerStates
     {
         player.moveSpeed = Mathf.Lerp(player.moveSpeed, 0, Time.deltaTime * 5f);
 
-        player.moveAnimation.SetFloat("Speed", player.moveSpeed / 0.12f);
+        player.playerAnim.SetFloat("Speed", player.moveSpeed / 0.12f);
 
         if (player.direction != Vector2.zero)
         {
             player.ChangeStateTo(new MoveState());
+
+            return;
         }
 
         if (player.isAttackTriggered == true)
         {
             player.ChangeStateTo(new AttackState());
+
+            return;
+        }
+
+        if (player.isHit == true)
+        {
+            player.ChangeStateTo(new KnockDownState());
+
+            return;
+        }
+
+        if (player.isNPC == true)
+        {
+            player.ChangeStateTo(new ApologizeState());
+
+            return;
         }
     }
 
