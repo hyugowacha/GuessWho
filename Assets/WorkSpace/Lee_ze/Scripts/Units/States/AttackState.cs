@@ -13,6 +13,8 @@ public class AttackState : IPlayerStates
 
     public void EnterState(PlayerControl player)
     {
+        // TOOD: PlayerControl에서 무기 바꾸는 로직. 여기서 하는거 아님
+
         this.player = player;
 
         itemType = player.holdingWeapon;
@@ -44,8 +46,8 @@ public class AttackState : IPlayerStates
 
     public void UpdatePerState()
     {
-        if (player.isAttackTriggered == false) // ※ 공격 마지막에 player.isAttackTriggered = false;
-        {
+        if (player.isAttackTriggered == false)
+        {// ※ 추가되는 다른 공격 마지막에 player.isAttackTriggered = false;
             player.ChangeStateTo(new IdleState());
 
             return;
@@ -66,11 +68,11 @@ public class AttackState : IPlayerStates
 
     IEnumerator AttackKick()
     {
-        player.kickAnimation.SetBool("IsKick", true);
+        player.playerAnim.SetBool("IsKick", true);
 
         yield return new WaitForSeconds(1f);
 
-        player.kickAnimation.SetBool("IsKick", false);
+        player.playerAnim.SetBool("IsKick", false);
 
         player.isAttackTriggered = false;
     }

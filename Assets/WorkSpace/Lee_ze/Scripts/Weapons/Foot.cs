@@ -5,9 +5,8 @@ using UnityEngine;
 
 public class Foot : MonoBehaviour
 {
-    public event Action<bool> WhatIsIt;
-
-    private bool IsNPC;
+    [SerializeField]
+    private PlayerControl player;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -15,18 +14,14 @@ public class Foot : MonoBehaviour
         {
             other.GetComponent<IHittable>()?.GetHit();
 
-            IsNPC = false;
-
-            WhatIsIt?.Invoke(IsNPC);
+            player.isNPC = false;
         }
 
         if (other.CompareTag("NPC"))
         {
             other.GetComponent<IHittable>()?.GetHit();
 
-            IsNPC = true;
-
-            WhatIsIt?.Invoke(IsNPC);
+            player.isNPC = true;
         }
     }
 }

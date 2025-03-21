@@ -42,7 +42,7 @@ public class MoveState : IPlayerStates
             player.moveSpeed = Mathf.Lerp(player.moveSpeed, 0, Time.deltaTime * 5f);
         }
 
-        player.moveAnimation.SetFloat("Speed", player.moveSpeed / 0.12f);
+        player.playerAnim.SetFloat("Speed", player.moveSpeed / 0.12f);
 
         // 움직임이 없을 때 IdleState로 전환
         if (player.direction == Vector2.zero)

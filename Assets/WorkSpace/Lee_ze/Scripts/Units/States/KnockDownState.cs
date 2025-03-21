@@ -10,19 +10,19 @@ public class KnockDownState : IPlayerStates
     {
         this.player = player;
 
-        player.moveAnimation.SetBool("IsKnockDown", true);
+        player.playerAnim.SetBool("IsKnockDown", true);
     }
 
     public void UpdatePerState()
     {
-        AnimatorStateInfo stateInfo = player.moveAnimation.GetCurrentAnimatorStateInfo(0);
+        AnimatorStateInfo stateInfo = player.playerAnim.GetCurrentAnimatorStateInfo(0);
 
         if (stateInfo.IsName("KnockDown") == false)
         {
             return;
         }
 
-        player.moveAnimation.SetBool("IsKnockDown", false);
+        player.playerAnim.SetBool("IsKnockDown", false);
     }
 
     public void ExitState()
