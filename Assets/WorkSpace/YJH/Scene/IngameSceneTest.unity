@@ -1756,7 +1756,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 596734843294998523, guid: 33974a2c80ba5464dbb44429044da012, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.85
+      value: 7.18
       objectReference: {fileID: 0}
     - target: {fileID: 596734843294998523, guid: 33974a2c80ba5464dbb44429044da012, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1797,7 +1797,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1999031371477897772, guid: 33974a2c80ba5464dbb44429044da012, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1671345998}
   m_SourcePrefab: {fileID: 100100000, guid: 33974a2c80ba5464dbb44429044da012, type: 3}
 --- !u!1001 &83422654
 PrefabInstance:
@@ -12745,7 +12748,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2490481070707789049, guid: 5f3e022cb6dddf84fb8157db71230f28, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2689909880202221650, guid: 5f3e022cb6dddf84fb8157db71230f28, type: 3}
       propertyPath: sceneViewId
@@ -31416,10 +31419,10 @@ MonoBehaviour:
   m_IgnoreNavMeshObstacle: 1
   m_OverrideTileSize: 0
   m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_OverrideVoxelSize: 1
+  m_VoxelSize: 0.5
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: a241b6b8eeebdcb4aba5560e2c902bf7, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: a1f36fe45c13a6a4bb5079ab19793e09, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &1507806292
 Transform:
@@ -34505,6 +34508,33 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 427188, guid: a93a4058bd3225b4fb6d6b59fa5bc871, type: 3}
   m_PrefabInstance: {fileID: 20185628}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1671345991 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1999031371477897772, guid: 33974a2c80ba5464dbb44429044da012, type: 3}
+  m_PrefabInstance: {fileID: 81699596}
+  m_PrefabAsset: {fileID: 0}
+--- !u!195 &1671345998
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671345991}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0.95
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!4 &1675674363 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 427188, guid: a93a4058bd3225b4fb6d6b59fa5bc871, type: 3}

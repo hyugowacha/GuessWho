@@ -552,7 +552,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selfAgent: {fileID: 8055318035863802900}
   selfCollider: {fileID: 5138219754656572060}
-  hitPenaltyTime: 1
   hitTime: 0
   animator: {fileID: 9083047734429414456}
 --- !u!114 &6614401727792779662
