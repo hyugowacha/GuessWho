@@ -1,9 +1,10 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerControl : MonoBehaviour, IHittable
+public class PlayerControl : MonoBehaviourPun, IHittable
 {
     private IPlayerStates currentState;
 
@@ -48,12 +49,21 @@ public class PlayerControl : MonoBehaviour, IHittable
 
     private void Start()
     {
-        ChangeStateTo(new IdleState());
+        if (photonView.IsMine)
+        {
+            ChangeStateTo(new IdleState());
+        }
     }
 
     private void Update()
     {
-        currentState?.UpdatePerState();
+        if (photonView.IsMine) // 자신의 캐릭터만 로컬에서 조작 가능
+        {
+            currentState?.UpdatePerState();
+
+            // 애니메이션 및 상태 동기화
+            SyncAnimations();
+        }
     }
 
     public void ChangeStateTo(IPlayerStates nextState)
@@ -89,6 +99,9 @@ public class PlayerControl : MonoBehaviour, IHittable
         {
             isRunning = false;
         }
+
+        // 네트워크에 상태 동기화
+        photonView.RPC("SetRunningState", RpcTarget.Others, isRunning);
     }
 
     public void OnAttack(InputAction.CallbackContext ctx) // 좌클릭 바인딩
@@ -96,6 +109,8 @@ public class PlayerControl : MonoBehaviour, IHittable
         if (ctx.phase == InputActionPhase.Started)
         {
             isAttackTriggered = true;
+
+            photonView.RPC("TriggerAttack", RpcTarget.Others); // RPC로 공격 상태 전파
         }
     }
 
@@ -112,5 +127,34 @@ public class PlayerControl : MonoBehaviour, IHittable
     public void GetHit()
     {
         isHit = true;
+
+        photonView.RPC("SyncHitState", RpcTarget.Others, isHit);
+    }
+
+    private void SyncAnimations() // 애니메이션 동기화
+    {
+        playerAnim.SetBool("isRunning", isRunning);
+
+        playerAnim.SetBool("isAttackTriggered", isAttackTriggered);
+    }
+
+    // V RPC Methods
+
+    [PunRPC]
+    private void SetRunningState(bool state)
+    {
+        isRunning = state;
+    }
+
+    [PunRPC]
+    private void TriggerAttack()
+    {
+        isAttackTriggered = true;
+    }
+
+    [PunRPC]
+    private void SyncHitState(bool hit)
+    {
+        isHit = hit;
     }
 }
