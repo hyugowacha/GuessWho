@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class RotateView : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class RotateView : MonoBehaviour
 
     private float currentRotationY;
 
+    private PhotonView photonView;
+
     private void Start()
     {
         distance = 4f;
@@ -41,10 +44,28 @@ public class RotateView : MonoBehaviour
         currentRotationX = 0f;
 
         currentRotationY = 0f;
+
+        ///
+
+        photonView = GetComponent<PhotonView>();
+
+        if (photonView.IsMine) // **본인이 조종하는 캐릭터일 때만 실행**
+        {
+            cameraPos = Camera.main.transform; // **메인 카메라 찾기**
+
+            targetToFollow = this.transform; // **자신의 캐릭터를 따라가도록 설정**
+        }
+        else
+        {
+            // **다른 플레이어의 RotateView는 카메라를 설정하지 않음**
+            this.enabled = false;
+        }
     }
 
     void LateUpdate()
     {
+        if (!photonView.IsMine) return; // **자신이 조종하는 캐릭터만 카메라 업데이트**
+
         if (targetToFollow != null)
         {
             if (targetToFollow.hasChanged)
