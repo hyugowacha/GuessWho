@@ -113,9 +113,4 @@ public class PlayerControl : MonoBehaviour, IHittable
     {
         isHit = true;
     }
-
-    public void Apologize()
-    {
-
-    }
 }
