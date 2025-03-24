@@ -99,15 +99,17 @@ public class NPCManager : MonoBehaviourPun,IPunObservable
         {
             if (PhotonNetwork.IsMasterClient != true)
             {
+                Debug.Log("notmaster");
                 //CreateAllNPC();
                 return;
             }
             else
             {
+                Debug.Log(npcScriptList.Count);
                 foreach (NPC npc in npcScriptList)//npcµÈ¿ª
                 {
                     Debug.Log("1");
-                   // CreateAllNPC();
+                    //CreateAllNPC();
                     int spawnIndex = Random.Range(0, npcSpawnList.Count);
 
                     //npc.transform.position = npcSpawnList[spawnIndex].transform.position*2;
@@ -177,10 +179,22 @@ public class NPCManager : MonoBehaviourPun,IPunObservable
         for(int i=0; i<pool.InitialNPCNum; i++)
         {
             //npcList.Add(pool.NPCS.Get());
-            if (PhotonNetwork.IsMasterClient == true)
+            if (PhotonNetwork.IsConnected)
+            {
+                if (PhotonNetwork.IsMasterClient == true)
+                {
+                    var tempNPC = pool.GetNPC(npcGroup);
+                    //npcList.Add(tempNPC);
+                    npcScriptList.Add(tempNPC.GetComponent<NPC>());
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
             {
                 var tempNPC = pool.GetNPC(npcGroup);
-                //npcList.Add(tempNPC);
                 npcScriptList.Add(tempNPC.GetComponent<NPC>());
             }
             

@@ -85,7 +85,55 @@ public class TestingNPC : NPC,IHittable
         #endregion
         //   selfAgent.
     }
+    private void OnEnable()
+    {
+        if (PhotonNetwork.IsConnected == false)
+        {
+            return;
+            //if (Random.Range(0f, 1f) < 0.5f)//일부는 바로 이동 일부는 대기 
+            //{
+            //    ChangeState(new NPCIdle());
+            //    //nowState=;
+            //    //nowState.EnterState(this);
+            //    //Debug.Log("setidle");
+            //}
+            //else
+            //{
+            //    ChangeState(new NPCMove());
+            //    //nowState = new NPCMove();
+            //    //nowState.EnterState(this);
+            //    // Debug.Log("setmove");
+            //}
+            //StartCoroutine(CheckState());
+        }
+        else
+        {
+            if (PhotonNetwork.IsMasterClient == true)
+            {
+                if (Random.Range(0f, 1f) < 0.5f)//일부는 바로 이동 일부는 대기 
+                {
+                    ChangeState(new NPCIdle());//
+                    //nowState=;
+                    //nowState.EnterState(this);
+                    //Debug.Log("setidle");
+                }
+                else
+                {
+                    ChangeState(new NPCMove());
+                    //nowState = new NPCMove();
+                    //nowState.EnterState(this);
+                    // Debug.Log("setmove");
+                }
+                StartCoroutine(CheckState());
+            }
 
+        }
+    }
+    private void OnDisable()
+    {
+        
+
+    }
     // Update is called once per frame
     //void Update()
     //{
