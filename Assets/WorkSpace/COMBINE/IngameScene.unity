@@ -11535,6 +11535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 1999031371477897772, guid: e521408836f4fbb48b56e533b9a799e7, type: 3}
+  playerSpawnPoint: []
 --- !u!1001 &487827013
 PrefabInstance:
   m_ObjectHideFlags: 0
