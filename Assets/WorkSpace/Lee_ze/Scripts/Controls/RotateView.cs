@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class RotateView : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class RotateView : MonoBehaviour
 
     private float currentRotationY;
 
+    private PhotonView photonView;
+
     private void Start()
     {
         distance = 4f;
@@ -41,10 +44,26 @@ public class RotateView : MonoBehaviour
         currentRotationX = 0f;
 
         currentRotationY = 0f;
+
+        ///
+        photonView = GetComponent<PhotonView>();
+
+        if (photonView.IsMine)
+        {
+            cameraPos = Camera.main.transform;
+
+            targetToFollow = this.transform;
+        }
+        else
+        {
+            this.enabled = false;
+        }
     }
 
     void LateUpdate()
     {
+        if (photonView.IsMine == false) return;
+
         if (targetToFollow != null)
         {
             if (targetToFollow.hasChanged)
@@ -73,5 +92,10 @@ public class RotateView : MonoBehaviour
         cameraPos.position = targetToFollow.position + (Vector3.up * height) + (rotation * Vector3.back * distance);
 
         cameraPos.LookAt(targetToFollow);
+    }
+
+    public void SetTarget(Transform target)
+    {
+        targetToFollow = target;
     }
 }

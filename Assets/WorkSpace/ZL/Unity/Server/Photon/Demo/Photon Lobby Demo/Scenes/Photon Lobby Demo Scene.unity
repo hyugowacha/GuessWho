@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: d7f8470dc04dce24bbe216940c96b53a, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3264,7 +3264,7 @@ GameObject:
   - component: {fileID: 1485334831}
   - component: {fileID: 1485334830}
   m_Layer: 0
-  m_Name: Photon Server Manager
+  m_Name: Photon Server Connector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3279,7 +3279,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1485334829}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 720ae6a6a45a89a41b3b05a62535f037, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d1cac27c4136e348bad1c106c48a36f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fakeLoadingTime: 1
@@ -4578,6 +4578,7 @@ GameObject:
   - component: {fileID: 4479714562160982656}
   - component: {fileID: 7782777158279325446}
   - component: {fileID: 8072344657878597865}
+  - component: {fileID: 2664558952731191215}
   m_Layer: 5
   m_Name: Server Connection Screen
   m_TagString: Untagged
@@ -4728,6 +4729,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2664558952731191215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562738951146635838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca4d11478ea850b4284e571ee84bdf6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swapper: {fileID: 0}
+  fader: {fileID: 8072344657878597865}
 --- !u!225 &4479714562160982656
 CanvasGroup:
   m_ObjectHideFlags: 0

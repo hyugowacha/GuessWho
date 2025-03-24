@@ -16,13 +16,13 @@ using ZL.Unity.Collections;
 
 namespace ZL.Unity.Server.Photon
 {
-    [AddComponentMenu("ZL/Server/Photon/Photon Server Manger (Singleton)")]
+    [AddComponentMenu("ZL/Server/Photon/Photon Server Connector (Singleton)")]
 
     [DisallowMultipleComponent]
 
-    public sealed class PhotonServerManager :
+    public sealed class PhotonServerConnector :
         
-        MonoBehaviourPunCallbacks, ISingleton<PhotonServerManager>
+        MonoBehaviourPunCallbacks, ISingleton<PhotonServerConnector>
     {
         [Space]
 
@@ -58,15 +58,15 @@ namespace ZL.Unity.Server.Photon
 
         private void Awake()
         {
-            ISingleton<PhotonServerManager>.TrySetInstance(this);
+            ISingleton<PhotonServerConnector>.TrySetInstance(this);
         }
 
         private void OnDestroy()
         {
-            ISingleton<PhotonServerManager>.Release(this);
+            ISingleton<PhotonServerConnector>.Release(this);
         }
 
-        public void TryConnectToMaster()
+        public void TryConnect()
         {
             eventOnConnecting.Invoke();
 
@@ -74,7 +74,7 @@ namespace ZL.Unity.Server.Photon
 
             if (PhotonNetwork.IsConnected == false)
             {
-                PhotonNetwork.GameVersion = Application.version;
+                PhotonNetwork.GameVersion = Application.unityVersion;
 
                 PhotonNetwork.ConnectUsingSettings();
             }
