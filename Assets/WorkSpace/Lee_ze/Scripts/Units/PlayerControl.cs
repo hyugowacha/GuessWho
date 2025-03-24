@@ -1,9 +1,11 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerControl : MonoBehaviour, IHittable
+public class PlayerControl : MonoBehaviourPun, IHittable
 {
     private IPlayerStates currentState;
 
@@ -34,7 +36,7 @@ public class PlayerControl : MonoBehaviour, IHittable
 
     public bool isHit = false;
 
-    public bool isNPC = false;
+    public bool isNPC = false; 
 
     private void OnEnable()
     {
@@ -48,12 +50,25 @@ public class PlayerControl : MonoBehaviour, IHittable
 
     private void Start()
     {
-        ChangeStateTo(new IdleState());
+        if (photonView.IsMine)
+        {
+            ChangeStateTo(new IdleState());
+
+            GetComponent<RotateView>().SetTarget(this.transform);
+        }
+
+        if (photonView.IsMine)
+        {
+            ChangeStateTo(new IdleState());
+        }
     }
 
     private void Update()
     {
-        currentState?.UpdatePerState();
+        if (photonView.IsMine) // 자신의 캐릭터만 로컬에서 조작 가능
+        {
+            currentState?.UpdatePerState();
+        }
     }
 
     public void ChangeStateTo(IPlayerStates nextState)
@@ -81,6 +96,11 @@ public class PlayerControl : MonoBehaviour, IHittable
 
     public void OnRun(InputAction.CallbackContext ctx)
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
         if (ctx.phase == InputActionPhase.Performed)
         {
             isRunning = true;
@@ -93,6 +113,11 @@ public class PlayerControl : MonoBehaviour, IHittable
 
     public void OnAttack(InputAction.CallbackContext ctx) // 좌클릭 바인딩
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
         if (ctx.phase == InputActionPhase.Started)
         {
             isAttackTriggered = true;
@@ -111,11 +136,14 @@ public class PlayerControl : MonoBehaviour, IHittable
 
     public void GetHit()
     {
-        isHit = true;
+        photonView.RPC("SyncHitState", RpcTarget.Others, true);
     }
 
-    public void Apologize()
-    {
+    // V RPC Methods
 
+    [PunRPC]
+    private void SyncHitState(bool hit)
+    {
+        isHit = hit;
     }
 }
