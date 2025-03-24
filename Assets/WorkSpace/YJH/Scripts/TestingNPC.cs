@@ -201,7 +201,7 @@ public class TestingNPC : NPC,IHittable
                     {
                         selfCollider.enabled = true;
                         hitTime = 0;
-                        (nowState as NPCHit).StopAnimation();
+                        //(nowState as NPCHit).StopAnimation();
                         ChangeState(NPCStateName.Idle);//new NPCIdle());
                     }
                     

@@ -149,7 +149,7 @@ public class NPCHit : INPCState
     public void PlayAnimation()
     {
         //animator관련
-        npcAnimator.SetTrigger(hashHit);
+        npcAnimator.SetBool(hashHit,true);
         npcAnimator.SetBool(hashIdle,true);
         npcAnimator.SetBool("isAnger", true);
     }
@@ -158,6 +158,8 @@ public class NPCHit : INPCState
     {
         //animator관련
         npcAnimator.SetBool("isAnger", false);
+        npcAnimator.SetBool(hashHit, false);
+
     }
 
     [PunRPC]
@@ -182,6 +184,14 @@ public class NPCHit : INPCState
     }
     public bool CheckStateEnd()
     {
+        if (npcAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime == 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
         if (isHit == true)
         {
             StopAnimation();
@@ -215,6 +225,7 @@ public class NPCIdle : INPCState
         npcAnimator.SetBool(hashIdle, true);
         npcAnimator.SetBool(hashMove, false);
         npcAnimator.SetBool("isAnger", false);
+        npcAnimator.SetBool(hashHit, false);
         //animator관련
 
     }
