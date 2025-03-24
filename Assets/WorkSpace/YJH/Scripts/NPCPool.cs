@@ -62,9 +62,20 @@ public class NPCPool// : MonoBehaviour
     }
     public GameObject GetNPC(GameObject group)
     {
-        GameObject npc = npcs.Get();
-        npc.transform.parent = group.transform;
-        return npc;
+        if (PhotonNetwork.IsConnected == false)
+        {
+            GameObject npc = npcs.Get();
+            npc.transform.parent = group.transform;
+            return npc;
+        }
+        else
+        {
+            
+            GameObject npc = npcs.Get();
+            npc.transform.parent = group.transform;
+            return npc;
+        }
+        return null;
     }
     public void ReturnNPC(GameObject npc)
     {
