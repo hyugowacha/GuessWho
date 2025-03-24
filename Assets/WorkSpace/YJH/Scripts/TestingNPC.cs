@@ -65,7 +65,7 @@ public class TestingNPC : NPC,IHittable
             {
                 if (Random.Range(0f, 1f) < 0.5f)//일부는 바로 이동 일부는 대기 
                 {
-                    ChangeState(new NPCIdle());
+                    ChangeState(new NPCIdle());//
                     //nowState=;
                     //nowState.EnterState(this);
                     //Debug.Log("setidle");
@@ -99,6 +99,7 @@ public class TestingNPC : NPC,IHittable
     //    //}
     //}
     #region 상태변화 관련 코드
+    [PunRPC]
     public void ChangeState(INPCState changeState)
     {
         
@@ -180,9 +181,10 @@ public class TestingNPC : NPC,IHittable
         }
     }
 
-    
+
 
     #region 피격 관련 코드
+    [PunRPC]
     public void GetHit()//puncallback해야 함-> 애니메이션 상 로테이션을 변경해서 플레이어쪽을 보고 화내야 함 
     {
         selfCollider.enabled = false;

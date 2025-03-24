@@ -24,25 +24,28 @@ public class NPCManager : MonoBehaviourPun,IPunObservable
 
     //private List<GameObject> npcList;//생성된 NPC들 보유하는 리스트 둘중 택1?
     private List<NPC> npcScriptList;//생성된 NPC들 보유하는 리스트 둘중 택1?
-    //private List<Vector3> npcDestinations;//npc가 목적지로 정할 위치를 저장할 리스트
-    
+                                    //private List<Vector3> npcDestinations;//npc가 목적지로 정할 위치를 저장할 리스트
+
 
 
     //public GameObject temp;
 
     //public Transform[] forTestSpawnPoint;
+    private void Awake()
+    {
+        pool = new NPCPool();//풀 생성
+        pool.SetPrefab(npc);
+    }
     void Start()
     {
         //Debug.Log(temp.size.x+","+ temp.size.y+","+ temp.size.z);
 
-        //forTestSpawnPoint = new Transform[8];
-        pool = new NPCPool();//풀 생성
-        //npcList = new List<GameObject>();
+        
         npcScriptList = new List<NPC>();
         npcSpawnList = new List<GameObject>();
         //npcDestinations = new List<Vector3>();
         SetSpawnPoint();//초기 스폰 메커니즘 -> 나중에 완성도를 끌어올릴때 다른 로직을 사용해 보자 -> 단점으로는 밀도가 높아져 빈 공간이 생길 수 밖에 없음
-        pool.SetPrefab(npc);
+        
         //InitialSet();
         //foreach(var t in npcSpawnList)
         //{
