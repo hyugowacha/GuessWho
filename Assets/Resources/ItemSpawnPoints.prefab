@@ -50,6 +50,7 @@ MonoBehaviour:
   gunItem: {fileID: 4060102471050145695}
   whistleItem: {fileID: 3825026199653975353}
   stoneItem: {fileID: 6033758447257279802}
+  photonView: {fileID: -3805244292914578604}
 --- !u!1 &2931606964481779425
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,6 +101,7 @@ MonoBehaviour:
   gunItem: {fileID: 9079020875445269613}
   whistleItem: {fileID: 8449623555488440096}
   stoneItem: {fileID: 4773035286122612180}
+  photonView: {fileID: -3805244292914578604}
 --- !u!1 &4255453101788599191
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,6 +112,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8681250267804140737}
   - component: {fileID: 6538470825973419385}
+  - component: {fileID: -3805244292914578604}
   m_Layer: 0
   m_Name: ItemSpawnPoints
   m_TagString: Untagged
@@ -157,6 +160,29 @@ MonoBehaviour:
   - {fileID: 6755231348239581282}
   - {fileID: 615294590769785427}
   - {fileID: 2931606964481779425}
+  photonView: {fileID: -3805244292914578604}
+--- !u!114 &-3805244292914578604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4255453101788599191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &5504796821860725519
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,6 +233,7 @@ MonoBehaviour:
   gunItem: {fileID: 2884786020529012580}
   whistleItem: {fileID: 6274184923636881037}
   stoneItem: {fileID: 2662194161461001391}
+  photonView: {fileID: -3805244292914578604}
 --- !u!1 &6579784263045450826
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,6 +284,7 @@ MonoBehaviour:
   gunItem: {fileID: 5527631161094435414}
   whistleItem: {fileID: 4051661657353769045}
   stoneItem: {fileID: 731890303831191606}
+  photonView: {fileID: -3805244292914578604}
 --- !u!1 &6755231348239581282
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,6 +335,7 @@ MonoBehaviour:
   gunItem: {fileID: 4658207697405962783}
   whistleItem: {fileID: 6069289605819667937}
   stoneItem: {fileID: 320927363269142081}
+  photonView: {fileID: -3805244292914578604}
 --- !u!1 &7527561849645244478
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,6 +386,7 @@ MonoBehaviour:
   gunItem: {fileID: 8734568908457547248}
   whistleItem: {fileID: 2859582280002226516}
   stoneItem: {fileID: 889573540131740365}
+  photonView: {fileID: -3805244292914578604}
 --- !u!1001 &908461088959455417
 PrefabInstance:
   m_ObjectHideFlags: 0

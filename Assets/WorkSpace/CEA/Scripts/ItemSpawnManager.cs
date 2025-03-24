@@ -13,7 +13,7 @@ public class ItemSpawnManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.InstantiateRoomObject("ItemSpawnPoint", Vector3.zero,Quaternion.identity);
+            PhotonNetwork.InstantiateRoomObject("ItemSpawnPoints", Vector3.zero, Quaternion.identity);
         }
     }
 

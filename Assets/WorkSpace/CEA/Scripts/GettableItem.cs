@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon;
+using Photon.Pun;
 
 
 public interface IGetable
@@ -32,6 +34,9 @@ public sealed class GettableItem : MonoBehaviour, IGetable
 
     [SerializeField]
     [Header("자신의 상위에 위치한 아이템 스포너")] private ItemSpawnctrl myParent;
+
+    [SerializeField]
+    [Header("포톤뷰")] private PhotonView photonView;
 
     public void SendItem(PlayerControl player, ItemData itemData)
     {
@@ -101,9 +106,16 @@ public sealed class GettableItem : MonoBehaviour, IGetable
                 Instantiate(destroyParticle, transform.TransformPoint(0, 1.0f, 0), Quaternion.identity);
                 ItemInteractImage.gameObject.SetActive(false);
                 this.gameObject.SetActive(false);
-                myParent.IsAllItemOff = true;
+
+                photonView.RPC("NoticeIsAllitemOff", RpcTarget.MasterClient);
             }
         }
+    }
+
+    [PunRPC]
+    private void NoticeIsAllitemOff()
+    {
+        myParent.IsAllItemOff = true;
     }
 
     private void OnTriggerExit(Collider other)
