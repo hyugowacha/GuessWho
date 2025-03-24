@@ -20,6 +20,10 @@ namespace ZL.Unity.Server.Photon
 
         private GameObject playerPrefab;
 
+        [SerializeField]
+
+        private Transform[] playerSpawnPoint;
+
         private void Awake()
         {
             ISingleton<T>.TrySetInstance((T)this);
@@ -32,9 +36,9 @@ namespace ZL.Unity.Server.Photon
 
         public void Instantiate()
         {
-            Vector3 position = new Vector3(0f, 1f, 0f);
+            int randomPoint = Random.Range(0, playerSpawnPoint.Length);
 
-            PhotonNetwork.Instantiate(playerPrefab.name, position, Quaternion.identity);
+            PhotonNetwork.Instantiate(playerPrefab.name, playerSpawnPoint[randomPoint].position, Quaternion.identity);
         }
     }
 }
