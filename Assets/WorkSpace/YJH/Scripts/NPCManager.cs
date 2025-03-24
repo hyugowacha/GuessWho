@@ -124,6 +124,9 @@ public class NPCManager : MonoBehaviourPun,IPunObservable
                 }
             }
         }
+
+
+        PhotonNetwork.SendAllOutgoingCommands();
     }
 
     //public void InitialForDebug()
