@@ -1,3 +1,5 @@
+using Photon.Pun;
+
 using System.Collections;
 
 using UnityEngine;
@@ -14,7 +16,14 @@ namespace ZL.Unity.GuessWho
     {
         protected override IEnumerator Start()
         {
+            ISingleton<PhotonServerManager>.Instance.TryConnectToMaster();
+
             yield return base.Start();
+        }
+
+        public void RoomTest()
+        {
+            PhotonNetwork.JoinRandomOrCreateRoom();
         }
     }
 }
