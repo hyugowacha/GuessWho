@@ -11438,7 +11438,6 @@ GameObject:
   - component: {fileID: 483687963}
   - component: {fileID: 483687964}
   - component: {fileID: 483687962}
-  - component: {fileID: 483687964}
   m_Layer: 0
   m_Name: Ingame Scene Director
   m_TagString: Untagged
@@ -16767,6 +16766,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3622799736403009446, guid: be7eec14f7c533e4e82a7c53b24c1696, type: 3}
+      propertyPath: npc
+      value: 
+      objectReference: {fileID: 2490481070707789049, guid: e221438481a259749ab7f2e2a01d62b6, type: 3}
     - target: {fileID: 3622799736403009446, guid: be7eec14f7c533e4e82a7c53b24c1696, type: 3}
       propertyPath: npcGroup
       value: 
