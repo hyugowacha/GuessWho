@@ -16,7 +16,7 @@ namespace ZL.Unity
 
     [DisallowMultipleComponent]
 
-    public sealed class SceneDirector : SceneDirector<SceneDirector> { }
+    public class SceneDirector : SceneDirector<SceneDirector> { }
 
     public abstract class SceneDirector<T> : MonoBehaviour, ISingleton<T>
 
@@ -69,6 +69,11 @@ namespace ZL.Unity
 
         public virtual void LoadScene(string sceneName)
         {
+            StartCoroutine(LoadSceneRoutine(sceneName));
+        }
+
+        protected virtual IEnumerator LoadSceneRoutine(string sceneName)
+        {
             if (ISingleton<AudioListenerVolumeTweener>.Instance != null)
             {
                 ISingleton<AudioListenerVolumeTweener>.Instance.Tween(0f, fadeDuration);
@@ -79,11 +84,6 @@ namespace ZL.Unity
                 screenFader.SetFaded(true, fadeDuration);
             }
 
-            StartCoroutine(LoadSceneRoutine(sceneName));
-        }
-
-        private IEnumerator LoadSceneRoutine(string sceneName)
-        {
             yield return WaitFor.Seconds(fadeDuration);
 
             SceneManager.LoadScene(sceneName);
