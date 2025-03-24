@@ -4310,6 +4310,73 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a93a4058bd3225b4fb6d6b59fa5bc871, type: 3}
+--- !u!1 &175864042
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 175864044}
+  - component: {fileID: 175864043}
+  m_Layer: 0
+  m_Name: Photon Lobby Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &175864043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175864042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85ddaf3dcad33e641a69e27942b92ef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentLobbyName: 
+  lobbies:
+    value:
+    - Name: Default
+      Type: 0
+  eventOnJoinedLobby:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 234081526}
+        m_TargetAssemblyTypeName: ZL.Unity.Server.Photon.PhotonRoomManager, Assembly-CSharp
+        m_MethodName: JoinRandomOrCreateRoom
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  evenOnLeftLobby:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!4 &175864044
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175864042}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &177645491 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 466668, guid: 038d62757c80f794bb10c0b00599087a, type: 3}
@@ -5406,6 +5473,80 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7596934186446289810, guid: 2beaed3cef07a476194414324865b9e9, type: 3}
   m_PrefabInstance: {fileID: 805567474}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &234081525
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 234081527}
+  - component: {fileID: 234081526}
+  m_Layer: 0
+  m_Name: Photon Room Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &234081526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234081525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 152cb8e00a92a2c49b3fbb3cac624af8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentRoomName: 
+  roomList:
+    value: []
+  eventOnCreatedRoom:
+    m_PersistentCalls:
+      m_Calls: []
+  eventOnCreateRoomFailed:
+    m_PersistentCalls:
+      m_Calls: []
+  eventOnJoinedRoom:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 483687962}
+        m_TargetAssemblyTypeName: ZL.Unity.GuessWho.IngameSceneDirector, Assembly-CSharp
+        m_MethodName: set_IsReady
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  evenOnJoinRoomFailed:
+    m_PersistentCalls:
+      m_Calls: []
+  eventOnLeftRoom:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!4 &234081527
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234081525}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &234850957
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8980,6 +9121,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 489578, guid: d59da3d7b9c463c478d64b0722fd1ff5, type: 3}
   m_PrefabInstance: {fileID: 747062032}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &392799585
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 392799587}
+  - component: {fileID: 392799586}
+  m_Layer: 0
+  m_Name: Photon Player Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &392799586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 392799585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19cc9f00aa39fc740a3a943319994948, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 1999031371477897772, guid: e521408836f4fbb48b56e533b9a799e7, type: 3}
+--- !u!4 &392799587
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 392799585}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &392959746 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 427188, guid: a93a4058bd3225b4fb6d6b59fa5bc871, type: 3}
@@ -11461,7 +11647,6 @@ GameObject:
   - component: {fileID: 483687963}
   - component: {fileID: 483687964}
   - component: {fileID: 483687962}
-  - component: {fileID: 483687965}
   m_Layer: 0
   m_Name: Ingame Scene Director
   m_TagString: Untagged
@@ -11482,7 +11667,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   screenFader: {fileID: 1623886560}
-  startDelay: 0
   fadeDuration: 2
   photonView: {fileID: 483687964}
 --- !u!4 &483687963
@@ -11522,19 +11706,6 @@ MonoBehaviour:
   sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &483687965
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 483687961}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c7b4b4dfb06af14cbd152440c196b89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 1999031371477897772, guid: e521408836f4fbb48b56e533b9a799e7, type: 3}
 --- !u!1001 &487827013
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24329,16 +24500,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 1039338845}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d1cac27c4136e348bad1c106c48a36f, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e3b883a7b9af6449acbad1bd465f64e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fakeLoadingTime: 0
-  eventOnConnecting:
+  eventOnConnectingToMaster:
     m_PersistentCalls:
       m_Calls: []
-  eventOnConnected:
+  eventOnConnectedToMaster:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 175864043}
+        m_TargetAssemblyTypeName: ZL.Unity.Server.Photon.PhotonLobbyManager, Assembly-CSharp
+        m_MethodName: JoinLobby
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Default
+          m_BoolArgument: 0
+        m_CallState: 2
   eventOnDisconnected:
     m_PersistentCalls:
       m_Calls: []
@@ -33990,37 +34173,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 428072, guid: f7b79bbc99e117943ab5fb1dd6330136, type: 3}
   m_PrefabInstance: {fileID: 1610198186}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1551975467
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1551975468}
-  m_Layer: 0
-  m_Name: Photon
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1551975468
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1551975467}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1555634525
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47462,6 +47614,9 @@ SceneRoots:
   m_Roots:
   - {fileID: 483687963}
   - {fileID: 1039338847}
+  - {fileID: 175864044}
+  - {fileID: 234081527}
+  - {fileID: 392799587}
   - {fileID: 85535180}
   - {fileID: 1487639238}
   - {fileID: 222181380}
@@ -47473,4 +47628,3 @@ SceneRoots:
   - {fileID: 730835399}
   - {fileID: 687644070}
   - {fileID: 212118513}
-  - {fileID: 1551975468}

@@ -10,13 +10,15 @@ using UnityEngine.Events;
 
 using ZL.Unity.Collections;
 
-namespace ZL.Unity
+namespace ZL.Unity.Server.Photon
 {
-    [AddComponentMenu("ZL/Server/Photon/Photon Room Manager")]
+    [AddComponentMenu("ZL/Server/Photon/Photon Room Manager (Singleton)")]
 
     [DisallowMultipleComponent]
 
-    public sealed class PhotonRoomManager : MonoBehaviourPunCallbacks
+    public sealed class PhotonRoomManager :
+        
+        MonoBehaviourPunCallbacks, ISingleton<PhotonRoomManager>
     {
         [Space]
 
@@ -75,6 +77,16 @@ namespace ZL.Unity
 
         private UnityEvent eventOnLeftRoom;
 
+        private void Awake()
+        {
+            ISingleton<PhotonRoomManager>.TrySetInstance(this);
+        }
+
+        private void OnDestroy()
+        {
+            ISingleton<PhotonRoomManager>.Release(this);
+        }
+
         public override void OnRoomListUpdate(List<RoomInfo> roomList)
         {
             RoomList = roomList;
@@ -116,6 +128,11 @@ namespace ZL.Unity
         public void JoinRandomRoom()
         {
             PhotonNetwork.JoinRandomRoom();
+        }
+
+        public void JoinRandomOrCreateRoom()
+        {
+            PhotonNetwork.JoinRandomOrCreateRoom();
         }
 
         public override void OnJoinedRoom()
