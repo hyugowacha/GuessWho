@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
+using Photon.Pun;
 
 public class NPCPool// : MonoBehaviour
 {
@@ -32,7 +33,14 @@ public class NPCPool// : MonoBehaviour
             Debug.Log("no prefab");
             return null;
         }
-        return MonoBehaviour.Instantiate(npcPrefab);
+        if (PhotonNetwork.IsConnected)
+        {
+            return PhotonNetwork.InstantiateRoomObject(npcPrefab.name, Vector3.zero, Quaternion.identity);
+        }
+        else
+        {
+            return MonoBehaviour.Instantiate(npcPrefab);
+        }
     }
     
 

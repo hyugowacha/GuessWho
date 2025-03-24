@@ -14,6 +14,8 @@ namespace ZL.Unity.GuessWho
     {
         protected override IEnumerator Start()
         {
+            ISingleton<PhotonServerManager>.Instance.TryConnectToMaster();
+
             yield return base.Start();
         }
     }
