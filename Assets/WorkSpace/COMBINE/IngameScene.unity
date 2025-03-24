@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 4dcd3a70249d608408103bc4016cfd0e, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: d19e824548f968f47aa1537e224485c4, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -1878,6 +1878,7 @@ GameObject:
   - component: {fileID: 85535179}
   - component: {fileID: 85535178}
   - component: {fileID: 85535181}
+  - component: {fileID: 85535182}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1976,6 +1977,28 @@ MonoBehaviour:
   distance: 0
   height: 0
   rotationSpeed: 0
+--- !u!114 &85535182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85535177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 2
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!4 &87072567 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 427188, guid: a93a4058bd3225b4fb6d6b59fa5bc871, type: 3}
@@ -11438,6 +11461,7 @@ GameObject:
   - component: {fileID: 483687963}
   - component: {fileID: 483687964}
   - component: {fileID: 483687962}
+  - component: {fileID: 483687965}
   m_Layer: 0
   m_Name: Ingame Scene Director
   m_TagString: Untagged
@@ -11498,6 +11522,19 @@ MonoBehaviour:
   sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &483687965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483687961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c7b4b4dfb06af14cbd152440c196b89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 1999031371477897772, guid: e521408836f4fbb48b56e533b9a799e7, type: 3}
 --- !u!1001 &487827013
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24292,7 +24329,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1039338845}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 720ae6a6a45a89a41b3b05a62535f037, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d1cac27c4136e348bad1c106c48a36f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fakeLoadingTime: 0
