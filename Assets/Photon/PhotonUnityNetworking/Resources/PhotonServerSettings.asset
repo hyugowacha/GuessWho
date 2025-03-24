@@ -45,6 +45,10 @@ MonoBehaviour:
   - TriggerAttack
   - ChangeState
   - GetHit
+  - EnterState
+  - PlayAnimation
+  - StateAction
+  - StopAnimation
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
