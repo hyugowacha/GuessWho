@@ -5,8 +5,9 @@ using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Pool;
+using ZL.Unity;
 
-public class NPCManager : MonoBehaviourPun,IPunObservable
+public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManager>
 {
     // Start is called before the first frame update
     //필드에 존재하는 엔피시들 
@@ -33,9 +34,12 @@ public class NPCManager : MonoBehaviourPun,IPunObservable
     //public Transform[] forTestSpawnPoint;
     private void Awake()
     {
+        ISingleton<NPCManager>.TrySetInstance(this);
+
         pool = new NPCPool();//풀 생성
         pool.SetPrefab(npc);
     }
+
     void Start()
     {
         //Debug.Log(temp.size.x+","+ temp.size.y+","+ temp.size.z);
@@ -52,12 +56,17 @@ public class NPCManager : MonoBehaviourPun,IPunObservable
         //    Debug.Log(t.transform.position);
         //}
         
-        InitialSetBySpawnPoint();// 스폰포인트용 초기 세팅
+        //InitialSetBySpawnPoint();// 스폰포인트용 초기 세팅
         //InitialSetForSpawnPointTest();//스폰포인트 포함한 테스트
         //InitialForDebug();// 디버그용 하나 생성
         //pool.NPCS.Get();//NPC 생성코드 전시용
-
     }
+
+    private void OnDestroy()
+    {
+        ISingleton<NPCManager>.Release(this);
+    }
+
     public void SetSpawnPoint()
     {
         for (int i = 0; i < spawnGroup.transform.childCount; i++)//스폰 포인트 

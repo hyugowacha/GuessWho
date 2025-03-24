@@ -32,10 +32,6 @@ namespace ZL.Unity
 
         [SerializeField]
 
-        private float startDelay = 0f;
-
-        [SerializeField]
-
         protected float fadeDuration = 0f;
 
         private int pauseCount = 0;
@@ -47,17 +43,7 @@ namespace ZL.Unity
 
         protected virtual IEnumerator Start()
         {
-            yield return WaitFor.Seconds(startDelay);
-
-            if (ISingleton<AudioListenerVolumeTweener>.Instance != null)
-            {
-                ISingleton<AudioListenerVolumeTweener>.Instance.Tween(1f, fadeDuration);
-            }
-
-            if (screenFader != null)
-            {
-                screenFader.SetFaded(false, fadeDuration);
-            }
+            FadeIn();
 
             yield return WaitFor.Seconds(fadeDuration);
         }
@@ -74,6 +60,28 @@ namespace ZL.Unity
 
         protected virtual IEnumerator LoadSceneRoutine(string sceneName)
         {
+            FadeOut();
+
+            yield return WaitFor.Seconds(fadeDuration);
+
+            SceneManager.LoadScene(sceneName);
+        }
+
+        public void FadeIn()
+        {
+            if (ISingleton<AudioListenerVolumeTweener>.Instance != null)
+            {
+                ISingleton<AudioListenerVolumeTweener>.Instance.Tween(1f, fadeDuration);
+            }
+
+            if (screenFader != null)
+            {
+                screenFader.SetFaded(false, fadeDuration);
+            }
+        }
+
+        public void FadeOut()
+        {
             if (ISingleton<AudioListenerVolumeTweener>.Instance != null)
             {
                 ISingleton<AudioListenerVolumeTweener>.Instance.Tween(0f, fadeDuration);
@@ -83,10 +91,6 @@ namespace ZL.Unity
             {
                 screenFader.SetFaded(true, fadeDuration);
             }
-
-            yield return WaitFor.Seconds(fadeDuration);
-
-            SceneManager.LoadScene(sceneName);
         }
 
         public void Pause()
