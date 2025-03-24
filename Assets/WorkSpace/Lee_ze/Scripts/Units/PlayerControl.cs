@@ -52,6 +52,13 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         if (photonView.IsMine)
         {
             ChangeStateTo(new IdleState());
+
+            Camera.main.GetComponent<RotateView>().SetTarget(this.transform);
+        }
+
+        if (photonView.IsMine)
+        {
+            ChangeStateTo(new IdleState());
         }
     }
 
@@ -60,9 +67,6 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         if (photonView.IsMine) // 자신의 캐릭터만 로컬에서 조작 가능
         {
             currentState?.UpdatePerState();
-
-            // 애니메이션 및 상태 동기화
-            SyncAnimations();
         }
     }
 
@@ -129,13 +133,6 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         isHit = true;
 
         photonView.RPC("SyncHitState", RpcTarget.Others, isHit);
-    }
-
-    private void SyncAnimations() // 애니메이션 동기화
-    {
-        playerAnim.SetBool("isRunning", isRunning);
-
-        playerAnim.SetBool("isAttackTriggered", isAttackTriggered);
     }
 
     // V RPC Methods

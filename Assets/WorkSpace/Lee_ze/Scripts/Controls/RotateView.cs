@@ -46,7 +46,6 @@ public class RotateView : MonoBehaviour
         currentRotationY = 0f;
 
         ///
-
         photonView = GetComponent<PhotonView>();
 
         if (photonView.IsMine)
@@ -93,5 +92,10 @@ public class RotateView : MonoBehaviour
         cameraPos.position = targetToFollow.position + (Vector3.up * height) + (rotation * Vector3.back * distance);
 
         cameraPos.LookAt(targetToFollow);
+    }
+
+    public void SetTarget(Transform target)
+    {
+        targetToFollow = target;
     }
 }

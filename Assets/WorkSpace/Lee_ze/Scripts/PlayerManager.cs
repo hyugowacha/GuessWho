@@ -16,6 +16,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
             // 플레이어 생성
             GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, spawnPosition, Quaternion.identity);
+
+            //Debug.Log(player);
+
+            //Camera.main.GetComponent<RotateView>().SetTarget(player.transform);
         }
     }
 }
