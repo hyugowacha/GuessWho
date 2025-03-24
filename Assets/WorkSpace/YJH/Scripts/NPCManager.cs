@@ -45,13 +45,6 @@ public class NPCManager : MonoBehaviourPun,IPunObservable
         npcSpawnList = new List<GameObject>();
         //npcDestinations = new List<Vector3>();
         SetSpawnPoint();//초기 스폰 메커니즘 -> 나중에 완성도를 끌어올릴때 다른 로직을 사용해 보자 -> 단점으로는 밀도가 높아져 빈 공간이 생길 수 밖에 없음
-        
-        //InitialSet();
-        //foreach(var t in npcSpawnList)
-        //{
-        //    Debug.Log(t.transform.position);
-        //}
-        
         InitialSetBySpawnPoint();// 스폰포인트용 초기 세팅
         //InitialSetForSpawnPointTest();//스폰포인트 포함한 테스트
         //InitialForDebug();// 디버그용 하나 생성
@@ -99,7 +92,7 @@ public class NPCManager : MonoBehaviourPun,IPunObservable
         {
             if (PhotonNetwork.IsMasterClient != true)
             {
-                Debug.Log("notmaster");
+                //Debug.Log("notmaster");
                 //CreateAllNPC();
                 return;
             }
@@ -108,7 +101,7 @@ public class NPCManager : MonoBehaviourPun,IPunObservable
                 Debug.Log(npcScriptList.Count);
                 foreach (NPC npc in npcScriptList)//npc들을
                 {
-                    Debug.Log("1");
+                    //Debug.Log("1");
                     //CreateAllNPC();
                     int spawnIndex = Random.Range(0, npcSpawnList.Count);
 
