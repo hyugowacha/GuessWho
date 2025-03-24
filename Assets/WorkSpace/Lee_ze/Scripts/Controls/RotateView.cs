@@ -49,22 +49,21 @@ public class RotateView : MonoBehaviour
 
         photonView = GetComponent<PhotonView>();
 
-        if (photonView.IsMine) // **본인이 조종하는 캐릭터일 때만 실행**
+        if (photonView.IsMine)
         {
-            cameraPos = Camera.main.transform; // **메인 카메라 찾기**
+            cameraPos = Camera.main.transform;
 
-            targetToFollow = this.transform; // **자신의 캐릭터를 따라가도록 설정**
+            targetToFollow = this.transform;
         }
         else
         {
-            // **다른 플레이어의 RotateView는 카메라를 설정하지 않음**
             this.enabled = false;
         }
     }
 
     void LateUpdate()
     {
-        if (!photonView.IsMine) return; // **자신이 조종하는 캐릭터만 카메라 업데이트**
+        if (photonView.IsMine == false) return;
 
         if (targetToFollow != null)
         {
