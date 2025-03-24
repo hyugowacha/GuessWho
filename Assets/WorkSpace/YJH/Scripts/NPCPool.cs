@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
+using Photon.Pun;
 
 public class NPCPool// : MonoBehaviour
 {
@@ -32,7 +33,14 @@ public class NPCPool// : MonoBehaviour
             Debug.Log("no prefab");
             return null;
         }
-        return MonoBehaviour.Instantiate(npcPrefab);
+        if (PhotonNetwork.IsConnected)
+        {
+            return PhotonNetwork.InstantiateRoomObject(npcPrefab.name, Vector3.zero, Quaternion.identity,0);
+        }
+        else
+        {
+            return MonoBehaviour.Instantiate(npcPrefab);
+        }
     }
     
 
@@ -54,9 +62,20 @@ public class NPCPool// : MonoBehaviour
     }
     public GameObject GetNPC(GameObject group)
     {
-        GameObject npc = npcs.Get();
-        npc.transform.parent = group.transform;
-        return npc;
+        if (PhotonNetwork.IsConnected == false)
+        {
+            GameObject npc = npcs.Get();
+            npc.transform.parent = group.transform;
+            return npc;
+        }
+        else
+        {
+            
+            GameObject npc = npcs.Get();
+            npc.transform.parent = group.transform;
+            return npc;
+        }
+        return null;
     }
     public void ReturnNPC(GameObject npc)
     {

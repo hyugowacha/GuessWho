@@ -24,25 +24,28 @@ public class NPCManager : MonoBehaviourPun,IPunObservable
 
     //private List<GameObject> npcList;//생성된 NPC들 보유하는 리스트 둘중 택1?
     private List<NPC> npcScriptList;//생성된 NPC들 보유하는 리스트 둘중 택1?
-    //private List<Vector3> npcDestinations;//npc가 목적지로 정할 위치를 저장할 리스트
-    
+                                    //private List<Vector3> npcDestinations;//npc가 목적지로 정할 위치를 저장할 리스트
+
 
 
     //public GameObject temp;
 
     //public Transform[] forTestSpawnPoint;
+    private void Awake()
+    {
+        pool = new NPCPool();//풀 생성
+        pool.SetPrefab(npc);
+    }
     void Start()
     {
         //Debug.Log(temp.size.x+","+ temp.size.y+","+ temp.size.z);
 
-        //forTestSpawnPoint = new Transform[8];
-        pool = new NPCPool();//풀 생성
-        //npcList = new List<GameObject>();
+        
         npcScriptList = new List<NPC>();
         npcSpawnList = new List<GameObject>();
         //npcDestinations = new List<Vector3>();
         SetSpawnPoint();//초기 스폰 메커니즘 -> 나중에 완성도를 끌어올릴때 다른 로직을 사용해 보자 -> 단점으로는 밀도가 높아져 빈 공간이 생길 수 밖에 없음
-        pool.SetPrefab(npc);
+        
         //InitialSet();
         //foreach(var t in npcSpawnList)
         //{
@@ -77,13 +80,14 @@ public class NPCManager : MonoBehaviourPun,IPunObservable
             foreach (NPC npc in npcScriptList)//npc들을
             {
 
-
+                //CreateAllNPC();
                 int spawnIndex = Random.Range(0, npcSpawnList.Count);
 
                 //npc.transform.position = npcSpawnList[spawnIndex].transform.position*2;
                 (npc as TestingNPC).SelfAgent.enabled = false;
                 SetNPCTransform(npc.gameObject, npcSpawnList[spawnIndex].transform.position + new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2)));//랜덤하게 위치 설정
-                                                                                                                                                        //npc.transform.position = new Vector3(npcSpawnList[spawnIndex].transform.position.x, 1.5f, npcSpawnList[spawnIndex].transform.position.z);
+                //Quaternion ransRoation= Quaternion
+                npc.gameObject.transform.Rotate(0, Random.Range(0f, 360f), 0);//npc 랜덤 배치시 로테이션도 회전       
                 (npc as TestingNPC).SelfAgent.enabled = true;
 
                 //npc.transform.Translate(new Vector3(npcSpawnList[spawnIndex].transform.position.x, 3.0f, npcSpawnList[spawnIndex].transform.position.z));
@@ -95,14 +99,15 @@ public class NPCManager : MonoBehaviourPun,IPunObservable
         {
             if (PhotonNetwork.IsMasterClient != true)
             {
+                //CreateAllNPC();
                 return;
             }
             else
             {
                 foreach (NPC npc in npcScriptList)//npc들을
                 {
-
-
+                    Debug.Log("1");
+                   // CreateAllNPC();
                     int spawnIndex = Random.Range(0, npcSpawnList.Count);
 
                     //npc.transform.position = npcSpawnList[spawnIndex].transform.position*2;
@@ -172,9 +177,12 @@ public class NPCManager : MonoBehaviourPun,IPunObservable
         for(int i=0; i<pool.InitialNPCNum; i++)
         {
             //npcList.Add(pool.NPCS.Get());
-            var tempNPC= pool.GetNPC(npcGroup);
-            //npcList.Add(tempNPC);
-            npcScriptList.Add(tempNPC.GetComponent<NPC>());
+            if (PhotonNetwork.IsMasterClient == true)
+            {
+                var tempNPC = pool.GetNPC(npcGroup);
+                //npcList.Add(tempNPC);
+                npcScriptList.Add(tempNPC.GetComponent<NPC>());
+            }
             
         }
     }

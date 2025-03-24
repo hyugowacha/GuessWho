@@ -205,6 +205,7 @@ public class NPCIdle : INPCState
     {
         npcAnimator.SetBool(hashIdle, true);
         npcAnimator.SetBool(hashMove, false);
+        npcAnimator.SetBool("isAnger", false);
         //animator°ü·Ã
 
     }
