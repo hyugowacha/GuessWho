@@ -98,6 +98,7 @@ public class TestingNPC : NPC,IHittable
     //    //    nowState.StateAction();
     //    //}
     //}
+    #region 상태변화 관련 코드
     public void ChangeState(INPCState changeState)
     {
         
@@ -166,7 +167,7 @@ public class TestingNPC : NPC,IHittable
         }
     }
 
-    
+    #endregion
     public bool CheckNPCPlacedRight()//구현해놨지만 사용하지는 않는중 
     {
         if(selfAgent.isOnNavMesh)
@@ -179,17 +180,9 @@ public class TestingNPC : NPC,IHittable
         }
     }
 
-    //private void OnTriggerEnter(Collider other)//테스트용 플레이어에게 닿으면 hit 재생
-    //{
-    //    if (other.transform.tag == "Player")
-    //    {
-    //        GetHit();
-    //    }
-    //}
-    //public void HitByPlayer()
-    //{
-    //    GetHit();
-    //}
+    
+
+    #region 피격 관련 코드
     public void GetHit()//puncallback해야 함-> 애니메이션 상 로테이션을 변경해서 플레이어쪽을 보고 화내야 함 
     {
         selfCollider.enabled = false;
@@ -222,5 +215,5 @@ public class TestingNPC : NPC,IHittable
         }
     }
 
-
+    #endregion
 }
