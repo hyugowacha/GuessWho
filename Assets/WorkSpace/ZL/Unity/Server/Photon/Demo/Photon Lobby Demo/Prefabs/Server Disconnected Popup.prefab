@@ -42,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5229829980479532743, guid: 13793794b4a65d348a67deef871dc84c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: TryConnectToMaster
+      value: TryConnect
       objectReference: {fileID: 0}
     - target: {fileID: 5229829980479532743, guid: 13793794b4a65d348a67deef871dc84c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5229829980479532743, guid: 13793794b4a65d348a67deef871dc84c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: ZL.Unity.Server.Photon.PhotonServerManagerReceiver, Assembly-CSharp
+      value: ZL.Unity.Server.Photon.PhotonServerConnectorReceiver, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5229829980479532743, guid: 13793794b4a65d348a67deef871dc84c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -63,10 +63,6 @@ PrefabInstance:
     - target: {fileID: 6514689213159542419, guid: 13793794b4a65d348a67deef871dc84c, type: 3}
       propertyPath: m_text
       value: Retry
-      objectReference: {fileID: 0}
-    - target: {fileID: 6514689213159542419, guid: 13793794b4a65d348a67deef871dc84c, type: 3}
-      propertyPath: m_fontSize
-      value: 45.2
       objectReference: {fileID: 0}
     - target: {fileID: 6638225378181148709, guid: 13793794b4a65d348a67deef871dc84c, type: 3}
       propertyPath: m_Pivot.x
@@ -658,10 +654,6 @@ PrefabInstance:
     - target: {fileID: 6514689213159542419, guid: 13793794b4a65d348a67deef871dc84c, type: 3}
       propertyPath: m_text
       value: Quit
-      objectReference: {fileID: 0}
-    - target: {fileID: 6514689213159542419, guid: 13793794b4a65d348a67deef871dc84c, type: 3}
-      propertyPath: m_fontSize
-      value: 45.2
       objectReference: {fileID: 0}
     - target: {fileID: 6638225378181148709, guid: 13793794b4a65d348a67deef871dc84c, type: 3}
       propertyPath: m_Pivot.x
