@@ -21,21 +21,21 @@ public class RPC_ItemSpawn : MonoBehaviour
     }
 
     [PunRPC]
-    private void PlayerItemGet(string parentName, ItemData itemData)
+    private void PlayerItemGet(string parentName, int itemNum)
     {
         ItemSpawnctrl parent = GameObject.Find(parentName).GetComponent<ItemSpawnctrl>();
 
-        switch (itemData.itemType)
+        switch (itemNum)
         {
-            case ItemType.Stone:
+            case 1:
                 parent.StoneItem.SetActive(false);
                 break;
 
-            case ItemType.Gun:
+            case 2:
                 parent.GunItem.SetActive(false);
                 break;
 
-            case ItemType.Whistle:
+            case 3:
                 parent.WhistleItem.SetActive(false);
                 break;
         }

@@ -104,11 +104,29 @@ public sealed class GettableItem : MonoBehaviourPun, IGetable
 
                 ItemInteractImage.gameObject.SetActive(false);
 
-                photonView.RPC("PlayerItemGet", RpcTarget.All, myParent.name, itemData);
-                this.gameObject.SetActive(false); //얘가 범인임
+                switch(itemData.itemType)
+                {
+                    case ItemType.Stone:
+                        PlayerItemGetAndOff(1);
+                        break;
+
+                    case ItemType.Gun:
+                        PlayerItemGetAndOff(2);
+                        break;
+
+                    case ItemType.Whistle:
+                        PlayerItemGetAndOff(3);
+                        break;
+                }
+                //this.gameObject.SetActive(false); //얘가 범인임
 
             }
         }
+    }
+
+    private void PlayerItemGetAndOff(int itemnum)
+    {
+        photonView.RPC("PlayerItemGet", RpcTarget.All, myParent.name, itemnum);
     }
 
     private void OnTriggerExit(Collider other)
