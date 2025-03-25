@@ -30,6 +30,12 @@ public class ApologizeState : IPlayerStates
 
     IEnumerator Apologize()
     {
+        Vector3 playerPos = player.transform.position;
+
+        player.apologizeTo.y = playerPos.y;
+
+        player.transform.LookAt(player.apologizeTo);
+
         player.playerAnim.SetBool("IsNPC", true);
 
         yield return new WaitForSeconds(4f);
