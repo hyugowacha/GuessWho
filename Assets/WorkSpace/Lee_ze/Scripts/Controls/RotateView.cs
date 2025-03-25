@@ -74,4 +74,9 @@ public class RotateView : MonoBehaviour
 
         cameraPos.LookAt(targetToFollow);
     }
+
+    public void SetTarget(Transform target)
+    {
+        targetToFollow = target;
+    }
 }
