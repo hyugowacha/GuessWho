@@ -16,13 +16,13 @@ using ZL.Unity.Collections;
 
 namespace ZL.Unity.Server.Photon
 {
-    [AddComponentMenu("ZL/Server/Photon/Photon Server Connector (Singleton)")]
+    [AddComponentMenu("ZL/Server/Photon/Photon Server Manager (Singleton)")]
 
     [DisallowMultipleComponent]
 
-    public sealed class PhotonServerConnector :
+    public sealed class PhotonServerManager :
         
-        MonoBehaviourPunCallbacks, ISingleton<PhotonServerConnector>
+        MonoBehaviourPunCallbacks, ISingleton<PhotonServerManager>
     {
         [Space]
 
@@ -34,17 +34,17 @@ namespace ZL.Unity.Server.Photon
 
         [SerializeField]
 
-        private UnityEvent eventOnConnecting;
+        private UnityEvent eventOnConnectingToMaster;
 
-        public UnityEvent EventOnConnecting => eventOnConnected;
+        public UnityEvent EventOnConnectingToMaster => eventOnConnectedToMaster;
 
         [Space]
 
         [SerializeField]
 
-        private UnityEvent eventOnConnected;
+        private UnityEvent eventOnConnectedToMaster;
 
-        public UnityEvent EventOnConnectedToMaster => eventOnConnected;
+        public UnityEvent EventOnConnectedToMaster => eventOnConnectedToMaster;
 
         [Space]
 
@@ -52,23 +52,23 @@ namespace ZL.Unity.Server.Photon
 
         private UnityEvent eventOnDisconnected;
 
-        public UnityEvent EventOnDisconnected => eventOnConnected;
+        public UnityEvent EventOnDisconnected => eventOnConnectedToMaster;
 
         private readonly Stopwatch loadingStopwatch = new();
 
         private void Awake()
         {
-            ISingleton<PhotonServerConnector>.TrySetInstance(this);
+            ISingleton<PhotonServerManager>.TrySetInstance(this);
         }
 
         private void OnDestroy()
         {
-            ISingleton<PhotonServerConnector>.Release(this);
+            ISingleton<PhotonServerManager>.Release(this);
         }
 
-        public void TryConnect()
+        public void ConnectToMaster()
         {
-            eventOnConnecting.Invoke();
+            eventOnConnectingToMaster.Invoke();
 
             loadingStopwatch.Restart();
 
@@ -95,7 +95,7 @@ namespace ZL.Unity.Server.Photon
             {
                 FixedDebug.Log("Connected to Photon server.");
 
-                eventOnConnected.Invoke();
+                eventOnConnectedToMaster.Invoke();
             }));
         }
 

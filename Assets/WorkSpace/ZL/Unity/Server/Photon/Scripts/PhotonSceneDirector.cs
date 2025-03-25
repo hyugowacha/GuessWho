@@ -1,5 +1,5 @@
 using Photon.Pun;
-using System.Collections;
+
 using UnityEngine;
 
 namespace ZL.Unity.Server.Photon
@@ -34,11 +34,6 @@ namespace ZL.Unity.Server.Photon
         public override void LoadScene(string sceneName)
         {
             base.LoadScene(sceneName);
-        }
-
-        protected override IEnumerator LoadSceneRoutine(string sceneName)
-        {
-            return base.LoadSceneRoutine(sceneName);
         }
     }
 }

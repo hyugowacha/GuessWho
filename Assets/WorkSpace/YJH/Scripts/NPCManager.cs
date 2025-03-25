@@ -5,8 +5,9 @@ using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Pool;
+using ZL.Unity;
 
-public class NPCManager : MonoBehaviourPun,IPunObservable
+public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManager>
 {
     // Start is called before the first frame update
     //필드에 존재하는 엔피시들 
@@ -33,9 +34,12 @@ public class NPCManager : MonoBehaviourPun,IPunObservable
     //public Transform[] forTestSpawnPoint;
     private void Awake()
     {
+        ISingleton<NPCManager>.TrySetInstance(this);
+
         pool = new NPCPool();//풀 생성
         pool.SetPrefab(npc);
     }
+
     void Start()
     {
         //Debug.Log(temp.size.x+","+ temp.size.y+","+ temp.size.z);
@@ -45,12 +49,24 @@ public class NPCManager : MonoBehaviourPun,IPunObservable
         npcSpawnList = new List<GameObject>();
         //npcDestinations = new List<Vector3>();
         SetSpawnPoint();//초기 스폰 메커니즘 -> 나중에 완성도를 끌어올릴때 다른 로직을 사용해 보자 -> 단점으로는 밀도가 높아져 빈 공간이 생길 수 밖에 없음
-        InitialSetBySpawnPoint();// 스폰포인트용 초기 세팅
+        
+        //InitialSet();
+        //foreach(var t in npcSpawnList)
+        //{
+        //    Debug.Log(t.transform.position);
+        //}
+        
+        //InitialSetBySpawnPoint();// 스폰포인트용 초기 세팅
         //InitialSetForSpawnPointTest();//스폰포인트 포함한 테스트
         //InitialForDebug();// 디버그용 하나 생성
         //pool.NPCS.Get();//NPC 생성코드 전시용
-
     }
+
+    private void OnDestroy()
+    {
+        ISingleton<NPCManager>.Release(this);
+    }
+
     public void SetSpawnPoint()
     {
         for (int i = 0; i < spawnGroup.transform.childCount; i++)//스폰 포인트 
@@ -92,7 +108,7 @@ public class NPCManager : MonoBehaviourPun,IPunObservable
         {
             if (PhotonNetwork.IsMasterClient != true)
             {
-                //Debug.Log("notmaster");
+                Debug.Log("notmaster");
                 //CreateAllNPC();
                 return;
             }
@@ -101,7 +117,7 @@ public class NPCManager : MonoBehaviourPun,IPunObservable
                 Debug.Log(npcScriptList.Count);
                 foreach (NPC npc in npcScriptList)//npc들을
                 {
-                    //Debug.Log("1");
+                    Debug.Log("1");
                     //CreateAllNPC();
                     int spawnIndex = Random.Range(0, npcSpawnList.Count);
 
@@ -117,9 +133,6 @@ public class NPCManager : MonoBehaviourPun,IPunObservable
                 }
             }
         }
-
-
-        PhotonNetwork.SendAllOutgoingCommands();
     }
 
     //public void InitialForDebug()
