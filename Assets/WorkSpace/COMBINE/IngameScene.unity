@@ -24640,28 +24640,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e3b883a7b9af6449acbad1bd465f64e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fakeLoadingTime: 0
-  eventOnConnectingToMaster:
-    m_PersistentCalls:
-      m_Calls: []
-  eventOnConnectedToMaster:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 175864043}
-        m_TargetAssemblyTypeName: ZL.Unity.Server.Photon.PhotonLobbyManager, Assembly-CSharp
-        m_MethodName: JoinLobby
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Default
-          m_BoolArgument: 0
-        m_CallState: 2
-  eventOnDisconnected:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!4 &1039338847
 Transform:
   m_ObjectHideFlags: 0
