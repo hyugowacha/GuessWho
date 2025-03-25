@@ -10002,6 +10002,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 489578, guid: d59da3d7b9c463c478d64b0722fd1ff5, type: 3}
   m_PrefabInstance: {fileID: 1691256786}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &426900039
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 426900040}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &426900040
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426900039}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &431184591
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11756,7 +11787,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   screenFader: {fileID: 1623886560}
-  startDelay: 0
   fadeDuration: 2
   photonView: {fileID: 483687964}
 --- !u!4 &483687963
@@ -24640,6 +24670,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e3b883a7b9af6449acbad1bd465f64e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fakeLoadingTime: 0
+  eventOnConnectingToMaster:
+    m_PersistentCalls:
+      m_Calls: []
+  eventOnConnectedToMaster:
+    m_PersistentCalls:
+      m_Calls: []
+  eventOnDisconnected:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1039338847
 Transform:
   m_ObjectHideFlags: 0
@@ -48383,3 +48423,4 @@ SceneRoots:
   - {fileID: 865862526}
   - {fileID: 687644070}
   - {fileID: 212118513}
+  - {fileID: 426900040}
