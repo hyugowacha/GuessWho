@@ -41,8 +41,6 @@ public sealed class GettableItem : MonoBehaviour, IGetable
     public void SendItem(PlayerControl player, ItemData itemData)
     {
         //플레이어가 아이템의 정보를 받아올 메서드
-        //player.getitem(itemdata)
-
         player.GetItem(itemData);
 
         /*
