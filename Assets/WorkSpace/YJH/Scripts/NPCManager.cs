@@ -56,7 +56,7 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
         //    Debug.Log(t.transform.position);
         //}
         
-        //InitialSetBySpawnPoint();// 스폰포인트용 초기 세팅 -> 현재는 서버쪽에서 호출
+        //InitialSetBySpawnPoint();// 스폰포인트용 초기 세팅
         //InitialSetForSpawnPointTest();//스폰포인트 포함한 테스트
         //InitialForDebug();// 디버그용 하나 생성
         //pool.NPCS.Get();//NPC 생성코드 전시용
@@ -117,7 +117,7 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
             }
             else
             {
-                //Debug.Log(npcScriptList.Count);
+                Debug.Log(npcScriptList.Count);
                 foreach (NPC npc in npcScriptList)//npc들을
                 {
                     //Debug.Log("1");
@@ -172,7 +172,7 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
 
 
     
-    public void SetNPCTransform(GameObject npc, Vector3 position)//y 좌표 1.09// 작동은 하는데 원하는 위치까지 이동하지 않고 중간에 멈추는 현상 발생 설마 하는데 Agent 때문인가? -> 맞음 Agent의 노드에 강제 고정되느라 발생했던 문제
+    public void SetNPCTransform(GameObject npc, Vector3 position)//y 좌표 1.09// 작동은 하는데 원하는 위치까지 이동하지 않고 중간에 멈추는 현상 발생 설마 하는데 Agent 때문인가? 
     {
         //Vector3 temp = new Vector3(position.x, 1.5f, position.z);
         npc.transform.position= new Vector3(position.x, 3.0f, position.z);
@@ -181,7 +181,7 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
     //{
     //   temp= pool.NPCS.Get();
     //}
-    public static Vector3 ReturnRandomDestination()//현재는 사용하지 않음
+    public static Vector3 ReturnRandomDestination()
     {
         Vector3 destination;
         destination = new Vector3(Random.Range(-74,72),1.5f, Random.Range(-78, 74));//현재 맵의 크기를 측정해서 대입시킴 static 함수로 선언했기 때문에 이렇게 대입함 필요하다면 npcmanager를 static class로 선언하던가 싱글톤 패턴으로 구현하면 될듯

@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
-using Photon;
+
 public class ItemSpawnctrl : MonoBehaviour
 {
     [SerializeField]
@@ -13,9 +12,6 @@ public class ItemSpawnctrl : MonoBehaviour
 
     [SerializeField]
     private GameObject stoneItem;
-
-    [SerializeField]
-    [Header("포톤뷰")] private PhotonView photonView;
 
     private bool isAllItemOff = false;
 
@@ -37,7 +33,7 @@ public class ItemSpawnctrl : MonoBehaviour
 
             if (respawnCoolTime < respawnElapsedTime)
             {
-
+                ItemSpawn();
                 isAllItemOff = false;
                 respawnElapsedTime = 0;
             }
@@ -55,35 +51,12 @@ public class ItemSpawnctrl : MonoBehaviour
             }
         }
         return true;
-    }
+    } 
 
-    //[PunRPC]
-    //public void PickRandomItemNum()
-    //{
-    //    if (PhotonNetwork.IsMasterClient)
-    //    {
-    //        RandomItemNum = Random.Range(1, 11);
-    //    }
-    //}
-
-    private void SetRandomNumber()
+    public void ItemSpawn() //아이템을 스폰하는 함수
     {
-        if(PhotonNetwork.IsMasterClient)
-        {
-            int RandomNumber = Random.Range(1, 11);
-            photonView.RPC("SetItem", RpcTarget.All, RandomNumber);
-        }
-    }
+        int itemNum = Random.Range(1, 11);
 
-    [PunRPC]
-    private void SetItem(int itemNum)
-    {
-        ItemSpawn(itemNum);
-    }
-
-
-    public void ItemSpawn(int itemNum) //아이템을 스폰하는 함수
-    {
         switch (itemNum)
         {
             case 1:
