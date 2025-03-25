@@ -7,7 +7,11 @@ using Photon.Pun;
 using Unity.VisualScripting;
 
 
+public enum NPCStateName
+{
+    Hit,Idle,Walk,None
 
+}
 public interface INPCState
 {
     
@@ -34,6 +38,7 @@ public class NPCMove : INPCState
     readonly int hashIdle = Animator.StringToHash("isIdle");
 
     //GameObject forTest;
+    [PunRPC]
     public void PlayAnimation()
     {
         //animator관련
@@ -42,7 +47,7 @@ public class NPCMove : INPCState
         npcAnimator.SetBool(hashMove, true);
         
     }
-
+    [PunRPC]
     public void StopAnimation()
     {
         //animator관련
@@ -51,6 +56,7 @@ public class NPCMove : INPCState
         selfAgent.isStopped = true;
 
     }
+    [PunRPC]
     public void EnterState(NPC npc)
     {
         nowNPC = npc;
@@ -117,6 +123,7 @@ public class NPCMove : INPCState
     //    StateAction();
     //    this.destination = destination;
     //}
+    [PunRPC]
     public void StateAction()
     {
         PlayAnimation();
@@ -170,21 +177,24 @@ public class NPCHit : INPCState
     readonly int hashIdle = Animator.StringToHash("isIdle");
 
     //private bool isEnd;
+    [PunRPC]
     public void PlayAnimation()
     {
         //animator관련
-        npcAnimator.SetTrigger(hashHit);
+        npcAnimator.SetBool(hashHit,true);
         npcAnimator.SetBool(hashIdle,true);
         npcAnimator.SetBool("isAnger", true);
     }
-
+    [PunRPC]
     public void StopAnimation()
     {
         //animator관련
         npcAnimator.SetBool("isAnger", false);
+        npcAnimator.SetBool(hashHit, false);
+
     }
 
-
+    [PunRPC]
     public void EnterState(NPC npc)
     {
         isHit = false;
@@ -198,6 +208,7 @@ public class NPCHit : INPCState
         //게임 매니저나 여타 피격시 시행될 기능
         isHit=true;
     }
+    [PunRPC]
     public void StateAction()
     {
         PlayAnimation();
@@ -205,6 +216,14 @@ public class NPCHit : INPCState
     }
     public bool CheckStateEnd()
     {
+        if (npcAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime == 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
         if (isHit == true)
         {
             StopAnimation();
@@ -232,15 +251,17 @@ public class NPCIdle : INPCState
     readonly int hashHit = Animator.StringToHash("isHit");
     readonly int hashMove = Animator.StringToHash("isMove");
     readonly int hashIdle = Animator.StringToHash("isIdle");
+    [PunRPC]
     public void PlayAnimation()
     {
         npcAnimator.SetBool(hashIdle, true);
         npcAnimator.SetBool(hashMove, false);
         npcAnimator.SetBool("isAnger", false);
+        npcAnimator.SetBool(hashHit, false);
         //animator관련
 
     }
-
+    [PunRPC]
     public void StopAnimation()
     {
         npcAnimator.SetBool(hashIdle, false);
@@ -248,7 +269,7 @@ public class NPCIdle : INPCState
         //animator관련
 
     }
-
+    [PunRPC]
     public void EnterState(NPC npc)
     {
         isEnd = false;
@@ -259,14 +280,14 @@ public class NPCIdle : INPCState
         npcAgent = (npc as TestingNPC).SelfAgent;
         npcAgent.isStopped = true;
     }
-
+    [PunRPC]
     public void StateAction()
     {
         //StartCoroutine(NPCIdleAnimationPlay());
         PlayAnimation();
     }
-    
 
+    
     public bool CheckStateEnd()
     {
         delaiedime += Time.deltaTime;
