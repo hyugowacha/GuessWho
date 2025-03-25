@@ -22,6 +22,8 @@ public class Foot : MonoBehaviour
             other.GetComponent<IHittable>()?.GetHit();
 
             player.isNPC = true;
+
+            player.apologizeTo = other.transform.position;
         }
     }
 }

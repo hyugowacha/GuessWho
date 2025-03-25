@@ -7,15 +7,16 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 {
     public GameObject playerPrefab;
 
+    public Transform[] playerSpawnPoint;
+
     private void Start()
     {
         if (PhotonNetwork.IsConnectedAndReady)
         {
-            // 랜덤 스폰 위치 지정
-            Vector3 spawnPosition = new Vector3(Random.Range(-5f, 5f), 1f, Random.Range(-5f, 5f));
+            int randomPoint = Random.Range(0, playerSpawnPoint.Length);
 
             // 플레이어 생성
-            GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, spawnPosition, Quaternion.identity);
+            GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, playerSpawnPoint[randomPoint].position, Quaternion.identity);
         }
     }
 }

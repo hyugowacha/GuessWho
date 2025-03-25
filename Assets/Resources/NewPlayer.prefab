@@ -784,6 +784,7 @@ MonoBehaviour:
   - {fileID: 2189402587078318518}
   isHit: 0
   isNPC: 0
+  apologizeTo: {x: 0, y: 0, z: 0}
 --- !u!114 &7499982846732655042
 MonoBehaviour:
   m_ObjectHideFlags: 0
