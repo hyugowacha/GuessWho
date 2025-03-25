@@ -42,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5229829980479532743, guid: 13793794b4a65d348a67deef871dc84c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ConnectToMaster
+      value: TryConnectToMaster
       objectReference: {fileID: 0}
     - target: {fileID: 5229829980479532743, guid: 13793794b4a65d348a67deef871dc84c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName

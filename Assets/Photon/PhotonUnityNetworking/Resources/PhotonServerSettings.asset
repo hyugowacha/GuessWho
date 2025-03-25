@@ -40,15 +40,17 @@ MonoBehaviour:
   - Fire
   - RespawnSpaceship
   - LoadScene
-  - SetRunningState
-  - SyncHitState
-  - TriggerAttack
   - ChangeState
   - GetHit
+  - RandomItemNum
+  - RPC_SpawnItems
+  - SetItem
+  - NoticeIsAllitemOff
   - EnterState
   - PlayAnimation
   - StateAction
   - StopAnimation
+  - SyncHitState
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -16,7 +16,7 @@ using ZL.Unity.Collections;
 
 namespace ZL.Unity.Server.Photon
 {
-    [AddComponentMenu("ZL/Server/Photon/Photon Server Manager (Singleton)")]
+    [AddComponentMenu("ZL/Server/Photon/Photon Server Manger (Singleton)")]
 
     [DisallowMultipleComponent]
 
@@ -34,17 +34,17 @@ namespace ZL.Unity.Server.Photon
 
         [SerializeField]
 
-        private UnityEvent eventOnConnectingToMaster;
+        private UnityEvent eventOnConnecting;
 
-        public UnityEvent EventOnConnectingToMaster => eventOnConnectedToMaster;
+        public UnityEvent EventOnConnecting => eventOnConnected;
 
         [Space]
 
         [SerializeField]
 
-        private UnityEvent eventOnConnectedToMaster;
+        private UnityEvent eventOnConnected;
 
-        public UnityEvent EventOnConnectedToMaster => eventOnConnectedToMaster;
+        public UnityEvent EventOnConnectedToMaster => eventOnConnected;
 
         [Space]
 
@@ -52,7 +52,7 @@ namespace ZL.Unity.Server.Photon
 
         private UnityEvent eventOnDisconnected;
 
-        public UnityEvent EventOnDisconnected => eventOnConnectedToMaster;
+        public UnityEvent EventOnDisconnected => eventOnConnected;
 
         private readonly Stopwatch loadingStopwatch = new();
 
@@ -66,15 +66,15 @@ namespace ZL.Unity.Server.Photon
             ISingleton<PhotonServerManager>.Release(this);
         }
 
-        public void ConnectToMaster()
+        public void TryConnectToMaster()
         {
-            eventOnConnectingToMaster.Invoke();
+            eventOnConnecting.Invoke();
 
             loadingStopwatch.Restart();
 
             if (PhotonNetwork.IsConnected == false)
             {
-                PhotonNetwork.GameVersion = Application.unityVersion;
+                PhotonNetwork.GameVersion = Application.version;
 
                 PhotonNetwork.ConnectUsingSettings();
             }
@@ -95,7 +95,7 @@ namespace ZL.Unity.Server.Photon
             {
                 FixedDebug.Log("Connected to Photon server.");
 
-                eventOnConnectedToMaster.Invoke();
+                eventOnConnected.Invoke();
             }));
         }
 
