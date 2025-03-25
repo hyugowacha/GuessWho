@@ -95,9 +95,12 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
                 //npc.transform.position = npcSpawnList[spawnIndex].transform.position*2;
                 (npc as TestingNPC).SelfAgent.enabled = false;
                 SetNPCTransform(npc.gameObject, npcSpawnList[spawnIndex].transform.position + new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2)));//랜덤하게 위치 설정
-                //Quaternion ransRoation= Quaternion
-                npc.gameObject.transform.Rotate(0, Random.Range(0f, 360f), 0);//npc 랜덤 배치시 로테이션도 회전       
+                npc.gameObject.transform.Rotate(0, Random.Range(0f, 360f), 0);
                 (npc as TestingNPC).SelfAgent.enabled = true;
+                (npc as TestingNPC).InitialSet();
+                //Quaternion ransRoation= Quaternion
+                //npc 랜덤 배치시 로테이션도 회전       
+                
 
                 //npc.transform.Translate(new Vector3(npcSpawnList[spawnIndex].transform.position.x, 3.0f, npcSpawnList[spawnIndex].transform.position.z));
 
@@ -108,7 +111,7 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
         {
             if (PhotonNetwork.IsMasterClient != true)
             {
-                Debug.Log("notmaster");
+                //Debug.Log("notmaster");
                 //CreateAllNPC();
                 return;
             }
@@ -117,16 +120,16 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
                 Debug.Log(npcScriptList.Count);
                 foreach (NPC npc in npcScriptList)//npc들을
                 {
-                    Debug.Log("1");
+                    //Debug.Log("1");
                     //CreateAllNPC();
                     int spawnIndex = Random.Range(0, npcSpawnList.Count);
 
                     //npc.transform.position = npcSpawnList[spawnIndex].transform.position*2;
                     (npc as TestingNPC).SelfAgent.enabled = false;
                     SetNPCTransform(npc.gameObject, npcSpawnList[spawnIndex].transform.position + new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2)));//랜덤하게 위치 설정
-                                                                                                                                                            //npc.transform.position = new Vector3(npcSpawnList[spawnIndex].transform.position.x, 1.5f, npcSpawnList[spawnIndex].transform.position.z);
+                    npc.gameObject.transform.Rotate(0, Random.Range(0f, 360f), 0);                                                                                            
                     (npc as TestingNPC).SelfAgent.enabled = true;
-
+                    (npc as TestingNPC).InitialSet();
                     //npc.transform.Translate(new Vector3(npcSpawnList[spawnIndex].transform.position.x, 3.0f, npcSpawnList[spawnIndex].transform.position.z));
 
 

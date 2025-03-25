@@ -75,21 +75,23 @@ public class NPCMove : INPCState
     }
     private void RandomDestination()
     {
-        Debug.Log("first"+destination);
-        Debug.Log(nowNPC.transform.position);
+        //Debug.Log("first"+destination);
+        //Debug.Log("NPC"+nowNPC.transform.position);
+        var init = Random.insideUnitCircle;
+        destination = nowNPC.transform.position + new Vector3(init.x * 20, 0, init.y * 20);
         while (IsDestinationOutOfRange() == true)
         {
-            Debug.Log("re");
+            //Debug.Log("re");
             var temp = Random.insideUnitCircle;
-            destination = nowNPC.transform.position+new Vector3(temp.x*10, 0, temp.y*10);
+            destination = nowNPC.transform.position+new Vector3(temp.x*20, 0, temp.y*20);
         }
-        Debug.Log(destination);
+        //Debug.Log(destination);
 
     }
     //Random.Range(-74,72),1.5f, Random.Range(-78, 74)
     public bool IsDestinationOutOfRange()
     {
-        if (destination == Vector3.zero)
+        if ((destination-nowNPC.transform.position).magnitude<5f)
         {
             return true;
         }
