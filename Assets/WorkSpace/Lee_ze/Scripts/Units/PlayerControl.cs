@@ -28,11 +28,17 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     [Space(20), Header("Attack"), Space(10)]
 
-    public ItemType holdingWeapon;
+    public ItemData holdingWeapon;
 
     public bool isAttackTriggered = false;
 
     public GameObject[] weapons;
+
+    public ItemData[] nowHaveItems = new ItemData[3]; //현재 보유중인 아이템의 배열 
+                                                      //아이템 인벤토리처럼 생각해주세요 [맨손][비어있음][비어있음] 이런느낌
+    public ItemData footData;
+
+    public ItemData nowWeapon;
 
     public bool isHit = false;
 
@@ -43,7 +49,7 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     private void OnEnable()
     {
-        holdingWeapon = ItemType.None;
+        holdingWeapon = footData;
 
         foreach (var weapon in weapons)
         {
@@ -96,6 +102,33 @@ public class PlayerControl : MonoBehaviourPun, IHittable
             rb.velocity = Vector3.zero;
         }
     }
+
+    public void OnWeaponChange(InputAction.CallbackContext ctx) //무기 전환 메서드
+    {
+        if (ctx.phase == InputActionPhase.Started)
+        {
+
+        }
+    }
+
+    public void GetItem(ItemData item) //아이템 받아오는 메서드
+    {
+
+        if (item.itemType == ItemType.Stone || item.itemType == ItemType.Gun)
+        {
+            nowWeapon = item;
+            nowHaveItems[1] = nowWeapon;
+
+        }
+
+        else if (item.itemType == ItemType.Whistle)
+        {
+            nowHaveItems[2] = item;
+        }
+    }
+
+
+
 
     public void OnRun(InputAction.CallbackContext ctx)
     {
