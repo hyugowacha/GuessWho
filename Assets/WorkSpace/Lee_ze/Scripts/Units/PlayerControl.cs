@@ -1,13 +1,13 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.UIElements;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerControl : MonoBehaviour, IHittable
+public class PlayerControl : MonoBehaviourPun, IHittable
 {
-    private IPlayerStates currentState; //플레이어의 현재 상태
+    private IPlayerStates currentState;
 
     public Animator playerAnim;
 
@@ -28,25 +28,22 @@ public class PlayerControl : MonoBehaviour, IHittable
 
     [Space(20), Header("Attack"), Space(10)]
 
-    public ItemData holdingWeapon; //현재 들고있는 무기의 아이템 타입
+    public ItemType holdingWeapon;
 
     public bool isAttackTriggered = false;
 
-    public GameObject[] weapons; //플레이어가 (모델링 상으로)들고있는 무기의 배열 
-
-    public ItemData[] nowHaveItems = new ItemData[3]; //현재 보유중인 아이템의 배열 
-                                                      //아이템 인벤토리처럼 생각해주세요 [맨손][비어있음][비어있음] 이런느낌
-    public ItemData footData;                                                  
-
-    public ItemData nowWeapon;
+    public GameObject[] weapons;
 
     public bool isHit = false;
 
     public bool isNPC = false;
 
+    public Vector3 apologizeTo;
+
+
     private void OnEnable()
     {
-        holdingWeapon = footData; //게임 시작 시, 플레이어가 들고있는 아이템의 타입은 맨손(none)임
+        holdingWeapon = ItemType.None;
 
         foreach (var weapon in weapons)
         {
@@ -56,12 +53,25 @@ public class PlayerControl : MonoBehaviour, IHittable
 
     private void Start()
     {
-        ChangeStateTo(new IdleState());
+        if (photonView.IsMine)
+        {
+            ChangeStateTo(new IdleState());
+
+            GetComponent<RotateView>().SetTarget(this.transform);
+        }
+
+        if (photonView.IsMine)
+        {
+            ChangeStateTo(new IdleState());
+        }
     }
 
     private void Update()
     {
-        currentState?.UpdatePerState();
+        if (photonView.IsMine) // 자신의 캐릭터만 로컬에서 조작 가능
+        {
+            currentState?.UpdatePerState();
+        }
     }
 
     public void ChangeStateTo(IPlayerStates nextState)
@@ -89,6 +99,11 @@ public class PlayerControl : MonoBehaviour, IHittable
 
     public void OnRun(InputAction.CallbackContext ctx)
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
         if (ctx.phase == InputActionPhase.Performed)
         {
             isRunning = true;
@@ -101,33 +116,14 @@ public class PlayerControl : MonoBehaviour, IHittable
 
     public void OnAttack(InputAction.CallbackContext ctx) // 좌클릭 바인딩
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
         if (ctx.phase == InputActionPhase.Started)
         {
             isAttackTriggered = true;
-        }
-    }
-
-    public void OnWeaponChange(InputAction.CallbackContext ctx) //무기 전환 메서드
-    {
-        if (ctx.phase == InputActionPhase.Started)
-        {
-
-        }
-    }
-
-    public void GetItem(ItemData item) //아이템 받아오는 메서드
-    {
-
-        if (item.itemType == ItemType.Stone || item.itemType == ItemType.Gun) 
-        {
-            nowWeapon = item;
-            nowHaveItems[1] = nowWeapon;
-            
-        }
-
-        else if(item.itemType == ItemType.Whistle)
-        {
-            nowHaveItems[2] = item;
         }
     }
 
@@ -143,11 +139,14 @@ public class PlayerControl : MonoBehaviour, IHittable
 
     public void GetHit()
     {
-        isHit = true;
+        photonView.RPC("SyncHitState", RpcTarget.Others, true);
     }
 
-    public void Apologize()
-    {
+    // V RPC Methods
 
+    [PunRPC]
+    private void SyncHitState(bool hit)
+    {
+        isHit = hit;
     }
 }
