@@ -28,8 +28,6 @@ namespace ZL.Unity
 
         protected CanvasGroupFader screenFader;
 
-        [Space]
-
         [SerializeField]
 
         protected float fadeDuration = 0f;
