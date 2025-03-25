@@ -36,7 +36,10 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     public bool isHit = false;
 
-    public bool isNPC = false; 
+    public bool isNPC = false;
+
+    public Vector3 apologizeTo;
+
 
     private void OnEnable()
     {
