@@ -46,6 +46,11 @@ MonoBehaviour:
   - RPC_SpawnItems
   - SetItem
   - NoticeIsAllitemOff
+  - EnterState
+  - PlayAnimation
+  - StateAction
+  - StopAnimation
+  - SyncHitState
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
