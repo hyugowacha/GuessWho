@@ -13,7 +13,7 @@ public interface IGetable
 }
 
 
-public sealed class GettableItem : MonoBehaviour, IGetable
+public sealed class GettableItem : MonoBehaviourPun, IGetable
 {
     #region 아이템 회전 관련 변수
     [SerializeField]
@@ -34,9 +34,6 @@ public sealed class GettableItem : MonoBehaviour, IGetable
 
     [SerializeField]
     [Header("자신의 상위에 위치한 아이템 스포너")] private ItemSpawnctrl myParent;
-
-    [SerializeField]
-    [Header("포톤뷰")] private PhotonView photonView;
 
     public void SendItem(PlayerControl player, ItemData itemData)
     {
@@ -102,18 +99,16 @@ public sealed class GettableItem : MonoBehaviour, IGetable
             {
                 SendItem(player, itemData);
                 Instantiate(destroyParticle, transform.TransformPoint(0, 1.0f, 0), Quaternion.identity);
-                ItemInteractImage.gameObject.SetActive(false);
-                this.gameObject.SetActive(false);
 
-                photonView.RPC("NoticeIsAllitemOff", RpcTarget.MasterClient);
+                photonView.RPC("NoticeIsAllitemOff", RpcTarget.All, myParent.name);
+
+                ItemInteractImage.gameObject.SetActive(false);
+
+                photonView.RPC("PlayerItemGet", RpcTarget.All, myParent.name, itemData);
+                this.gameObject.SetActive(false); //얘가 범인임
+
             }
         }
-    }
-
-    [PunRPC]
-    private void NoticeIsAllitemOff()
-    {
-        myParent.IsAllItemOff = true;
     }
 
     private void OnTriggerExit(Collider other)

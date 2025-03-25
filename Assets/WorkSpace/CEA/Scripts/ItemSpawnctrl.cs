@@ -3,19 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon;
-public class ItemSpawnctrl : MonoBehaviour
+public class ItemSpawnctrl : MonoBehaviourPun
 {
     [SerializeField]
     private GameObject gunItem;
 
+    public GameObject GunItem
+    {
+        get { return gunItem; }
+    }
+
     [SerializeField]
     private GameObject whistleItem;
+
+    public GameObject WhistleItem
+    {
+        get { return whistleItem; }
+    }
 
     [SerializeField]
     private GameObject stoneItem;
 
+    public GameObject StoneItem
+    {
+        get { return stoneItem; }
+    }
+
     [SerializeField]
-    [Header("포톤뷰")] private PhotonView photonView;
+    [Header("포톤뷰")] private PhotonView pointphotonView;
 
     private bool isAllItemOff = false;
 
@@ -28,6 +43,11 @@ public class ItemSpawnctrl : MonoBehaviour
     private float respawnCoolTime = 20.0f;
     private float respawnElapsedTime;
 
+    private void Start()
+    {
+        pointphotonView = GetComponentInParent<PhotonView>();
+    }
+
     private void Update()
     {
         if(isAllItemOff == true)
@@ -37,50 +57,24 @@ public class ItemSpawnctrl : MonoBehaviour
 
             if (respawnCoolTime < respawnElapsedTime)
             {
-
+                SetRandomNumber();
                 isAllItemOff = false;
                 respawnElapsedTime = 0;
             }
         }
     }
 
-    //자식 객체가 모두 꺼져있는지 확인하는 메서드
-    public bool AllItemDisabled(Transform parent)
-    {
-        foreach (Transform child in parent)
-        {
-            if (child.gameObject.activeSelf)
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    //[PunRPC]
-    //public void PickRandomItemNum()
-    //{
-    //    if (PhotonNetwork.IsMasterClient)
-    //    {
-    //        RandomItemNum = Random.Range(1, 11);
-    //    }
-    //}
+   
 
     private void SetRandomNumber()
     {
         if(PhotonNetwork.IsMasterClient)
         {
             int RandomNumber = Random.Range(1, 11);
-            photonView.RPC("SetItem", RpcTarget.All, RandomNumber);
+            photonView.RPC("SetItem", RpcTarget.All, RandomNumber, this.name);
         }
     }
-
-    [PunRPC]
-    private void SetItem(int itemNum)
-    {
-        ItemSpawn(itemNum);
-    }
-
+    
 
     public void ItemSpawn(int itemNum) //아이템을 스폰하는 함수
     {
@@ -99,4 +93,5 @@ public class ItemSpawnctrl : MonoBehaviour
                 break;
         }
     }
+
 }

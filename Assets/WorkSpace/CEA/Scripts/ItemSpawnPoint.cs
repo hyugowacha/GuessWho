@@ -5,13 +5,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class ItemSpawnPoint : MonoBehaviour
+public class ItemSpawnPoint : MonoBehaviourPun
 {
     [SerializeField]
     [Header("아이템 스폰 포인트")] private GameObject[] spawnPoints;
 
-    [SerializeField]
-    [Header("포톤뷰")] private PhotonView photonView;
     
     private ItemSpawnctrl itemSpawnctrl;
 
@@ -24,7 +22,7 @@ public class ItemSpawnPoint : MonoBehaviour
             if(PhotonNetwork.InRoom)
             {
                 int itemNum = Random.Range(1, 11);
-                photonView.RPC("RPC_SpawnItems", RpcTarget.All, itemNum);
+                photonView.RPC("RPC_SpawnItems", RpcTarget.AllBuffered, itemNum);
             }
         }
     }
