@@ -6,15 +6,21 @@ public class ApologizeState : IPlayerStates
 {
     PlayerControl player;
 
+    Transform playerModeling;
+
+    Transform backUp;
+
     public void EnterState(PlayerControl player)
     {
         this.player = player;
+
+        playerModeling = this.player.transform.Find("Modeling");
+
+        backUp = playerModeling;
     }
 
     public void UpdatePerState()
     {
-        player.moveSpeed = 0;
-
         player.StartCoroutine(Apologize());
 
         if (player.isNPC == false)
@@ -25,16 +31,16 @@ public class ApologizeState : IPlayerStates
 
     public void ExitState()
     {
-        
+        playerModeling = backUp;
     }
 
     IEnumerator Apologize()
     {
-        Vector3 playerPos = player.transform.position;
+        player.moveSpeed = 0;
 
-        player.apologizeTo.y = playerPos.y;
+        player.apologizeTo.y = playerModeling.position.y;
 
-        player.transform.LookAt(player.apologizeTo);
+        playerModeling.LookAt(player.apologizeTo);
 
         player.playerAnim.SetBool("IsNPC", true);
 
