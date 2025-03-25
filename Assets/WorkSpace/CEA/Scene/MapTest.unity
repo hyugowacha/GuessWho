@@ -4060,6 +4060,7 @@ MonoBehaviour:
   gunItem: {fileID: 171231718}
   whistleItem: {fileID: 1491570825}
   stoneItem: {fileID: 789773116}
+  photonView: {fileID: 0}
 --- !u!1 &171231718 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1500856731641729285, guid: 87bb6064c93121d40a071f2aeb819dca, type: 3}
@@ -6764,6 +6765,7 @@ MonoBehaviour:
   gunItem: {fileID: 1840379045}
   whistleItem: {fileID: 339574858}
   stoneItem: {fileID: 2092636573}
+  photonView: {fileID: 0}
 --- !u!1001 &319076293
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16494,6 +16496,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NewPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 7499982846732655042, guid: 33974a2c80ba5464dbb44429044da012, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -24205,6 +24211,7 @@ MonoBehaviour:
   gunItem: {fileID: 1036770299}
   whistleItem: {fileID: 720195748}
   stoneItem: {fileID: 1027386504}
+  photonView: {fileID: 0}
 --- !u!1001 &1106610459
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25788,6 +25795,7 @@ MonoBehaviour:
   gunItem: {fileID: 1580944842}
   whistleItem: {fileID: 921886821}
   stoneItem: {fileID: 1947148866}
+  photonView: {fileID: 0}
 --- !u!1001 &1194419622
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33290,6 +33298,7 @@ MonoBehaviour:
   gunItem: {fileID: 1674321598}
   whistleItem: {fileID: 564640659}
   stoneItem: {fileID: 1184535854}
+  photonView: {fileID: 0}
 --- !u!1001 &1562799109
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35956,6 +35965,7 @@ MonoBehaviour:
   - {fileID: 1189255160}
   - {fileID: 1562217615}
   - {fileID: 318463498}
+  photonView: {fileID: 0}
 --- !u!1001 &1688070988
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40458,6 +40468,7 @@ MonoBehaviour:
   gunItem: {fileID: 2071301933}
   whistleItem: {fileID: 63976265}
   stoneItem: {fileID: 962688992}
+  photonView: {fileID: 0}
 --- !u!1001 &1883544240
 PrefabInstance:
   m_ObjectHideFlags: 0
