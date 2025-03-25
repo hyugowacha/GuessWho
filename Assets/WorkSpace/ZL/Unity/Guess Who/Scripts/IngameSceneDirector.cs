@@ -1,5 +1,3 @@
-using Photon.Pun;
-
 using System.Collections;
 
 using UnityEngine;
@@ -14,30 +12,11 @@ namespace ZL.Unity.GuessWho
 
     public sealed class IngameSceneDirector : PhotonSceneDirector<IngameSceneDirector>
     {
-        public bool IsReady { get; set; } = false;
-
         protected override IEnumerator Start()
         {
-            if (PhotonNetwork.IsConnected == true)
-            {
-                IsReady = true;
-            }
+            ISingleton<PhotonServerManager>.Instance.TryConnectToMaster();
 
-            else
-            {
-                ISingleton<PhotonServerManager>.Instance.ConnectToMaster();
-            }
-
-            while (IsReady == false)
-            {
-                yield return null;
-            }
-
-            ISingleton<NPCManager>.Instance.InitialSetBySpawnPoint();
-
-            ISingleton<PhotonPlayerManager>.Instance.Instantiate();
-
-            FadeIn();
+            yield return base.Start();
         }
     }
 }

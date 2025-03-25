@@ -10,6 +10,7 @@ using Unity.VisualScripting;
 public enum NPCStateName
 {
     Hit,Idle,Walk,None
+
 }
 public interface INPCState
 {

@@ -6,15 +6,15 @@ using ZL.Unity.Server.Photon;
 
 namespace ZL.Unity.GuessWho
 {
-    [AddComponentMenu("ZL/GuessWho/TitleSceneDirector")]
+    [AddComponentMenu("ZL/Guess Who/Title Scene Diretor")]
 
-    public sealed class TitleSceneDirector : PhotonSceneDirector
+    public sealed class TitleSceneDiretor : PhotonSceneDirector
     {
         protected override IEnumerator Start()
         {
             yield return base.Start();
 
-            ISingleton<PhotonServerManager>.Instance.ConnectToMaster();
+            ISingleton<PhotonServerManager>.Instance.TryConnectToMaster();
         }
     }
 }

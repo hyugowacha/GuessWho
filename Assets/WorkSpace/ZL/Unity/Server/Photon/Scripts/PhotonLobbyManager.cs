@@ -3,6 +3,7 @@ using Photon.Pun;
 using Photon.Realtime;
 
 using System.Collections.Generic;
+
 using UnityEngine;
 
 using UnityEngine.Events;
@@ -11,13 +12,11 @@ using ZL.Unity.Collections;
 
 namespace ZL.Unity.Server.Photon
 {
-    [AddComponentMenu("ZL/Server/Photon/Photon Lobby Manager (Singleton)")]
+    [AddComponentMenu("ZL/Server/Photon/Photon Lobby Manager")]
 
     [DisallowMultipleComponent]
 
-    public sealed class PhotonLobbyManager :
-        
-        MonoBehaviourPunCallbacks, ISingleton<PhotonLobbyManager>
+    public sealed class PhotonLobbyManager : MonoBehaviourPunCallbacks, ISingleton<PhotonLobbyManager>
     {
         [Space]
 
@@ -55,8 +54,6 @@ namespace ZL.Unity.Server.Photon
 
         private void Awake()
         {
-            ISingleton<PhotonLobbyManager>.TrySetInstance(this);
-
             if (lobbies.value.Length != 0)
             {
                 lobbyDictionary = new(lobbies.value.Length);
@@ -66,11 +63,6 @@ namespace ZL.Unity.Server.Photon
                     lobbyDictionary.Add(lobby.Name, lobby);
                 }
             }
-        }
-
-        private void OnDestroy()
-        {
-            ISingleton<PhotonLobbyManager>.Release(this);
         }
 
         public void JoinLobby(string name)

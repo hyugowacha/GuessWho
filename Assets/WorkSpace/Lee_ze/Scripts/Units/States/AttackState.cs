@@ -17,7 +17,7 @@ public class AttackState : IPlayerStates
 
         this.player = player;
 
-        itemType = player.holdingWeapon;
+        itemType = player.holdingWeapon.itemType;
 
         player.moveSpeed = 0;
 

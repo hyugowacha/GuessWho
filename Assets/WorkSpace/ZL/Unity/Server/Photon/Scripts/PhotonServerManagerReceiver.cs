@@ -8,9 +8,9 @@ namespace ZL.Unity.Server.Photon
 
     public sealed class PhotonServerManagerReceiver : SingletonReceiver<PhotonServerManager>
     {
-        public void ConnectToMaster()
+        public void TryConnectToMaster()
         {
-            Instance.ConnectToMaster();
+            Instance.TryConnectToMaster();
         }
     }
 }

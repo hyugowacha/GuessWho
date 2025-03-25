@@ -36,7 +36,6 @@ public class NPCPool// : MonoBehaviour
         if (PhotonNetwork.IsConnected)
         {
             return PhotonNetwork.InstantiateRoomObject(npcPrefab.name, Vector3.zero, Quaternion.identity,0);
-            //return PhotonNetwork.InstantiateSceneObject(npcPrefab.name, Vector3.zero, Quaternion.identity,0);
         }
         else
         {
