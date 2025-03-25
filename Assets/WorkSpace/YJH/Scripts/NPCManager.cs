@@ -133,6 +133,8 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
                 }
             }
         }
+
+        PhotonNetwork.SendAllOutgoingCommands();
     }
 
     //public void InitialForDebug()
