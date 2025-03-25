@@ -279,6 +279,10 @@ public class NPCIdle : INPCState
         npcAnimator = (npc as TestingNPC).animator;
         npcAgent = (npc as TestingNPC).SelfAgent;
         npcAgent.isStopped = true;
+        npcAnimator.SetBool(hashIdle, true);
+        npcAnimator.SetBool(hashMove, false);
+        npcAnimator.SetBool("isAnger", false);
+        npcAnimator.SetBool(hashHit, false);
     }
     [PunRPC]
     public void StateAction()

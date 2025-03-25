@@ -16,7 +16,7 @@ public class TestingNPC : NPC,IHittable
     //private NavMeshSurface gamefield;
     private bool haveToChangeState;//현재로서는 필요 없으나 게임매니저에 사용할 수도 있을거 같기에 선언해 놓음
     private bool hasHit = false;
-    private float hitPenaltyTime=0.15f;
+    private float hitPenaltyTime=0.3f;
     [SerializeField] float hitTime = 0;
     //public GameObject forTest;//목적지 디버그용 완제품엔 필요 없음
     public Animator animator;
@@ -194,7 +194,7 @@ public class TestingNPC : NPC,IHittable
     //    //}
     //}
     #region 상태변화 관련 코드
-    [PunRPC]
+    //[PunRPC]
     //public void ChangeState(INPCState changeState)
     //{
     //    
@@ -203,7 +203,7 @@ public class TestingNPC : NPC,IHittable
     //    nowState.StateAction();
     //   
     //}
-
+    [PunRPC]
     public void ChangeState(NPCStateName stateName)
     {
         switch (stateName)
@@ -246,16 +246,14 @@ public class TestingNPC : NPC,IHittable
                     hitTime += Time.deltaTime;
                     if (hitPenaltyTime <= hitTime)
                     {
-                        selfCollider.enabled = true;
-                        hitTime = 0;
+                        
                         //(nowState as NPCHit).StopAnimation();
                         ChangeState(NPCStateName.Idle);//new NPCIdle());
+                        selfCollider.enabled = true;
+                        hitTime = 0;
                     }
                     
-                }
-
-
-                if (nowState.CheckStateEnd() == true)
+                }else if (nowState.CheckStateEnd() == true)
                 {
                     haveToChangeState=true;
                     if(nowState is NPCIdle)
