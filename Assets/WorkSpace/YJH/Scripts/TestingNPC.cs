@@ -41,38 +41,130 @@ public class TestingNPC : NPC,IHittable
         #endregion
         #region 실제 사용 코드 
         //호스트인지 감지해서 호스트일 경우에만 작동
+        //if (PhotonNetwork.IsConnected == false)
+        //{
+        //    if (Random.Range(0f, 1f) < 0.5f)//일부는 바로 이동 일부는 대기 
+        //    {
+        //        ChangeState(NPCStateName.Idle);
+        //        //nowState=;
+        //        //nowState.EnterState(this);
+        //        //Debug.Log("setidle");
+        //    }
+        //    else
+        //    {
+        //        ChangeState(NPCStateName.Walk);
+        //        //nowState = new NPCMove();
+        //        //nowState.EnterState(this);
+        //        // Debug.Log("setmove");
+        //    }
+        //    StartCoroutine(CheckState());
+        //}
+        //else
+        //{
+        //    if (PhotonNetwork.IsMasterClient == true)
+        //    {
+        //        if (Random.Range(0f, 1f) < 0.5f)//일부는 바로 이동 일부는 대기 
+        //        {
+        //            ChangeState(NPCStateName.Idle);//
+        //            //nowState=;
+        //            //nowState.EnterState(this);
+        //            //Debug.Log("setidle");
+        //        }
+        //        else
+        //        {
+        //            ChangeState(NPCStateName.Walk);
+        //            //nowState = new NPCMove();
+        //            //nowState.EnterState(this);
+        //            // Debug.Log("setmove");
+        //        }
+        //        StartCoroutine(CheckState());
+        //    }
+        //
+        //}
+        
+        #endregion
+        //   selfAgent.
+    }
+    public override void OnEnable()
+    {
+        //if (PhotonNetwork.IsConnected == false)
+        //{
+        //    return;
+        //    //if (Random.Range(0f, 1f) < 0.5f)//일부는 바로 이동 일부는 대기 
+        //    //{
+        //    //    ChangeState(new NPCIdle());
+        //    //    //nowState=;
+        //    //    //nowState.EnterState(this);
+        //    //    //Debug.Log("setidle");
+        //    //}
+        //    //else
+        //    //{
+        //    //    ChangeState(new NPCMove());
+        //    //    //nowState = new NPCMove();
+        //    //    //nowState.EnterState(this);
+        //    //    // Debug.Log("setmove");
+        //    //}
+        //    //StartCoroutine(CheckState());
+        //}
+        //else
+        //{
+        //    if (PhotonNetwork.IsMasterClient == true)
+        //    {
+        //        if (Random.Range(0f, 1f) < 0.5f)//일부는 바로 이동 일부는 대기 
+        //        {
+        //            ChangeState(NPCStateName.Idle);//
+        //            //nowState=;
+        //            //nowState.EnterState(this);
+        //            //Debug.Log("setidle");
+        //        }
+        //        else
+        //        {
+        //            ChangeState(NPCStateName.Walk);
+        //            //nowState = new NPCMove();
+        //            //nowState.EnterState(this);
+        //            // Debug.Log("setmove");
+        //        }
+        //        StartCoroutine(CheckState());
+        //    }
+        //
+        //}
+    }
+    public void InitialSet()
+    {
         if (PhotonNetwork.IsConnected == false)
         {
-            if (Random.Range(0f, 1f) < 0.5f)//일부는 바로 이동 일부는 대기 
-            {
-                ChangeState(new NPCIdle());
-                //nowState=;
-                //nowState.EnterState(this);
-                //Debug.Log("setidle");
-            }
-            else
-            {
-                ChangeState(new NPCMove());
-                //nowState = new NPCMove();
-                //nowState.EnterState(this);
-                // Debug.Log("setmove");
-            }
-            StartCoroutine(CheckState());
+            return;
+            //if (Random.Range(0f, 1f) < 0.5f)//일부는 바로 이동 일부는 대기 
+            //{
+            //    ChangeState(new NPCIdle());
+            //    //nowState=;
+            //    //nowState.EnterState(this);
+            //    //Debug.Log("setidle");
+            //}
+            //else
+            //{
+            //    ChangeState(new NPCMove());
+            //    //nowState = new NPCMove();
+            //    //nowState.EnterState(this);
+            //    // Debug.Log("setmove");
+            //}
+            //StartCoroutine(CheckState());
         }
         else
         {
+            //Debug.Log("conn");
             if (PhotonNetwork.IsMasterClient == true)
             {
                 if (Random.Range(0f, 1f) < 0.5f)//일부는 바로 이동 일부는 대기 
                 {
-                    ChangeState(new NPCIdle());//
+                    ChangeState(NPCStateName.Idle);//
                     //nowState=;
                     //nowState.EnterState(this);
                     //Debug.Log("setidle");
                 }
                 else
                 {
-                    ChangeState(new NPCMove());
+                    ChangeState(NPCStateName.Walk);
                     //nowState = new NPCMove();
                     //nowState.EnterState(this);
                     // Debug.Log("setmove");
@@ -81,11 +173,14 @@ public class TestingNPC : NPC,IHittable
             }
 
         }
-        
-        #endregion
-        //   selfAgent.
     }
 
+
+    private void OnDisable()
+    {
+        
+
+    }
     // Update is called once per frame
     //void Update()
     //{
@@ -100,14 +195,45 @@ public class TestingNPC : NPC,IHittable
     //}
     #region 상태변화 관련 코드
     [PunRPC]
-    public void ChangeState(INPCState changeState)
+    //public void ChangeState(INPCState changeState)
+    //{
+    //    
+    //    nowState = changeState;
+    //    nowState.EnterState(this);
+    //    nowState.StateAction();
+    //   
+    //}
+
+    public void ChangeState(NPCStateName stateName)
     {
+        switch (stateName)
+        {
+            case NPCStateName.None:
+                break;
+            case NPCStateName.Hit:
+                nowState = new NPCHit();
+                nowState.EnterState(this);
+                nowState.StateAction();
+                break;
+            case NPCStateName.Idle:
+                nowState = new NPCIdle();
+                nowState.EnterState(this);
+                nowState.StateAction();
+                break;
+            case NPCStateName.Walk:
+                nowState = new NPCMove();
+                nowState.EnterState(this);
+                nowState.StateAction();
+                break;
+            default:
+                break;
+        }
+
+
         
-        nowState = changeState;
-        nowState.EnterState(this);
-        nowState.StateAction();
-       
     }
+
+
     IEnumerator CheckState()
     {
         while (true)
@@ -122,8 +248,8 @@ public class TestingNPC : NPC,IHittable
                     {
                         selfCollider.enabled = true;
                         hitTime = 0;
-                        (nowState as NPCHit).StopAnimation();
-                        ChangeState(new NPCIdle());
+                        //(nowState as NPCHit).StopAnimation();
+                        ChangeState(NPCStateName.Idle);//new NPCIdle());
                     }
                     
                 }
@@ -134,7 +260,7 @@ public class TestingNPC : NPC,IHittable
                     haveToChangeState=true;
                     if(nowState is NPCIdle)
                     {
-                        ChangeState(new NPCMove());
+                        ChangeState(NPCStateName.Walk);//new NPCMove());
                         //if (Random.Range(0, 100) < 70)
                         //{
                         //    //Debug.Log("changetomove");
@@ -151,7 +277,7 @@ public class TestingNPC : NPC,IHittable
                     }
                     else if(nowState is NPCMove)
                     {
-                        ChangeState(new NPCIdle());
+                        ChangeState(NPCStateName.Idle);
                         //Debug.Log("changetoidle");
                         haveToChangeState = false;
                     }
@@ -192,12 +318,12 @@ public class TestingNPC : NPC,IHittable
 
         if (PhotonNetwork.IsConnected == false)
         {
-            ChangeState(new NPCHit());//포톤 안쓸 때 사용하는 것
+            ChangeState(NPCStateName.Hit);//포톤 안쓸 때 사용하는 것
             //Debug.Log("hitmethod");
         }
         else
         {
-            photonView.RPC("ChangeState", Photon.Pun.RpcTarget.MasterClient, new NPCHit());//포톤일 때 콜백으로 마스터 클라이언트에 전달함
+            photonView.RPC("ChangeState", Photon.Pun.RpcTarget.MasterClient, NPCStateName.Hit);//포톤일 때 콜백으로 마스터 클라이언트에 전달함
         }
 
 

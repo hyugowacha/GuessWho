@@ -58,18 +58,49 @@ public class NPCMove : INPCState
         selfAgent.isStopped = false;
         npcAnimator = (npc as TestingNPC).animator;
         destination = new Vector3();
-        //destination.position = NPCManager.ReturnRandomDestination();//npc 매니저에 존재하는 랜덤 좌표 설정 함수를 사용, 현재 예외처리 안되어 있음
+        
         //selfAgent.SetDestination(destination.position);//목적지 설정 
-        //forTest= npc.GetComponent<TestingNPC>().forTest;
+        
 
         //temp+= Time.deltaTime;//작동함! 개이득!
-
-        destination = NPCManager.ReturnRandomDestination();//npc 매니저에 존재하는 랜덤 좌표 설정 함수를 사용, 현재 예외처리 안되어 있음-> transform 변수 선언하면 굉장히 귀찮음 벡터3 해서 맞추는게 더 쉬움
-        //이거 navmesh위에 존재하게 해야 할듯 어케 하징 
-        //Debug.Log(destination);   
+        RandomDestination();
+        //destination = NPCManager.ReturnRandomDestination(nowNPC);//npc 매니저에 존재하는 랜덤 좌표 설정 함수를 사용, 현재 예외처리 안되어 있음-> transform 변수 선언하면 굉장히 귀찮음 벡터3 해서 맞추는게 더 쉬움
         
-        //isMoveEnd = false;
        
+    }
+    private void RandomDestination()
+    {
+        //Debug.Log("first"+destination);
+        //Debug.Log("NPC"+nowNPC.transform.position);
+        var init = Random.insideUnitCircle;
+        destination = nowNPC.transform.position + new Vector3(init.x * 20, 0, init.y * 20);
+        while (IsDestinationOutOfRange() == true)
+        {
+            //Debug.Log("re");
+            var temp = Random.insideUnitCircle;
+            destination = nowNPC.transform.position+new Vector3(temp.x*20, 0, temp.y*20);
+        }
+        //Debug.Log(destination);
+
+    }
+    //Random.Range(-74,72),1.5f, Random.Range(-78, 74)
+    public bool IsDestinationOutOfRange()
+    {
+        if ((destination-nowNPC.transform.position).magnitude<5f)
+        {
+            return true;
+        }
+        if (destination.x < -74 || destination.x > 72)
+        {
+            return true;
+        }else if (destination.z>74||destination.z<-78) {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
     }
     public Vector3 ReturnDestination()
     {

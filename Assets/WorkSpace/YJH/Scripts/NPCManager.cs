@@ -5,8 +5,9 @@ using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Pool;
+using ZL.Unity;
 
-public class NPCManager : MonoBehaviourPun,IPunObservable
+public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManager>
 {
     // Start is called before the first frame update
     //필드에 존재하는 엔피시들 
@@ -33,9 +34,12 @@ public class NPCManager : MonoBehaviourPun,IPunObservable
     //public Transform[] forTestSpawnPoint;
     private void Awake()
     {
+        ISingleton<NPCManager>.TrySetInstance(this);
+
         pool = new NPCPool();//풀 생성
         pool.SetPrefab(npc);
     }
+
     void Start()
     {
         //Debug.Log(temp.size.x+","+ temp.size.y+","+ temp.size.z);
@@ -52,12 +56,17 @@ public class NPCManager : MonoBehaviourPun,IPunObservable
         //    Debug.Log(t.transform.position);
         //}
         
-        InitialSetBySpawnPoint();// 스폰포인트용 초기 세팅
+        //InitialSetBySpawnPoint();// 스폰포인트용 초기 세팅
         //InitialSetForSpawnPointTest();//스폰포인트 포함한 테스트
         //InitialForDebug();// 디버그용 하나 생성
         //pool.NPCS.Get();//NPC 생성코드 전시용
-
     }
+
+    private void OnDestroy()
+    {
+        ISingleton<NPCManager>.Release(this);
+    }
+
     public void SetSpawnPoint()
     {
         for (int i = 0; i < spawnGroup.transform.childCount; i++)//스폰 포인트 
@@ -86,9 +95,12 @@ public class NPCManager : MonoBehaviourPun,IPunObservable
                 //npc.transform.position = npcSpawnList[spawnIndex].transform.position*2;
                 (npc as TestingNPC).SelfAgent.enabled = false;
                 SetNPCTransform(npc.gameObject, npcSpawnList[spawnIndex].transform.position + new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2)));//랜덤하게 위치 설정
-                //Quaternion ransRoation= Quaternion
-                npc.gameObject.transform.Rotate(0, Random.Range(0f, 360f), 0);//npc 랜덤 배치시 로테이션도 회전       
+                npc.gameObject.transform.Rotate(0, Random.Range(0f, 360f), 0);
                 (npc as TestingNPC).SelfAgent.enabled = true;
+                (npc as TestingNPC).InitialSet();
+                //Quaternion ransRoation= Quaternion
+                //npc 랜덤 배치시 로테이션도 회전       
+                
 
                 //npc.transform.Translate(new Vector3(npcSpawnList[spawnIndex].transform.position.x, 3.0f, npcSpawnList[spawnIndex].transform.position.z));
 
@@ -99,29 +111,33 @@ public class NPCManager : MonoBehaviourPun,IPunObservable
         {
             if (PhotonNetwork.IsMasterClient != true)
             {
+                //Debug.Log("notmaster");
                 //CreateAllNPC();
                 return;
             }
             else
             {
+                Debug.Log(npcScriptList.Count);
                 foreach (NPC npc in npcScriptList)//npc들을
                 {
-                    Debug.Log("1");
-                   // CreateAllNPC();
+                    //Debug.Log("1");
+                    //CreateAllNPC();
                     int spawnIndex = Random.Range(0, npcSpawnList.Count);
 
                     //npc.transform.position = npcSpawnList[spawnIndex].transform.position*2;
                     (npc as TestingNPC).SelfAgent.enabled = false;
                     SetNPCTransform(npc.gameObject, npcSpawnList[spawnIndex].transform.position + new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2)));//랜덤하게 위치 설정
-                                                                                                                                                            //npc.transform.position = new Vector3(npcSpawnList[spawnIndex].transform.position.x, 1.5f, npcSpawnList[spawnIndex].transform.position.z);
+                    npc.gameObject.transform.Rotate(0, Random.Range(0f, 360f), 0);                                                                                            
                     (npc as TestingNPC).SelfAgent.enabled = true;
-
+                    (npc as TestingNPC).InitialSet();
                     //npc.transform.Translate(new Vector3(npcSpawnList[spawnIndex].transform.position.x, 3.0f, npcSpawnList[spawnIndex].transform.position.z));
 
 
                 }
             }
         }
+
+        PhotonNetwork.SendAllOutgoingCommands();
     }
 
     //public void InitialForDebug()
@@ -177,10 +193,22 @@ public class NPCManager : MonoBehaviourPun,IPunObservable
         for(int i=0; i<pool.InitialNPCNum; i++)
         {
             //npcList.Add(pool.NPCS.Get());
-            if (PhotonNetwork.IsMasterClient == true)
+            if (PhotonNetwork.IsConnected)
+            {
+                if (PhotonNetwork.IsMasterClient == true)
+                {
+                    var tempNPC = pool.GetNPC(npcGroup);
+                    //npcList.Add(tempNPC);
+                    npcScriptList.Add(tempNPC.GetComponent<NPC>());
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
             {
                 var tempNPC = pool.GetNPC(npcGroup);
-                //npcList.Add(tempNPC);
                 npcScriptList.Add(tempNPC.GetComponent<NPC>());
             }
             
