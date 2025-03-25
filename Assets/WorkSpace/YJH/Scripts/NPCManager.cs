@@ -56,7 +56,7 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
         //    Debug.Log(t.transform.position);
         //}
         
-        //InitialSetBySpawnPoint();// 스폰포인트용 초기 세팅
+        //InitialSetBySpawnPoint();// 스폰포인트용 초기 세팅 -> 현재는 서버쪽에서 호출
         //InitialSetForSpawnPointTest();//스폰포인트 포함한 테스트
         //InitialForDebug();// 디버그용 하나 생성
         //pool.NPCS.Get();//NPC 생성코드 전시용

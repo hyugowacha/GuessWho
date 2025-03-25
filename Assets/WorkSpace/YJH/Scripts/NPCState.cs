@@ -21,7 +21,7 @@ public interface INPCState
 
     public void StateAction();
     public bool CheckStateEnd();
-    public bool ForceStateEnd();
+    public bool ForceStateEnd();//디버그 필요하면 사용 
 }
 
 public class NPCMove : INPCState
