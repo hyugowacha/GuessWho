@@ -247,7 +247,7 @@ public class TestingNPC : NPC,IHittable
                     if (hitPenaltyTime <= hitTime)
                     {
                         
-                        //(nowState as NPCHit).StopAnimation();
+                        (nowState as NPCHit).StopAnimation();
                         ChangeState(NPCStateName.Idle);//new NPCIdle());
                         selfCollider.enabled = true;
                         hitTime = 0;
