@@ -12,6 +12,7 @@ namespace ZL.Unity.GuessWho
 
     public sealed class IngameSceneDirector : PhotonSceneDirector<IngameSceneDirector>
     {
+
         protected override IEnumerator Start()
         {
             ISingleton<PhotonServerManager>.Instance.TryConnectToMaster();
