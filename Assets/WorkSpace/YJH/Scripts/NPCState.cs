@@ -85,7 +85,7 @@ public class NPCMove : INPCState
         {
             //Debug.Log("re");
             var temp = Random.insideUnitCircle;
-            destination = nowNPC.transform.position+new Vector3(temp.x*20, 0, temp.y*20);
+            destination = nowNPC.transform.position + new Vector3(temp.x * 20, 0, temp.y * 20);
         }
         //Debug.Log(destination);
 
@@ -275,7 +275,7 @@ public class NPCIdle : INPCState
     public void EnterState(NPC npc)
     {
         isEnd = false;
-        idleTime = UnityEngine.Random.Range(0.5f,2f);//대기 시간 설정
+        idleTime = UnityEngine.Random.Range(0.2f,1.0f);//대기 시간 설정
         //Debug.Log(idleTime);
         nowNPC = npc;
         npcAnimator = (npc as TestingNPC).animator;
