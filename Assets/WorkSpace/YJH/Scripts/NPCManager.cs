@@ -159,7 +159,7 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
     //}
 
 
-    [PunRPC]
+    
     public void SetNPCTransform(GameObject npc, Vector3 position)//y 좌표 1.09// 작동은 하는데 원하는 위치까지 이동하지 않고 중간에 멈추는 현상 발생 설마 하는데 Agent 때문인가? 
     {
         //Vector3 temp = new Vector3(position.x, 1.5f, position.z);
@@ -194,8 +194,8 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
                 var tempNPC = PhotonNetwork.InstantiateRoomObject(npc.name, Vector3.zero, Quaternion.identity, 0);
                 //tempNPC.transform.SetParent(npcGroup.transform);
                 //var tempRPC = tempNPC.GetComponent<NPC>();
-                Debug.Log(tempNPC.GetPhotonView().ViewID);
-                photonView.RPC("AddNPCToList", Photon.Pun.RpcTarget.All, tempNPC.GetPhotonView().ViewID);
+                //Debug.Log(tempNPC.GetPhotonView().ViewID);
+                photonView.RPC("AddNPCToListViaPhoton", Photon.Pun.RpcTarget.All, tempNPC.GetPhotonView().ViewID);
                 //npcScriptList.Add(tempNPC.GetComponent<NPC>());
 
 

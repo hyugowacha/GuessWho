@@ -16497,7 +16497,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5719328067491451430, guid: be7eec14f7c533e4e82a7c53b24c1696, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1157680971}
   m_SourcePrefab: {fileID: 100100000, guid: be7eec14f7c533e4e82a7c53b24c1696, type: 3}
 --- !u!4 &730835400 stripped
 Transform:
@@ -26145,6 +26148,45 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d59da3d7b9c463c478d64b0722fd1ff5, type: 3}
+--- !u!1 &1157680969 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5719328067491451430, guid: be7eec14f7c533e4e82a7c53b24c1696, type: 3}
+  m_PrefabInstance: {fileID: 730835399}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1157680970 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3622799736403009446, guid: be7eec14f7c533e4e82a7c53b24c1696, type: 3}
+  m_PrefabInstance: {fileID: 730835399}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157680969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a95293e508c83034b92cc666bde9d031, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1157680971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157680969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 1157680970}
+  sceneViewId: 3
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!4 &1158391507 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 467192, guid: 52e3c281ef0f0ea4985188d26644edcb, type: 3}
