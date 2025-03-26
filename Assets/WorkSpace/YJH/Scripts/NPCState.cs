@@ -64,15 +64,15 @@ public class NPCMove : INPCState
         selfAgent.isStopped = false;
         npcAnimator = (npc as TestingNPC).animator;
         destination = new Vector3();
-        
+        RandomDestination();
         //selfAgent.SetDestination(destination.position);//목적지 설정 
-        
+
 
         //temp+= Time.deltaTime;//작동함! 개이득!
-        RandomDestination();
+
         //destination = NPCManager.ReturnRandomDestination(nowNPC);//npc 매니저에 존재하는 랜덤 좌표 설정 함수를 사용, 현재 예외처리 안되어 있음-> transform 변수 선언하면 굉장히 귀찮음 벡터3 해서 맞추는게 더 쉬움
-        
-       
+
+
     }
     private void RandomDestination()
     {
@@ -128,7 +128,8 @@ public class NPCMove : INPCState
     {
         PlayAnimation();
         selfAgent.SetDestination(destination);
-        nowNPC.transform.LookAt(destination);
+        nowNPC.transform.LookAt(destination);//이거 커브 돌때는 어케 되는거지?
+
 
 
 
