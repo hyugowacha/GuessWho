@@ -12,6 +12,7 @@ public class TestingNPC : NPC,IHittable
     //[SerializeField] GameObject tempDestination;// 랜덤 목적지 지정 시스템 만들기 전에 사용하는 임시 변수
     [SerializeField] NavMeshAgent selfAgent;
     [SerializeField] Collider selfCollider;
+    [SerializeField] AudioSource hitSoundSource;
     private INPCState nowState;
     //private NavMeshSurface gamefield;
     private bool haveToChangeState;//현재로서는 필요 없으나 게임매니저에 사용할 수도 있을거 같기에 선언해 놓음
@@ -309,6 +310,7 @@ public class TestingNPC : NPC,IHittable
     [PunRPC]
     public void GetHit()//puncallback해야 함-> 애니메이션 상 로테이션을 변경해서 플레이어쪽을 보고 화내야 함 ->clear
     {
+        hitSoundSource.Play();
         selfCollider.enabled = false;
 
 
