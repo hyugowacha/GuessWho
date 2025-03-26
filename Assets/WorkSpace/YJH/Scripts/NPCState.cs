@@ -80,12 +80,12 @@ public class NPCMove : INPCState
         //Debug.Log("first"+destination);
         //Debug.Log("NPC"+nowNPC.transform.position);
         var init = Random.insideUnitCircle;
-        destination = nowNPC.transform.position + new Vector3(init.x * 30, 0, init.y * 30);
+        destination = nowNPC.transform.position + new Vector3(init.x * 20, 0, init.y * 20);
         while (IsDestinationOutOfRange() == true)
         {
             //Debug.Log("re");
             var temp = Random.insideUnitCircle;
-            destination = nowNPC.transform.position+new Vector3(temp.x*30, 0, temp.y*30);
+            destination = nowNPC.transform.position + new Vector3(temp.x * 20, 0, temp.y * 20);
         }
         //Debug.Log(destination);
 
@@ -275,7 +275,7 @@ public class NPCIdle : INPCState
     public void EnterState(NPC npc)
     {
         isEnd = false;
-        idleTime = UnityEngine.Random.Range(0.5f,1.5f);//대기 시간 설정
+        idleTime = UnityEngine.Random.Range(0.2f,1.0f);//대기 시간 설정
         //Debug.Log(idleTime);
         nowNPC = npc;
         npcAnimator = (npc as TestingNPC).animator;

@@ -274,9 +274,20 @@ public class TestingNPC : NPC,IHittable
                     }
                     else if(nowState is NPCMove)
                     {
-                        ChangeState(NPCStateName.Idle);
-                        //Debug.Log("changetoidle");
-                        haveToChangeState = false;
+                        //ChangeState(NPCStateName.Idle);
+                        ////Debug.Log("changetoidle");
+                        //haveToChangeState = false;
+                        if (Random.Range(0, 100) < 70)
+                        {
+                            //Debug.Log("changetomove");
+                            ChangeState(NPCStateName.Walk);
+
+                        }
+                        else
+                        {
+                            //Debug.Log("stayidle");
+                            ChangeState(NPCStateName.Idle);
+                        }
                     }
                 }
                 else
