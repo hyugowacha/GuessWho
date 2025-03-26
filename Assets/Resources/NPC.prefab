@@ -554,6 +554,7 @@ MonoBehaviour:
   selfCollider: {fileID: 5138219754656572060}
   hitTime: 0
   animator: {fileID: 9083047734429414456}
+  forDebug: 
 --- !u!114 &6614401727792779662
 MonoBehaviour:
   m_ObjectHideFlags: 0

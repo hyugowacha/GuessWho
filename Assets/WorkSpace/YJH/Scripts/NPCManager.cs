@@ -25,7 +25,7 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
 
     //private List<GameObject> npcList;//생성된 NPC들 보유하는 리스트 둘중 택1?
     private List<NPC> npcScriptList;//생성된 NPC들 보유하는 리스트 둘중 택1?
-                                    //private List<Vector3> npcDestinations;//npc가 목적지로 정할 위치를 저장할 리스트
+                                    
 
 
 
@@ -89,7 +89,7 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
             foreach (NPC npc in npcScriptList)//npc들을
             {
 
-                //CreateAllNPC();
+                
                 int spawnIndex = Random.Range(0, npcSpawnList.Count);
 
                 //npc.transform.position = npcSpawnList[spawnIndex].transform.position*2;
@@ -111,12 +111,17 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
         {
             if (PhotonNetwork.IsMasterClient != true)
             {
-                //Debug.Log("notmaster");
-                //CreateAllNPC();
-                return;
+                foreach (NPC npc in npcScriptList)
+                {
+                    (npc as TestingNPC).SelfAgent.enabled = false;
+                }
+                    //Debug.Log("notmaster");
+                    //CreateAllNPC();
+                    //return;
             }
             else
             {
+                
                 Debug.Log(npcScriptList.Count);
                 foreach (NPC npc in npcScriptList)//npc들을
                 {
@@ -126,6 +131,10 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
 
                     //npc.transform.position = npcSpawnList[spawnIndex].transform.position*2;
                     (npc as TestingNPC).SelfAgent.enabled = false;
+
+                    //Vector3 temp = new Vector3();
+                    //temp = npcSpawnList[spawnIndex].transform.position +new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2));
+                    //photonView.RPC("SetNPCTransform", Photon.Pun.RpcTarget.All, npc.gameObject, temp);
                     SetNPCTransform(npc.gameObject, npcSpawnList[spawnIndex].transform.position + new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2)));//랜덤하게 위치 설정
                     npc.gameObject.transform.Rotate(0, Random.Range(0f, 360f), 0);                                                                                            
                     (npc as TestingNPC).SelfAgent.enabled = true;
@@ -150,27 +159,6 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
     //}
 
 
-
-
-    //public void InitialSet()//맵 리셋시 NPC 뿌리기 
-    //{
-    //    CreateAllNPC();//최초 숫자인 50개만큼 NPC 호출
-    //    foreach(NPC npc in npcScriptList)//npc들을
-    //    {
-    //
-    //
-    //
-    //
-    //        SetNPCTransform(npc.gameObject, ReturnRandomDestination());//랜덤하게 위치 설정
-    //    }
-    //
-    //
-    //}
-
-    
-
-
-
     
     public void SetNPCTransform(GameObject npc, Vector3 position)//y 좌표 1.09// 작동은 하는데 원하는 위치까지 이동하지 않고 중간에 멈추는 현상 발생 설마 하는데 Agent 때문인가? 
     {
@@ -188,6 +176,14 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
         //Debug.Log(mapSi);
         return destination;
     }
+    [PunRPC]
+    public void AddNPCToListViaPhoton(int npcId)
+    {
+        var npc= PhotonView.Find(npcId).GetComponent<NPC>();
+
+
+        npcScriptList.Add(npc);
+    }
     public void CreateAllNPC()//npc를 초기 숫자만큼 생성
     {
         for(int i=0; i<pool.InitialNPCNum; i++)
@@ -195,9 +191,21 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
             //npcList.Add(pool.NPCS.Get());
             if (PhotonNetwork.IsConnected)
             {
+                //var tempNPC = PhotonNetwork.InstantiateRoomObject(npc.name, Vector3.zero, Quaternion.identity, 0);
+                //tempNPC.transform.SetParent(npcGroup.transform);
+                //var tempRPC = tempNPC.GetComponent<NPC>();
+                //Debug.Log(tempNPC.GetPhotonView().ViewID);
+                //photonView.RPC("AddNPCToListViaPhoton", Photon.Pun.RpcTarget.All, tempNPC.GetPhotonView().ViewID);
+                //npcScriptList.Add(tempNPC.GetComponent<NPC>());
+
+
+
                 if (PhotonNetwork.IsMasterClient == true)
                 {
-                    var tempNPC = pool.GetNPC(npcGroup);
+                    //var tempNPC = pool.GetNPC(npcGroup);//pool 사용하던 때 쓰던 코드
+                    
+                    var tempNPC = PhotonNetwork.InstantiateRoomObject(npc.name, Vector3.zero, Quaternion.identity, 0);
+                    tempNPC.transform.SetParent(npcGroup.transform);
                     //npcList.Add(tempNPC);
                     npcScriptList.Add(tempNPC.GetComponent<NPC>());
                 }
@@ -217,6 +225,16 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        
+        if(PhotonNetwork.IsConnected)
+        {
+            if(stream.IsWriting)
+            {
+
+            }
+            else
+            {
+
+            }
+        }
     }
 }

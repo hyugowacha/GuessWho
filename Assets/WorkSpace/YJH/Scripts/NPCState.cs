@@ -59,6 +59,7 @@ public class NPCMove : INPCState
     [PunRPC]
     public void EnterState(NPC npc)
     {
+
         nowNPC = npc;
         selfAgent = npc.gameObject.GetComponent<NavMeshAgent>();
         selfAgent.isStopped = false;
