@@ -70,6 +70,8 @@ public class AttackState : IPlayerStates
     {
         player.playerAnim.SetBool("IsKick", true);
 
+        player.audioSource.PlayOneShot(player.kick, UnityEngine.Random.Range(0.5f, 1f)); // kick »ç¿îµå
+
         yield return new WaitForSeconds(1f);
 
         player.playerAnim.SetBool("IsKick", false);

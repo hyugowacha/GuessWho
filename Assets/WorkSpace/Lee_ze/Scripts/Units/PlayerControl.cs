@@ -11,6 +11,7 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     public Animator playerAnim;
 
+
     [Header("Move"), Space(10)]
 
     public float moveSpeed;
@@ -46,6 +47,14 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     public Vector3 apologizeTo;
 
+
+    [Space(20), Header("Sound Control"), Space(10)]
+
+    public AudioSource audioSource;
+
+    public AudioClip kick;
+
+    public AudioClip getHit;
 
     private void OnEnable()
     {
