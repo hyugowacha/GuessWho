@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,11 @@ public class ApologizeState : IPlayerStates
     public void EnterState(PlayerControl player)
     {
         this.player = player;
+
+        if (player.photonView.IsMine)
+        {
+            player.photonView.RPC("NotifyStateChange", RpcTarget.AllBuffered);
+        }
 
         playerModeling = this.player.transform.Find("Modeling");
 
@@ -55,5 +61,10 @@ public class ApologizeState : IPlayerStates
         player.playerAnim.SetBool("Forgived", false);
 
         player.isNPC = false;
+    }
+
+    void NotifyStateChange()
+    {
+        player.ChangeStateTo(new ApologizeState());
     }
 }

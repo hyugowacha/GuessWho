@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,6 +17,11 @@ public class AttackState : IPlayerStates
         // TOOD: PlayerControl에서 무기 바꾸는 로직. 여기서 하는거 아님
 
         this.player = player;
+
+        if (player.photonView.IsMine)
+        {
+            player.photonView.RPC("NotifyStateChange", RpcTarget.AllBuffered);
+        }
 
         itemType = player.holdingWeapon.itemType;
 
@@ -70,7 +76,7 @@ public class AttackState : IPlayerStates
     {
         player.playerAnim.SetBool("IsKick", true);
 
-        player.audioSource.PlayOneShot(player.kick, UnityEngine.Random.Range(0.5f, 1f)); // kick 사운드
+        player.audioSource.PlayOneShot(player.kick); // kick 사운드
 
         yield return new WaitForSeconds(1f);
 
@@ -87,5 +93,10 @@ public class AttackState : IPlayerStates
     void AttackShoot()
     {
         Debug.Log("총 쏘기");
+    }
+
+    void NotifyStateChange()
+    {
+        player.ChangeStateTo(new AttackState());
     }
 }

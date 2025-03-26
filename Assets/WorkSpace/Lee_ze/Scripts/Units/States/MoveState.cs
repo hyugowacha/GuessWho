@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,11 @@ public class MoveState : IPlayerStates
     public void EnterState(PlayerControl player)
     {
         this.player = player;
+
+        if (player.photonView.IsMine)
+        {
+            player.photonView.RPC("NotifyStateChange", RpcTarget.AllBuffered);
+        }
     }
 
     public void UpdatePerState()
@@ -70,5 +76,10 @@ public class MoveState : IPlayerStates
     public void ExitState()
     {
 
+    }
+
+    void NotifyStateChange()
+    {
+        player.ChangeStateTo(new MoveState());
     }
 }

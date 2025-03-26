@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using UnityEngine.InputSystem.LowLevel;
 
 public class IdleState : IPlayerStates
 {
@@ -9,6 +11,11 @@ public class IdleState : IPlayerStates
     public void EnterState(PlayerControl player)
     {
         this.player = player;
+
+        if (player.photonView.IsMine)
+        {
+            player.photonView.RPC("NotifyStateChange", RpcTarget.AllBuffered);
+        }
     }
 
     public void UpdatePerState()
@@ -49,5 +56,11 @@ public class IdleState : IPlayerStates
     public void ExitState()
     {
 
+    }
+
+    [PunRPC]
+    void NotifyStateChange()
+    {
+        player.ChangeStateTo(new IdleState());
     }
 }

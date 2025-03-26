@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,11 @@ public class KnockDownState : IPlayerStates
     public void EnterState(PlayerControl player)
     {
         this.player = player;
+
+        if (player.photonView.IsMine)
+        {
+            player.photonView.RPC("NotifyStateChange", RpcTarget.AllBuffered);
+        }
 
         this.player.audioSource.PlayOneShot(player.getHit, UnityEngine.Random.Range(0.5f, 1f)); // 피격 사운드
 
@@ -31,5 +37,10 @@ public class KnockDownState : IPlayerStates
     public void ExitState()
     {
 
+    }
+
+    void NotifyStateChange()
+    {
+        player.ChangeStateTo(new KnockDownState());
     }
 }
