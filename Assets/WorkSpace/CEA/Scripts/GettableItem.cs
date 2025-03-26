@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
-using Photon;
-using Photon.Pun;
 
 
 public interface IGetable
@@ -40,19 +36,6 @@ public sealed class GettableItem : MonoBehaviourPun, IGetable
         //플레이어가 아이템의 정보를 받아올 메서드
         player.GetItem(itemData);
 
-        /*
-         * 나 이거 받아왔어
-         * 이 아이템 가지고 있어
-         * 총 무기 장탄수
-         * 
-         * 맨손 총 짱돌
-         *
-         *플레이어가 아이템 받아올 그무언가....
-         *에다가 저 정보를 저장해서
-         *아이템 정보를 공격 등에 써먹음
-         *장착,직접 공격 등
-         */
-
         Debug.Log("플레이어에게 아이템 전달" + itemData.itemName);
     }
 
@@ -85,17 +68,15 @@ public sealed class GettableItem : MonoBehaviourPun, IGetable
                 }
             }
 
-            if(ItemInteractImage != null)
+            if (player.photonView.IsMine)
             {
-                ItemInteractImage.gameObject.SetActive(true);
+                if (ItemInteractImage != null)
+                {
+                    ItemInteractImage.gameObject.SetActive(true);
+                }
             }
 
-            else
-            {
-                return;
-            }
-
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.F) && player.photonView.IsMine)
             {
                 SendItem(player, itemData);
                 Instantiate(destroyParticle, transform.TransformPoint(0, 1.0f, 0), Quaternion.identity);
@@ -118,7 +99,6 @@ public sealed class GettableItem : MonoBehaviourPun, IGetable
                         PlayerItemGetAndOff(3);
                         break;
                 }
-                //this.gameObject.SetActive(false); //얘가 범인임
 
             }
         }
