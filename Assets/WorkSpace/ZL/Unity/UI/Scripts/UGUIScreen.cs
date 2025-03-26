@@ -1,10 +1,14 @@
 using UnityEngine;
 
+using UnityEngine.Events;
+
 namespace ZL.Unity.UI
 {
-    [AddComponentMenu("ZL/UI/Screen (UI)")]
+    [AddComponentMenu("ZL/UI/UGUI Screen")]
 
     [DisallowMultipleComponent]
+
+    [RequireComponent(typeof(CanvasGroupFader))]
 
     public class UGUIScreen : MonoBehaviour
     {
@@ -30,6 +34,18 @@ namespace ZL.Unity.UI
 
         private CanvasGroupFader fader;
 
+        [Space]
+
+        [SerializeField]
+
+        private UnityEvent eventOnOpen;
+
+        [Space]
+
+        [SerializeField]
+
+        private UnityEvent eventOnClose;
+
         public virtual void Open()
         {
             if (swapper != null)
@@ -41,15 +57,11 @@ namespace ZL.Unity.UI
                 swapper.Last = this;
             }
 
-            if (fader != null)
-            {
-                fader.SetFaded(true);
-            }
+            fader.SetFaded(true);
 
-            else
-            {
-                gameObject.SetActive(true);
-            }
+            eventOnOpen.Invoke();
+
+            
         }
 
         public virtual void Close()
@@ -59,15 +71,9 @@ namespace ZL.Unity.UI
                 swapper.Current = null;
             }
 
-            if (fader != null)
-            {
-                fader.SetFaded(false);
-            }
+            fader.SetFaded(false);
 
-            else
-            {
-                gameObject.SetActive(false);
-            }
+            eventOnClose.Invoke();
         }
     }
 }

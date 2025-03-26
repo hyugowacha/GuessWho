@@ -25,6 +25,17 @@ namespace ZL.Unity.Tweeners
 
         [SerializeField]
 
+        private float delay = 0f;
+
+        public float Delay
+        {
+            get => delay;
+
+            set => delay = value;
+        }
+
+        [SerializeField]
+
         private bool loop = false;
 
         [SerializeField]
@@ -111,6 +122,8 @@ namespace ZL.Unity.Tweeners
             Current.Kill();
 
             Current = To(getter, setter, endValue, duration);
+
+            Current.SetDelay(delay);
 
             if (loop == true)
             {
