@@ -126,7 +126,7 @@ public sealed class GettableItem : MonoBehaviourPun, IGetable
         if(tempCollider != null)
         {
             ItemInteractImage.gameObject.SetActive(false);
-            tempCollider = null;
+            //tempCollider = null;
         }
     }
 
