@@ -15,11 +15,6 @@ public class ApologizeState : IPlayerStates
     {
         this.player = player;
 
-        if (player.photonView.IsMine)
-        {
-            player.photonView.RPC("NotifyStateChange", RpcTarget.AllBuffered);
-        }
-
         playerModeling = this.player.transform.Find("Modeling");
 
         backUp = playerModeling;
@@ -61,10 +56,5 @@ public class ApologizeState : IPlayerStates
         player.playerAnim.SetBool("Forgived", false);
 
         player.isNPC = false;
-    }
-
-    void NotifyStateChange()
-    {
-        player.ChangeStateTo(new ApologizeState());
     }
 }

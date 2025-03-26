@@ -18,11 +18,6 @@ public class AttackState : IPlayerStates
 
         this.player = player;
 
-        if (player.photonView.IsMine)
-        {
-            player.photonView.RPC("NotifyStateChange", RpcTarget.AllBuffered);
-        }
-
         itemType = player.holdingWeapon.itemType;
 
         player.moveSpeed = 0;
@@ -76,7 +71,14 @@ public class AttackState : IPlayerStates
     {
         player.playerAnim.SetBool("IsKick", true);
 
-        player.audioSource.PlayOneShot(player.kick); // kick »ç¿îµå
+        //player.audioSource.PlayOneShot(player.kick); // kick »ç¿îµå
+
+        if (player.photonView.IsMine)
+        {
+            player.audioSource.PlayOneShot(player.kick);
+
+            player.photonView.RPC("RPC_PlayAttackSound", RpcTarget.Others, player.transform.position);
+        }
 
         yield return new WaitForSeconds(1f);
 
@@ -93,10 +95,5 @@ public class AttackState : IPlayerStates
     void AttackShoot()
     {
         Debug.Log("ÃÑ ½î±â");
-    }
-
-    void NotifyStateChange()
-    {
-        player.ChangeStateTo(new AttackState());
     }
 }
