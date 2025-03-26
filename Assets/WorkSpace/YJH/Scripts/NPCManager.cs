@@ -191,28 +191,28 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
             //npcList.Add(pool.NPCS.Get());
             if (PhotonNetwork.IsConnected)
             {
-                var tempNPC = PhotonNetwork.InstantiateRoomObject(npc.name, Vector3.zero, Quaternion.identity, 0);
+                //var tempNPC = PhotonNetwork.InstantiateRoomObject(npc.name, Vector3.zero, Quaternion.identity, 0);
                 //tempNPC.transform.SetParent(npcGroup.transform);
                 //var tempRPC = tempNPC.GetComponent<NPC>();
                 //Debug.Log(tempNPC.GetPhotonView().ViewID);
-                photonView.RPC("AddNPCToListViaPhoton", Photon.Pun.RpcTarget.All, tempNPC.GetPhotonView().ViewID);
+                //photonView.RPC("AddNPCToListViaPhoton", Photon.Pun.RpcTarget.All, tempNPC.GetPhotonView().ViewID);
                 //npcScriptList.Add(tempNPC.GetComponent<NPC>());
 
 
 
-                //if (PhotonNetwork.IsMasterClient == true)
-                //{
-                //    //var tempNPC = pool.GetNPC(npcGroup);//pool 사용하던 때 쓰던 코드
-                //    
-                //    var tempNPC = PhotonNetwork.InstantiateRoomObject(npc.name, Vector3.zero, Quaternion.identity, 0);
-                //    tempNPC.transform.SetParent(npcGroup.transform);
-                //    //npcList.Add(tempNPC);
-                //    npcScriptList.Add(tempNPC.GetComponent<NPC>());
-                //}
-                //else
-                //{
-                //    return;
-                //}
+                if (PhotonNetwork.IsMasterClient == true)
+                {
+                    //var tempNPC = pool.GetNPC(npcGroup);//pool 사용하던 때 쓰던 코드
+                    
+                    var tempNPC = PhotonNetwork.InstantiateRoomObject(npc.name, Vector3.zero, Quaternion.identity, 0);
+                    tempNPC.transform.SetParent(npcGroup.transform);
+                    //npcList.Add(tempNPC);
+                    npcScriptList.Add(tempNPC.GetComponent<NPC>());
+                }
+                else
+                {
+                    return;
+                }
             }
             else
             {
