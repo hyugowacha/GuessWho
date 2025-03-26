@@ -31,6 +31,8 @@ public sealed class GettableItem : MonoBehaviourPun, IGetable
     [SerializeField]
     [Header("자신의 상위에 위치한 아이템 스포너")] private ItemSpawnctrl myParent;
 
+    private Collider tempCollider;
+
     public void SendItem(PlayerControl player, ItemData itemData)
     {
         //플레이어가 아이템의 정보를 받아올 메서드
@@ -48,6 +50,8 @@ public sealed class GettableItem : MonoBehaviourPun, IGetable
 
     private void OnTriggerStay(Collider other)
     {
+        tempCollider = other;
+
         if (other.CompareTag("Player"))
         {
             PlayerControl player = other.GetComponentInParent<PlayerControl>();
@@ -81,7 +85,7 @@ public sealed class GettableItem : MonoBehaviourPun, IGetable
                 SendItem(player, itemData);
                 Instantiate(destroyParticle, transform.TransformPoint(0, 1.0f, 0), Quaternion.identity);
 
-                photonView.RPC("NoticeIsAllitemOff", RpcTarget.All, myParent.name);
+                photonView.RPC("NoticeIsAllitemOff", RpcTarget.AllBuffered, myParent.name);
 
                 ItemInteractImage.gameObject.SetActive(false);
 
@@ -106,7 +110,7 @@ public sealed class GettableItem : MonoBehaviourPun, IGetable
 
     private void PlayerItemGetAndOff(int itemnum)
     {
-        photonView.RPC("PlayerItemGet", RpcTarget.All, myParent.name, itemnum);
+        photonView.RPC("PlayerItemGet", RpcTarget.AllBuffered, myParent.name, itemnum);
     }
 
     private void OnTriggerExit(Collider other)
@@ -117,5 +121,13 @@ public sealed class GettableItem : MonoBehaviourPun, IGetable
         }
     }
 
+    private void OnDisable()
+    {
+        if(tempCollider != null)
+        {
+            ItemInteractImage.gameObject.SetActive(false);
+            tempCollider = null;
+        }
+    }
 
 }

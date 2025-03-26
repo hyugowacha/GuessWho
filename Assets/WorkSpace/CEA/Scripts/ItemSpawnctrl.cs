@@ -71,7 +71,7 @@ public class ItemSpawnctrl : MonoBehaviourPun
         if(PhotonNetwork.IsMasterClient)
         {
             int RandomNumber = Random.Range(1, 11);
-            photonView.RPC("SetItem", RpcTarget.All, RandomNumber, this.name);
+            photonView.RPC("SetItem", RpcTarget.AllBuffered, RandomNumber, this.name);
         }
     }
     
