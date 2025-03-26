@@ -20,7 +20,7 @@ public class TestingNPC : NPC,IHittable
     [SerializeField] float hitTime = 0;
     //public GameObject forTest;//목적지 디버그용 완제품엔 필요 없음
     public Animator animator;
-    
+    public string forDebug;
     public NavMeshAgent SelfAgent { get { return selfAgent; } set { selfAgent = value; } }
 
 
@@ -206,6 +206,7 @@ public class TestingNPC : NPC,IHittable
     [PunRPC]
     public void ChangeState(NPCStateName stateName)
     {
+        forDebug=stateName.ToString();
         switch (stateName)
         {
             case NPCStateName.None:

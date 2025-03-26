@@ -9,7 +9,7 @@ public class NPCPool// : MonoBehaviour
     // Start is called before the first frame update
     private ObjectPool<GameObject> npcs;
     public ObjectPool<GameObject> NPCS { get { return npcs; } set { npcs = value; } }
-    private int maxNPCNum = 100;
+    private int maxNPCNum = 50;
     private int initialNPCNum = 50;
     public int InitialNPCNum
     {
