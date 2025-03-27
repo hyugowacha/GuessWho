@@ -168,12 +168,13 @@ public class NPCMove : INPCState
     [PunRPC]
     public void StateAction()
     {
-        PlayAnimation();
         if (selfAgent.enabled == true)
         {
             selfAgent.SetDestination(destination);
             nowNPC.transform.LookAt(destination);//이거 커브 돌때는 어케 되는거지?
         }
+        PlayAnimation();
+        
 
 
 

@@ -306,7 +306,7 @@ public class TestingNPC : NPC,IHittable
             default:
                 break;
         }
-
+        PhotonNetwork.SendAllOutgoingCommands();
 
 
     }

@@ -272,12 +272,17 @@ public class NPCManager : MonoBehaviourPunCallbacks, IPunObservable, ISingleton<
         //base.OnDisconnected(cause);
         if(PhotonNetwork.IsMasterClient)
         {
+            photonView.RPC("test", Photon.Pun.RpcTarget.All, "disconnect");
             List<Player> players = new List<Player>(PhotonNetwork.PlayerList);
             Player randomPlayer = players[Random.Range(0, players.Count)];
             PhotonNetwork.SetMasterClient(randomPlayer);
+            
         }
     }
-
+    public void test(string s)
+    {
+        Debug.Log(s);
+    }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if(PhotonNetwork.IsConnected)
