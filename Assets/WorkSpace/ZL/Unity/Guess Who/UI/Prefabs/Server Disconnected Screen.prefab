@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6745018171057800165}
   - component: {fileID: 654870100260207280}
   - component: {fileID: 8206828688593014087}
-  - component: {fileID: 2850095840644790733}
   m_Layer: 5
   m_Name: Server Disconnected Screen
   m_TagString: Untagged
@@ -67,6 +66,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tweener:
     duration: 0.5
+    delay: 0
     loop: 0
     loopCount: -1
     loopType: 0
@@ -88,26 +88,44 @@ MonoBehaviour:
   canvasGroup: {fileID: 6745018171057800165}
   alphaTweener: {fileID: 654870100260207280}
   isFadedIn: 0
+  eventOnFadingIn:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5030727008772353839}
+        m_TargetAssemblyTypeName: ZL.Unity.Tweeners.KeyFrameTweener`5[[ZL.Unity.Tweeners.TransformScaleTweener,
+          Assembly-CSharp
+        m_MethodName: TweenKeyFrame
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   eventOnFadeIn:
     m_PersistentCalls:
       m_Calls: []
+  eventOnFadingOut:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5030727008772353839}
+        m_TargetAssemblyTypeName: ZL.Unity.Tweeners.KeyFrameTweener`5[[ZL.Unity.Tweeners.TransformScaleTweener,
+          Assembly-CSharp
+        m_MethodName: TweenKeyFrame
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   eventOnFadeOut:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2850095840644790733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4952414658094109953}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca4d11478ea850b4284e571ee84bdf6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  swapper: {fileID: 0}
-  fader: {fileID: 8206828688593014087}
 --- !u!1 &5854188754907081738
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,6 +511,17 @@ PrefabInstance:
       addedObject: {fileID: 9154696895755660637}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d741e7fc535c1845ab3694a76f619de, type: 3}
+--- !u!114 &5030727008772353839 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5079933775566996444, guid: 7d741e7fc535c1845ab3694a76f619de, type: 3}
+  m_PrefabInstance: {fileID: 265491744755870963}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7317a4dca20e5574d9ec16f67158d2eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6683218545567990338 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6850177955203313329, guid: 7d741e7fc535c1845ab3694a76f619de, type: 3}

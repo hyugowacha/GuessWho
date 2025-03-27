@@ -8,8 +8,6 @@ namespace ZL.Unity.UI
 
     [DisallowMultipleComponent]
 
-    [RequireComponent(typeof(CanvasGroupFader))]
-
     public class UGUIScreen : MonoBehaviour
     {
         [Space]
@@ -24,28 +22,6 @@ namespace ZL.Unity.UI
 
         private UGUIScreenSwapper swapper;
 
-        [SerializeField]
-
-        [UsingCustomProperty]
-
-        [ReadOnly(true)]
-
-        [GetComponent]
-
-        private CanvasGroupFader fader;
-
-        [Space]
-
-        [SerializeField]
-
-        private UnityEvent eventOnOpen;
-
-        [Space]
-
-        [SerializeField]
-
-        private UnityEvent eventOnClose;
-
         public virtual void Open()
         {
             if (swapper != null)
@@ -56,12 +32,6 @@ namespace ZL.Unity.UI
 
                 swapper.Last = this;
             }
-
-            fader.SetFaded(true);
-
-            eventOnOpen.Invoke();
-
-            
         }
 
         public virtual void Close()
@@ -70,10 +40,6 @@ namespace ZL.Unity.UI
             {
                 swapper.Current = null;
             }
-
-            fader.SetFaded(false);
-
-            eventOnClose.Invoke();
         }
     }
 }
