@@ -66,6 +66,13 @@ public class MoveState : IPlayerStates
 
             return;
         }
+
+        if (player.isNPC == true)
+        {
+            player.ChangeStateTo(new ApologizeState());
+
+            return;
+        }
     }
 
     public void ExitState()
