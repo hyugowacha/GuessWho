@@ -44,6 +44,8 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     public ItemData nowWeapon;
 
+    public GameObject itemStonePrefab;
+
     public bool isHit = false;
 
     public bool isNPC = false;
@@ -61,7 +63,8 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     private void OnEnable()
     {
-        holdingWeapon = footData;
+        nowHaveItems[0] = footData;
+        holdingWeapon = nowHaveItems[0];
 
         foreach (var weapon in weapons)
         {
