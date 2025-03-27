@@ -196,4 +196,12 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
         audioSource.PlayOneShot(kick);
     }
+
+    [PunRPC]
+    void RPC_PlayHitSound(Vector3 soundPosition)
+    {
+        audioSource.transform.position = soundPosition;
+
+        audioSource.PlayOneShot(getHit);
+    }
 }
