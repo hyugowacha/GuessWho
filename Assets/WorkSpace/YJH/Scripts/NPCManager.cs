@@ -132,10 +132,10 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
                     //npc.transform.position = npcSpawnList[spawnIndex].transform.position*2;
                     (npc as TestingNPC).SelfAgent.enabled = false;
 
-                    //Vector3 temp = new Vector3();
-                    //temp = npcSpawnList[spawnIndex].transform.position +new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2));
-                    //photonView.RPC("SetNPCTransform", Photon.Pun.RpcTarget.All, npc.gameObject, temp);
-                    SetNPCTransform(npc.gameObject, npcSpawnList[spawnIndex].transform.position + new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2)));//랜덤하게 위치 설정
+                    Vector3 temp = new Vector3();
+                    temp = npcSpawnList[spawnIndex].transform.position +new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2));
+                    photonView.RPC("SetNPCTransformByID", Photon.Pun.RpcTarget.All, npc.photonView.ViewID, temp);
+                    //SetNPCTransform(npc.gameObject, npcSpawnList[spawnIndex].transform.position + new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2)));//랜덤하게 위치 설정
                     npc.gameObject.transform.Rotate(0, Random.Range(0f, 360f), 0);                                                                                            
                     (npc as TestingNPC).SelfAgent.enabled = true;
                     (npc as TestingNPC).InitialSet();
@@ -159,12 +159,19 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
     //}
 
 
-    
+    [PunRPC]// RPC로 NPC를 못 쏴줘서 못하고 바꿨었음...
     public void SetNPCTransform(GameObject npc, Vector3 position)//y 좌표 1.09// 작동은 하는데 원하는 위치까지 이동하지 않고 중간에 멈추는 현상 발생 설마 하는데 Agent 때문인가? 
     {
         //Vector3 temp = new Vector3(position.x, 1.5f, position.z);
         npc.transform.position= new Vector3(position.x, 3.0f, position.z);
     }
+    [PunRPC]
+    public void SetNPCTransformByID(int viewID,Vector3 position)
+    {
+        PhotonView.Find(viewID).transform.position = position;
+    }
+
+
     //public void SpawNPC()
     //{
     //   temp= pool.NPCS.Get();
@@ -222,6 +229,44 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
             
         }
     }
+
+    public Vector3 RandomDestination(NPC nowNPC)
+    {
+        //Debug.Log("first"+destination);
+        //Debug.Log("NPC"+nowNPC.transform.position);
+        Vector3 destination = new Vector3();
+        var init = Random.insideUnitCircle;
+        destination = nowNPC.transform.position + new Vector3(init.x * 20, 0, init.y * 20);
+        while (IsDestinationOutOfRange(destination,nowNPC) == true)
+        {
+            //Debug.Log("re");
+            var temp = Random.insideUnitCircle;
+            destination = nowNPC.transform.position + new Vector3(temp.x * 20, 0, temp.y * 20);
+        }
+        //Debug.Log(destination);
+        return destination;
+    }
+    public bool IsDestinationOutOfRange(Vector3 destination,NPC nowNPC)
+    {
+        if ((destination - nowNPC.transform.position).magnitude < 5f)
+        {
+            return true;
+        }
+        if (destination.x < -74 || destination.x > 72)
+        {
+            return true;
+        }
+        else if (destination.z > 74 || destination.z < -78)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

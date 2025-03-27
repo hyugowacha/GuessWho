@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Realtime;
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
+using ZL.Unity;
 
 public class TestingNPC : NPC,IHittable
 {
@@ -137,10 +139,17 @@ public class TestingNPC : NPC,IHittable
             selfAgent.enabled = false;
         }
     }
+    public void SetNPCTransform(Vector3 transformTo)
+    {
+        transform.position=transformTo;
+    }
+
+
     public void InitialSet()
     {
         if (PhotonNetwork.IsConnected == false)
         {
+            StartCoroutine(CheckState());
             return;
             
         }
@@ -231,8 +240,47 @@ public class TestingNPC : NPC,IHittable
 
         
     }
-
-    public void ChangeState(NPCStateName stateName,bool isAfterMoveFlag)
+    //[PunRPC]
+    //public void ChangeState(NPCStateName stateName,bool isAfterMoveFlag)
+    //{
+    //    forDebug = stateName.ToString();
+    //    switch (stateName)
+    //    {
+    //        case NPCStateName.None:
+    //            break;
+    //        case NPCStateName.Hit:
+    //            nowState = new NPCHit();
+    //            nowState.EnterState(this);
+    //            nowState.StateAction();
+    //            break;
+    //        case NPCStateName.Idle:
+    //            nowState = new NPCIdle();
+    //            if (isAfterMoveFlag== true)
+    //            {
+    //                nowState.EnterState(this);
+    //                (nowState as NPCIdle).SetDelayTime(0.5f);
+    //                nowState.StateAction();
+    //            }
+    //            else
+    //            {
+    //                nowState.EnterState(this);
+    //                nowState.StateAction();
+    //            }
+    //            break;
+    //        case NPCStateName.Walk:
+    //            nowState = new NPCMove();
+    //            nowState.EnterState(this);
+    //            nowState.StateAction();
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //
+    //
+    //
+    //}
+    [PunRPC]
+    public void ChangeState(NPCStateName stateName, float time)//RPC용
     {
         forDebug = stateName.ToString();
         switch (stateName)
@@ -246,21 +294,13 @@ public class TestingNPC : NPC,IHittable
                 break;
             case NPCStateName.Idle:
                 nowState = new NPCIdle();
-                if (isAfterMoveFlag== true)
-                {
-                    nowState.EnterState(this);
-                    (nowState as NPCIdle).SetDelayTime(0.5f);
-                    nowState.StateAction();
-                }
-                else
-                {
-                    nowState.EnterState(this);
-                    nowState.StateAction();
-                }
+                nowState.EnterState(this,time);
+                nowState.StateAction();
+                
                 break;
             case NPCStateName.Walk:
                 nowState = new NPCMove();
-                nowState.EnterState(this);
+                (nowState as NPCMove).EnterState(this, ISingleton<NPCManager>.Instance.RandomDestination(this));
                 nowState.StateAction();
                 break;
             default:
@@ -272,13 +312,19 @@ public class TestingNPC : NPC,IHittable
     }
 
 
-
     IEnumerator CheckState()
     {
+        
+
         while (true)
         {
+            
             yield return new WaitForSeconds(0.5f);
-            if (nowState != null)
+            if (PhotonNetwork.IsMasterClient == false)
+            {
+
+            }
+            else if (nowState != null)
             {
                 if(nowState is NPCHit)
                 {
@@ -287,7 +333,8 @@ public class TestingNPC : NPC,IHittable
                     {
                         
                         (nowState as NPCHit).StopAnimation();
-                        ChangeState(NPCStateName.Idle);//new NPCIdle());
+                        photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Idle, UnityEngine.Random.Range(0.2f, 1.0f));
+                        //ChangeState(NPCStateName.Idle);//new NPCIdle());
                         selfCollider.enabled = true;
                         hitTime = 0;
                     }
@@ -297,31 +344,19 @@ public class TestingNPC : NPC,IHittable
                     //haveToChangeState=true;
                     if(nowState is NPCIdle)
                     {
+                        photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Walk, 0f);
+                        //ChangeState(NPCStateName.Walk);//new NPCMove());
                         
-                        ChangeState(NPCStateName.Walk);//new NPCMove());
-                        //if (Random.Range(0, 100) < 70)
-                        //{
-                        //    //Debug.Log("changetomove");
-                        //    ChangeState(new NPCMove());
-                        //    
-                        //}
-                        //else
-                        //{
-                        //    //Debug.Log("stayidle");
-                        //    ChangeState(new NPCIdle());
-                        //}
-                        //haveToChangeState = false;
 
                     }
                     else if(nowState is NPCMove)
                     {
-                        //ChangeState(NPCStateName.Idle);
-                        ////Debug.Log("changetoidle");
-                        //haveToChangeState = false;
+                        
                         if (Random.Range(0, 100) < 70)
                         {
                             //Debug.Log("changetomove");
-                            ChangeState(NPCStateName.Idle,true);
+                            photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Idle,0.5f);
+                            //ChangeState(NPCStateName.Idle,true);
                             
                             //ChangeState(NPCStateName.Walk);
 
@@ -329,7 +364,8 @@ public class TestingNPC : NPC,IHittable
                         else
                         {
                             //Debug.Log("stayidle");
-                            ChangeState(NPCStateName.Idle);
+                            photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Idle, UnityEngine.Random.Range(0.2f, 1.0f));
+                            //ChangeState(NPCStateName.Idle);
                         }
                     }
                 }
@@ -375,7 +411,7 @@ public class TestingNPC : NPC,IHittable
         }
         else
         {
-            photonView.RPC("ChangeState", Photon.Pun.RpcTarget.MasterClient, NPCStateName.Hit);//포톤일 때 콜백으로 마스터 클라이언트에 전달함
+            photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Hit);//포톤일 때 콜백으로 마스터 클라이언트에 전달함
         }
 
 
@@ -396,4 +432,19 @@ public class TestingNPC : NPC,IHittable
     }
 
     #endregion
+
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        base.OnMasterClientSwitched(newMasterClient);
+        if(PhotonNetwork.IsMasterClient)
+        {
+            SelfAgent.enabled = true;
+        }
+
+
+
+
+    }
+
+
 }

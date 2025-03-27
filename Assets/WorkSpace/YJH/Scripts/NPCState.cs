@@ -18,6 +18,7 @@ public interface INPCState
     public void PlayAnimation();
     public void StopAnimation();
     public void EnterState(NPC npc);
+    public void EnterState(NPC npc,float time);
 
     public void StateAction();
     public bool CheckStateEnd();
@@ -56,7 +57,10 @@ public class NPCMove : INPCState
         //animator관련
         npcAnimator.SetBool(hashIdle, true);
         npcAnimator.SetBool(hashMove, false);
-        selfAgent.isStopped = true;
+        if (selfAgent.enabled == true)
+        {
+            selfAgent.isStopped = true;
+        }
 
     }
     [PunRPC]
@@ -78,6 +82,39 @@ public class NPCMove : INPCState
         //destination = NPCManager.ReturnRandomDestination(nowNPC);//npc 매니저에 존재하는 랜덤 좌표 설정 함수를 사용, 현재 예외처리 안되어 있음-> transform 변수 선언하면 굉장히 귀찮음 벡터3 해서 맞추는게 더 쉬움
 
 
+    }
+    public void EnterState(NPC npc, float time)
+    {
+        if (PhotonNetwork.IsMasterClient==true)
+        {
+            
+        
+        selfAgent.enabled = true;
+        nowNPC = npc;
+        selfAgent = npc.gameObject.GetComponent<NavMeshAgent>();
+        selfAgent.isStopped = false;
+        npcAnimator = (npc as TestingNPC).animator;
+        destination = new Vector3();
+        delayTime = 0;
+        RandomDestination();
+        }
+        
+    }
+    public void EnterState(NPC npc, Vector3 randomDestination)//RPC용으로 오버로딩
+    {
+        
+            nowNPC = npc;
+            selfAgent = npc.gameObject.GetComponent<NavMeshAgent>();
+        if (PhotonNetwork.IsMasterClient == true)
+        {
+            selfAgent.isStopped = false;
+        }
+            npcAnimator = (npc as TestingNPC).animator;
+            destination = new Vector3();
+            destination = randomDestination;
+            delayTime = 0;
+        
+        //RandomDestination();
     }
     private void RandomDestination()
     {
@@ -132,9 +169,11 @@ public class NPCMove : INPCState
     public void StateAction()
     {
         PlayAnimation();
-        selfAgent.SetDestination(destination);
-        nowNPC.transform.LookAt(destination);//이거 커브 돌때는 어케 되는거지?
-
+        if (selfAgent.enabled == true)
+        {
+            selfAgent.SetDestination(destination);
+            nowNPC.transform.LookAt(destination);//이거 커브 돌때는 어케 되는거지?
+        }
 
 
 
@@ -178,6 +217,7 @@ public class NPCMove : INPCState
         }
     }
 
+    
 }
 
 public class NPCHit : INPCState
@@ -253,6 +293,10 @@ public class NPCHit : INPCState
         return true;
     }
 
+    public void EnterState(NPC npc, float time)
+    {
+        throw new System.NotImplementedException();
+    }
 }
 public class NPCIdle : INPCState
 {
@@ -300,6 +344,24 @@ public class NPCIdle : INPCState
         //npcAnimator.SetBool("isAnger", false);
         //npcAnimator.SetBool(hashHit, false);
     }
+    public void EnterState(NPC npc, float time)
+    {
+
+        isEnd = false;
+        idleTime = time;
+        //Debug.Log(idleTime);
+        nowNPC = npc;
+        npcAnimator = (npc as TestingNPC).animator;
+        npcAgent = (npc as TestingNPC).SelfAgent;
+        if (PhotonNetwork.IsMasterClient == true)
+        {
+            npcAgent.isStopped = true;
+        }
+        npcAnimator.SetBool("isAnger", false);
+        npcAnimator.SetBool(hashHit, false);
+        npcAnimator.SetBool(hashIdle, true);
+        npcAnimator.SetBool(hashMove, false);
+    }
     [PunRPC]
     public void StateAction()
     {
@@ -337,6 +399,8 @@ public class NPCIdle : INPCState
     {
         return true;
     }
+
+    
 }
 
 

@@ -58,6 +58,7 @@ MonoBehaviour:
   - NotifyStateChange
   - RPC_PlayAttackSound
   - RPC_PlayHitSound
+  - SetNPCTransformByID
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
