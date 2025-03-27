@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using ZL.Unity;
 
-public class TestingNPC : NPC,IHittable
+public class TestingNPC : MonoBehaviourPunCallbacks,IHittable
 {
 
     //상태 패턴
@@ -134,6 +134,7 @@ public class TestingNPC : NPC,IHittable
     //}
     public override void OnEnable()
     {
+        base.OnEnable();
         if (PhotonNetwork.IsMasterClient == false)
         {
             selfAgent.enabled = false;
