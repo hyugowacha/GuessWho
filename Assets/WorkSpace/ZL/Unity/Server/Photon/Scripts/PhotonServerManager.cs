@@ -93,7 +93,7 @@ namespace ZL.Unity.Server.Photon
 
             StartCoroutine(FakeLoading(fakeLoadingTime - loadingTime, () =>
             {
-                FixedDebug.Log("Connected To Master.");
+                FixedDebug.Log("Connected to Photon server.");
 
                 eventOnConnectedToMaster.Invoke();
             }));
@@ -107,7 +107,7 @@ namespace ZL.Unity.Server.Photon
 
             StartCoroutine(FakeLoading(fakeLoadingTime - loadingTime, () =>
             {
-                FixedDebug.LogWarning($"Disconnected: {cause}");
+                FixedDebug.LogWarning($"Disconnected to Photon server: {cause}");
 
                 eventOnDisconnected.Invoke();
             }));

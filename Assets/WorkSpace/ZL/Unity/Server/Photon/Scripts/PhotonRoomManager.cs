@@ -2,9 +2,13 @@ using Photon.Pun;
 
 using Photon.Realtime;
 
+using System.Collections.Generic;
+
 using UnityEngine;
 
 using UnityEngine.Events;
+
+using ZL.Unity.Collections;
 
 namespace ZL.Unity.Server.Photon
 {
@@ -25,6 +29,23 @@ namespace ZL.Unity.Server.Photon
         [ReadOnly(true)]
 
         private string currentRoomName = string.Empty;
+
+        [Space]
+
+        [SerializeField]
+
+        [UsingCustomProperty]
+
+        [ReadOnly(true)]
+
+        private Wrapper<List<RoomInfo>> roomList;
+
+        public List<RoomInfo> RoomList
+        {
+            get => roomList.value;
+
+            private set => roomList.value = value;
+        }
 
         [Space]
 
@@ -56,18 +77,6 @@ namespace ZL.Unity.Server.Photon
 
         private UnityEvent eventOnLeftRoom;
 
-        [Space]
-
-        [SerializeField]
-
-        private UnityEvent eventOnMasterClientLeftRoom;
-
-        [Space]
-
-        [SerializeField]
-
-        private UnityEvent eventOnMasterClientSwitched;
-
         private void Awake()
         {
             ISingleton<PhotonRoomManager>.TrySetInstance(this);
@@ -76,6 +85,11 @@ namespace ZL.Unity.Server.Photon
         private void OnDestroy()
         {
             ISingleton<PhotonRoomManager>.Release(this);
+        }
+
+        public override void OnRoomListUpdate(List<RoomInfo> roomList)
+        {
+            RoomList = roomList;
         }
 
         public void CreateRoom(string roomName)
@@ -94,14 +108,14 @@ namespace ZL.Unity.Server.Photon
 
         public override void OnCreatedRoom()
         {
-            FixedDebug.Log($"Created room: {currentRoomName}");
+            FixedDebug.Log($"Created Room: {currentRoomName}");
 
             eventOnCreatedRoom.Invoke();
         }
 
         public override void OnCreateRoomFailed(short returnCode, string message)
         {
-            FixedDebug.Log($"Create room failed ({returnCode}): {message}");
+            FixedDebug.Log($"Create Room Failed ({returnCode}): {message}");
 
             eventOnCreateRoomFailed.Invoke();
         }
@@ -125,21 +139,21 @@ namespace ZL.Unity.Server.Photon
         {
             currentRoomName = PhotonNetwork.CurrentRoom.Name;
 
-            FixedDebug.Log($"Joined room: {currentRoomName}");
+            FixedDebug.Log($"Joined Room: {currentRoomName}");
 
             eventOnJoinedRoom.Invoke();
         }
 
         public override void OnJoinRoomFailed(short returnCode, string message)
         {
-            FixedDebug.Log($"Join room failed ({returnCode}): {message}");
+            FixedDebug.Log($"Join Room Failed ({returnCode}): {message}");
 
             evenOnJoinRoomFailed.Invoke();
         }
 
         public override void OnJoinRandomFailed(short returnCode, string message)
         {
-            FixedDebug.Log($"Join random failed ({returnCode}): {message}");
+            FixedDebug.Log($"Join Random Failed ({returnCode}): {message}");
 
             evenOnJoinRoomFailed.Invoke();
         }
@@ -151,53 +165,9 @@ namespace ZL.Unity.Server.Photon
 
         public override void OnLeftRoom()
         {
-            FixedDebug.Log($"Left room: {currentRoomName}");
-
-            if (PhotonNetwork.IsMasterClient == true)
-            {
-                OnMasterClientLeftRoom();
-            }
+            FixedDebug.Log($"Left Room: {currentRoomName}");
 
             eventOnLeftRoom.Invoke();
-        }
-
-        public void OnMasterClientLeftRoom()
-        {
-            ISingleton<PhotonManager>.Instance.RPCLog(RpcTarget.All, "Master client left room.");
-
-            eventOnMasterClientLeftRoom.Invoke();
-        }
-
-        public void SetMasterClientInOrder()
-        {
-            var playerList = PhotonNetwork.PlayerList;
-
-            foreach (var player in playerList)
-            {
-                if (player.IsMasterClient == false)
-                {
-                    PhotonNetwork.SetMasterClient(player);
-                }
-            }
-        }
-
-        public void SetMasterClientRandom()
-        {
-            var playerList = PhotonNetwork.PlayerList;
-
-            if (playerList.Length != 0)
-            {
-                var newMasterClient = playerList[Random.Range(0, playerList.Length)];
-
-                PhotonNetwork.SetMasterClient(newMasterClient);
-            }
-        }
-
-        public override void OnMasterClientSwitched(Player newMasterClient)
-        {
-            FixedDebug.Log($"Master client switched: {newMasterClient.NickName}");
-
-            eventOnMasterClientSwitched.Invoke();
         }
     }
 }

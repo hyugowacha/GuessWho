@@ -6,7 +6,7 @@ using ZL.Unity.Server.Photon;
 
 namespace ZL.Unity.GuessWho
 {
-    [AddComponentMenu("ZL/Guess Who/Title Scene Director")]
+    [AddComponentMenu("ZL/GuessWho/TitleSceneDirector")]
 
     public sealed class TitleSceneDirector : PhotonSceneDirector
     {

@@ -25,39 +25,6 @@ namespace ZL.Unity.Tweeners
 
         [SerializeField]
 
-        private float delay = 0f;
-
-        public float Delay
-        {
-            get => delay;
-
-            set => delay = value;
-        }
-
-        [SerializeField]
-
-        private Ease ease = Ease.Unset;
-
-        public Ease Ease
-        {
-            get => ease;
-
-            set => ease = value;
-        }
-
-        [SerializeField]
-
-        private bool isIndependentUpdate = true;
-
-        public bool IsIndependentUpdate
-        {
-            get => isIndependentUpdate;
-
-            set => isIndependentUpdate = value;
-        }
-
-        [SerializeField]
-
         private bool loop = false;
 
         [SerializeField]
@@ -84,7 +51,31 @@ namespace ZL.Unity.Tweeners
 
         [PropertyField]
 
+        [Margin]
+
         private LoopType loopType = LoopType.Restart;
+
+        [SerializeField]
+
+        private Ease ease = Ease.Unset;
+
+        public Ease Ease
+        {
+            get => ease;
+
+            set => ease = value;
+        }
+
+        [SerializeField]
+
+        private bool isIndependentUpdate = true;
+
+        public bool IsIndependentUpdate
+        {
+            get => isIndependentUpdate;
+
+            set => isIndependentUpdate = value;
+        }
 
         protected DOGetter<T1> getter;
 
@@ -121,18 +112,16 @@ namespace ZL.Unity.Tweeners
 
             Current = To(getter, setter, endValue, duration);
 
-            Current.SetDelay(delay);
+            if (loop == true)
+            {
+                Current.SetLoops(loopCount, loopType);
+            }
 
             Current.SetEase(ease);
 
             if (isIndependentUpdate == true)
             {
                 Current.SetUpdate(isIndependentUpdate);
-            }
-
-            if (loop == true)
-            {
-                Current.SetLoops(loopCount, loopType);
             }
 
             Current.SetAutoKill(false);
