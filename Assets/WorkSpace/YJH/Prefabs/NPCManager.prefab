@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6343022081809790100}
+  - component: {fileID: 1750935497841338621}
   - component: {fileID: 3622799736403009446}
   m_Layer: 0
   m_Name: NPCManager
@@ -32,6 +33,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1750935497841338621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5719328067491451430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 3622799736403009446}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!114 &3622799736403009446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48,18 +72,3 @@ MonoBehaviour:
   npcGroup: {fileID: 0}
   spawnGroup: {fileID: 0}
   npcSpawnList: []
-  mapSizeZ1: 0
-  mapSizeZ2: 0
-  mapSizeX1: 0
-  mapSizeX2: 0
-  temp: {fileID: 0}
-  forTestSpawnPoint:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
