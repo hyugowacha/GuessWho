@@ -71,13 +71,11 @@ public class AttackState : IPlayerStates
     {
         player.playerAnim.SetBool("IsKick", true);
 
-        //player.audioSource.PlayOneShot(player.kick); // kick 사운드
-
         if (player.photonView.IsMine)
         {
-            player.audioSource.PlayOneShot(player.kick);
+            player.audioSource.PlayOneShot(player.kick); // 로컬 kick 사운드
 
-            player.photonView.RPC("RPC_PlayAttackSound", RpcTarget.Others, player.transform.position);
+            player.photonView.RPC("RPC_PlayAttackSound", RpcTarget.Others, player.transform.position); // RPC로 kick 사운드 나게 함
         }
 
         yield return new WaitForSeconds(1f);
