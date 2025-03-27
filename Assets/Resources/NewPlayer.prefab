@@ -739,6 +739,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 2940dde4-284d-4216-b0d1-023220ec6a3d
     m_ActionName: PlayerActions/Attack[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1160807954787784038}
+        m_TargetAssemblyTypeName: PlayerControl, Assembly-CSharp
+        m_MethodName: OnWeaponChange
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6b3eacf1-d772-4303-a600-1d3150f62247
+    m_ActionName: PlayerActions/WeaponChange[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerActions
@@ -780,6 +796,7 @@ MonoBehaviour:
   direction: {x: 0, y: 0}
   isRunning: 0
   modelRotator: {fileID: 8445485349914450246}
+  nowWeaponArrayNum: 0
   holdingWeapon: {fileID: 0}
   isAttackTriggered: 0
   weapons:
