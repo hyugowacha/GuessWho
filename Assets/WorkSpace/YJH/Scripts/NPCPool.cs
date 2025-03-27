@@ -77,7 +77,7 @@ public class NPCPool// : MonoBehaviour
             npc.transform.parent = group.transform;
             return npc;
         }
-        //return null;
+        
     }
     public void ReturnNPC(GameObject npc)
     {
@@ -88,13 +88,7 @@ public class NPCPool// : MonoBehaviour
     {
         npcs.Clear();
     }
-    //public void ActivateAllNPCs()
-    //{
-    //    for (int i = 0; i < InitialNPCNum; i++)
-    //    {
-    //        
-    //    }
-    //}
+    
 
     
    
