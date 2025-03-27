@@ -170,7 +170,7 @@ public class NPCMove : INPCState
 
 public class NPCHit : INPCState
 {
-    private bool isHit;
+    //private bool isHit;
     private NPC nowNPC;
     private Animator npcAnimator;
     private NavMeshAgent npcAgent;
@@ -199,7 +199,7 @@ public class NPCHit : INPCState
     [PunRPC]
     public void EnterState(NPC npc)
     {
-        isHit = false;
+        //isHit = false;
         nowNPC = npc;
         npcAnimator = (npc as TestingNPC).animator;
         npcAgent= (npc as TestingNPC).SelfAgent;
@@ -208,7 +208,7 @@ public class NPCHit : INPCState
     public void NPCGetHit()
     {
         //게임 매니저나 여타 피격시 시행될 기능
-        isHit=true;
+       // isHit=true;
     }
     [PunRPC]
     public void StateAction()
@@ -226,15 +226,15 @@ public class NPCHit : INPCState
         {
             return false;
         }
-        if (isHit == true)
-        {
-            StopAnimation();
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        //if (isHit == true)
+        //{
+        //    StopAnimation();
+        //    return true;
+        //}
+        //else
+        //{
+        //    return false;
+        //}
     }
     public bool ForceStateEnd()
     {

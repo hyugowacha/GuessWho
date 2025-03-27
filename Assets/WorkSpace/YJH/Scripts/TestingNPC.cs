@@ -15,8 +15,8 @@ public class TestingNPC : NPC,IHittable
     [SerializeField] AudioSource hitSoundSource;
     private INPCState nowState;
     //private NavMeshSurface gamefield;
-    private bool haveToChangeState;//현재로서는 필요 없으나 게임매니저에 사용할 수도 있을거 같기에 선언해 놓음
-    private bool hasHit = false;
+    //private bool haveToChangeState;//현재로서는 필요 없으나 게임매니저에 사용할 수도 있을거 같기에 선언해 놓음
+    //private bool hasHit = false;
     private float hitPenaltyTime=0.3f;
     [SerializeField] float hitTime = 0;
     //public GameObject forTest;//목적지 디버그용 완제품엔 필요 없음
@@ -130,7 +130,7 @@ public class TestingNPC : NPC,IHittable
     //    //
     //    //}
     //}
-    private void OnEnable()
+    public override void OnEnable()
     {
         if (PhotonNetwork.IsMasterClient == false)
         {
@@ -254,7 +254,7 @@ public class TestingNPC : NPC,IHittable
                     
                 }else if (nowState.CheckStateEnd() == true)
                 {
-                    haveToChangeState=true;
+                    //haveToChangeState=true;
                     if(nowState is NPCIdle)
                     {
                         ChangeState(NPCStateName.Walk);//new NPCMove());
@@ -269,7 +269,7 @@ public class TestingNPC : NPC,IHittable
                         //    //Debug.Log("stayidle");
                         //    ChangeState(new NPCIdle());
                         //}
-                        haveToChangeState = false;
+                        //haveToChangeState = false;
 
                     }
                     else if(nowState is NPCMove)
@@ -292,7 +292,7 @@ public class TestingNPC : NPC,IHittable
                 }
                 else
                 {
-                    haveToChangeState=false;
+                    //haveToChangeState=false;
                 }
 
             }
@@ -337,7 +337,7 @@ public class TestingNPC : NPC,IHittable
 
 
         //Debug.Log("gethit");
-        haveToChangeState = false;
+        //haveToChangeState = false;
     }
 
     private void OnTriggerEnter(Collider other)

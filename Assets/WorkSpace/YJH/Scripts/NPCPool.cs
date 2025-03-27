@@ -77,7 +77,7 @@ public class NPCPool// : MonoBehaviour
             npc.transform.parent = group.transform;
             return npc;
         }
-        return null;
+        //return null;
     }
     public void ReturnNPC(GameObject npc)
     {
