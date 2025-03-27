@@ -15459,6 +15459,8 @@ GameObject:
   - component: {fileID: 687644069}
   - component: {fileID: 687644068}
   - component: {fileID: 687644067}
+  - component: {fileID: 687644072}
+  - component: {fileID: 687644071}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -15549,6 +15551,65 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &687644071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 687644066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8ff65fa67ec73c41b14fead608fe9a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alivePlayerList: {fileID: 4979329653882827107, guid: c1388f00ec41e704abec9eab053fadc1, type: 3}
+--- !u!114 &687644072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 687644066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: c723d0ea0f190d14b87bf4a3885ba7eb, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 687644071}
+        m_TargetAssemblyTypeName: AlivePlayerList, Assembly-CSharp
+        m_MethodName: OnCheckAlivePlayer
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1ef0e774-65ca-44c2-80c4-5ed218c9d260
+    m_ActionName: UI/CheckAlivePlayer[/Keyboard/tab]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: UI
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!4 &687852503 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 480426, guid: 2d7ff3605aa9cff4eb8e82f140a295da, type: 3}
