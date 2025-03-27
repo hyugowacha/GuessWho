@@ -43,14 +43,9 @@ public class ApologizeState : IPlayerStates
 
         playerModeling.LookAt(player.apologizeTo);
 
-        yield return new WaitForSeconds(0.2f);
-
-        player.rb.constraints =
-            RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
-
         player.playerAnim.SetBool("IsNPC", true);
 
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3.5f);
 
         player.playerAnim.SetBool("Forgived", true);
 
@@ -61,8 +56,5 @@ public class ApologizeState : IPlayerStates
         player.playerAnim.SetBool("Forgived", false);
 
         player.isNPC = false; 
-
-        player.rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-
     }
 }
