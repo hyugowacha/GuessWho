@@ -8,7 +8,7 @@ namespace ZL.Unity.UI
 
     [DisallowMultipleComponent]
 
-    public sealed class CanvasGroupAnimator : MonoBehaviour
+    public sealed class CanvasGroupAnimator : CanvasGroupFader
     {
 
     }

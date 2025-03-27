@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ZL.Unity.UI
 {
-    [AddComponentMenu("ZL/UI/Screen (UI) Swapper")]
+    [AddComponentMenu("ZL/UI/UGUI Screen Swapper")]
 
     [DisallowMultipleComponent]
 
@@ -18,17 +18,17 @@ namespace ZL.Unity.UI
 
         public UGUIScreen Last { get; set; } = null;
 
-        public virtual void EnableMainMenu()
+        public virtual void OpenMainScreen()
         {
             main?.Open();
         }
 
-        public virtual void DisableCurrent()
+        public virtual void closeCurrentScreen()
         {
             Current?.Close();
         }
 
-        public virtual void EnableLast()
+        public virtual void OpenLastScreen()
         {
             Last?.Open();
         }

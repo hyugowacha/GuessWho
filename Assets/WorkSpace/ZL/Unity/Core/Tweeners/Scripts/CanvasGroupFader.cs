@@ -70,7 +70,19 @@ namespace ZL.Unity.UI
 
         [SerializeField]
 
+        private UnityEvent eventOnFadingIn;
+
+        [Space]
+
+        [SerializeField]
+
         private UnityEvent eventOnFadeIn;
+
+        [Space]
+
+        [SerializeField]
+
+        private UnityEvent eventOnFadingOut;
 
         [Space]
 
@@ -79,6 +91,14 @@ namespace ZL.Unity.UI
         private UnityEvent eventOnFadeOut;
 
         private bool interactable;
+
+        private void OnValidate()
+        {
+            if (Application.isPlaying == true)
+            {
+                SetFaded(isFadedIn);
+            }
+        }
 
         private void Awake()
         {
@@ -96,24 +116,38 @@ namespace ZL.Unity.UI
 
             if (isFadedIn == true)
             {
-                gameObject.SetActive(true);
+                OnFadingIn();
 
                 alphaTweener.Tween(1f, duration).OnComplete(OnFadedIn);
             }
 
             else
             {
-                interactable = canvasGroup.interactable;
-
-                canvasGroup.interactable = false;
+                OnFadingOut();
 
                 alphaTweener.Tween(0f, duration).OnComplete(OnFadedOut);
             }
         }
 
+        protected virtual void OnFadingIn()
+        {
+            gameObject.SetActive(true);
+
+            eventOnFadingIn.Invoke();
+        }
+
         protected virtual void OnFadedIn()
         {
             eventOnFadeIn.Invoke();
+        }
+
+        protected virtual void OnFadingOut()
+        {
+            interactable = canvasGroup.interactable;
+
+            canvasGroup.interactable = false;
+
+            eventOnFadingOut.Invoke();
         }
 
         protected virtual void OnFadedOut()
