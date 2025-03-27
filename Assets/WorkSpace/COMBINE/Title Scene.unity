@@ -406,8 +406,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentRoomName: 
-  roomList:
-    value: []
   eventOnCreatedRoom:
     m_PersistentCalls:
       m_Calls: []
@@ -445,6 +443,9 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   eventOnLeftRoom:
+    m_PersistentCalls:
+      m_Calls: []
+  eventOnMasterClientLeftRoom:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &333100005
@@ -516,13 +517,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swapper: {fileID: 271743266}
-  fader: {fileID: 365179096}
-  eventOnOpen:
-    m_PersistentCalls:
-      m_Calls: []
-  eventOnClose:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &365179096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,7 +532,13 @@ MonoBehaviour:
   canvasGroup: {fileID: 365179098}
   alphaTweener: {fileID: 365179097}
   isFadedIn: 1
+  eventOnFadingIn:
+    m_PersistentCalls:
+      m_Calls: []
   eventOnFadeIn:
+    m_PersistentCalls:
+      m_Calls: []
+  eventOnFadingOut:
     m_PersistentCalls:
       m_Calls: []
   eventOnFadeOut:
@@ -559,11 +559,11 @@ MonoBehaviour:
   tweener:
     duration: 0.5
     delay: 0
+    ease: 0
+    isIndependentUpdate: 1
     loop: 0
     loopCount: -1
     loopType: 0
-    ease: 0
-    isIndependentUpdate: 1
   canvasGroup: {fileID: 365179098}
 --- !u!225 &365179098
 CanvasGroup:
@@ -1749,6 +1749,8 @@ MonoBehaviour:
     value:
     - Name: Default
       Type: 0
+  roomList:
+    value: []
   eventOnJoinedLobby:
     m_PersistentCalls:
       m_Calls:
@@ -1765,6 +1767,9 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
   evenOnLeftLobby:
+    m_PersistentCalls:
+      m_Calls: []
+  eventOnRoomListUpdate:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &1527051519
@@ -2375,13 +2380,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swapper: {fileID: 271743266}
-  fader: {fileID: 2142985347}
-  eventOnOpen:
-    m_PersistentCalls:
-      m_Calls: []
-  eventOnClose:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &2142985347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2397,7 +2395,13 @@ MonoBehaviour:
   canvasGroup: {fileID: 2142985349}
   alphaTweener: {fileID: 2142985348}
   isFadedIn: 0
+  eventOnFadingIn:
+    m_PersistentCalls:
+      m_Calls: []
   eventOnFadeIn:
+    m_PersistentCalls:
+      m_Calls: []
+  eventOnFadingOut:
     m_PersistentCalls:
       m_Calls: []
   eventOnFadeOut:
@@ -2418,11 +2422,11 @@ MonoBehaviour:
   tweener:
     duration: 0.5
     delay: 0
+    ease: 0
+    isIndependentUpdate: 1
     loop: 0
     loopCount: -1
     loopType: 0
-    ease: 0
-    isIndependentUpdate: 1
   canvasGroup: {fileID: 2142985349}
 --- !u!225 &2142985349
 CanvasGroup:
@@ -2432,7 +2436,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2142985344}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -2667,6 +2671,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6629757351253791565, guid: a4b88603019292345a303a81d5777853, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6745018171057800165, guid: a4b88603019292345a303a81d5777853, type: 3}
+      propertyPath: m_Alpha
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7748342234586608575, guid: a4b88603019292345a303a81d5777853, type: 3}
