@@ -51,15 +51,13 @@ MonoBehaviour:
   - StateAction
   - StopAnimation
   - SyncHitState
-  - PlayerItemGet
-  - SetNPCTransform
-  - AddNPCToList
+  - Log
   - AddNPCToListViaPhoton
-  - NotifyStateChange
+  - PlayerItemGet
   - RPC_PlayAttackSound
   - RPC_PlayHitSound
+  - SetNPCTransform
   - SetNPCTransformByID
-  - AddNPCListByPhotonID
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

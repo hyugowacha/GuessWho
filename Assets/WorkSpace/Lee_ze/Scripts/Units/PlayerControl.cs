@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -26,6 +27,8 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     public RotateModel modelRotator;
 
+    public int nowWeaponArrayNum = 0;
+
 
     [Space(20), Header("Attack"), Space(10)]
 
@@ -40,6 +43,8 @@ public class PlayerControl : MonoBehaviourPun, IHittable
     public ItemData footData;
 
     public ItemData nowWeapon;
+
+    public GameObject itemStonePrefab;
 
     public bool isHit = false;
 
@@ -58,7 +63,8 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     private void OnEnable()
     {
-        holdingWeapon = footData;
+        nowHaveItems[0] = footData;
+        holdingWeapon = nowHaveItems[0];
 
         foreach (var weapon in weapons)
         {
@@ -68,6 +74,7 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     private void Start()
     {
+
         if (photonView.IsMine)
         {
             ChangeStateTo(new IdleState());
@@ -114,9 +121,31 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     public void OnWeaponChange(InputAction.CallbackContext ctx) //무기 전환 메서드
     {
-        if (ctx.phase == InputActionPhase.Started)
+        if (ctx.phase == InputActionPhase.Performed)
         {
+            nowWeaponArrayNum++;
 
+            if(nowWeaponArrayNum < 3)
+            {
+                holdingWeapon = nowHaveItems[nowWeaponArrayNum];
+            }
+            
+            else if(nowWeaponArrayNum >= 3)
+            {
+                nowWeaponArrayNum = 0;
+                holdingWeapon = nowHaveItems[nowWeaponArrayNum];
+
+            }
+
+            if(holdingWeapon != null)
+            {
+                UnityEngine.Debug.Log(holdingWeapon.name);
+            }
+
+            else if(holdingWeapon == null)
+            {
+                UnityEngine.Debug.Log("null");
+            }
         }
     }
 

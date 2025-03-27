@@ -18,7 +18,15 @@ public class AttackState : IPlayerStates
 
         this.player = player;
 
-        itemType = player.holdingWeapon.itemType;
+        if(player.holdingWeapon != null)
+        {
+            itemType = player.holdingWeapon.itemType;
+        }
+        
+        if(player.holdingWeapon == null)
+        {
+            itemType = player.footData.itemType;
+        }
 
         player.moveSpeed = 0;
 
@@ -34,13 +42,13 @@ public class AttackState : IPlayerStates
             case (ItemType.Stone):
 
                 AttackThrow();
-
+                Debug.Log("µ¹ ´øÁö±â");
                 break;
 
             case (ItemType.Gun):
 
                 AttackShoot();
-
+                Debug.Log("ÃÑ½î±â");
                 break;
         }
     }
@@ -87,11 +95,13 @@ public class AttackState : IPlayerStates
 
     void AttackThrow()
     {
-        Debug.Log("µ¹ ´øÁö±â");
+
+        player.isAttackTriggered = false;
     }
 
     void AttackShoot()
     {
         Debug.Log("ÃÑ ½î±â");
+        player.isAttackTriggered = false;
     }
 }
