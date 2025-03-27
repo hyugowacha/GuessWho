@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Realtime;
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Pool;
 using ZL.Unity;
 
-public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManager>
+public class NPCManager : MonoBehaviourPunCallbacks, IPunObservable, ISingleton<NPCManager>
 {
     // Start is called before the first frame update
     //필드에 존재하는 엔피시들 
@@ -266,7 +267,16 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
         }
 
     }
-
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        //base.OnDisconnected(cause);
+        if(PhotonNetwork.IsMasterClient)
+        {
+            List<Player> players = new List<Player>(PhotonNetwork.PlayerList);
+            Player randomPlayer = players[Random.Range(0, players.Count)];
+            PhotonNetwork.SetMasterClient(randomPlayer);
+        }
+    }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

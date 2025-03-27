@@ -435,10 +435,12 @@ public class TestingNPC : NPC,IHittable
 
     public override void OnMasterClientSwitched(Player newMasterClient)
     {
-        base.OnMasterClientSwitched(newMasterClient);
+        Debug.Log("master changed");
+        //base.OnMasterClientSwitched(newMasterClient);
         if(PhotonNetwork.IsMasterClient)
         {
             SelfAgent.enabled = true;
+            StartCoroutine(CheckState());
         }
 
 
