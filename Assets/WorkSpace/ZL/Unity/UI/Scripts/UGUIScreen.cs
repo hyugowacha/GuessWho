@@ -1,8 +1,10 @@
 using UnityEngine;
 
+using UnityEngine.Events;
+
 namespace ZL.Unity.UI
 {
-    [AddComponentMenu("ZL/UI/Screen (UI)")]
+    [AddComponentMenu("ZL/UI/UGUI Screen")]
 
     [DisallowMultipleComponent]
 
@@ -20,16 +22,6 @@ namespace ZL.Unity.UI
 
         private UGUIScreenSwapper swapper;
 
-        [SerializeField]
-
-        [UsingCustomProperty]
-
-        [ReadOnly(true)]
-
-        [GetComponent]
-
-        private CanvasGroupFader fader;
-
         public virtual void Open()
         {
             if (swapper != null)
@@ -40,16 +32,6 @@ namespace ZL.Unity.UI
 
                 swapper.Last = this;
             }
-
-            if (fader != null)
-            {
-                fader.SetFaded(true);
-            }
-
-            else
-            {
-                gameObject.SetActive(true);
-            }
         }
 
         public virtual void Close()
@@ -57,16 +39,6 @@ namespace ZL.Unity.UI
             if (swapper != null)
             {
                 swapper.Current = null;
-            }
-
-            if (fader != null)
-            {
-                fader.SetFaded(false);
-            }
-
-            else
-            {
-                gameObject.SetActive(false);
             }
         }
     }

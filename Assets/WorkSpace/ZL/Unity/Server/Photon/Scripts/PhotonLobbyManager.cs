@@ -3,6 +3,7 @@ using Photon.Pun;
 using Photon.Realtime;
 
 using System.Collections.Generic;
+
 using UnityEngine;
 
 using UnityEngine.Events;
@@ -43,6 +44,23 @@ namespace ZL.Unity.Server.Photon
 
         [SerializeField]
 
+        [UsingCustomProperty]
+
+        [ReadOnly(true)]
+
+        private Wrapper<List<RoomInfo>> roomList;
+
+        public List<RoomInfo> RoomList
+        {
+            get => roomList.value;
+
+            private set => roomList.value = value;
+        }
+
+        [Space]
+
+        [SerializeField]
+
         private UnityEvent eventOnJoinedLobby;
 
         [Space]
@@ -50,6 +68,12 @@ namespace ZL.Unity.Server.Photon
         [SerializeField]
 
         private UnityEvent evenOnLeftLobby;
+
+        [Space]
+
+        [SerializeField]
+
+        private UnityEvent eventOnRoomListUpdate;
 
         private Dictionary<string, TypedLobby> lobbyDictionary;
 
@@ -82,7 +106,7 @@ namespace ZL.Unity.Server.Photon
 
         public override void OnJoinedLobby()
         {
-            FixedDebug.Log($"Joined Lobby: {currentLobbyName}");
+            FixedDebug.Log($"Joined lobby: {currentLobbyName}");
 
             eventOnJoinedLobby.Invoke();
         }
@@ -94,11 +118,20 @@ namespace ZL.Unity.Server.Photon
 
         public override void OnLeftLobby()
         {
-            FixedDebug.Log($"Left Lobby: {currentLobbyName}");
+            FixedDebug.Log($"Left lobby: {currentLobbyName}");
 
             currentLobbyName = string.Empty;
 
             evenOnLeftLobby.Invoke();
+        }
+
+        public override void OnRoomListUpdate(List<RoomInfo> roomList)
+        {
+            FixedDebug.Log($"Room list update.");
+
+            RoomList = roomList;
+
+            eventOnRoomListUpdate.Invoke();
         }
     }
 }
