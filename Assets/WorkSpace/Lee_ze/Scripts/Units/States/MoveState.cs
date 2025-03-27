@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -62,6 +63,13 @@ public class MoveState : IPlayerStates
         if (player.isHit == true)
         {
             player.ChangeStateTo(new KnockDownState());
+
+            return;
+        }
+
+        if (player.isNPC == true)
+        {
+            player.ChangeStateTo(new ApologizeState());
 
             return;
         }

@@ -136,9 +136,6 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         }
     }
 
-
-
-
     public void OnRun(InputAction.CallbackContext ctx)
     {
         if (!photonView.IsMine)
@@ -190,5 +187,13 @@ public class PlayerControl : MonoBehaviourPun, IHittable
     private void SyncHitState(bool hit)
     {
         isHit = hit;
+    }
+
+    [PunRPC]
+    void RPC_PlayAttackSound(Vector3 soundPosition)
+    {
+        audioSource.transform.position = soundPosition; // 사운드 위치 설정
+
+        audioSource.PlayOneShot(kick);
     }
 }

@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -70,7 +71,14 @@ public class AttackState : IPlayerStates
     {
         player.playerAnim.SetBool("IsKick", true);
 
-        player.audioSource.PlayOneShot(player.kick, UnityEngine.Random.Range(0.5f, 1f)); // kick 사운드
+        //player.audioSource.PlayOneShot(player.kick); // kick 사운드
+
+        if (player.photonView.IsMine)
+        {
+            player.audioSource.PlayOneShot(player.kick);
+
+            player.photonView.RPC("RPC_PlayAttackSound", RpcTarget.Others, player.transform.position);
+        }
 
         yield return new WaitForSeconds(1f);
 
