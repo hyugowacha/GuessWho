@@ -232,6 +232,46 @@ public class TestingNPC : NPC,IHittable
         
     }
 
+    public void ChangeState(NPCStateName stateName,bool isAfterMoveFlag)
+    {
+        forDebug = stateName.ToString();
+        switch (stateName)
+        {
+            case NPCStateName.None:
+                break;
+            case NPCStateName.Hit:
+                nowState = new NPCHit();
+                nowState.EnterState(this);
+                nowState.StateAction();
+                break;
+            case NPCStateName.Idle:
+                nowState = new NPCIdle();
+                if (isAfterMoveFlag== true)
+                {
+                    nowState.EnterState(this);
+                    (nowState as NPCIdle).SetDelayTime(0.5f);
+                    nowState.StateAction();
+                }
+                else
+                {
+                    nowState.EnterState(this);
+                    nowState.StateAction();
+                }
+                break;
+            case NPCStateName.Walk:
+                nowState = new NPCMove();
+                nowState.EnterState(this);
+                nowState.StateAction();
+                break;
+            default:
+                break;
+        }
+
+
+
+    }
+
+
 
     IEnumerator CheckState()
     {
@@ -257,6 +297,7 @@ public class TestingNPC : NPC,IHittable
                     //haveToChangeState=true;
                     if(nowState is NPCIdle)
                     {
+                        
                         ChangeState(NPCStateName.Walk);//new NPCMove());
                         //if (Random.Range(0, 100) < 70)
                         //{
@@ -280,7 +321,9 @@ public class TestingNPC : NPC,IHittable
                         if (Random.Range(0, 100) < 70)
                         {
                             //Debug.Log("changetomove");
-                            ChangeState(NPCStateName.Walk);
+                            ChangeState(NPCStateName.Idle,true);
+                            
+                            //ChangeState(NPCStateName.Walk);
 
                         }
                         else

@@ -37,6 +37,9 @@ public class NPCMove : INPCState
     readonly int hashMove = Animator.StringToHash("isMove");
     readonly int hashIdle = Animator.StringToHash("isIdle");
 
+
+    private float maxDelayTime = 1000f;
+    private float delayTime = 0;
     //GameObject forTest;
     [PunRPC]
     public void PlayAnimation()
@@ -65,6 +68,7 @@ public class NPCMove : INPCState
         selfAgent.isStopped = false;
         npcAnimator = (npc as TestingNPC).animator;
         destination = new Vector3();
+        delayTime = 0;
         RandomDestination();
         //selfAgent.SetDestination(destination.position);//목적지 설정 
 
@@ -154,6 +158,7 @@ public class NPCMove : INPCState
     }
     public bool CheckStateEnd()// 이쪽을 좀 더 신경써야 할듯 건물 안에 생성된 목적지가 있으면 자꾸 고장남
     {
+        delayTime += Time.deltaTime;
         if ((destination - nowNPC.transform.position).magnitude < 5.0f)
         {
             //Debug.Log((destination - nowNPC.transform.position).magnitude);
@@ -162,7 +167,14 @@ public class NPCMove : INPCState
         }
         else
         {
-            return false;
+            if (delayTime >= maxDelayTime)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 
@@ -295,7 +307,10 @@ public class NPCIdle : INPCState
         PlayAnimation();
     }
 
-    
+    public void SetDelayTime(float time)
+    {
+        idleTime=time;
+    }
     public bool CheckStateEnd()
     {
         delaiedime += Time.deltaTime;
