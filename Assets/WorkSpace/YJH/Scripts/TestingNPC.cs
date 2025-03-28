@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using ZL.Unity;
 
-public class TestingNPC : MonoBehaviourPunCallbacks,IHittable
+public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
 {
 
     //상태 패턴
@@ -322,7 +322,7 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable
                         if (Random.Range(0, 100) < 70)
                         {
                             //Debug.Log("changetomove");
-                            photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Idle,0.5f);
+                            photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Idle,0.3f);
                             //ChangeState(NPCStateName.Idle,true);
                             
                             //ChangeState(NPCStateName.Walk);
@@ -395,6 +395,9 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable
             transform.LookAt(player);
 
 
+        }else if(other.transform.root.tag == "Stone")
+        {
+
         }
     }
 
@@ -422,5 +425,17 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable
 
     }
 
-
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(transform.position);
+            stream.SendNext(transform.rotation);
+        }
+        else
+        {
+            transform.position=(Vector3)stream.ReceiveNext();
+            transform.rotation=(Quaternion)stream.ReceiveNext();
+        }
+    }
 }
