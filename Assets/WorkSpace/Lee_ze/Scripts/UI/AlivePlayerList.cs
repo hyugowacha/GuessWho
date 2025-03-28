@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
-using WebSocketSharp;
 
 public class AlivePlayerList : MonoBehaviourPunCallbacks
 {
@@ -17,19 +16,21 @@ public class AlivePlayerList : MonoBehaviourPunCallbacks
 
     private GameObject list;
 
+    private Dictionary<int, GameObject> playerEntries = new Dictionary<int, GameObject>();
+
     private void Start()
     {
         list = Instantiate(alivePlayerListPrefab, this.transform);
 
         list.SetActive(false);
+
+        UpdatePlayerList();
     }
 
     public void OnCheckAlivePlayer(InputAction.CallbackContext ctx)
     {
         if (ctx.phase == InputActionPhase.Performed)
         {
-            UpdatePlayerList();
-
             list.SetActive(true);
         }
         else if (ctx.phase == InputActionPhase.Canceled)
@@ -42,13 +43,32 @@ public class AlivePlayerList : MonoBehaviourPunCallbacks
     {
         foreach (Player player in PhotonNetwork.PlayerList)
         {
-            GameObject playerEntry = Instantiate(alivePlayerID, alivePlayerListPrefab.transform);
+            GameObject playerEntry = Instantiate(alivePlayerID, list.transform);
 
-            Text textComponent = playerEntry.GetComponent<Text>();
+            playerEntry.GetComponent<Text>().text = $"{player.ActorNumber}";
 
-            textComponent.text = $"(ID: {player.ActorNumber})";
+            playerEntries[player.ActorNumber] = playerEntry;
+        }
+    }
 
-            Debug.Log(player.ActorNumber);
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        Debug.Log(newPlayer.ActorNumber);
+
+        GameObject playerEntry = Instantiate(alivePlayerID, list.transform);
+
+        playerEntry.GetComponent<Text>().text = $"{newPlayer.ActorNumber}";
+
+        playerEntries[newPlayer.ActorNumber] = playerEntry;
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        if (playerEntries.ContainsKey(otherPlayer.ActorNumber))
+        {
+            Destroy(playerEntries[otherPlayer.ActorNumber]);
+
+            playerEntries.Remove(otherPlayer.ActorNumber);
         }
     }
 }
