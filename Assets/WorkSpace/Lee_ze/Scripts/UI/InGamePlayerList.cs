@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
 
@@ -47,7 +48,7 @@ public class InGamePlayerList : MonoBehaviourPunCallbacks
         {
             GameObject playerEntry = Instantiate(inGamePlayerID, list.transform);
 
-            playerEntry.GetComponent<Text>().text = $"{player.ActorNumber}";
+            playerEntry.GetComponent<TMP_Text>().text = $"{player.ActorNumber}";
 
             playerEntries[player.ActorNumber] = playerEntry;
         }
@@ -59,7 +60,7 @@ public class InGamePlayerList : MonoBehaviourPunCallbacks
 
         GameObject playerEntry = Instantiate(inGamePlayerID, list.transform);
 
-        playerEntry.GetComponent<Text>().text = $"{newPlayer.ActorNumber}";
+        playerEntry.GetComponent<TMP_Text>().text = $"{newPlayer.ActorNumber}";
 
         playerEntries[newPlayer.ActorNumber] = playerEntry;
     }
