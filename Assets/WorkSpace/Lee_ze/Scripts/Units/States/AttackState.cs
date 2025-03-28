@@ -28,6 +28,8 @@ public class AttackState : IPlayerStates
             itemType = player.footData.itemType;
         }
 
+        
+
         player.moveSpeed = 0;
 
         // 공격 로직
@@ -41,8 +43,8 @@ public class AttackState : IPlayerStates
 
             case (ItemType.Stone):
 
-                AttackThrow();
-                Debug.Log("돌 던지기");
+                player.StartCoroutine(AttackThrow());
+
                 break;
 
             case (ItemType.Gun):
@@ -93,11 +95,19 @@ public class AttackState : IPlayerStates
         player.isAttackTriggered = false;
     }
 
-    void AttackThrow()
+    IEnumerator AttackThrow()
     {
+        player.playerAnim.SetTrigger("IsThrow");
 
+        player.weapons[1].SetActive(true);
+
+        player.photonView.RPC("InstantiateStone", RpcTarget.All, true);
+
+        yield return new WaitForSeconds(1.8f);
         player.isAttackTriggered = false;
     }
+
+    
 
     void AttackShoot()
     {
