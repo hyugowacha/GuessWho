@@ -16,17 +16,10 @@ public class ItemSpawnManager : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient)
         {
-            Debug.Log("아이템 스폰됐음");
-            PhotonNetwork.Instantiate("ItemSpawnPoints", Vector3.zero, Quaternion.identity);
+            Debug.Log("아이템 포인트 스폰됐음");
+            PhotonNetwork.InstantiateRoomObject("ItemSpawnPoints", Vector3.zero, Quaternion.identity);
         }
     }
 
-    public override void OnMasterClientSwitched(Player newMasterClient)
-    {
-        if(PhotonNetwork.IsMasterClient)
-        {
-            PhotonNetwork.Instantiate("ItemSpawnPoints", Vector3.zero, Quaternion.identity);
-        }
-    }
 
 }
