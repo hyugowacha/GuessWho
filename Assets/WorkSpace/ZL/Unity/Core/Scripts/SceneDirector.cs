@@ -12,11 +12,11 @@ using ZL.Unity.UI;
 
 namespace ZL.Unity
 {
-    [AddComponentMenu("ZL/Scene Director (Singleton)")]
-
-    public class SceneDirector : SceneDirector<SceneDirector> { }
+    [AddComponentMenu("ZL/Scene Director")]
 
     [DisallowMultipleComponent]
+
+    public class SceneDirector : SceneDirector<SceneDirector> { }
 
     public abstract class SceneDirector<T> : MonoBehaviour, ISingleton<T>
 
@@ -27,6 +27,8 @@ namespace ZL.Unity
         [SerializeField]
 
         protected CanvasGroupFader screenFader;
+
+        [Space]
 
         [SerializeField]
 

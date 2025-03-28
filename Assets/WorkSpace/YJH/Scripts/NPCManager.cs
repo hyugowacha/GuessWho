@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Realtime;
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Pool;
 using ZL.Unity;
 
-public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManager>
+public class NPCManager : MonoBehaviourPunCallbacks, IPunObservable, ISingleton<NPCManager>
 {
-    // Start is called before the first frame update
-    //필드에 존재하는 엔피시들 
-    //public GameObject npcPrefab;
+    //public GameObject test;
+
+    
     private NPCPool pool;//NPC 풀
     [SerializeField] GameObject npc;// NPC 프리팹
     [SerializeField] GameObject npcGroup;//생성된 npc들을 가지고 있을 부모 오브젝트
@@ -24,7 +25,7 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
     //[SerializeField] float mapSizeX2;//x축 최대값
 
     //private List<GameObject> npcList;//생성된 NPC들 보유하는 리스트 둘중 택1?
-    private List<NPC> npcScriptList;//생성된 NPC들 보유하는 리스트 둘중 택1?
+    private List<TestingNPC> npcScriptList;//생성된 NPC들 보유하는 리스트 둘중 택1?
                                     
 
 
@@ -45,21 +46,17 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
         //Debug.Log(temp.size.x+","+ temp.size.y+","+ temp.size.z);
 
         
-        npcScriptList = new List<NPC>();
+        npcScriptList = new List<TestingNPC>();
         npcSpawnList = new List<GameObject>();
         //npcDestinations = new List<Vector3>();
         SetSpawnPoint();//초기 스폰 메커니즘 -> 나중에 완성도를 끌어올릴때 다른 로직을 사용해 보자 -> 단점으로는 밀도가 높아져 빈 공간이 생길 수 밖에 없음
         
-        //InitialSet();
-        //foreach(var t in npcSpawnList)
-        //{
-        //    Debug.Log(t.transform.position);
-        //}
+        
         
         //InitialSetBySpawnPoint();// 스폰포인트용 초기 세팅
-        //InitialSetForSpawnPointTest();//스폰포인트 포함한 테스트
+        
         //InitialForDebug();// 디버그용 하나 생성
-        //pool.NPCS.Get();//NPC 생성코드 전시용
+        
     }
 
     private void OnDestroy()
@@ -82,11 +79,12 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
     
     public void InitialSetBySpawnPoint()//스폰포인트를 바탕으로 npc 배치 
     {
+        //PhotonNetwork.InstantiateRoomObject(test.name, Vector3.zero, Quaternion.identity, 0);
         CreateAllNPC();
         //Debug.Log(npcScriptList.Count);
         if (PhotonNetwork.IsConnected == false)//포톤에 연결되어 있지 않다면
         {
-            foreach (NPC npc in npcScriptList)//npc들을
+            foreach (TestingNPC npc in npcScriptList)//npc들을
             {
 
                 
@@ -111,7 +109,7 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
         {
             if (PhotonNetwork.IsMasterClient != true)
             {
-                foreach (NPC npc in npcScriptList)
+                foreach (TestingNPC npc in npcScriptList)
                 {
                     (npc as TestingNPC).SelfAgent.enabled = false;
                 }
@@ -123,7 +121,7 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
             {
                 
                 Debug.Log(npcScriptList.Count);
-                foreach (NPC npc in npcScriptList)//npc들을
+                foreach (TestingNPC npc in npcScriptList)//npc들을
                 {
                     //Debug.Log("1");
                     //CreateAllNPC();
@@ -131,10 +129,11 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
 
                     //npc.transform.position = npcSpawnList[spawnIndex].transform.position*2;
                     (npc as TestingNPC).SelfAgent.enabled = false;
-
+                    int tempID = npc.photonView.ViewID;
                     Vector3 temp = new Vector3();
                     temp = npcSpawnList[spawnIndex].transform.position +new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2));
-                    photonView.RPC("SetNPCTransformByID", Photon.Pun.RpcTarget.All, npc.photonView.ViewID, temp);
+                    photonView.RPC("SetNPCTransformByID", Photon.Pun.RpcTarget.All, tempID, temp);
+                    //photonView.RPC("AddNPCListByPhotonID", Photon.Pun.RpcTarget.All, tempID);
                     //SetNPCTransform(npc.gameObject, npcSpawnList[spawnIndex].transform.position + new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2)));//랜덤하게 위치 설정
                     npc.gameObject.transform.Rotate(0, Random.Range(0f, 360f), 0);                                                                                            
                     (npc as TestingNPC).SelfAgent.enabled = true;
@@ -170,8 +169,15 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
     {
         PhotonView.Find(viewID).transform.position = position;
     }
+    [PunRPC]
+    public void AddNPCListByPhotonID(int viewID)
+    {
+        var tempNPC=PhotonView.Find(viewID);
+        Debug.Log(npcGroup.transform);
+        tempNPC.gameObject.transform.SetParent(npcGroup.transform);
+        npcScriptList.Add(tempNPC.GetComponent<TestingNPC>());
 
-
+    }
     //public void SpawNPC()
     //{
     //   temp= pool.NPCS.Get();
@@ -183,14 +189,7 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
         //Debug.Log(mapSi);
         return destination;
     }
-    [PunRPC]
-    public void AddNPCToListViaPhoton(int npcId)
-    {
-        var npc= PhotonView.Find(npcId).GetComponent<NPC>();
-
-
-        npcScriptList.Add(npc);
-    }
+    
     public void CreateAllNPC()//npc를 초기 숫자만큼 생성
     {
         for(int i=0; i<pool.InitialNPCNum; i++)
@@ -198,23 +197,20 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
             //npcList.Add(pool.NPCS.Get());
             if (PhotonNetwork.IsConnected)
             {
-                //var tempNPC = PhotonNetwork.InstantiateRoomObject(npc.name, Vector3.zero, Quaternion.identity, 0);
-                //tempNPC.transform.SetParent(npcGroup.transform);
-                //var tempRPC = tempNPC.GetComponent<NPC>();
-                //Debug.Log(tempNPC.GetPhotonView().ViewID);
-                //photonView.RPC("AddNPCToListViaPhoton", Photon.Pun.RpcTarget.All, tempNPC.GetPhotonView().ViewID);
-                //npcScriptList.Add(tempNPC.GetComponent<NPC>());
+                
 
 
 
                 if (PhotonNetwork.IsMasterClient == true)
                 {
-                    //var tempNPC = pool.GetNPC(npcGroup);//pool 사용하던 때 쓰던 코드
+                    
                     
                     var tempNPC = PhotonNetwork.InstantiateRoomObject(npc.name, Vector3.zero, Quaternion.identity, 0);
                     tempNPC.transform.SetParent(npcGroup.transform);
-                    //npcList.Add(tempNPC);
-                    npcScriptList.Add(tempNPC.GetComponent<NPC>());
+                    int tempID=tempNPC.GetComponent<PhotonView>().ViewID;
+                    //Debug.Log(tempID);
+                    photonView.RPC("AddNPCListByPhotonID", Photon.Pun.RpcTarget.AllBuffered, tempID);
+                    
                 }
                 else
                 {
@@ -224,29 +220,32 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
             else
             {
                 var tempNPC = pool.GetNPC(npcGroup);
-                npcScriptList.Add(tempNPC.GetComponent<NPC>());
+                npcScriptList.Add(tempNPC.GetComponent<TestingNPC>());
             }
             
         }
     }
 
-    public Vector3 RandomDestination(NPC nowNPC)
+    public Vector3 RandomDestination(TestingNPC nowNPC)
     {
-        //Debug.Log("first"+destination);
-        //Debug.Log("NPC"+nowNPC.transform.position);
+        
         Vector3 destination = new Vector3();
         var init = Random.insideUnitCircle;
         destination = nowNPC.transform.position + new Vector3(init.x * 20, 0, init.y * 20);
         while (IsDestinationOutOfRange(destination,nowNPC) == true)
         {
-            //Debug.Log("re");
+            
             var temp = Random.insideUnitCircle;
             destination = nowNPC.transform.position + new Vector3(temp.x * 20, 0, temp.y * 20);
         }
-        //Debug.Log(destination);
+        
         return destination;
     }
-    public bool IsDestinationOutOfRange(Vector3 destination,NPC nowNPC)
+    
+
+
+
+    public bool IsDestinationOutOfRange(Vector3 destination,TestingNPC nowNPC)
     {
         if ((destination - nowNPC.transform.position).magnitude < 5f)
         {
@@ -266,8 +265,8 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
         }
 
     }
-
-
+    
+    
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if(PhotonNetwork.IsConnected)
@@ -282,4 +281,7 @@ public class NPCManager : MonoBehaviourPun, IPunObservable, ISingleton<NPCManage
             }
         }
     }
+
+    
+
 }

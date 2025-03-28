@@ -8,6 +8,8 @@ namespace ZL.Unity
     {
         bool ISingleton<T>.TrySetInstance()
         {
+            FixedDebug.Log("IMonoSingleton<T>");
+
             if (IsDuplicated() == true)
             {
                 ((T)this).Destroy();

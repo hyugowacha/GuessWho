@@ -17,8 +17,8 @@ public interface INPCState
     
     public void PlayAnimation();
     public void StopAnimation();
-    public void EnterState(NPC npc);
-    public void EnterState(NPC npc,float time);
+    public void EnterState(TestingNPC npc);
+    public void EnterState(TestingNPC npc,float time);
 
     public void StateAction();
     public bool CheckStateEnd();
@@ -30,7 +30,7 @@ public class NPCMove : INPCState
     //private List<Vector3> destinations;//navmesh 안쓰면 
     //private bool isMoveEnd;
     private Vector3 destination;
-    private NPC nowNPC;
+    private TestingNPC nowNPC;
     private NavMeshAgent selfAgent;
     //float temp = 0;
     private Animator npcAnimator;
@@ -64,7 +64,7 @@ public class NPCMove : INPCState
 
     }
     [PunRPC]
-    public void EnterState(NPC npc)
+    public void EnterState(TestingNPC npc)
     {
 
         nowNPC = npc;
@@ -83,7 +83,7 @@ public class NPCMove : INPCState
 
 
     }
-    public void EnterState(NPC npc, float time)
+    public void EnterState(TestingNPC npc, float time)
     {
         if (PhotonNetwork.IsMasterClient==true)
         {
@@ -100,7 +100,7 @@ public class NPCMove : INPCState
         }
         
     }
-    public void EnterState(NPC npc, Vector3 randomDestination)//RPC용으로 오버로딩
+    public void EnterState(TestingNPC npc, Vector3 randomDestination)//RPC용으로 오버로딩
     {
         
             nowNPC = npc;
@@ -158,22 +158,17 @@ public class NPCMove : INPCState
     {
         destination = position;
     }
-    //public void SetState(Transform destination)
-    //{
-    //    destinations = new List<Vector3>();
-    //    destination.position=destinations[0];
-    //    StateAction();
-    //    this.destination = destination;
-    //}
+    
     [PunRPC]
     public void StateAction()
     {
-        PlayAnimation();
         if (selfAgent.enabled == true)
         {
             selfAgent.SetDestination(destination);
             nowNPC.transform.LookAt(destination);//이거 커브 돌때는 어케 되는거지?
         }
+        PlayAnimation();
+        
 
 
 
@@ -223,7 +218,7 @@ public class NPCMove : INPCState
 public class NPCHit : INPCState
 {
     //private bool isHit;
-    private NPC nowNPC;
+    private TestingNPC nowNPC;
     private Animator npcAnimator;
     private NavMeshAgent npcAgent;
     readonly int hashHit = Animator.StringToHash("isHit");
@@ -249,13 +244,16 @@ public class NPCHit : INPCState
     }
 
     [PunRPC]
-    public void EnterState(NPC npc)
+    public void EnterState(TestingNPC npc)
     {
         //isHit = false;
         nowNPC = npc;
         npcAnimator = (npc as TestingNPC).animator;
         npcAgent= (npc as TestingNPC).SelfAgent;
-        npcAgent.isStopped = true;
+        if (npcAgent.enabled == true)
+        {
+            npcAgent.isStopped = true;
+        }
     }
     public void NPCGetHit()
     {
@@ -293,9 +291,9 @@ public class NPCHit : INPCState
         return true;
     }
 
-    public void EnterState(NPC npc, float time)
+    public void EnterState(TestingNPC npc, float time)
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 }
 public class NPCIdle : INPCState
@@ -303,7 +301,7 @@ public class NPCIdle : INPCState
     private float idleTime;// 대기해야할 시간
     private float delaiedime;//대기한 시간
     private bool isEnd;
-    private NPC nowNPC;
+    private TestingNPC nowNPC;
     private Animator npcAnimator;
     private NavMeshAgent npcAgent;
     readonly int hashHit = Animator.StringToHash("isHit");
@@ -328,7 +326,7 @@ public class NPCIdle : INPCState
 
     }
     [PunRPC]
-    public void EnterState(NPC npc)
+    public void EnterState(TestingNPC npc)
     {
         isEnd = false;
         idleTime = UnityEngine.Random.Range(0.2f,1.0f);//대기 시간 설정
@@ -344,7 +342,7 @@ public class NPCIdle : INPCState
         //npcAnimator.SetBool("isAnger", false);
         //npcAnimator.SetBool(hashHit, false);
     }
-    public void EnterState(NPC npc, float time)
+    public void EnterState(TestingNPC npc, float time)
     {
 
         isEnd = false;
