@@ -12,9 +12,7 @@ public class NPCManager : MonoBehaviourPunCallbacks, IPunObservable, ISingleton<
 {
     //public GameObject test;
 
-    // Start is called before the first frame update
-    //필드에 존재하는 엔피시들 
-    //public GameObject npcPrefab;
+    
     private NPCPool pool;//NPC 풀
     [SerializeField] GameObject npc;// NPC 프리팹
     [SerializeField] GameObject npcGroup;//생성된 npc들을 가지고 있을 부모 오브젝트
@@ -53,16 +51,12 @@ public class NPCManager : MonoBehaviourPunCallbacks, IPunObservable, ISingleton<
         //npcDestinations = new List<Vector3>();
         SetSpawnPoint();//초기 스폰 메커니즘 -> 나중에 완성도를 끌어올릴때 다른 로직을 사용해 보자 -> 단점으로는 밀도가 높아져 빈 공간이 생길 수 밖에 없음
         
-        //InitialSet();
-        //foreach(var t in npcSpawnList)
-        //{
-        //    Debug.Log(t.transform.position);
-        //}
+        
         
         //InitialSetBySpawnPoint();// 스폰포인트용 초기 세팅
-        //InitialSetForSpawnPointTest();//스폰포인트 포함한 테스트
+        
         //InitialForDebug();// 디버그용 하나 생성
-        //pool.NPCS.Get();//NPC 생성코드 전시용
+        
     }
 
     private void OnDestroy()
@@ -179,6 +173,8 @@ public class NPCManager : MonoBehaviourPunCallbacks, IPunObservable, ISingleton<
     public void AddNPCListByPhotonID(int viewID)
     {
         var tempNPC=PhotonView.Find(viewID);
+        Debug.Log(npcGroup.transform);
+        tempNPC.gameObject.transform.SetParent(npcGroup.transform);
         npcScriptList.Add(tempNPC.GetComponent<TestingNPC>());
 
     }
@@ -213,7 +209,7 @@ public class NPCManager : MonoBehaviourPunCallbacks, IPunObservable, ISingleton<
                     tempNPC.transform.SetParent(npcGroup.transform);
                     int tempID=tempNPC.GetComponent<PhotonView>().ViewID;
                     //Debug.Log(tempID);
-                    photonView.RPC("AddNPCListByPhotonID", Photon.Pun.RpcTarget.All, tempID);
+                    photonView.RPC("AddNPCListByPhotonID", Photon.Pun.RpcTarget.AllBuffered, tempID);
                     
                 }
                 else
