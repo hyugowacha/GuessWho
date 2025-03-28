@@ -210,6 +210,14 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         photonView.RPC("SyncHitState", RpcTarget.Others, true);
     }
 
+    public void StonenOff()
+    {
+        if (weapons[1] != null)
+        {
+            weapons[1].SetActive(false);
+        }
+    }
+
     // V RPC Methods
 
     [PunRPC]
@@ -233,4 +241,18 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
         audioSource.PlayOneShot(getHit);
     }
+
+    [PunRPC]
+    private void InstantiateStone()
+    {
+        GameObject stone = Instantiate(itemStonePrefab, transform.position, transform.rotation);
+
+        Rigidbody stoneRb = stone.GetComponent<Rigidbody>();
+
+        Vector3 throwDirection = modelRotator.transform.TransformDirection(new Vector3(0, 5f, 10f));
+        stoneRb.AddForce(throwDirection, ForceMode.Impulse);
+
+    }
+
+
 }
