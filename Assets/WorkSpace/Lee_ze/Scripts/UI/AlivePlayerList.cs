@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class AlivePlayerList : MonoBehaviour
+public class AlivePlayerList : MonoBehaviourPunCallbacks
 {
     [SerializeField]
-    private GameObject alivePlayerList;
+    private GameObject alivePlayerListPrefab;
 
     private GameObject list;
 
     private void Start()
     {
-        list = Instantiate(alivePlayerList, this.transform);
+        list = Instantiate(alivePlayerListPrefab, this.transform);
 
         list.SetActive(false);
     }
@@ -28,5 +30,10 @@ public class AlivePlayerList : MonoBehaviour
         {
             list.SetActive(false);
         }
+    }
+
+    private void UpdatePlayerList()
+    {
+
     }
 }
