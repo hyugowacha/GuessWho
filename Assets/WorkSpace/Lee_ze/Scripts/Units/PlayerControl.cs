@@ -5,9 +5,12 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Photon.Pun;
+using System;
 
 public class PlayerControl : MonoBehaviourPun, IHittable
 {
+    public event Action OnCheckIsDead;
+
     private IPlayerStates currentState;
 
     public Animator playerAnim;
@@ -207,19 +210,19 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     public void GetHit()
     {
+        OnCheckIsDead?.Invoke();
+
         photonView.RPC("SyncHitState", RpcTarget.Others, true);
     }
 
     // V RPC Methods
-
     [PunRPC]
     private void SyncHitState(bool hit)
     {
         isHit = hit;
     }
 
-    // --------------- »ç¿îµå
-
+    // V RPC Methods (Sound)
     [PunRPC]
     void RPC_PlayAttackSound(Vector3 soundPosition)
     {
