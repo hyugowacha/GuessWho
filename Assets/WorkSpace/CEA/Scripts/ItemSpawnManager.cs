@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon;
 using Photon.Pun;
+using Photon.Realtime;
 
 public class ItemSpawnManager : MonoBehaviourPunCallbacks
 {
@@ -16,6 +17,14 @@ public class ItemSpawnManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             Debug.Log("아이템 스폰됐음");
+            PhotonNetwork.Instantiate("ItemSpawnPoints", Vector3.zero, Quaternion.identity);
+        }
+    }
+
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        if(PhotonNetwork.IsMasterClient)
+        {
             PhotonNetwork.Instantiate("ItemSpawnPoints", Vector3.zero, Quaternion.identity);
         }
     }
