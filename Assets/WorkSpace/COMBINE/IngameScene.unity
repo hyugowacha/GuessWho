@@ -15726,8 +15726,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8ff65fa67ec73c41b14fead608fe9a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alivePlayerListPrefab: {fileID: 597171085254746144}
-  alivePlayerID: {fileID: 5241707508527195126, guid: fbae8fddd293e174392c4c21ea29d424, type: 3}
+  inGamePlayerListPanel: {fileID: 597171085254746144}
+  inGamePlayerID: {fileID: 5241707508527195126, guid: fbae8fddd293e174392c4c21ea29d424, type: 3}
 --- !u!114 &687644072
 MonoBehaviour:
   m_ObjectHideFlags: 0
