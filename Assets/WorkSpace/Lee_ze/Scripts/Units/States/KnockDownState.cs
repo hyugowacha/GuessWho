@@ -9,6 +9,8 @@ public class KnockDownState : IPlayerStates
 
     public void EnterState(PlayerControl player)
     {
+        // 사망 확성기 RPC
+
         this.player = player;
 
         this.player.audioSource.PlayOneShot(player.getHit, UnityEngine.Random.Range(0.5f, 1f)); // 로컬 피격 사운드

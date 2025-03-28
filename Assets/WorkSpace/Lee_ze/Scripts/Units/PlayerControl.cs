@@ -218,6 +218,8 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         isHit = hit;
     }
 
+    // --------------- »ç¿îµå
+
     [PunRPC]
     void RPC_PlayAttackSound(Vector3 soundPosition)
     {
