@@ -24,6 +24,7 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable
     //public GameObject forTest;//목적지 디버그용 완제품엔 필요 없음
     public Animator animator;
     public string forDebug;
+    private Vector3 npcDestination=new Vector3();
     public NavMeshAgent SelfAgent { get { return selfAgent; } set { selfAgent = value; } }
 
 
@@ -241,45 +242,7 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable
 
         
     }
-    //[PunRPC]
-    //public void ChangeState(NPCStateName stateName,bool isAfterMoveFlag)
-    //{
-    //    forDebug = stateName.ToString();
-    //    switch (stateName)
-    //    {
-    //        case NPCStateName.None:
-    //            break;
-    //        case NPCStateName.Hit:
-    //            nowState = new NPCHit();
-    //            nowState.EnterState(this);
-    //            nowState.StateAction();
-    //            break;
-    //        case NPCStateName.Idle:
-    //            nowState = new NPCIdle();
-    //            if (isAfterMoveFlag== true)
-    //            {
-    //                nowState.EnterState(this);
-    //                (nowState as NPCIdle).SetDelayTime(0.5f);
-    //                nowState.StateAction();
-    //            }
-    //            else
-    //            {
-    //                nowState.EnterState(this);
-    //                nowState.StateAction();
-    //            }
-    //            break;
-    //        case NPCStateName.Walk:
-    //            nowState = new NPCMove();
-    //            nowState.EnterState(this);
-    //            nowState.StateAction();
-    //            break;
-    //        default:
-    //            break;
-    //    }
-    //
-    //
-    //
-    //}
+    
     [PunRPC]
     public void ChangeState(NPCStateName stateName, float time)//RPC용
     {
@@ -303,6 +266,7 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable
                 nowState = new NPCMove();
                 (nowState as NPCMove).EnterState(this, ISingleton<NPCManager>.Instance.RandomDestination(this));
                 nowState.StateAction();
+                npcDestination = (nowState as NPCMove).ReturnDestination();
                 break;
             default:
                 break;
@@ -346,6 +310,7 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable
                     if(nowState is NPCIdle)
                     {
                         photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Walk, 0f);
+
                         //ChangeState(NPCStateName.Walk);//new NPCMove());
                         
 
@@ -442,6 +407,13 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable
         {
             SelfAgent.enabled = true;
             StartCoroutine(CheckState());
+            if(nowState is NPCMove)
+            {
+                (nowState as NPCMove).EnterState(this, npcDestination);
+                nowState.StateAction();
+                //(nowState as NPCMove).SetDestination(npcDestination);
+
+            }
         }
 
 

@@ -158,13 +158,7 @@ public class NPCMove : INPCState
     {
         destination = position;
     }
-    //public void SetState(Transform destination)
-    //{
-    //    destinations = new List<Vector3>();
-    //    destination.position=destinations[0];
-    //    StateAction();
-    //    this.destination = destination;
-    //}
+    
     [PunRPC]
     public void StateAction()
     {
