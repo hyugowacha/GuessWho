@@ -15,6 +15,7 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable
     [SerializeField] NavMeshAgent selfAgent;
     [SerializeField] Collider selfCollider;
     [SerializeField] AudioSource hitSoundSource;
+    
     private INPCState nowState;
     //private NavMeshSurface gamefield;
     //private bool haveToChangeState;//현재로서는 필요 없으나 게임매니저에 사용할 수도 있을거 같기에 선언해 놓음
@@ -398,7 +399,7 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable
     }
 
     #endregion
-
+    
     public override void OnMasterClientSwitched(Player newMasterClient)
     {
         Debug.Log("master changed");
