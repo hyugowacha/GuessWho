@@ -397,6 +397,9 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
 
         }else if(other.transform.root.tag == "Stone")
         {
+            var stone = other.transform.root.transform;
+            transform.LookAt(stone);
+            GetHit();
 
         }
     }
