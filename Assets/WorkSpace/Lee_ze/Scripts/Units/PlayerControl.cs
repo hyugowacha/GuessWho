@@ -1,10 +1,10 @@
-using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Photon.Pun;
 
 public class PlayerControl : MonoBehaviourPun, IHittable
 {

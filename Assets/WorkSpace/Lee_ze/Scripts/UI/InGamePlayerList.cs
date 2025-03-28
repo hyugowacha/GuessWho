@@ -6,21 +6,23 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class AlivePlayerList : MonoBehaviourPunCallbacks
+public class InGamePlayerList : MonoBehaviourPunCallbacks
 {
     [SerializeField]
-    private GameObject alivePlayerListPrefab;
+    private GameObject inGamePlayerListPanel;
 
     [SerializeField]
-    private GameObject alivePlayerID;
+    private GameObject inGamePlayerID;
 
     private GameObject list;
 
     private Dictionary<int, GameObject> playerEntries = new Dictionary<int, GameObject>();
 
-    private void Start()
+    IEnumerator Start()
     {
-        list = Instantiate(alivePlayerListPrefab, this.transform);
+        yield return new WaitUntil(() => (PhotonNetwork.PlayerList).Length > 0);
+
+        list = Instantiate(inGamePlayerListPanel, this.transform);
 
         list.SetActive(false);
 
@@ -43,7 +45,7 @@ public class AlivePlayerList : MonoBehaviourPunCallbacks
     {
         foreach (Player player in PhotonNetwork.PlayerList)
         {
-            GameObject playerEntry = Instantiate(alivePlayerID, list.transform);
+            GameObject playerEntry = Instantiate(inGamePlayerID, list.transform);
 
             playerEntry.GetComponent<Text>().text = $"{player.ActorNumber}";
 
@@ -55,7 +57,7 @@ public class AlivePlayerList : MonoBehaviourPunCallbacks
     {
         Debug.Log(newPlayer.ActorNumber);
 
-        GameObject playerEntry = Instantiate(alivePlayerID, list.transform);
+        GameObject playerEntry = Instantiate(inGamePlayerID, list.transform);
 
         playerEntry.GetComponent<Text>().text = $"{newPlayer.ActorNumber}";
 
