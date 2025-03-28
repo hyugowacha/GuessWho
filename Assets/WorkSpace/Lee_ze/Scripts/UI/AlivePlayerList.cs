@@ -5,11 +5,15 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using WebSocketSharp;
 
 public class AlivePlayerList : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     private GameObject alivePlayerListPrefab;
+
+    [SerializeField]
+    private GameObject alivePlayerID;
 
     private GameObject list;
 
@@ -24,6 +28,8 @@ public class AlivePlayerList : MonoBehaviourPunCallbacks
     {
         if (ctx.phase == InputActionPhase.Performed)
         {
+            UpdatePlayerList();
+
             list.SetActive(true);
         }
         else if (ctx.phase == InputActionPhase.Canceled)
@@ -34,6 +40,15 @@ public class AlivePlayerList : MonoBehaviourPunCallbacks
 
     private void UpdatePlayerList()
     {
+        foreach (Player player in PhotonNetwork.PlayerList)
+        {
+            GameObject playerEntry = Instantiate(alivePlayerID, alivePlayerListPrefab.transform);
 
+            Text textComponent = playerEntry.GetComponent<Text>();
+
+            textComponent.text = $"(ID: {player.ActorNumber})";
+
+            Debug.Log(player.ActorNumber);
+        }
     }
 }
