@@ -65,7 +65,7 @@ public class ItemSpawnPoint : MonoBehaviourPunCallbacks
             if (itemSpawnctrl != null)
             {
                 itemSpawnctrl.ItemSpawn(itemNum);
-                itemNum = Random.Range(0, 10);
+                itemNum++;
             }
         }
     }
