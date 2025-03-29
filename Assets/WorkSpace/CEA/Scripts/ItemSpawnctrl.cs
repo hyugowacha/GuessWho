@@ -57,7 +57,7 @@ public class ItemSpawnctrl : MonoBehaviourPun
 
             if (respawnCoolTime < respawnElapsedTime)
             {
-                SetRandomNumber();
+                SetRandomItem();
                 isAllItemOff = false;
                 respawnElapsedTime = 0;
             }
@@ -66,11 +66,11 @@ public class ItemSpawnctrl : MonoBehaviourPun
 
    
 
-    private void SetRandomNumber()
+    private void SetRandomItem()
     {
         if(PhotonNetwork.IsMasterClient)
         {
-            int RandomNumber = Random.Range(1, 11);
+            int RandomNumber = Random.Range(0, 10);
             photonView.RPC("SetItem", RpcTarget.AllBuffered, RandomNumber, this.name);
         }
     }
@@ -80,11 +80,11 @@ public class ItemSpawnctrl : MonoBehaviourPun
     {
         switch (itemNum)
         {
-            case 1:
+            case 8:
                 gunItem.SetActive(true);
                 break;
 
-            case 2:
+            case 9:
                 whistleItem.SetActive(true);
                 break;
 

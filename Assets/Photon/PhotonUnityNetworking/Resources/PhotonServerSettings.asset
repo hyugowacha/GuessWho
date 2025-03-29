@@ -60,7 +60,7 @@ MonoBehaviour:
   - SetNPCTransformByID
   - AddNPCListByPhotonID
   - InstantiateStone
-  - UpdateAlivePlayer
+  - AllItemOff
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
