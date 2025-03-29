@@ -9,11 +9,11 @@ using System;
 
 public class PlayerControl : MonoBehaviourPun, IHittable
 {
-    public event Action OnCheckIsDead;
-
     private IPlayerStates currentState;
 
     public Animator playerAnim;
+
+    private InGamePlayerList inGamePlayerList;
 
 
     [Header("Move"), Space(10)]
@@ -67,6 +67,7 @@ public class PlayerControl : MonoBehaviourPun, IHittable
     private void OnEnable()
     {
         nowHaveItems[0] = footData;
+
         holdingWeapon = nowHaveItems[0];
 
         foreach (var weapon in weapons)
@@ -77,6 +78,7 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     private void Start()
     {
+        inGamePlayerList = FindObjectOfType<InGamePlayerList>();
 
         if (photonView.IsMine)
         {
@@ -210,9 +212,9 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     public void GetHit()
     {
-        OnCheckIsDead?.Invoke();
-
         photonView.RPC("SyncHitState", RpcTarget.Others, true);
+
+        photonView.RPC("UpdateAlivePlayer", RpcTarget.Others);
     }
 
     public void StonenOff()
@@ -228,6 +230,25 @@ public class PlayerControl : MonoBehaviourPun, IHittable
     private void SyncHitState(bool hit)
     {
         isHit = hit;
+    }
+
+    [PunRPC]
+    private void UpdateAlivePlayer()
+    {
+        inGamePlayerList.playerNum -= 1; // 이게 문제
+
+        inGamePlayerList.SetPlayerCount();
+    }
+
+    [PunRPC]
+    private void InstantiateStone()
+    {
+        GameObject stone = Instantiate(itemStonePrefab, transform.position, transform.rotation);
+
+        Rigidbody stoneRb = stone.GetComponent<Rigidbody>();
+
+        Vector3 throwDirection = modelRotator.transform.TransformDirection(new Vector3(0, 5f, 10f));
+        stoneRb.AddForce(throwDirection, ForceMode.Impulse);
     }
 
     // V RPC Methods (Sound)
@@ -246,18 +267,4 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
         audioSource.PlayOneShot(getHit);
     }
-
-    [PunRPC]
-    private void InstantiateStone()
-    {
-        GameObject stone = Instantiate(itemStonePrefab, transform.position, transform.rotation);
-
-        Rigidbody stoneRb = stone.GetComponent<Rigidbody>();
-
-        Vector3 throwDirection = modelRotator.transform.TransformDirection(new Vector3(0, 5f, 10f));
-        stoneRb.AddForce(throwDirection, ForceMode.Impulse);
-
-    }
-
-
 }
