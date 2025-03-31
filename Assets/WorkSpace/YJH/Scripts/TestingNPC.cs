@@ -30,116 +30,15 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
 
 
 
-    //void Start()
-    //{
-    //    //selfAgent.SetDestination(tempDestination.transform.position);//랜덤 목적지 지정 시스템 만들기 전에 사용하는 임시 코드 
-    //
-    //   // Debug.Log("npcStart");
-    //    haveToChangeState = false;
-    //    #region 디버그용 코드
-    //nowState = new NPCMove();
-    //(nowState as NPCMove).SetDestination(NPCManager.ReturnRandomDestination());
-    //nowState.EnterState(this);
-    //nowState.StateAction();
-    //Instantiate(forTest, (nowState as NPCMove).ReturnDestination(),Quaternion.identity);
-    //StartCoroutine(CheckState());
-    //#endregion
-    //    #region 실제 사용 코드 
-    //호스트인지 감지해서 호스트일 경우에만 작동
-    //if (PhotonNetwork.IsConnected == false)
-    //{
-    //    if (Random.Range(0f, 1f) < 0.5f)//일부는 바로 이동 일부는 대기 
-    //    {
-    //        ChangeState(NPCStateName.Idle);
-    //        //nowState=;
-    //        //nowState.EnterState(this);
-    //        //Debug.Log("setidle");
-    //    }
-    //    else
-    //    {
-    //        ChangeState(NPCStateName.Walk);
-    //        //nowState = new NPCMove();
-    //        //nowState.EnterState(this);
-    //        // Debug.Log("setmove");
-    //    }
-    //    StartCoroutine(CheckState());
-    //}
-    //else
-    //{
-    //    if (PhotonNetwork.IsMasterClient == true)
-    //    {
-    //        if (Random.Range(0f, 1f) < 0.5f)//일부는 바로 이동 일부는 대기 
-    //        {
-    //            ChangeState(NPCStateName.Idle);//
-    //            //nowState=;
-    //            //nowState.EnterState(this);
-    //            //Debug.Log("setidle");
-    //        }
-    //        else
-    //        {
-    //            ChangeState(NPCStateName.Walk);
-    //            //nowState = new NPCMove();
-    //            //nowState.EnterState(this);
-    //            // Debug.Log("setmove");
-    //        }
-    //        StartCoroutine(CheckState());
-    //    }
-    //
-    //}
+    
 
-    //#endregion
-    //    //   selfAgent.
-    //}
-    //public override void OnEnable()
-    //{
-    //    //if (PhotonNetwork.IsConnected == false)
-    //    //{
-    //    //    return;
-    //    //    //if (Random.Range(0f, 1f) < 0.5f)//일부는 바로 이동 일부는 대기 
-    //    //    //{
-    //    //    //    ChangeState(new NPCIdle());
-    //    //    //    //nowState=;
-    //    //    //    //nowState.EnterState(this);
-    //    //    //    //Debug.Log("setidle");
-    //    //    //}
-    //    //    //else
-    //    //    //{
-    //    //    //    ChangeState(new NPCMove());
-    //    //    //    //nowState = new NPCMove();
-    //    //    //    //nowState.EnterState(this);
-    //    //    //    // Debug.Log("setmove");
-    //    //    //}
-    //    //    //StartCoroutine(CheckState());
-    //    //}
-    //    //else
-    //    //{
-    //    //    if (PhotonNetwork.IsMasterClient == true)
-    //    //    {
-    //    //        if (Random.Range(0f, 1f) < 0.5f)//일부는 바로 이동 일부는 대기 
-    //    //        {
-    //    //            ChangeState(NPCStateName.Idle);//
-    //    //            //nowState=;
-    //    //            //nowState.EnterState(this);
-    //    //            //Debug.Log("setidle");
-    //    //        }
-    //    //        else
-    //    //        {
-    //    //            ChangeState(NPCStateName.Walk);
-    //    //            //nowState = new NPCMove();
-    //    //            //nowState.EnterState(this);
-    //    //            // Debug.Log("setmove");
-    //    //        }
-    //    //        StartCoroutine(CheckState());
-    //    //    }
-    //    //
-    //    //}
-    //}
     public override void OnEnable()
     {
         base.OnEnable();
         if (PhotonNetwork.IsMasterClient == false)
         {
-            selfAgent.enabled = false;
+            //selfAgent.enabled = false;
+            
         }
     }
     public void SetNPCTransform(Vector3 transformTo)
@@ -179,7 +78,7 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
             }
             else
             {
-                selfAgent.enabled = false;
+                //selfAgent.enabled = false;
             }
 
         }
