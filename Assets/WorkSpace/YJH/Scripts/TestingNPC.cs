@@ -24,8 +24,9 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
     [SerializeField] float hitTime = 0;
     //public GameObject forTest;//목적지 디버그용 완제품엔 필요 없음
     public Animator animator;
-    public string forDebug;
+    //public string forDebug;
     private Vector3 npcDestination=new Vector3();
+    readonly int hashselfVel = Animator.StringToHash("selfVel");
     public NavMeshAgent SelfAgent { get { return selfAgent; } set { selfAgent = value; } }
 
 
@@ -58,6 +59,7 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
         else
         {
             //Debug.Log("conn");
+            StartCoroutine (NPCAnimationControl());
             if (PhotonNetwork.IsMasterClient == true)
             {
                 if (Random.Range(0f, 1f) < 0.5f)//일부는 바로 이동 일부는 대기 
@@ -85,37 +87,13 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
     }
 
 
-    //private void OnDisable()
-    //{
-    //    
-    //
-    //}
-    // Update is called once per frame
-    //void Update()
-    //{
-    //    
-    //}
-    //private void FixedUpdate()
-    //{
-    //    //if(nowState != null)
-    //    //{
-    //    //    nowState.StateAction();
-    //    //}
-    //}
+    
     #region 상태변화 관련 코드
-    //[PunRPC]
-    //public void ChangeState(INPCState changeState)
-    //{
-    //    
-    //    nowState = changeState;
-    //    nowState.EnterState(this);
-    //    nowState.StateAction();
-    //   
-    //}
+    
     [PunRPC]
     public void ChangeState(NPCStateName stateName)
     {
-        forDebug=stateName.ToString();
+        //forDebug=stateName.ToString();
         switch (stateName)
         {
             case NPCStateName.None:
@@ -146,7 +124,7 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
     [PunRPC]
     public void ChangeState(NPCStateName stateName, float time)//RPC용
     {
-        forDebug = stateName.ToString();
+        //forDebug = stateName.ToString();
         switch (stateName)
         {
             case NPCStateName.None:
@@ -176,7 +154,14 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
 
 
     }
-
+    IEnumerator NPCAnimationControl()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.1f);
+            animator.SetFloat(hashselfVel, selfAgent.velocity.magnitude);
+        }
+    }
 
     IEnumerator CheckState()//master client만 이걸 실행해야 함
     {

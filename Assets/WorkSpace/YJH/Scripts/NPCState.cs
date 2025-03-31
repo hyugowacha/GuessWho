@@ -168,7 +168,7 @@ public class NPCMove : INPCState
         selfAgent.SetDestination(destination);
         nowNPC.transform.LookAt(destination);//이거 커브 돌때는 어케 되는거지?
         
-        PlayAnimation();
+        //PlayAnimation();
         
 
 
@@ -197,7 +197,7 @@ public class NPCMove : INPCState
         if ((destination - nowNPC.transform.position).magnitude < 5.0f)
         {
             //Debug.Log((destination - nowNPC.transform.position).magnitude);
-            StopAnimation();
+            //StopAnimation();
             return true;
         }
         else
@@ -264,7 +264,7 @@ public class NPCHit : INPCState
     [PunRPC]
     public void StateAction()
     {
-        PlayAnimation();
+        //PlayAnimation();
         
     }
     public bool CheckStateEnd()
@@ -356,12 +356,13 @@ public class NPCIdle : INPCState
         npcAnimator.SetBool(hashHit, false);
         npcAnimator.SetBool(hashIdle, true);
         npcAnimator.SetBool(hashMove, false);
+        npcAnimator.SetFloat(hashselfVel, 0f);
     }
     [PunRPC]
     public void StateAction()
     {
         //StartCoroutine(NPCIdleAnimationPlay());
-        PlayAnimation();
+        //PlayAnimation();
     }
 
     public void SetDelayTime(float time)
@@ -382,7 +383,7 @@ public class NPCIdle : INPCState
         if (isEnd == true)
         {
             //Debug.Log("endidle");
-            StopAnimation();
+            //StopAnimation();
             return true;
         }
         else
