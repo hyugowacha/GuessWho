@@ -556,7 +556,6 @@ MonoBehaviour:
   hitSoundSource: {fileID: 1220664917276564810}
   hitTime: 0
   animator: {fileID: 9083047734429414456}
-  forDebug: 
 --- !u!114 &2689909880202221650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1127,8 +1126,8 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: isAnger
   - Type: 1
-    SynchronizeType: 0
-    Name: Blend
+    SynchronizeType: 2
+    Name: selfVel
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
