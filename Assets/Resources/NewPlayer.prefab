@@ -813,6 +813,7 @@ MonoBehaviour:
   isHit: 0
   isNPC: 0
   apologizeTo: {x: 0, y: 0, z: 0}
+  leftBullet: 0
   audioSource: {fileID: 2326626118337468934}
   running: {fileID: 8300000, guid: afa3000decd2f8f40bedfe2a9e91bf19, type: 3}
   kick: {fileID: 8300000, guid: 0bd05035ccb17284da6dceef97a880d9, type: 3}

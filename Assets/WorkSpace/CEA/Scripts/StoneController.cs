@@ -39,6 +39,7 @@ public class StoneController : MonoBehaviour
                 player = other.GetComponent<PlayerControl>();
                 player.GetHit();
                 Destroy(this.gameObject);
+
                 Instantiate(stoneDestroyEffect, transform.position, Quaternion.identity);
             }
         }

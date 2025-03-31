@@ -52,6 +52,8 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     public Vector3 apologizeTo;
 
+    public int leftBullet;
+
 
     [Space(20), Header("Sound Control"), Space(10)]
 
@@ -200,7 +202,7 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         {
             nowWeapon = item;
             nowHaveItems[1] = nowWeapon;
-
+            leftBullet = item.bulletAmount;
         }
 
         else if (item.itemType == ItemType.Whistle)
