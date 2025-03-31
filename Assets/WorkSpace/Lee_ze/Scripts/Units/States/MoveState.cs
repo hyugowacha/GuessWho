@@ -38,17 +38,25 @@ public class MoveState : IPlayerStates
             player.rb.MovePosition(player.transform.position + move);
 
             player.modelRotator.SetTargetDirection(move);
-
-            RunningSound();
         }
         else
         {
             player.moveSpeed = Mathf.Lerp(player.moveSpeed, 0, Time.deltaTime * 5f);
         }
 
+        // 뛸 때 running sound
+        if (player.isRunning == true)
+        {
+            player.photonView.RPC("RPC_PlayRunningSound", RpcTarget.All, player.transform.position);
+        }
+        else
+        {
+            player.photonView.RPC("RPC_StopRunningSound", RpcTarget.All, player.transform.position);
+        }
+
         player.playerAnim.SetFloat("Speed", player.moveSpeed / 0.12f);
 
-        // 움직임이 없을 때 IdleState로 전환
+        // V State 전환
         if (player.direction == Vector2.zero)
         {
             player.ChangeStateTo(new IdleState());
@@ -80,11 +88,6 @@ public class MoveState : IPlayerStates
 
     public void ExitState()
     {
-
-    }
-
-    private void RunningSound()
-    {
-        player.photonView.RPC("RPC_PlayRunningSound", RpcTarget.All, player.transform.position);
+        player.photonView.RPC("RPC_StopRunningSound", RpcTarget.All, player.transform.position);
     }
 }

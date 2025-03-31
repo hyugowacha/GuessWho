@@ -290,24 +290,25 @@ public class PlayerControl : MonoBehaviourPun, IHittable
     {
         audioSource.transform.position = soundPosition;
 
-        if (isRunning == true)
-        {
-            if (audioSource.isPlaying == false) // 이미 재생 중이면 다시 실행하지 않음
-            {
-                audioSource.clip = running;
-
-                audioSource.loop = true;
-
-                audioSource.Play();
-            }
-        }
-        else if (isRunning == false)
+        if (audioSource.isPlaying == false) // 이미 재생 중이면 다시 실행하지 않음
         {
             audioSource.clip = running;
 
-            audioSource.loop = false;
+            audioSource.loop = true;
 
-            audioSource.Stop();
+            audioSource.Play();
         }
+    }
+
+    [PunRPC]
+    void RPC_StopRunningSound(Vector3 soundPosition)
+    {
+        audioSource.transform.position = soundPosition;
+
+        audioSource.clip = running;
+
+        audioSource.loop = false;
+
+        audioSource.Stop();
     }
 }
