@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 
 public class InGamePlayerList : MonoBehaviourPunCallbacks
 {
@@ -39,7 +41,7 @@ public class InGamePlayerList : MonoBehaviourPunCallbacks
 
         UpdatePlayerList();
 
-        UpdateAlivePlayerCount();
+        SetPlayerCount();
     }
 
     public void OnCheckAlivePlayer(InputAction.CallbackContext ctx)
@@ -66,7 +68,7 @@ public class InGamePlayerList : MonoBehaviourPunCallbacks
         }
     }
 
-    public void UpdateAlivePlayerCount() // 왼쪽 하단 생존 플레이어 표시
+    public void SetPlayerCount()
     {
         int aliveCount = 0;
 
@@ -101,7 +103,7 @@ public class InGamePlayerList : MonoBehaviourPunCallbacks
         // 방 생성되면 추가적으로 들어올 수 없기 때문에 나중에 지워야 함.
         playerNum = PhotonNetwork.PlayerList.Length;
 
-        UpdateAlivePlayerCount();
+        SetPlayerCount();
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
@@ -115,6 +117,6 @@ public class InGamePlayerList : MonoBehaviourPunCallbacks
 
         playerNum = PhotonNetwork.PlayerList.Length;
 
-        UpdateAlivePlayerCount();
+        SetPlayerCount();
     }
 }

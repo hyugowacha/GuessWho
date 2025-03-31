@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,7 +24,7 @@ public class MoveState : IPlayerStates
 
         if (player.direction != Vector2.zero)
         {
-            player.targetSpeed = player.isRunning ? 0.12f : 0.06f; // 뜀 : 걸음
+            player.targetSpeed = player.isRunning ? 0.12f : 0.06f;
 
             player.moveSpeed = Mathf.Lerp(player.moveSpeed, player.targetSpeed, Time.deltaTime * 5f);
 
@@ -41,24 +40,12 @@ public class MoveState : IPlayerStates
         }
         else
         {
-            player.isRunning = false;
-
             player.moveSpeed = Mathf.Lerp(player.moveSpeed, 0, Time.deltaTime * 5f);
-        }
-
-        // 뛸 때 running sound
-        if (player.isRunning == true)
-        {
-            player.photonView.RPC("RPC_PlayRunningSound", RpcTarget.All, player.transform.position);
-        }
-        else
-        {
-            player.photonView.RPC("RPC_StopRunningSound", RpcTarget.All, player.transform.position);
         }
 
         player.playerAnim.SetFloat("Speed", player.moveSpeed / 0.12f);
 
-        // V State 전환
+        // 움직임이 없을 때 IdleState로 전환
         if (player.direction == Vector2.zero)
         {
             player.ChangeStateTo(new IdleState());
@@ -90,6 +77,6 @@ public class MoveState : IPlayerStates
 
     public void ExitState()
     {
-        player.photonView.RPC("RPC_StopRunningSound", RpcTarget.All, player.transform.position);
+
     }
 }
