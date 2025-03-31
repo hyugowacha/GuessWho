@@ -134,7 +134,7 @@ public class PlayerControl : MonoBehaviourPun, IHittable
             return;
         }
 
-        if (ctx.phase == InputActionPhase.Performed && direction != Vector2.zero)
+        if (ctx.phase == InputActionPhase.Performed)
         {
             isRunning = true;
         }
@@ -303,12 +303,9 @@ public class PlayerControl : MonoBehaviourPun, IHittable
     [PunRPC]
     void RPC_StopRunningSound(Vector3 soundPosition)
     {
-        audioSource.transform.position = soundPosition;
-
-        audioSource.clip = running;
-
-        audioSource.loop = false;
-
-        audioSource.Stop();
+        if (audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
     }
 }

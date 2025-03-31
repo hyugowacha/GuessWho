@@ -41,6 +41,8 @@ public class MoveState : IPlayerStates
         }
         else
         {
+            player.isRunning = false;
+
             player.moveSpeed = Mathf.Lerp(player.moveSpeed, 0, Time.deltaTime * 5f);
         }
 
