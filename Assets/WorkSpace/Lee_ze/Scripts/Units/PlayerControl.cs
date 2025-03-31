@@ -134,11 +134,11 @@ public class PlayerControl : MonoBehaviourPun, IHittable
             return;
         }
 
-        if (ctx.phase == InputActionPhase.Performed)
+        if (ctx.phase == InputActionPhase.Performed && direction != Vector2.zero)
         {
             isRunning = true;
         }
-        else if (ctx.phase == InputActionPhase.Canceled)
+        else
         {
             isRunning = false;
         }
@@ -290,6 +290,24 @@ public class PlayerControl : MonoBehaviourPun, IHittable
     {
         audioSource.transform.position = soundPosition;
 
-        audioSource.Play();
+        if (isRunning == true)
+        {
+            if (audioSource.isPlaying == false) // 이미 재생 중이면 다시 실행하지 않음
+            {
+                audioSource.clip = running;
+
+                audioSource.loop = true;
+
+                audioSource.Play();
+            }
+        }
+        else if (isRunning == false)
+        {
+            audioSource.clip = running;
+
+            audioSource.loop = false;
+
+            audioSource.Stop();
+        }
     }
 }

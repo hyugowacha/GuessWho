@@ -85,26 +85,6 @@ public class MoveState : IPlayerStates
 
     private void RunningSound()
     {
-        if (player.isRunning == true)
-        {
-            if (player.audioSource.isPlaying == false) // 이미 재생 중이면 다시 실행하지 않음
-            {
-                player.audioSource.clip = player.running;
-
-                player.audioSource.loop = true;
-
-                player.audioSource.Play();
-
-                player.photonView.RPC("RPC_PlayRunningSound", RpcTarget.Others, player.transform.position); // RPC로 kick 사운드 나게 함
-            }
-        }
-        else
-        {
-            player.audioSource.clip = player.running;
-
-            player.audioSource.loop = false;
-
-            player.audioSource.Stop();
-        }
+        player.photonView.RPC("RPC_PlayRunningSound", RpcTarget.All, player.transform.position);
     }
 }
