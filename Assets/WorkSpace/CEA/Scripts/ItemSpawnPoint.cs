@@ -56,6 +56,17 @@ public class ItemSpawnPoint : MonoBehaviourPunCallbacks
     [PunRPC]
     private void RPC_SpawnItems(int itemNum)
     {
+        foreach (var spawnPoint in spawnPoints)
+        {
+            itemSpawnctrl = spawnPoint.GetComponent<ItemSpawnctrl>();
+
+            itemSpawnctrl.WhistleItem.SetActive(false);
+            itemSpawnctrl.GunItem.SetActive(false);
+            itemSpawnctrl.StoneItem.SetActive(false);
+
+            itemSpawnctrl.IsAllItemOff = false;
+        }
+
         Debug.Log(itemNum);
 
         foreach (var spawnPoint in spawnPoints)

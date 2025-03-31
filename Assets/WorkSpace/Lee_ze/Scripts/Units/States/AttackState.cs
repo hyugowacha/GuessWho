@@ -44,13 +44,18 @@ public class AttackState : IPlayerStates
             case (ItemType.Stone):
 
                 player.StartCoroutine(AttackThrow());
+                player.leftBullet--;
 
+                if(player.leftBullet == 0)
+                {
+                    player.nowHaveItems[1] = null;
+                }
                 break;
 
             case (ItemType.Gun):
 
-                AttackShoot();
-                Debug.Log("ÃÑ½î±â");
+                player.StartCoroutine(AttackShoot());
+                
                 break;
         }
     }
@@ -97,21 +102,32 @@ public class AttackState : IPlayerStates
 
     IEnumerator AttackThrow()
     {
-        player.playerAnim.SetTrigger("IsThrow");
+        player.playerAnim.SetBool("IsThrow", true);
 
         player.weapons[1].SetActive(true);
 
-        player.photonView.RPC("InstantiateStone", RpcTarget.All, true);
-
         yield return new WaitForSeconds(1.8f);
+        player.playerAnim.SetBool("IsThrow", false);
+
+        player.leftBullet--;
+        Debug.Log("ÅºÃ¢ °¨¼Ò");
+
+        if (player.leftBullet <= 0)
+        {
+            Debug.Log("µ¹ ´Ù¾¸");
+            player.nowHaveItems[1] = null;
+            player.holdingWeapon = null;
+        }
+
         player.isAttackTriggered = false;
     }
 
-    
 
-    void AttackShoot()
+
+    IEnumerator AttackShoot()
     {
         Debug.Log("ÃÑ ½î±â");
+        yield return null;
         player.isAttackTriggered = false;
     }
 }

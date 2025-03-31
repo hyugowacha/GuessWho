@@ -52,6 +52,8 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     public Vector3 apologizeTo;
 
+    public int leftBullet;
+
 
     [Space(20), Header("Sound Control"), Space(10)]
 
@@ -200,7 +202,7 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         {
             nowWeapon = item;
             nowHaveItems[1] = nowWeapon;
-
+            leftBullet = item.bulletAmount;
         }
 
         else if (item.itemType == ItemType.Whistle)
@@ -253,12 +255,23 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         isHit = hit;
     }
 
+    void StoneThrow()
+    {
+        if (photonView.IsMine)
+        {
+            photonView.RPC("InstantiateStone", RpcTarget.All, photonView.ViewID);
+        }
+    }
+
+
     [PunRPC]
-    private void InstantiateStone()
+    private void InstantiateStone(int whoThrow)
     {
         GameObject stone = Instantiate(itemStonePrefab, transform.position, transform.rotation);
 
         Rigidbody stoneRb = stone.GetComponent<Rigidbody>();
+
+        stone.GetComponent<StoneController>().whoThrow = whoThrow;
 
         Vector3 throwDirection = modelRotator.transform.TransformDirection(new Vector3(0, 5f, 10f));
         stoneRb.AddForce(throwDirection, ForceMode.Impulse);

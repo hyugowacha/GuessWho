@@ -8,6 +8,7 @@ TagManager:
   - NPC
   - Stone
   - ItemSpawnPoint
+  - Map
   layers:
   - Default
   - TransparentFX
