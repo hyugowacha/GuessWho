@@ -1,11 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Photon.Pun;
-using System;
 using PhotonHashtable = ExitGames.Client.Photon.Hashtable; //Photon Hashtable
 
 public class PlayerControl : MonoBehaviourPun, IHittable
@@ -247,7 +243,7 @@ public class PlayerControl : MonoBehaviourPun, IHittable
     {
         yield return new WaitForSeconds(1f); // RPC √≥∏Æ µÙ∑π¿Ã
 
-        inGamePlayerList.SetPlayerCount();
+        inGamePlayerList.UpdateAlivePlayerCount();
     }
 
     // V RPC Methods
