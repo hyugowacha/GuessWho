@@ -222,8 +222,6 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         inGamePlayerList.SetPlayerCount();
 
         photonView.RPC("SyncHitState", RpcTarget.Others, true);
-
-        photonView.RPC("UpdateAlivePlayer", RpcTarget.Others);
     }
 
     public void SetIsHit(bool value)
