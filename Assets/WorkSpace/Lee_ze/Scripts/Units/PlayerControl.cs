@@ -5,12 +5,17 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Photon.Pun;
+using System;
+//Photon Hashtable
+using PhotonHashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayerControl : MonoBehaviourPun, IHittable
 {
     private IPlayerStates currentState;
 
     public Animator playerAnim;
+
+    private InGamePlayerList inGamePlayerList;
 
 
     [Header("Move"), Space(10)]
@@ -64,6 +69,7 @@ public class PlayerControl : MonoBehaviourPun, IHittable
     private void OnEnable()
     {
         nowHaveItems[0] = footData;
+
         holdingWeapon = nowHaveItems[0];
 
         foreach (var weapon in weapons)
@@ -74,6 +80,7 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     private void Start()
     {
+        inGamePlayerList = FindObjectOfType<InGamePlayerList>();
 
         if (photonView.IsMine)
         {
@@ -207,7 +214,24 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     public void GetHit()
     {
-        photonView.RPC("SyncHitState", RpcTarget.Others, true);
+        if (photonView.IsMine)
+        {
+            SetIsHit(true);
+        }
+
+        photonView.RPC("SyncHitState", RpcTarget.All, true);
+
+        photonView.RPC("UpdateAlivePlayer", RpcTarget.Others);
+    }
+
+    public void SetIsHit(bool value)
+    {
+        PhotonHashtable properties = new PhotonHashtable
+        {
+            {"isHit", value }
+        };
+
+        PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
     }
 
     public void StonenOff()
@@ -219,13 +243,24 @@ public class PlayerControl : MonoBehaviourPun, IHittable
     }
 
     // V RPC Methods
-
     [PunRPC]
     private void SyncHitState(bool hit)
     {
         isHit = hit;
     }
 
+    [PunRPC]
+    private void InstantiateStone()
+    {
+        GameObject stone = Instantiate(itemStonePrefab, transform.position, transform.rotation);
+
+        Rigidbody stoneRb = stone.GetComponent<Rigidbody>();
+
+        Vector3 throwDirection = modelRotator.transform.TransformDirection(new Vector3(0, 5f, 10f));
+        stoneRb.AddForce(throwDirection, ForceMode.Impulse);
+    }
+
+    // V RPC Methods (Sound)
     [PunRPC]
     void RPC_PlayAttackSound(Vector3 soundPosition)
     {
@@ -241,18 +276,4 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
         audioSource.PlayOneShot(getHit);
     }
-
-    [PunRPC]
-    private void InstantiateStone()
-    {
-        GameObject stone = Instantiate(itemStonePrefab, transform.position, transform.rotation);
-
-        Rigidbody stoneRb = stone.GetComponent<Rigidbody>();
-
-        Vector3 throwDirection = modelRotator.transform.TransformDirection(new Vector3(0, 5f, 10f));
-        stoneRb.AddForce(throwDirection, ForceMode.Impulse);
-
-    }
-
-
 }

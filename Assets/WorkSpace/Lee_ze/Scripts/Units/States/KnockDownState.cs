@@ -11,7 +11,7 @@ public class KnockDownState : IPlayerStates
     {
         this.player = player;
 
-        this.player.audioSource.PlayOneShot(player.getHit, UnityEngine.Random.Range(0.5f, 1f)); // 로컬 피격 사운드
+        this.player.audioSource.PlayOneShot(player.getHit); // 로컬 피격 사운드
 
         this.player.photonView.RPC("RPC_PlayHitSound", RpcTarget.Others, player.transform.position); // RPC로 kick 사운드 나게 함
 
