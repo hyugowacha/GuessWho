@@ -576,6 +576,7 @@ MonoBehaviour:
   OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
+  - {fileID: -727916455293639083}
   - {fileID: 6312371011791248275}
   - {fileID: 295315517123841422}
   sceneViewId: 0
@@ -998,7 +999,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4177234881365357312}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83c9cf88fb533b64390497f38bb6d304, type: 3}
+  m_Script: {fileID: 11500000, guid: dddcf36636a2d314892f0eb906b52e01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   angerSoundSource: {fileID: 2759245913894975385}
