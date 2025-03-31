@@ -61,10 +61,9 @@ public class NPCMove : INPCState
         npcAnimator.SetBool(hashIdle, true);
         npcAnimator.SetBool(hashMove, false);
         npcAnimator.SetFloat(hashselfVel, 0f);
-        if (selfAgent.enabled == true)
-        {
+        
             selfAgent.isStopped = true;
-        }
+        
 
     }
     [PunRPC]
@@ -166,11 +165,9 @@ public class NPCMove : INPCState
     [PunRPC]
     public void StateAction()
     {
-        if (selfAgent.enabled == true)
-        {
-            selfAgent.SetDestination(destination);
-            nowNPC.transform.LookAt(destination);//이거 커브 돌때는 어케 되는거지?
-        }
+        selfAgent.SetDestination(destination);
+        nowNPC.transform.LookAt(destination);//이거 커브 돌때는 어케 되는거지?
+        
         PlayAnimation();
         
 
@@ -256,10 +253,8 @@ public class NPCHit : INPCState
         nowNPC = npc;
         npcAnimator = (npc as TestingNPC).animator;
         npcAgent= (npc as TestingNPC).SelfAgent;
-        if (npcAgent.enabled == true)
-        {
-            npcAgent.isStopped = true;
-        }
+        npcAgent.isStopped = true;
+        
     }
     public void NPCGetHit()
     {
@@ -282,15 +277,7 @@ public class NPCHit : INPCState
         {
             return false;
         }
-        //if (isHit == true)
-        //{
-        //    StopAnimation();
-        //    return true;
-        //}
-        //else
-        //{
-        //    return false;
-        //}
+        
     }
     public bool ForceStateEnd()
     {
@@ -299,7 +286,7 @@ public class NPCHit : INPCState
 
     public void EnterState(TestingNPC npc, float time)
     {
-        //throw new System.NotImplementedException();
+        
     }
 }
 public class NPCIdle : INPCState
@@ -360,10 +347,11 @@ public class NPCIdle : INPCState
         nowNPC = npc;
         npcAnimator = (npc as TestingNPC).animator;
         npcAgent = (npc as TestingNPC).SelfAgent;
-        if (PhotonNetwork.IsMasterClient == true)
-        {
-            npcAgent.isStopped = true;
-        }
+        //if (PhotonNetwork.IsMasterClient == true)
+        //{
+        //    npcAgent.isStopped = true;
+        //}
+        npcAgent.isStopped = true;
         npcAnimator.SetBool("isAnger", false);
         npcAnimator.SetBool(hashHit, false);
         npcAnimator.SetBool(hashIdle, true);

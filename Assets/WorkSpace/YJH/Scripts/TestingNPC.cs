@@ -62,14 +62,14 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
             {
                 if (Random.Range(0f, 1f) < 0.5f)//일부는 바로 이동 일부는 대기 
                 {
-                    ChangeState(NPCStateName.Idle);//
+                    photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Idle, UnityEngine.Random.Range(0.2f, 1.0f));
                     //nowState=;
                     //nowState.EnterState(this);
                     //Debug.Log("setidle");
                 }
                 else
                 {
-                    ChangeState(NPCStateName.Walk);
+                    photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Walk, 0);
                     //nowState = new NPCMove();
                     //nowState.EnterState(this);
                     // Debug.Log("setmove");
@@ -164,6 +164,7 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
                 break;
             case NPCStateName.Walk:
                 nowState = new NPCMove();
+                
                 (nowState as NPCMove).EnterState(this, ISingleton<NPCManager>.Instance.RandomDestination(this));
                 nowState.StateAction();
                 npcDestination = (nowState as NPCMove).ReturnDestination();
@@ -177,7 +178,7 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
     }
 
 
-    IEnumerator CheckState()
+    IEnumerator CheckState()//master client만 이걸 실행해야 함
     {
         
 

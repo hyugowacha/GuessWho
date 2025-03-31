@@ -109,13 +109,7 @@ public class NPCManager : MonoBehaviourPunCallbacks, IPunObservable, ISingleton<
         {
             if (PhotonNetwork.IsMasterClient != true)
             {
-                foreach (TestingNPC npc in npcScriptList)
-                {
-                    //(npc as TestingNPC).SelfAgent.enabled = false;
-                }
-                    //Debug.Log("notmaster");
-                    //CreateAllNPC();
-                    //return;
+                
             }
             else
             {
@@ -123,8 +117,7 @@ public class NPCManager : MonoBehaviourPunCallbacks, IPunObservable, ISingleton<
                 //Debug.Log(npcScriptList.Count);
                 foreach (TestingNPC npc in npcScriptList)//npcµéÀ»
                 {
-                    //Debug.Log("1");
-                    //CreateAllNPC();
+                    
                     int spawnIndex = Random.Range(0, npcSpawnList.Count);
 
                     //npc.transform.position = npcSpawnList[spawnIndex].transform.position*2;
