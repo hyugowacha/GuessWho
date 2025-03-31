@@ -40,8 +40,6 @@ public class MoveState : IPlayerStates
             player.modelRotator.SetTargetDirection(move);
 
             RunningSound();
-
-            player.photonView.RPC("RPC_PlayRunningSound", RpcTarget.Others, player.transform.position); // RPC로 kick 사운드 나게 함
         }
         else
         {
@@ -96,6 +94,8 @@ public class MoveState : IPlayerStates
                 player.audioSource.loop = true;
 
                 player.audioSource.Play();
+
+                player.photonView.RPC("RPC_PlayRunningSound", RpcTarget.Others, player.transform.position); // RPC로 kick 사운드 나게 함
             }
         }
         else

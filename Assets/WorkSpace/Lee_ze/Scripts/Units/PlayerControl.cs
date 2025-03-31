@@ -290,21 +290,6 @@ public class PlayerControl : MonoBehaviourPun, IHittable
     {
         audioSource.transform.position = soundPosition;
 
-        if (audioSource.isPlaying == false)
-        {
-            audioSource.clip = running;
-
-            audioSource.loop = true;
-
-            audioSource.Play();
-        }
-        else
-        {
-            audioSource.clip = running;
-
-            audioSource.loop = false;
-
-            audioSource.Stop();
-        }
+        audioSource.Play();
     }
 }
