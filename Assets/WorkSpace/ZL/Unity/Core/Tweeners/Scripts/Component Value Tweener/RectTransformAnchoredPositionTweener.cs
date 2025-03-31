@@ -18,9 +18,9 @@ namespace ZL.Unity.Tweeners
 
         [UsingCustomProperty]
 
-        [ReadOnly(true)]
-
         [GetComponent]
+
+        [ReadOnly(true)]
 
         private RectTransform rectTransform;
 

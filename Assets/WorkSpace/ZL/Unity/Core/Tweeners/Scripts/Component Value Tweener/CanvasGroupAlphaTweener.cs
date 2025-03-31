@@ -20,7 +20,7 @@ namespace ZL.Unity.Tweeners
 
         [GetComponent]
 
-        [Toggle(true)]
+        [EmptyField]
 
         protected CanvasGroup canvasGroup;
 

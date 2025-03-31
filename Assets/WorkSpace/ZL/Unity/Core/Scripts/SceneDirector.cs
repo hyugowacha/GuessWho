@@ -12,11 +12,11 @@ using ZL.Unity.UI;
 
 namespace ZL.Unity
 {
-    [AddComponentMenu("ZL/Scene Director")]
-
-    [DisallowMultipleComponent]
+    [AddComponentMenu("ZL/Scene Director (Singleton)")]
 
     public class SceneDirector : SceneDirector<SceneDirector> { }
+
+    [DisallowMultipleComponent]
 
     public abstract class SceneDirector<T> : MonoBehaviour, ISingleton<T>
 
@@ -26,9 +26,7 @@ namespace ZL.Unity
 
         [SerializeField]
 
-        protected CanvasGroupFader screenFader;
-
-        [Space]
+        protected UGUIScreen fadeScreen;
 
         [SerializeField]
 
@@ -69,28 +67,16 @@ namespace ZL.Unity
 
         public void FadeIn()
         {
-            if (ISingleton<AudioListenerVolumeTweener>.Instance != null)
-            {
-                ISingleton<AudioListenerVolumeTweener>.Instance.Tween(1f, fadeDuration);
-            }
+            ISingleton<AudioListenerVolumeTweener>.Instance?.Tween(1f, fadeDuration);
 
-            if (screenFader != null)
-            {
-                screenFader.SetFaded(false, fadeDuration);
-            }
+            fadeScreen?.FadeOut();
         }
 
         public void FadeOut()
         {
-            if (ISingleton<AudioListenerVolumeTweener>.Instance != null)
-            {
-                ISingleton<AudioListenerVolumeTweener>.Instance.Tween(0f, fadeDuration);
-            }
+            ISingleton<AudioListenerVolumeTweener>.Instance?.Tween(0f, fadeDuration);
 
-            if (screenFader != null)
-            {
-                screenFader.SetFaded(true, fadeDuration);
-            }
+            fadeScreen?.FadeIn();
         }
 
         public void Pause()

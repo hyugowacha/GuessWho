@@ -16,9 +16,9 @@ namespace ZL.Unity
 
         [UsingCustomProperty]
 
-        [ReadOnly(true)]
-
         [GetComponent]
+
+        [ReadOnly(true)]
 
         private TrailRenderer trailRenderer;
 

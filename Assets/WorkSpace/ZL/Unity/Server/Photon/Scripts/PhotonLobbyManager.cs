@@ -3,6 +3,7 @@ using Photon.Pun;
 using Photon.Realtime;
 
 using System.Collections.Generic;
+
 using UnityEngine;
 
 using UnityEngine.Events;
@@ -25,11 +26,11 @@ namespace ZL.Unity.Server.Photon
 
         [UsingCustomProperty]
 
-        [ReadOnly(true)]
+        [ReadOnlyWhenPlayMode]
 
-        private string currentLobbyName = string.Empty;
+        private int minPlayerCount = 2;
 
-        [Space]
+        public int MinPlayerCount => minPlayerCount;
 
         [SerializeField]
 
@@ -37,7 +38,26 @@ namespace ZL.Unity.Server.Photon
 
         [ReadOnlyWhenPlayMode]
 
-        private Wrapper<TypedLobby[]> lobbies;
+        private int maxPlayerCount = 2;
+
+        public int MaxPlayerCount => maxPlayerCount;
+
+        [Space]
+
+        [SerializeField]
+
+        [UsingCustomProperty]
+
+        [ReadOnly(true)]
+
+        private Wrapper<List<RoomInfo>> roomList;
+
+        public List<RoomInfo> RoomList
+        {
+            get => roomList.value;
+
+            private set => roomList.value = value;
+        }
 
         [Space]
 
@@ -51,21 +71,27 @@ namespace ZL.Unity.Server.Photon
 
         private UnityEvent evenOnLeftLobby;
 
-        private Dictionary<string, TypedLobby> lobbyDictionary;
+        [Space]
+
+        [SerializeField]
+
+        private UnityEvent eventOnCreatedRoom;
+
+        [Space]
+
+        [SerializeField]
+
+        private UnityEvent<short> eventOnCreateRoomFailed;
+
+        [Space]
+
+        [SerializeField]
+
+        private UnityEvent eventOnRoomListUpdate;
 
         private void Awake()
         {
             ISingleton<PhotonLobbyManager>.TrySetInstance(this);
-
-            if (lobbies.value.Length != 0)
-            {
-                lobbyDictionary = new(lobbies.value.Length);
-
-                foreach (var lobby in lobbies.value)
-                {
-                    lobbyDictionary.Add(lobby.Name, lobby);
-                }
-            }
         }
 
         private void OnDestroy()
@@ -73,16 +99,9 @@ namespace ZL.Unity.Server.Photon
             ISingleton<PhotonLobbyManager>.Release(this);
         }
 
-        public void JoinLobby(string name)
-        {
-            currentLobbyName = name;
-
-            PhotonNetwork.JoinLobby(lobbyDictionary[name]);
-        }
-
         public override void OnJoinedLobby()
         {
-            FixedDebug.Log($"Joined Lobby: {currentLobbyName}");
+            FixedDebug.Log($"Joined lobby: {PhotonNetwork.CurrentLobby.Name}");
 
             eventOnJoinedLobby.Invoke();
         }
@@ -94,11 +113,67 @@ namespace ZL.Unity.Server.Photon
 
         public override void OnLeftLobby()
         {
-            FixedDebug.Log($"Left Lobby: {currentLobbyName}");
-
-            currentLobbyName = string.Empty;
+            FixedDebug.Log($"Left lobby");
 
             evenOnLeftLobby.Invoke();
+        }
+
+        public void CreateRoom()
+        {
+            CreateRoom(null, null);
+        }
+
+        public void CreateRoom(RoomOptions roomOptions)
+        {
+            CreateRoom(null, roomOptions);
+        }
+
+        public void CreateRoom(string roomName)
+        {
+            CreateRoom(roomName, null);
+        }
+
+        public void CreateRoom(string roomName, RoomOptions roomOptions)
+        {
+            PhotonNetwork.CreateRoom(roomName, roomOptions);
+        }
+
+        public override void OnCreatedRoom()
+        {
+            FixedDebug.Log($"Created room: {PhotonNetwork.CurrentRoom.Name}");
+
+            eventOnCreatedRoom.Invoke();
+        }
+
+        public override void OnCreateRoomFailed(short returnCode, string message)
+        {
+            FixedDebug.Log($"Create room failed ({returnCode}): {message}");
+
+            eventOnCreateRoomFailed.Invoke(returnCode);
+        }
+
+        public override void OnRoomListUpdate(List<RoomInfo> roomList)
+        {
+            FixedDebug.Log($"Room list update.");
+
+            RoomList = roomList;
+
+            eventOnRoomListUpdate.Invoke();
+        }
+
+        public void JoinRoom(string roomName)
+        {
+            PhotonNetwork.JoinRoom(roomName);
+        }
+
+        public void JoinRandomRoom()
+        {
+            PhotonNetwork.JoinRandomRoom();
+        }
+
+        public void JoinRandomOrCreateRoom()
+        {
+            PhotonNetwork.JoinRandomOrCreateRoom();
         }
     }
 }

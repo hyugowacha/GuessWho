@@ -2,13 +2,9 @@ using Photon.Pun;
 
 using Photon.Realtime;
 
-using System.Collections.Generic;
-
 using UnityEngine;
 
 using UnityEngine.Events;
-
-using ZL.Unity.Collections;
 
 namespace ZL.Unity.Server.Photon
 {
@@ -16,49 +12,8 @@ namespace ZL.Unity.Server.Photon
 
     [DisallowMultipleComponent]
 
-    public sealed class PhotonRoomManager :
-        
-        MonoBehaviourPunCallbacks, ISingleton<PhotonRoomManager>
+    public sealed class PhotonRoomManager : MonoBehaviourPunCallbacks, ISingleton<PhotonRoomManager>
     {
-        [Space]
-
-        [SerializeField]
-
-        [UsingCustomProperty]
-
-        [ReadOnly(true)]
-
-        private string currentRoomName = string.Empty;
-
-        [Space]
-
-        [SerializeField]
-
-        [UsingCustomProperty]
-
-        [ReadOnly(true)]
-
-        private Wrapper<List<RoomInfo>> roomList;
-
-        public List<RoomInfo> RoomList
-        {
-            get => roomList.value;
-
-            private set => roomList.value = value;
-        }
-
-        [Space]
-
-        [SerializeField]
-
-        private UnityEvent eventOnCreatedRoom;
-
-        [Space]
-
-        [SerializeField]
-
-        private UnityEvent eventOnCreateRoomFailed;
-
         [Space]
 
         [SerializeField]
@@ -69,13 +24,25 @@ namespace ZL.Unity.Server.Photon
 
         [SerializeField]
 
-        private UnityEvent evenOnJoinRoomFailed;
-        
+        private UnityEvent<short> evenOnJoinRoomFailed;
+
         [Space]
 
         [SerializeField]
 
         private UnityEvent eventOnLeftRoom;
+
+        [Space]
+
+        [SerializeField]
+
+        private UnityEvent eventOnMasterClientLeftRoom;
+
+        [Space]
+
+        [SerializeField]
+
+        private UnityEvent eventOnMasterClientSwitched;
 
         private void Awake()
         {
@@ -87,75 +54,25 @@ namespace ZL.Unity.Server.Photon
             ISingleton<PhotonRoomManager>.Release(this);
         }
 
-        public override void OnRoomListUpdate(List<RoomInfo> roomList)
-        {
-            RoomList = roomList;
-        }
-
-        public void CreateRoom(string roomName)
-        {
-            currentRoomName = roomName;
-
-            PhotonNetwork.CreateRoom(roomName, null);
-        }
-
-        public void CreateRoom(string roomName, RoomOptions roomOptions)
-        {
-            currentRoomName = roomName;
-
-            PhotonNetwork.CreateRoom(roomName, roomOptions);
-        }
-
-        public override void OnCreatedRoom()
-        {
-            FixedDebug.Log($"Created Room: {currentRoomName}");
-
-            eventOnCreatedRoom.Invoke();
-        }
-
-        public override void OnCreateRoomFailed(short returnCode, string message)
-        {
-            FixedDebug.Log($"Create Room Failed ({returnCode}): {message}");
-
-            eventOnCreateRoomFailed.Invoke();
-        }
-
-        public void JoinRoom(string roomName)
-        {
-            PhotonNetwork.JoinRoom(roomName);
-        }
-
-        public void JoinRandomRoom()
-        {
-            PhotonNetwork.JoinRandomRoom();
-        }
-
-        public void JoinRandomOrCreateRoom()
-        {
-            PhotonNetwork.JoinRandomOrCreateRoom();
-        }
-
         public override void OnJoinedRoom()
         {
-            currentRoomName = PhotonNetwork.CurrentRoom.Name;
-
-            FixedDebug.Log($"Joined Room: {currentRoomName}");
+            FixedDebug.Log($"Joined room: {PhotonNetwork.CurrentRoom.Name}");
 
             eventOnJoinedRoom.Invoke();
         }
 
         public override void OnJoinRoomFailed(short returnCode, string message)
         {
-            FixedDebug.Log($"Join Room Failed ({returnCode}): {message}");
+            FixedDebug.Log($"Join room failed ({returnCode}): {message}");
 
-            evenOnJoinRoomFailed.Invoke();
+            evenOnJoinRoomFailed.Invoke(returnCode);
         }
 
         public override void OnJoinRandomFailed(short returnCode, string message)
         {
-            FixedDebug.Log($"Join Random Failed ({returnCode}): {message}");
+            FixedDebug.LogWarning($"Join random failed ({returnCode}): {message}");
 
-            evenOnJoinRoomFailed.Invoke();
+            evenOnJoinRoomFailed.Invoke(returnCode);
         }
 
         public void LeaveRoom()
@@ -165,9 +82,53 @@ namespace ZL.Unity.Server.Photon
 
         public override void OnLeftRoom()
         {
-            FixedDebug.Log($"Left Room: {currentRoomName}");
+            FixedDebug.Log($"Left room.");
+
+            if (PhotonNetwork.IsMasterClient == true)
+            {
+                OnMasterClientLeftRoom();
+            }
 
             eventOnLeftRoom.Invoke();
+        }
+
+        public void OnMasterClientLeftRoom()
+        {
+            ISingleton<PhotonManager>.Instance.RPCLog(RpcTarget.All, "Master client left room.");
+
+            eventOnMasterClientLeftRoom.Invoke();
+        }
+
+        public void SetMasterClientInOrder()
+        {
+            var playerList = PhotonNetwork.PlayerList;
+
+            foreach (var player in playerList)
+            {
+                if (player.IsMasterClient == false)
+                {
+                    PhotonNetwork.SetMasterClient(player);
+                }
+            }
+        }
+
+        public void SetMasterClientRandom()
+        {
+            var playerList = PhotonNetwork.PlayerList;
+
+            if (playerList.Length != 0)
+            {
+                var newMasterClient = playerList[Random.Range(0, playerList.Length)];
+
+                PhotonNetwork.SetMasterClient(newMasterClient);
+            }
+        }
+
+        public override void OnMasterClientSwitched(Player newMasterClient)
+        {
+            FixedDebug.Log($"Master client switched: {newMasterClient.NickName}");
+
+            eventOnMasterClientSwitched.Invoke();
         }
     }
 }
