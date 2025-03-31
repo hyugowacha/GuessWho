@@ -109,22 +109,15 @@ public class NPCManager : MonoBehaviourPunCallbacks, IPunObservable, ISingleton<
         {
             if (PhotonNetwork.IsMasterClient != true)
             {
-                foreach (TestingNPC npc in npcScriptList)
-                {
-                    (npc as TestingNPC).SelfAgent.enabled = false;
-                }
-                    //Debug.Log("notmaster");
-                    //CreateAllNPC();
-                    //return;
+                
             }
             else
             {
                 
-                Debug.Log(npcScriptList.Count);
+                //Debug.Log(npcScriptList.Count);
                 foreach (TestingNPC npc in npcScriptList)//npc들을
                 {
-                    //Debug.Log("1");
-                    //CreateAllNPC();
+                    
                     int spawnIndex = Random.Range(0, npcSpawnList.Count);
 
                     //npc.transform.position = npcSpawnList[spawnIndex].transform.position*2;
@@ -132,7 +125,7 @@ public class NPCManager : MonoBehaviourPunCallbacks, IPunObservable, ISingleton<
                     int tempID = npc.photonView.ViewID;
                     Vector3 temp = new Vector3();
                     temp = npcSpawnList[spawnIndex].transform.position +new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2));
-                    photonView.RPC("SetNPCTransformByID", Photon.Pun.RpcTarget.All, tempID, temp);
+                    photonView.RPC("SetNPCTransformByID", Photon.Pun.RpcTarget.AllBuffered, tempID, temp);
                     //photonView.RPC("AddNPCListByPhotonID", Photon.Pun.RpcTarget.All, tempID);
                     //SetNPCTransform(npc.gameObject, npcSpawnList[spawnIndex].transform.position + new Vector3(Random.Range(-1, 2), 0, Random.Range(-1, 2)));//랜덤하게 위치 설정
                     npc.gameObject.transform.Rotate(0, Random.Range(0f, 360f), 0);                                                                                            
@@ -167,7 +160,11 @@ public class NPCManager : MonoBehaviourPunCallbacks, IPunObservable, ISingleton<
     [PunRPC]
     public void SetNPCTransformByID(int viewID,Vector3 position)
     {
-        PhotonView.Find(viewID).transform.position = position;
+        var npc = PhotonView.Find(viewID);
+        //npc.transform.position = position;
+        var npcagent = npc.GetComponent<NavMeshAgent>();
+        //npcagent.transform.position = position;
+        npcagent.Warp(position);
     }
     [PunRPC]
     public void AddNPCListByPhotonID(int viewID)

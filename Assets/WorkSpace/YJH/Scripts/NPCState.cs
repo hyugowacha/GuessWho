@@ -32,11 +32,13 @@ public class NPCMove : INPCState
     private Vector3 destination;
     private TestingNPC nowNPC;
     private NavMeshAgent selfAgent;
+    private Rigidbody npcRb;
     //float temp = 0;
     private Animator npcAnimator;
     readonly int hashHit = Animator.StringToHash("isHit");
     readonly int hashMove = Animator.StringToHash("isMove");
     readonly int hashIdle = Animator.StringToHash("isIdle");
+    readonly int hashselfVel = Animator.StringToHash("selfVel");
 
 
     private float maxDelayTime = 1000f;
@@ -49,6 +51,7 @@ public class NPCMove : INPCState
         
         npcAnimator.SetBool(hashIdle, false);
         npcAnimator.SetBool(hashMove, true);
+        npcAnimator.SetFloat(hashselfVel, 1f);
         
     }
     [PunRPC]
@@ -57,10 +60,10 @@ public class NPCMove : INPCState
         //animator관련
         npcAnimator.SetBool(hashIdle, true);
         npcAnimator.SetBool(hashMove, false);
-        if (selfAgent.enabled == true)
-        {
+        npcAnimator.SetFloat(hashselfVel, 0f);
+        
             selfAgent.isStopped = true;
-        }
+        
 
     }
     [PunRPC]
@@ -85,8 +88,7 @@ public class NPCMove : INPCState
     }
     public void EnterState(TestingNPC npc, float time)
     {
-        if (PhotonNetwork.IsMasterClient==true)
-        {
+        
             
         
         selfAgent.enabled = true;
@@ -97,7 +99,7 @@ public class NPCMove : INPCState
         destination = new Vector3();
         delayTime = 0;
         RandomDestination();
-        }
+        
         
     }
     public void EnterState(TestingNPC npc, Vector3 randomDestination)//RPC용으로 오버로딩
@@ -105,11 +107,12 @@ public class NPCMove : INPCState
         
             nowNPC = npc;
             selfAgent = npc.gameObject.GetComponent<NavMeshAgent>();
-        if (PhotonNetwork.IsMasterClient == true)
-        {
-            selfAgent.isStopped = false;
-        }
-            npcAnimator = (npc as TestingNPC).animator;
+        //if (PhotonNetwork.IsMasterClient == true)
+        //{
+        //    selfAgent.isStopped = false;
+        //}
+        selfAgent.isStopped = false;
+        npcAnimator = (npc as TestingNPC).animator;
             destination = new Vector3();
             destination = randomDestination;
             delayTime = 0;
@@ -162,12 +165,10 @@ public class NPCMove : INPCState
     [PunRPC]
     public void StateAction()
     {
-        if (selfAgent.enabled == true)
-        {
-            selfAgent.SetDestination(destination);
-            nowNPC.transform.LookAt(destination);//이거 커브 돌때는 어케 되는거지?
-        }
-        PlayAnimation();
+        selfAgent.SetDestination(destination);
+        nowNPC.transform.LookAt(destination);//이거 커브 돌때는 어케 되는거지?
+        
+        //PlayAnimation();
         
 
 
@@ -196,7 +197,7 @@ public class NPCMove : INPCState
         if ((destination - nowNPC.transform.position).magnitude < 5.0f)
         {
             //Debug.Log((destination - nowNPC.transform.position).magnitude);
-            StopAnimation();
+            //StopAnimation();
             return true;
         }
         else
@@ -224,6 +225,7 @@ public class NPCHit : INPCState
     readonly int hashHit = Animator.StringToHash("isHit");
     readonly int hashMove = Animator.StringToHash("isMove");
     readonly int hashIdle = Animator.StringToHash("isIdle");
+    readonly int hashselfVel = Animator.StringToHash("selfVel");
 
     //private bool isEnd;
     [PunRPC]
@@ -233,6 +235,7 @@ public class NPCHit : INPCState
         npcAnimator.SetBool(hashHit,true);
         npcAnimator.SetBool(hashIdle,true);
         npcAnimator.SetBool("isAnger", true);
+        npcAnimator.SetFloat(hashselfVel, 0f);
     }
     [PunRPC]
     public void StopAnimation()
@@ -250,10 +253,8 @@ public class NPCHit : INPCState
         nowNPC = npc;
         npcAnimator = (npc as TestingNPC).animator;
         npcAgent= (npc as TestingNPC).SelfAgent;
-        if (npcAgent.enabled == true)
-        {
-            npcAgent.isStopped = true;
-        }
+        npcAgent.isStopped = true;
+        
     }
     public void NPCGetHit()
     {
@@ -263,7 +264,7 @@ public class NPCHit : INPCState
     [PunRPC]
     public void StateAction()
     {
-        PlayAnimation();
+        //PlayAnimation();
         
     }
     public bool CheckStateEnd()
@@ -276,15 +277,7 @@ public class NPCHit : INPCState
         {
             return false;
         }
-        //if (isHit == true)
-        //{
-        //    StopAnimation();
-        //    return true;
-        //}
-        //else
-        //{
-        //    return false;
-        //}
+        
     }
     public bool ForceStateEnd()
     {
@@ -293,7 +286,7 @@ public class NPCHit : INPCState
 
     public void EnterState(TestingNPC npc, float time)
     {
-        //throw new System.NotImplementedException();
+        
     }
 }
 public class NPCIdle : INPCState
@@ -307,6 +300,7 @@ public class NPCIdle : INPCState
     readonly int hashHit = Animator.StringToHash("isHit");
     readonly int hashMove = Animator.StringToHash("isMove");
     readonly int hashIdle = Animator.StringToHash("isIdle");
+    readonly int hashselfVel = Animator.StringToHash("selfVel");
     [PunRPC]
     public void PlayAnimation()
     {
@@ -314,6 +308,7 @@ public class NPCIdle : INPCState
         npcAnimator.SetBool(hashMove, false);
         npcAnimator.SetBool("isAnger", false);
         npcAnimator.SetBool(hashHit, false);
+        npcAnimator.SetFloat(hashselfVel, 0f);
         //animator관련
 
     }
@@ -339,6 +334,7 @@ public class NPCIdle : INPCState
         npcAnimator.SetBool(hashHit, false);
         npcAnimator.SetBool(hashIdle, true);
         npcAnimator.SetBool(hashMove, false);
+        npcAnimator.SetFloat(hashselfVel, 0f);
         //npcAnimator.SetBool("isAnger", false);
         //npcAnimator.SetBool(hashHit, false);
     }
@@ -351,20 +347,22 @@ public class NPCIdle : INPCState
         nowNPC = npc;
         npcAnimator = (npc as TestingNPC).animator;
         npcAgent = (npc as TestingNPC).SelfAgent;
-        if (PhotonNetwork.IsMasterClient == true)
-        {
-            npcAgent.isStopped = true;
-        }
+        //if (PhotonNetwork.IsMasterClient == true)
+        //{
+        //    npcAgent.isStopped = true;
+        //}
+        npcAgent.isStopped = true;
         npcAnimator.SetBool("isAnger", false);
         npcAnimator.SetBool(hashHit, false);
         npcAnimator.SetBool(hashIdle, true);
         npcAnimator.SetBool(hashMove, false);
+        npcAnimator.SetFloat(hashselfVel, 0f);
     }
     [PunRPC]
     public void StateAction()
     {
         //StartCoroutine(NPCIdleAnimationPlay());
-        PlayAnimation();
+        //PlayAnimation();
     }
 
     public void SetDelayTime(float time)
@@ -385,7 +383,7 @@ public class NPCIdle : INPCState
         if (isEnd == true)
         {
             //Debug.Log("endidle");
-            StopAnimation();
+            //StopAnimation();
             return true;
         }
         else
