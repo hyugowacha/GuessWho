@@ -6,8 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Photon.Pun;
 using System;
-//Photon Hashtable
-using PhotonHashtable = ExitGames.Client.Photon.Hashtable;
+using PhotonHashtable = ExitGames.Client.Photon.Hashtable; //Photon Hashtable
 
 public class PlayerControl : MonoBehaviourPun, IHittable
 {
@@ -61,6 +60,8 @@ public class PlayerControl : MonoBehaviourPun, IHittable
     [Space(20), Header("Sound Control"), Space(10)]
 
     public AudioSource audioSource;
+
+    public AudioClip running;
 
     public AudioClip kick;
 
@@ -126,6 +127,46 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         }
     }
 
+    public void OnRun(InputAction.CallbackContext ctx)
+    {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
+        if (ctx.phase == InputActionPhase.Performed)
+        {
+            isRunning = true;
+        }
+        else if (ctx.phase == InputActionPhase.Canceled)
+        {
+            isRunning = false;
+        }
+    }
+
+    public void OnAttack(InputAction.CallbackContext ctx) // 좌클릭 바인딩
+    {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
+        if (ctx.phase == InputActionPhase.Started)
+        {
+            isAttackTriggered = true;
+        }
+    }
+
+    public void OnKickEnable() // Kick 애니메이션 특정 위치에 이벤트 바인딩했음.
+    {
+        weapons[0].SetActive(true);
+    }
+
+    public void OnKickDisable() // Kick 애니메이션 특정 위치에 이벤트 바인딩했음.
+    {
+        weapons[0].SetActive(false);
+    }
+
     public void OnWeaponChange(InputAction.CallbackContext ctx) //무기 전환 메서드
     {
         if (ctx.phase == InputActionPhase.Performed)
@@ -172,44 +213,12 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         }
     }
 
-    public void OnRun(InputAction.CallbackContext ctx)
+    public void StonenOff()
     {
-        if (!photonView.IsMine)
+        if (weapons[1] != null)
         {
-            return;
+            weapons[1].SetActive(false);
         }
-
-        if (ctx.phase == InputActionPhase.Performed)
-        {
-            isRunning = true;
-        }
-        else if (ctx.phase == InputActionPhase.Canceled)
-        {
-            isRunning = false;
-        }
-    }
-
-    public void OnAttack(InputAction.CallbackContext ctx) // 좌클릭 바인딩
-    {
-        if (!photonView.IsMine)
-        {
-            return;
-        }
-
-        if (ctx.phase == InputActionPhase.Started)
-        {
-            isAttackTriggered = true;
-        }
-    }
-
-    public void OnKickEnable() // Kick 애니메이션 특정 위치에 이벤트 바인딩했음.
-    {
-        weapons[0].SetActive(true);
-    }
-
-    public void OnKickDisable() // Kick 애니메이션 특정 위치에 이벤트 바인딩했음.
-    {
-        weapons[0].SetActive(false);
     }
 
     public void GetHit()
@@ -224,13 +233,6 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         StartCoroutine(WaitSetPlayerCount());
     }
 
-    private IEnumerator WaitSetPlayerCount()
-    {
-        yield return new WaitForSeconds(1f); // RPC 처리 딜레이
-
-        inGamePlayerList.SetPlayerCount();
-    }
-
     public void SetIsHit(bool value)
     {
         PhotonHashtable properties = new PhotonHashtable
@@ -241,12 +243,11 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
     }
 
-    public void StonenOff()
+    private IEnumerator WaitSetPlayerCount()
     {
-        if (weapons[1] != null)
-        {
-            weapons[1].SetActive(false);
-        }
+        yield return new WaitForSeconds(1f); // RPC 처리 딜레이
+
+        inGamePlayerList.SetPlayerCount();
     }
 
     // V RPC Methods
@@ -282,5 +283,28 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         audioSource.transform.position = soundPosition;
 
         audioSource.PlayOneShot(getHit);
+    }
+
+    [PunRPC]
+    void RPC_PlayRunningSound(Vector3 soundPosition)
+    {
+        audioSource.transform.position = soundPosition;
+
+        if (audioSource.isPlaying == false)
+        {
+            audioSource.clip = running;
+
+            audioSource.loop = true;
+
+            audioSource.Play();
+        }
+        else
+        {
+            audioSource.clip = running;
+
+            audioSource.loop = false;
+
+            audioSource.Stop();
+        }
     }
 }

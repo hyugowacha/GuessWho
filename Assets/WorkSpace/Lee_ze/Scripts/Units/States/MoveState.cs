@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ public class MoveState : IPlayerStates
 
         if (player.direction != Vector2.zero)
         {
-            player.targetSpeed = player.isRunning ? 0.12f : 0.06f;
+            player.targetSpeed = player.isRunning ? 0.12f : 0.06f; // 뜀 : 걸음
 
             player.moveSpeed = Mathf.Lerp(player.moveSpeed, player.targetSpeed, Time.deltaTime * 5f);
 
@@ -37,6 +38,10 @@ public class MoveState : IPlayerStates
             player.rb.MovePosition(player.transform.position + move);
 
             player.modelRotator.SetTargetDirection(move);
+
+            RunningSound();
+
+            player.photonView.RPC("RPC_PlayRunningSound", RpcTarget.Others, player.transform.position); // RPC로 kick 사운드 나게 함
         }
         else
         {
@@ -78,5 +83,28 @@ public class MoveState : IPlayerStates
     public void ExitState()
     {
 
+    }
+
+    private void RunningSound()
+    {
+        if (player.isRunning == true)
+        {
+            if (player.audioSource.isPlaying == false) // 이미 재생 중이면 다시 실행하지 않음
+            {
+                player.audioSource.clip = player.running;
+
+                player.audioSource.loop = true;
+
+                player.audioSource.Play();
+            }
+        }
+        else
+        {
+            player.audioSource.clip = player.running;
+
+            player.audioSource.loop = false;
+
+            player.audioSource.Stop();
+        }
     }
 }
