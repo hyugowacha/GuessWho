@@ -69,7 +69,7 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
                 }
                 else
                 {
-                    photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Walk, 0);
+                    photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Walk, 0.0f);
                     //nowState = new NPCMove();
                     //nowState.EnterState(this);
                     // Debug.Log("setmove");
@@ -185,7 +185,7 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
         while (true)
         {
             
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.1f);
             if (PhotonNetwork.IsMasterClient == false)
             {
 
@@ -223,6 +223,7 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
                         {
                             //Debug.Log("changetomove");
                             photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Idle,0.3f);
+                            Debug.Log(photonView.ViewID);
                             //ChangeState(NPCStateName.Idle,true);
                             
                             //ChangeState(NPCStateName.Walk);
@@ -231,7 +232,7 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
                         else
                         {
                             //Debug.Log("stayidle");
-                            photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Idle, UnityEngine.Random.Range(0.2f, 1.0f));
+                            photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Idle, UnityEngine.Random.Range(0.8f, 1.5f));
                             //ChangeState(NPCStateName.Idle);
                         }
                     }
