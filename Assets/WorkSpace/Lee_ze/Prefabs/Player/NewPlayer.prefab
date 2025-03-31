@@ -735,6 +735,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 2940dde4-284d-4216-b0d1-023220ec6a3d
     m_ActionName: PlayerActions/Attack[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6b3eacf1-d772-4303-a600-1d3150f62247
+    m_ActionName: PlayerActions/WeaponChange[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerActions
@@ -753,18 +757,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAnim: {fileID: 5987651161342676348}
+  inGamePlayerList: {fileID: 3277691426257547701, guid: c37eee3709e128745a7e36beb711b490, type: 3}
   moveSpeed: 0
   targetSpeed: 0
   rb: {fileID: 2496250752322582513}
   direction: {x: 0, y: 0}
   isRunning: 0
   modelRotator: {fileID: 8445485349914450246}
-  holdingWeapon: 0
+  nowWeaponArrayNum: 0
+  holdingWeapon: {fileID: 0}
   isAttackTriggered: 0
   weapons:
   - {fileID: 2189402587078318518}
+  nowHaveItems:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  footData: {fileID: 0}
+  nowWeapon: {fileID: 0}
+  itemStonePrefab: {fileID: 0}
   isHit: 0
   isNPC: 0
+  apologizeTo: {x: 0, y: 0, z: 0}
+  audioSource: {fileID: 0}
+  kick: {fileID: 0}
+  getHit: {fileID: 0}
 --- !u!114 &7499982846732655042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -835,6 +852,9 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 1
     Name: Forgived
+  - Type: 9
+    SynchronizeType: 0
+    Name: IsThrow
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0

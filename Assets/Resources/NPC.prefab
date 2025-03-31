@@ -462,10 +462,10 @@ GameObject:
   - component: {fileID: 1757235979601647896}
   - component: {fileID: 5138219754656572060}
   - component: {fileID: -727916455293639083}
-  - component: {fileID: 6614401727792779662}
   - component: {fileID: 2689909880202221650}
   - component: {fileID: 8055318035863802900}
   - component: {fileID: 1220664917276564810}
+  - component: {fileID: 6312371011791248275}
   m_Layer: 0
   m_Name: NPC
   m_TagString: NPC
@@ -557,22 +557,6 @@ MonoBehaviour:
   hitTime: 0
   animator: {fileID: 9083047734429414456}
   forDebug: 
---- !u!114 &6614401727792779662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2490481070707789049}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!114 &2689909880202221650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -592,7 +576,8 @@ MonoBehaviour:
   OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 6614401727792779662}
+  - {fileID: -727916455293639083}
+  - {fileID: 6312371011791248275}
   - {fileID: 295315517123841422}
   sceneViewId: 0
   InstantiationId: 0
@@ -608,7 +593,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3
-  m_Acceleration: 8
+  m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
@@ -715,6 +700,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6312371011791248275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2490481070707789049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &2690014690613845949
 GameObject:
   m_ObjectHideFlags: 0
@@ -936,9 +937,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3217607524755692597}
   - component: {fileID: 9083047734429414456}
-  - component: {fileID: 295315517123841422}
   - component: {fileID: 8943832030769866940}
   - component: {fileID: 2759245913894975385}
+  - component: {fileID: 295315517123841422}
   m_Layer: 0
   m_Name: Modeling
   m_TagString: Untagged
@@ -989,39 +990,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &295315517123841422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4177234881365357312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowLayerWeightsInspector: 1
-  ShowParameterInspector: 1
-  m_SynchronizeParameters:
-  - Type: 4
-    SynchronizeType: 1
-    Name: isMove
-  - Type: 4
-    SynchronizeType: 1
-    Name: isIdle
-  - Type: 9
-    SynchronizeType: 1
-    Name: isHit
-  - Type: 4
-    SynchronizeType: 1
-    Name: isAnger
-  - Type: 1
-    SynchronizeType: 0
-    Name: Blend
-  m_SynchronizeLayers:
-  - SynchronizeType: 0
-    LayerIndex: 0
 --- !u!114 &8943832030769866940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1031,7 +999,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4177234881365357312}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83c9cf88fb533b64390497f38bb6d304, type: 3}
+  m_Script: {fileID: 11500000, guid: dddcf36636a2d314892f0eb906b52e01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   angerSoundSource: {fileID: 2759245913894975385}
@@ -1131,6 +1099,39 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &295315517123841422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4177234881365357312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 1
+    Name: isMove
+  - Type: 4
+    SynchronizeType: 1
+    Name: isIdle
+  - Type: 9
+    SynchronizeType: 1
+    Name: isHit
+  - Type: 4
+    SynchronizeType: 1
+    Name: isAnger
+  - Type: 1
+    SynchronizeType: 0
+    Name: Blend
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1 &4343753532329339303
 GameObject:
   m_ObjectHideFlags: 0

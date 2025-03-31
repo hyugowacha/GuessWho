@@ -61,7 +61,7 @@ MonoBehaviour:
   - AddNPCListByPhotonID
   - InstantiateStone
   - AllItemOff
-  - StoneThrow
+  - UpdateAlivePlayer
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

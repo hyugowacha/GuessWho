@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 
 public class InGamePlayerList : MonoBehaviourPunCallbacks
 {
@@ -15,7 +16,14 @@ public class InGamePlayerList : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject inGamePlayerID;
 
+    [SerializeField]
+    private GameObject inGamePlayerCount;
+
     private GameObject list;
+
+    private GameObject playerCount;
+
+    public int playerNum;
 
     private Dictionary<int, GameObject> playerEntries = new Dictionary<int, GameObject>();
 
@@ -23,11 +31,17 @@ public class InGamePlayerList : MonoBehaviourPunCallbacks
     {
         yield return new WaitUntil(() => (PhotonNetwork.PlayerList).Length > 0);
 
+        playerNum = PhotonNetwork.PlayerList.Length;
+
+        playerCount = Instantiate(inGamePlayerCount, this.transform);
+
         list = Instantiate(inGamePlayerListPanel, this.transform);
 
         list.SetActive(false);
 
         UpdatePlayerList();
+
+        SetPlayerCount();
     }
 
     public void OnCheckAlivePlayer(InputAction.CallbackContext ctx)
@@ -54,15 +68,42 @@ public class InGamePlayerList : MonoBehaviourPunCallbacks
         }
     }
 
+    public void SetPlayerCount()
+    {
+        int aliveCount = 0;
+
+        foreach (Player player in PhotonNetwork.PlayerList)
+        {
+            if (player.CustomProperties.ContainsKey("isHit"))
+            {
+                bool isHit = (bool)player.CustomProperties["isHit"];
+
+                if (isHit == false) // 맞지 않은 플레이어만 카운트
+                {
+                    aliveCount++;
+                }
+            }
+            else
+            {
+                aliveCount++;
+            }
+        }
+
+        playerCount.GetComponent<TMP_Text>().text = $"{aliveCount}";
+    }
+
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        Debug.Log(newPlayer.ActorNumber);
-
         GameObject playerEntry = Instantiate(inGamePlayerID, list.transform);
 
         playerEntry.GetComponent<TMP_Text>().text = $"{newPlayer.ActorNumber}";
 
         playerEntries[newPlayer.ActorNumber] = playerEntry;
+
+        // 방 생성되면 추가적으로 들어올 수 없기 때문에 나중에 지워야 함.
+        playerNum = PhotonNetwork.PlayerList.Length;
+
+        SetPlayerCount();
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
@@ -73,5 +114,9 @@ public class InGamePlayerList : MonoBehaviourPunCallbacks
 
             playerEntries.Remove(otherPlayer.ActorNumber);
         }
+
+        playerNum = PhotonNetwork.PlayerList.Length;
+
+        SetPlayerCount();
     }
 }
