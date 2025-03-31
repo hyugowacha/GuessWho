@@ -49,8 +49,7 @@ public class AttackState : IPlayerStates
 
             case (ItemType.Gun):
 
-                AttackShoot();
-                Debug.Log("ÃÑ½î±â");
+                player.StartCoroutine(AttackShoot());
                 break;
         }
     }
@@ -102,14 +101,16 @@ public class AttackState : IPlayerStates
         player.weapons[1].SetActive(true);
 
         yield return new WaitForSeconds(1.8f);
+        player.playerAnim.SetBool("IsThrow", false);
         player.isAttackTriggered = false;
     }
 
-    
 
-    void AttackShoot()
+
+    IEnumerator AttackShoot()
     {
         Debug.Log("ÃÑ ½î±â");
+        yield return null;
         player.isAttackTriggered = false;
     }
 }

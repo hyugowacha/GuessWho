@@ -249,6 +249,12 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         isHit = hit;
     }
 
+    void StoneThrow()
+    {
+        photonView.RPC("InstantiateStone", RpcTarget.All);
+    }
+
+
     [PunRPC]
     private void InstantiateStone()
     {

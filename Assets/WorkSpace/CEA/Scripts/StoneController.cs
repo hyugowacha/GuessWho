@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using Photon.Pun;
 
 public class StoneController : MonoBehaviour
 {
@@ -27,25 +28,27 @@ public class StoneController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
+        PhotonView photonView = other.GetComponent<PhotonView>();
+
+        if (other.CompareTag("Player") && !photonView.IsMine)
+        { 
             player = other.GetComponent<PlayerControl>();
             player.GetHit();
-            Destroy(this.gameObject);
-            Instantiate(stoneDestroyEffect, this.transform);
+            //Destroy(this.gameObject);
+            Instantiate(stoneDestroyEffect, transform.position, Quaternion.identity);
         }
 
         else if (other.CompareTag("NPC"))
         {
             npc = other.GetComponent<TestingNPC>();
             Destroy(this.gameObject);
-            Instantiate(stoneDestroyEffect, this.transform);
+            Instantiate(stoneDestroyEffect, transform.position, Quaternion.identity);
         }
 
         else if (other.CompareTag("Map"))
         {
             Destroy(this.gameObject);
-            Instantiate(stoneDestroyEffect, this.transform);
+            Instantiate(stoneDestroyEffect, transform.position, Quaternion.identity);
         }
     }
 }
