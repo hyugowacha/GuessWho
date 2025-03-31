@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Photon.Pun;
 using System;
+//Photon Hashtable
+using PhotonHashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayerControl : MonoBehaviourPun, IHittable
 {
@@ -212,9 +214,24 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     public void GetHit()
     {
-        photonView.RPC("SyncHitState", RpcTarget.Others, true);
+        if (photonView.IsMine)
+        {
+            SetIsHit(true);
+        }
+
+        photonView.RPC("SyncHitState", RpcTarget.All, true);
 
         photonView.RPC("UpdateAlivePlayer", RpcTarget.Others);
+    }
+
+    public void SetIsHit(bool value)
+    {
+        PhotonHashtable properties = new PhotonHashtable
+        {
+            {"isHit", value }
+        };
+
+        PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
     }
 
     public void StonenOff()
@@ -230,14 +247,6 @@ public class PlayerControl : MonoBehaviourPun, IHittable
     private void SyncHitState(bool hit)
     {
         isHit = hit;
-    }
-
-    [PunRPC]
-    private void UpdateAlivePlayer()
-    {
-        inGamePlayerList.playerNum -= 1; // 이게 문제
-
-        inGamePlayerList.SetPlayerCount();
     }
 
     [PunRPC]
