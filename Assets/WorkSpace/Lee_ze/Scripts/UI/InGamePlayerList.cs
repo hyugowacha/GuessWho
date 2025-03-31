@@ -77,14 +77,15 @@ public class InGamePlayerList : MonoBehaviourPunCallbacks
             if (player.CustomProperties.ContainsKey("isHit"))
             {
                 bool isHit = (bool)player.CustomProperties["isHit"];
-                if (!isHit) // 맞지 않은 플레이어만 카운트
+
+                if (isHit == false) // 맞지 않은 플레이어만 카운트
                 {
                     aliveCount++;
                 }
             }
             else
             {
-                aliveCount++; // isHit 값이 없으면 기본적으로 살아있는 상태
+                aliveCount++;
             }
         }
 
