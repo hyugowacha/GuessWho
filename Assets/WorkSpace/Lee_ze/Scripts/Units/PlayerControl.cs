@@ -219,9 +219,16 @@ public class PlayerControl : MonoBehaviourPun, IHittable
             SetIsHit(true);
         }
 
-        inGamePlayerList.SetPlayerCount();
-
         photonView.RPC("SyncHitState", RpcTarget.Others, true);
+
+        StartCoroutine(WaitSetPlayerCount());
+    }
+
+    private IEnumerator WaitSetPlayerCount()
+    {
+        yield return new WaitForSeconds(1f); // RPC √≥∏Æ µÙ∑π¿Ã
+
+        inGamePlayerList.SetPlayerCount();
     }
 
     public void SetIsHit(bool value)
