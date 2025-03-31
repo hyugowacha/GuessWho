@@ -97,11 +97,9 @@ public class AttackState : IPlayerStates
 
     IEnumerator AttackThrow()
     {
-        player.playerAnim.SetTrigger("IsThrow");
+        player.playerAnim.SetBool("IsThrow", true);
 
         player.weapons[1].SetActive(true);
-
-        player.photonView.RPC("InstantiateStone", RpcTarget.All, true);
 
         yield return new WaitForSeconds(1.8f);
         player.isAttackTriggered = false;

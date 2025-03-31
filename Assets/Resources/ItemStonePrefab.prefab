@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -1240414490112241646}
   - component: {fileID: 8546790375450476463}
   - component: {fileID: 2120707644953442993}
+  - component: {fileID: -2148377773344060933}
   m_Layer: 0
   m_Name: ItemStonePrefab
   m_TagString: Stone
@@ -247,3 +248,16 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &-2148377773344060933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092855282737202770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee80977ceab829646996ae58cd045a43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stoneDestroyEffect: {fileID: 8680598818964007281, guid: 5e5ddea45442e6d4d9f720fa8a186fae, type: 3}

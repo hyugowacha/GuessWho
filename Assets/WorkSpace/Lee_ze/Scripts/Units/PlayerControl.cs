@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Photon.Pun;
+using Photon.Realtime;
 
 public class PlayerControl : MonoBehaviourPun, IHittable
 {
@@ -218,6 +219,11 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         }
     }
 
+    public void IsThrowOff()
+    {
+        playerAnim.SetBool("IsThrow", false);
+    }
+
     // V RPC Methods
 
     [PunRPC]
@@ -242,8 +248,14 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         audioSource.PlayOneShot(getHit);
     }
 
+    
+    void StoneThrow()
+    {
+        photonView.RPC("InstantiateStone", RpcTarget.All);
+    }
+
     [PunRPC]
-    private void InstantiateStone()
+    void InstantiateStone()
     {
         GameObject stone = Instantiate(itemStonePrefab, transform.position, transform.rotation);
 
