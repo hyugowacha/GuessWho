@@ -254,7 +254,10 @@ public class NPCHit : INPCState
         npcAnimator = (npc as TestingNPC).animator;
         npcAgent= (npc as TestingNPC).SelfAgent;
         npcAgent.isStopped = true;
-        
+        npcAnimator.SetBool(hashHit, true);
+        npcAnimator.SetBool("isAnger", true);
+        npcAnimator.SetFloat(hashselfVel, 0f);
+
     }
     public void NPCGetHit()
     {
