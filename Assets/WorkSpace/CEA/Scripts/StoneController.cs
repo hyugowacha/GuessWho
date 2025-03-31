@@ -12,6 +12,8 @@ public class StoneController : MonoBehaviour
     float maxLifetime = 4.0f;
     float elapsedLifetime = 0;
 
+    public int whoThrow;
+
     [SerializeField]
     private GameObject stoneDestroyEffect;
 
@@ -28,14 +30,17 @@ public class StoneController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        PhotonView photonView = other.GetComponent<PhotonView>();
+        if (other.CompareTag("Player"))
+        {
+            PhotonView photonView = other.GetComponent<PhotonView>();
 
-        if (other.CompareTag("Player") && !photonView.IsMine)
-        { 
-            player = other.GetComponent<PlayerControl>();
-            player.GetHit();
-            //Destroy(this.gameObject);
-            Instantiate(stoneDestroyEffect, transform.position, Quaternion.identity);
+            if (photonView.ViewID != whoThrow)
+            {
+                player = other.GetComponent<PlayerControl>();
+                player.GetHit();
+                Destroy(this.gameObject);
+                Instantiate(stoneDestroyEffect, transform.position, Quaternion.identity);
+            }
         }
 
         else if (other.CompareTag("NPC"))

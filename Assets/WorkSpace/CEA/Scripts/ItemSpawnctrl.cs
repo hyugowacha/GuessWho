@@ -46,7 +46,8 @@ public class ItemSpawnctrl : MonoBehaviourPun
     private void Start()
     {
         pointphotonView = GetComponentInParent<PhotonView>();
-    }
+        respawnElapsedTime = 0;
+}
 
     private void Update()
     {
