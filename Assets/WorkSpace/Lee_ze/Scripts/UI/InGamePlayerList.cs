@@ -60,7 +60,7 @@ public class InGamePlayerList : MonoBehaviourPunCallbacks
         {
             GameObject playerEntry = Instantiate(inGamePlayerID, list.transform);
 
-            playerEntry.GetComponent<TMP_Text>().text = $"{player.ActorNumber}";
+            playerEntry.GetComponent<TMP_Text>().text = $"{player.NickName}";
 
             playerEntries[player.ActorNumber] = playerEntry;
         }
