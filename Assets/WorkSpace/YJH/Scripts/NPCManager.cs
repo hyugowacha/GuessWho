@@ -18,7 +18,7 @@ public class NPCManager : MonoBehaviourPunCallbacks, IPunObservable, ISingleton<
     [SerializeField] GameObject npcGroup;//생성된 npc들을 가지고 있을 부모 오브젝트
     [SerializeField] GameObject spawnGroup;// 스폰포인트를 가지고 있을 부모 오브젝트
     [SerializeField] List<GameObject> npcSpawnList;// 부모 오브젝트로부터 스폰포인트를 저장할 변수
-
+    private float poolNumber = 50;
     //[SerializeField] float mapSizeZ1;//z축 최소값
     //[SerializeField] float mapSizeZ2;//z축 최대값
     //[SerializeField] float mapSizeX1;//x축 최소값
@@ -189,7 +189,7 @@ public class NPCManager : MonoBehaviourPunCallbacks, IPunObservable, ISingleton<
     
     public void CreateAllNPC()//npc를 초기 숫자만큼 생성
     {
-        for(int i=0; i<pool.InitialNPCNum; i++)
+        for(int i=0; i<poolNumber; i++)
         {
             //npcList.Add(pool.NPCS.Get());
             if (PhotonNetwork.IsConnected)
