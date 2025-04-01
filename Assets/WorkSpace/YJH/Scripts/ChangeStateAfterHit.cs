@@ -11,10 +11,10 @@ public class ChangeStateAfterHit : MonoBehaviour
     public void ChangeAfterHit()
     {
         
-            Debug.Log("hitend");
+            
             var nowState = npcScript.NowState;
             npcScript.AfterHit();
-            Debug.Log("3");
+            
             //ChangeState(NPCStateName.Idle);//new NPCIdle());
             npcScript.SelfCollider.enabled = true;
         
