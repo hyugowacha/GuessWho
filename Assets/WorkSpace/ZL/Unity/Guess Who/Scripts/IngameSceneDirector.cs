@@ -8,7 +8,7 @@ using ZL.Unity.Server.Photon;
 
 namespace ZL.Unity.GuessWho
 {
-    [AddComponentMenu("")]
+    [AddComponentMenu("ZL/Guess Who/Ingame SceneDirector (Singleton)")]
 
     public sealed class IngameSceneDirector : PhotonSceneDirector<IngameSceneDirector>
     {
@@ -33,7 +33,7 @@ namespace ZL.Unity.GuessWho
 
             ISingleton<NPCManager>.Instance.InitialSetBySpawnPoint();
 
-            ISingleton<PhotonPlayerManager>.Instance.SpawnRandom();
+            ISingleton<PlayerSpawnManager>.Instance.SpawnRandom();
 
             FadeIn();
         }

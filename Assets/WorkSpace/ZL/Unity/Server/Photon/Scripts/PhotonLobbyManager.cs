@@ -147,7 +147,7 @@ namespace ZL.Unity.Server.Photon
 
         public override void OnCreateRoomFailed(short returnCode, string message)
         {
-            FixedDebug.Log($"Create room failed ({returnCode}): {message}");
+            FixedDebug.Log($"Create room failed: ({returnCode}) {message}");
 
             eventOnCreateRoomFailed.Invoke(returnCode);
         }

@@ -14,6 +14,10 @@ namespace ZL.Unity.Server.Photon
 
         [SerializeField]
 
+        [UsingCustomProperty]
+
+        [Essential]
+
         private TextMeshProUGUI nicknameText;
 
         public void Initialize(string nickname)

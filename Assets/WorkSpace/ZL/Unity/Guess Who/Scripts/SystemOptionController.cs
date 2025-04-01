@@ -6,7 +6,7 @@ using ZL.Unity.UI;
 
 namespace ZL.Unity.GuessWho
 {
-    [AddComponentMenu("")]
+    [AddComponentMenu("ZL/Guess Who/System Option Controller")]
 
     [DisallowMultipleComponent]
 

@@ -8,7 +8,7 @@ using ZL.Unity.Server.Photon;
 
 namespace ZL.Unity.GuessWho
 {
-    [AddComponentMenu("")]
+    [AddComponentMenu("ZL/Guess Who/Room Creation Controller")]
 
     [DisallowMultipleComponent]
 

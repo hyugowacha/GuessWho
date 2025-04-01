@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &8872262079910308143
+--- !u!1001 &4821519197024224343
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -14,24 +14,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1118599552000296751, guid: 67840085902bfd547b98c82b3331e95e, type: 3}
       propertyPath: trackName
-      value: Title Scene
+      value: Ingame Scene
       objectReference: {fileID: 0}
+    - target: {fileID: 1118599552000296751, guid: 67840085902bfd547b98c82b3331e95e, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 5946118034877343283}
     - target: {fileID: 1118599552000296751, guid: 67840085902bfd547b98c82b3331e95e, type: 3}
       propertyPath: isPlayModeShuffle
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1118599552000296751, guid: 67840085902bfd547b98c82b3331e95e, type: 3}
       propertyPath: playlist.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1118599552000296751, guid: 67840085902bfd547b98c82b3331e95e, type: 3}
       propertyPath: playlist.Array.data[0]
       value: 
-      objectReference: {fileID: 8300000, guid: 5b1ed8fbe89154eaf96723b6e5f0aad3, type: 3}
+      objectReference: {fileID: 8300000, guid: 0c0665bec87baf649a8a950e9bbe8276, type: 3}
     - target: {fileID: 1118599552000296751, guid: 67840085902bfd547b98c82b3331e95e, type: 3}
       propertyPath: playlist.Array.data[1]
       value: 
-      objectReference: {fileID: 8300000, guid: bea93a38b71b64b598109b3a3b1a0048, type: 3}
+      objectReference: {fileID: 8300000, guid: c9a13c6447772074fb525460adb8dbaa, type: 3}
+    - target: {fileID: 1118599552000296751, guid: 67840085902bfd547b98c82b3331e95e, type: 3}
+      propertyPath: playlist.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5bae3ce340acfdc4cbcb2ee68dbfd9c4, type: 3}
     - target: {fileID: 1883791633323217857, guid: 67840085902bfd547b98c82b3331e95e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -74,10 +82,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4420748478114087488, guid: 67840085902bfd547b98c82b3331e95e, type: 3}
       propertyPath: m_Name
-      value: Audio Track (Singleton) Variant
+      value: Ingame Scene Audio Track (Singleton)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67840085902bfd547b98c82b3331e95e, type: 3}
+--- !u!82 &5946118034877343283 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1183779243766800996, guid: 67840085902bfd547b98c82b3331e95e, type: 3}
+  m_PrefabInstance: {fileID: 4821519197024224343}
+  m_PrefabAsset: {fileID: 0}

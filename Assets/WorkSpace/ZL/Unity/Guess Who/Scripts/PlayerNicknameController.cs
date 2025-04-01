@@ -1,14 +1,14 @@
+using Photon.Pun;
+
 using TMPro;
 
 using UnityEngine;
-
-using ZL.Unity.Server.Photon;
 
 using ZL.Unity.UI;
 
 namespace ZL.Unity.GuessWho
 {
-    [AddComponentMenu("")]
+    [AddComponentMenu("ZL/Guess Who/Player Nickname Controller")]
 
     [DisallowMultipleComponent]
 
@@ -40,7 +40,7 @@ namespace ZL.Unity.GuessWho
 
         public void TryInitializeNickname()
         {
-            if (ISingleton<PhotonPlayerManager>.Instance.Nickname.IsValidNickname() == false)
+            if (PhotonNetwork.NickName.IsValidNickname() == false)
             {
                 screen.FadeIn();
             }
@@ -48,7 +48,7 @@ namespace ZL.Unity.GuessWho
 
         public void Refresh()
         {
-            var nickname = ISingleton<PhotonPlayerManager>.Instance.Nickname;
+            var nickname = PhotonNetwork.NickName;
 
             nicknameInputField.text = nickname;
 
@@ -63,7 +63,7 @@ namespace ZL.Unity.GuessWho
                 {
                     case NicknameValidationException.NullOrEmpty:
 
-
+                        
 
                         return;
                 }

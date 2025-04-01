@@ -63,14 +63,14 @@ namespace ZL.Unity.Server.Photon
 
         public override void OnJoinRoomFailed(short returnCode, string message)
         {
-            FixedDebug.Log($"Join room failed ({returnCode}): {message}");
+            FixedDebug.Log($"Join room failed: ({returnCode}) {message}");
 
             evenOnJoinRoomFailed.Invoke(returnCode);
         }
 
         public override void OnJoinRandomFailed(short returnCode, string message)
         {
-            FixedDebug.LogWarning($"Join random failed ({returnCode}): {message}");
+            FixedDebug.LogWarning($"Join random failed: ({returnCode}) {message}");
 
             evenOnJoinRoomFailed.Invoke(returnCode);
         }

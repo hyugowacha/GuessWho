@@ -4,19 +4,15 @@ using UnityEngine;
 
 using ZL.Unity.IO;
 
-namespace ZL.Unity.Server.Photon
+namespace ZL.Unity
 {
-    [AddComponentMenu("ZL/Server/Photon/Photon Player Manager (Singleton)")]
-
-    public class PhotonPlayerManager : PhotonPlayerManager<PhotonPlayerManager> { }
+    [AddComponentMenu("ZL/Server/Photon Player Manager (Singleton)")]
 
     [DisallowMultipleComponent]
 
-    public abstract class PhotonPlayerManager<T> :
+    public sealed class PhotonPlayerManager :
         
-        MonoBehaviourPunCallbacks, ISingleton<T>
-
-        where T : PhotonPlayerManager<T>
+        MonoBehaviour, ISingleton<PhotonPlayerManager>
     {
         [Space]
 
@@ -26,21 +22,9 @@ namespace ZL.Unity.Server.Photon
 
         public string Nickname => nicknamePref.Value;
 
-        [Space]
-
-        [SerializeField]
-
-        private GameObject playerPrefab;
-
-        [Space]
-
-        [SerializeField]
-
-        private Transform[] playerSpawnPoint;
-
         private void Awake()
         {
-            ISingleton<T>.TrySetInstance((T)this);
+            ISingleton<PhotonPlayerManager>.TrySetInstance(this);
 
             nicknamePref.ActionOnValueChanged += (value) =>
             {
@@ -49,34 +33,23 @@ namespace ZL.Unity.Server.Photon
 
             nicknamePref.TryLoadValue();
         }
-
         private void OnDestroy()
         {
-            ISingleton<T>.Release((T)this);
+            ISingleton<PhotonPlayerManager>.Release(this);
         }
 
         public bool TrySetNickname(string nickname, out NicknameValidationException exception)
         {
             if (nickname.IsValidNickname(out exception) == false)
             {
+                FixedDebug.LogWarning($"Try Set Nickname failed: {exception}");
+
                 return false;
             }
 
             nicknamePref.SaveValue(nickname);
 
             return true;
-        }
-
-        public void Spawn(Vector3 position, Quaternion rotation)
-        {
-            PhotonNetwork.Instantiate(playerPrefab.name, position, rotation);
-        }
-
-        public void SpawnRandom()
-        {
-            int randomPoint = Random.Range(0, playerSpawnPoint.Length);
-
-            Spawn(playerSpawnPoint[randomPoint].position, Quaternion.identity);
         }
     }
 
