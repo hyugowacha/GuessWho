@@ -2,10 +2,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Photon.Pun;
-using PhotonHashtable = ExitGames.Client.Photon.Hashtable; //Photon Hashtable
+using PhotonHashtable = ExitGames.Client.Photon.Hashtable;
+using System; //Photon Hashtable
 
 public class PlayerControl : MonoBehaviourPun, IHittable
 {
+    public event Action OnExitButton;
+
     private IPlayerStates currentState;
 
     public Animator playerAnim;
@@ -225,6 +228,8 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         {
             SetIsHit(true);
         }
+
+        OnExitButton?.Invoke();
 
         photonView.RPC("SyncHitState", RpcTarget.Others, true);
 
