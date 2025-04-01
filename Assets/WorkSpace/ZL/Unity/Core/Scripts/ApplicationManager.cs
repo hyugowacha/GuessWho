@@ -4,9 +4,15 @@ using ZL.Unity.IO;
 
 namespace ZL.Unity
 {
+    [AddComponentMenu("")]
+
     [CreateAfterSceneLoad]
 
-    public class ApplicationManager : MonoBehaviour, IMonoSingleton<ApplicationManager>
+    [DisallowMultipleComponent]
+
+    public class ApplicationManager :
+        
+        MonoBehaviour, IMonoSingleton<ApplicationManager>
     {
         [Space]
 

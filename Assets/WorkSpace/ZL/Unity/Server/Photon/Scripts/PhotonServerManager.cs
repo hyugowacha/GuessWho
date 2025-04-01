@@ -22,7 +22,9 @@ namespace ZL.Unity.Server.Photon
 
     [DisallowMultipleComponent]
 
-    public sealed class PhotonServerManager : MonoBehaviourPunCallbacks, ISingleton<PhotonServerManager>
+    public sealed class PhotonServerManager :
+        
+        MonoBehaviourPunCallbacks, ISingleton<PhotonServerManager>
     {
         [Space]
 

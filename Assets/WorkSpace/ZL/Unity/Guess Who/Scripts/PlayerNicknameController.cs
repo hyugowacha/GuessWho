@@ -6,6 +6,8 @@ using UnityEngine;
 
 using ZL.Unity.UI;
 
+using ZL.Unity.Server.Photon;
+
 namespace ZL.Unity.GuessWho
 {
     [AddComponentMenu("ZL/Guess Who/Player Nickname Controller")]

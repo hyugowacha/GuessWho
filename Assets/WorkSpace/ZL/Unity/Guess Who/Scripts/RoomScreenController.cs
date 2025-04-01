@@ -43,7 +43,7 @@ namespace ZL.Unity.GuessWho
 
             roomCodeInputField.text = room.Name;
 
-            startGameButton.interactable = false;
+            //startGameButton.interactable = false;
         }
 
         public void Refresh()

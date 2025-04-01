@@ -18,7 +18,9 @@ namespace ZL.Unity
 
     [DisallowMultipleComponent]
 
-    public abstract class SceneDirector<T> : MonoBehaviour, ISingleton<T>
+    public abstract class SceneDirector<T> :
+        
+        MonoBehaviour, ISingleton<T>
 
         where T : SceneDirector<T>
     {

@@ -11905,6 +11905,8 @@ GameObject:
   - component: {fileID: 483687963}
   - component: {fileID: 483687964}
   - component: {fileID: 483687962}
+  - component: {fileID: 483687966}
+  - component: {fileID: 483687965}
   m_Layer: 0
   m_Name: Ingame Scene Director
   m_TagString: Untagged
@@ -11965,6 +11967,46 @@ MonoBehaviour:
   sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &483687965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483687961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a39a868ff3a94448f6eee7a46ac633, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tweener:
+    duration: 2
+    delay: 0
+    ease: 0
+    isIndependentUpdate: 1
+    loop: 0
+    loopCount: -1
+    loopType: 0
+    eventOnStart:
+      m_PersistentCalls:
+        m_Calls: []
+    eventOnComplete:
+      m_PersistentCalls:
+        m_Calls: []
+--- !u!114 &483687966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483687961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59fbb2b6633fcf749ae8beedcf7fc213, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pause: 0
+  volume: 0
 --- !u!1001 &487827013
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22670,7 +22712,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2948797402612013423, guid: ab21ec6caef59b84b8bef2260125ba6e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 450
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2948797402612013423, guid: ab21ec6caef59b84b8bef2260125ba6e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -22694,7 +22736,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2981075917852968108, guid: ab21ec6caef59b84b8bef2260125ba6e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 450
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2981075917852968108, guid: ab21ec6caef59b84b8bef2260125ba6e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -38701,6 +38743,10 @@ PrefabInstance:
     - target: {fileID: 164257182379649762, guid: f51b510b6fdae5444bd7d861fd3c0fb0, type: 3}
       propertyPath: eventOnJoinedRoom.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 164257182379649762, guid: f51b510b6fdae5444bd7d861fd3c0fb0, type: 3}
+      propertyPath: eventOnMasterClientLeftRoom.m_PersistentCalls.m_Calls.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 164257182379649762, guid: f51b510b6fdae5444bd7d861fd3c0fb0, type: 3}
       propertyPath: eventOnJoinedRoom.m_PersistentCalls.m_Calls.Array.data[0].m_Target
