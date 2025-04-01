@@ -17,11 +17,16 @@ public class InGamePlayerList : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject inGamePlayerCount;
 
+    [SerializeField]
+    private WinnerChecker winnerChecker;
+
     private GameObject list;
 
     private GameObject playerCount;
 
     public int playerNum;
+
+    public int aliveCount = 0;
 
     private Dictionary<int, GameObject> playerEntries = new Dictionary<int, GameObject>();
 
@@ -68,7 +73,8 @@ public class InGamePlayerList : MonoBehaviourPunCallbacks
 
     public void UpdateAlivePlayerCount() // 왼쪽 하단 생존 플레이어 표시
     {
-        int aliveCount = 0;
+        int i = 0;
+        aliveCount = 0;
 
         foreach (Player player in PhotonNetwork.PlayerList)
         {
@@ -79,6 +85,8 @@ public class InGamePlayerList : MonoBehaviourPunCallbacks
                 if (isHit == false) // 맞지 않은 플레이어만 카운트
                 {
                     aliveCount++;
+
+                    Debug.Log(player.NickName + i++);
                 }
             }
             else
@@ -86,6 +94,8 @@ public class InGamePlayerList : MonoBehaviourPunCallbacks
                 aliveCount++;
             }
         }
+
+        winnerChecker.CheckWinner();
 
         playerCount.GetComponent<TMP_Text>().text = $"{aliveCount}";
     }
@@ -99,9 +109,9 @@ public class InGamePlayerList : MonoBehaviourPunCallbacks
         playerEntries[newPlayer.ActorNumber] = playerEntry;
 
         // 방 생성되면 추가적으로 들어올 수 없기 때문에 나중에 지워야 함.
-        playerNum = PhotonNetwork.PlayerList.Length;
+        //playerNum = PhotonNetwork.PlayerList.Length;
 
-        UpdateAlivePlayerCount();
+        //UpdateAlivePlayerCount();
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
