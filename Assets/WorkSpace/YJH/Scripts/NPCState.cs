@@ -95,6 +95,7 @@ public class NPCMove : INPCState
         nowNPC = npc;
         selfAgent = npc.gameObject.GetComponent<NavMeshAgent>();
         selfAgent.isStopped = false;
+        nowNPC.SelfCollider.enabled = true;
         npcAnimator = (npc as TestingNPC).animator;
         destination = new Vector3();
         delayTime = 0;
@@ -351,15 +352,11 @@ public class NPCIdle : INPCState
         nowNPC = npc;
         npcAnimator = (npc as TestingNPC).animator;
         npcAgent = (npc as TestingNPC).SelfAgent;
-        //if (PhotonNetwork.IsMasterClient == true)
-        //{
-        //    npcAgent.isStopped = true;
-        //}
+        nowNPC.SelfCollider.enabled = true;
         npcAgent.isStopped = true;
         npcAnimator.SetBool("isAnger", false);
         npcAnimator.SetBool(hashHit, false);
-        npcAnimator.SetBool(hashIdle, true);
-        npcAnimator.SetBool(hashMove, false);
+        
         npcAnimator.SetFloat(hashselfVel, 0f);
     }
     [PunRPC]
