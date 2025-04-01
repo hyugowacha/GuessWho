@@ -35,9 +35,9 @@ public class RPC_ItemSpawn : MonoBehaviour
                 parent.GunItem.SetActive(false);
                 break;
 
-            case 3:
-                parent.WhistleItem.SetActive(false);
-                break;
+            //case 3:
+            //    parent.WhistleItem.SetActive(false);
+            //    break;
         }
 
     }

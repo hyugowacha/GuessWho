@@ -85,9 +85,9 @@ public class ItemSpawnctrl : MonoBehaviourPun
                 gunItem.SetActive(true);
                 break;
 
-            case 9:
-                whistleItem.SetActive(true);
-                break;
+            //case 9:
+            //    whistleItem.SetActive(true);
+            //    break;
 
             default:
                 stoneItem.SetActive(true);
