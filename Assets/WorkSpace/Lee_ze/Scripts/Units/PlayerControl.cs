@@ -299,7 +299,7 @@ public class PlayerControl : MonoBehaviourPun, IHittable
                         Debug.Log("플레이어 총 맞음"); 
                         Vector3 hitPosition = hit.point;
                         Quaternion hitRotation = Quaternion.LookRotation(hit.normal);
-                        photonView.RPC("ApplyDamage", RpcTarget.MasterClient, photonView.ViewID);
+                        photonView.RPC("ApplyDamage", RpcTarget.AllBuffered, photonView.ViewID);
 
                         Instantiate(GunFire, hitPosition, hitRotation);
                     }
