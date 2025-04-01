@@ -5,12 +5,10 @@ using Photon.Pun;
 using TMPro;
 using UnityEngine.UI;
 using ZL.Unity;
+using UnityEngine.SceneManagement;
 
 public class ExitGame : MonoBehaviourPunCallbacks
 {
-    [SerializeField]
-    private PlayerControl player;
-
     [SerializeField]
     private Button exitButton;
 
@@ -20,20 +18,18 @@ public class ExitGame : MonoBehaviourPunCallbacks
 
         exitButton.SetActive(false);
 
-        player.OnExitButton += OnExitButton; // 버튼 누르면 구독 해제 해야됨.
-
         exitButton.onClick.AddListener(ExitThisGame);
     }
 
-    private void OnExitButton()
+    public void OnExitButton()
     {
-        Debug.Log("asdf");
-
         exitButton.SetActive(true);
     }
 
     private void ExitThisGame()
     {
-        Debug.Log("나가기");
+        PhotonNetwork.LeaveRoom();
+
+        SceneManager.LoadScene("Title Scene");
     }
 }

@@ -2,18 +2,18 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Photon.Pun;
-using PhotonHashtable = ExitGames.Client.Photon.Hashtable;
-using System; //Photon Hashtable
+using PhotonHashtable = ExitGames.Client.Photon.Hashtable; //Photon Hashtable
+using System;
 
 public class PlayerControl : MonoBehaviourPun, IHittable
 {
-    public event Action OnExitButton;
-
     private IPlayerStates currentState;
 
     public Animator playerAnim;
 
     private InGamePlayerList inGamePlayerList;
+
+    private ExitGame exitGame;
 
 
     [Header("Move"), Space(10)]
@@ -83,6 +83,8 @@ public class PlayerControl : MonoBehaviourPun, IHittable
     private void Start()
     {
         inGamePlayerList = FindObjectOfType<InGamePlayerList>();
+
+        exitGame = FindObjectOfType<ExitGame>();
 
         if (photonView.IsMine)
         {
@@ -227,9 +229,9 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         if (photonView.IsMine)
         {
             SetIsHit(true);
-        }
 
-        OnExitButton?.Invoke();
+            exitGame.OnExitButton();
+        }
 
         photonView.RPC("SyncHitState", RpcTarget.Others, true);
 
