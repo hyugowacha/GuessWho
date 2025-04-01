@@ -7,9 +7,10 @@ using Photon.Pun;
 using Unity.VisualScripting;
 
 
+
 public enum NPCStateName
 {
-    Hit,Idle,Walk,None
+    Hit,Idle,Walk,Dead ,None
 
 }
 public interface INPCState
@@ -108,34 +109,29 @@ public class NPCMove : INPCState
         
             nowNPC = npc;
             selfAgent = npc.gameObject.GetComponent<NavMeshAgent>();
-        //if (PhotonNetwork.IsMasterClient == true)
-        //{
-        //    selfAgent.isStopped = false;
-        //}
+        
         selfAgent.isStopped = false;
         npcAnimator = (npc as TestingNPC).animator;
             destination = new Vector3();
             destination = randomDestination;
             delayTime = 0;
-        
-        //RandomDestination();
+       
     }
     private void RandomDestination()
     {
-        //Debug.Log("first"+destination);
-        //Debug.Log("NPC"+nowNPC.transform.position);
+        
         var init = Random.insideUnitCircle;
         destination = nowNPC.transform.position + new Vector3(init.x * 20, 0, init.y * 20);
         while (IsDestinationOutOfRange() == true)
         {
-            //Debug.Log("re");
+           
             var temp = Random.insideUnitCircle;
             destination = nowNPC.transform.position + new Vector3(temp.x * 20, 0, temp.y * 20);
         }
-        //Debug.Log(destination);
+        
 
     }
-    //Random.Range(-74,72),1.5f, Random.Range(-78, 74)
+   
     public bool IsDestinationOutOfRange()
     {
         if ((destination-nowNPC.transform.position).magnitude<5f)
@@ -169,36 +165,20 @@ public class NPCMove : INPCState
         selfAgent.SetDestination(destination);
         nowNPC.transform.LookAt(destination);//이거 커브 돌때는 어케 되는거지?
         
-        //PlayAnimation();
-        
-
-
 
     }
-    //public bool CheckStateEnd(Transform npcTransform)
-    //{
-    //    if ((destination.position - npcTransform.position).magnitude < 0.2f)
-    //    {
-    //        return true;
-    //    }
-    //    else
-    //    {
-    //        return false;
-    //    }
-    //
-    //}
+  
 
     public bool ForceStateEnd()
     {
         return true;
     }
-    public bool CheckStateEnd()// 이쪽을 좀 더 신경써야 할듯 건물 안에 생성된 목적지가 있으면 자꾸 고장남
+    public bool CheckStateEnd()
     {
         delayTime += Time.deltaTime;
         if ((destination - nowNPC.transform.position).magnitude < 5.0f)
         {
-            //Debug.Log((destination - nowNPC.transform.position).magnitude);
-            //StopAnimation();
+            
             return true;
         }
         else
@@ -232,11 +212,7 @@ public class NPCHit : INPCState
     [PunRPC]
     public void PlayAnimation()
     {
-        //animator관련
-        //npcAnimator.SetBool(hashHit,true);
-        //npcAnimator.SetBool(hashIdle,true);
-        //npcAnimator.SetBool("isAnger", true);
-        //npcAnimator.SetFloat(hashselfVel, 0f);
+        
     }
     [PunRPC]
     public void StopAnimation()
@@ -256,31 +232,22 @@ public class NPCHit : INPCState
         npcAgent= (npc as TestingNPC).SelfAgent;
         npcAgent.isStopped = true;
         npcAnimator.SetBool(hashHit, true);
-        //npcAnimator.SetBool("isAnger", true);
-        //npcAnimator.SetFloat(hashselfVel, 0f);
+        
 
     }
     public void NPCGetHit()
     {
-        //게임 매니저나 여타 피격시 시행될 기능
-       // isHit=true;
+        
     }
     [PunRPC]
     public void StateAction()
     {
-        //PlayAnimation();
+        
         
     }
     public bool CheckStateEnd()
     {
-        //if (npcAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime == 1)
-        //{
-        //    return true;
-        //}
-        //else
-        //{
-        //    return false;
-        //}
+       
         return false;
         
     }
@@ -309,8 +276,7 @@ public class NPCIdle : INPCState
     [PunRPC]
     public void PlayAnimation()
     {
-        npcAnimator.SetBool(hashIdle, true);
-        npcAnimator.SetBool(hashMove, false);
+        
         npcAnimator.SetBool("isAnger", false);
         npcAnimator.SetBool(hashHit, false);
         npcAnimator.SetFloat(hashselfVel, 0f);
@@ -337,8 +303,7 @@ public class NPCIdle : INPCState
         npcAgent.isStopped = true;
         npcAnimator.SetBool("isAnger", false);
         npcAnimator.SetBool(hashHit, false);
-        npcAnimator.SetBool(hashIdle, true);
-        npcAnimator.SetBool(hashMove, false);
+        
         npcAnimator.SetFloat(hashselfVel, 0f);
         //npcAnimator.SetBool("isAnger", false);
         //npcAnimator.SetBool(hashHit, false);
@@ -383,8 +348,7 @@ public class NPCIdle : INPCState
         }
         if (isEnd == true)
         {
-            //Debug.Log("endidle");
-            //StopAnimation();
+            
             return true;
         }
         else
@@ -406,6 +370,7 @@ public class NPCDead : INPCState
     private Animator npcAnimator;
     private NavMeshAgent npcAgent;
     readonly int hashHit = Animator.StringToHash("isHit");
+    readonly int hashDead = Animator.StringToHash("isDead");
     readonly int hashselfVel = Animator.StringToHash("selfVel");
     public bool CheckStateEnd()
     {
@@ -414,7 +379,10 @@ public class NPCDead : INPCState
 
     public void EnterState(TestingNPC npc)
     {
-
+        nowNPC = npc;
+        npcAnimator = (npc as TestingNPC).animator;
+        npcAgent = (npc as TestingNPC).SelfAgent;
+        npcAgent.isStopped = true;
     }
 
     public void EnterState(TestingNPC npc, float time)
@@ -432,17 +400,17 @@ public class NPCDead : INPCState
 
     public void PlayAnimation()
     {
-
+        npcAnimator.SetBool(hashDead, true);
     }
 
     public void StateAction()
     {
-
+        PlayAnimation();
     }
 
     public void StopAnimation()
     {
-
+        return;
     }
 }
 

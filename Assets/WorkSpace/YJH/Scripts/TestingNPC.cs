@@ -112,6 +112,11 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
                 nowState.EnterState(this);
                 nowState.StateAction();
                 break;
+            case NPCStateName.Dead:
+                nowState = new NPCDead();
+                nowState.EnterState(this);
+                nowState.StateAction();
+                break;
             default:
                 break;
         }
@@ -145,6 +150,12 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
                 (nowState as NPCMove).EnterState(this, ISingleton<NPCManager>.Instance.RandomDestination(this));
                 nowState.StateAction();
                 npcDestination = (nowState as NPCMove).ReturnDestination();
+                break;
+
+            case NPCStateName.Dead:
+                nowState = new NPCDead();
+                nowState.EnterState(this,0);
+                nowState.StateAction(); 
                 break;
             default:
                 break;
@@ -259,15 +270,19 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
         if (PhotonNetwork.IsConnected == false)
         {
             ChangeState(NPCStateName.Hit);//포톤 안쓸 때 사용하는 것
-            //Debug.Log("hitmethod");
+            
         }
         else
         {
-            photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Hit);//포톤일 때 콜백으로 마스터 클라이언트에 전달함
+            photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Dead);//포톤일 때 콜백으로 마스터 클라이언트에 전달함
         }
 
     }
-
+    public void GetDie()
+    {
+        hitSoundSource.Play();
+        photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Hit);
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.root.tag == "Player")
@@ -287,6 +302,11 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
             transform.LookAt(stone);
             GetHit();
 
+        }else if(other.transform.root.tag == "Bullet")
+        {
+            var stone = other.transform.root.transform;
+            transform.LookAt(stone);
+            GetHit();
         }
     }
 
