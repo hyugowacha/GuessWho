@@ -274,14 +274,14 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
         }
         else
         {
-            photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Dead);//포톤일 때 콜백으로 마스터 클라이언트에 전달함
+            photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Hit);//포톤일 때 콜백으로 마스터 클라이언트에 전달함
         }
 
     }
     public void GetDie()
     {
         hitSoundSource.Play();
-        photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Hit);
+        photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Dead);
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -290,7 +290,7 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
             selfCollider.enabled = false;
             
             var player = other.transform.root.transform;//플레이어관련 변경 일어날 시에는 코딩 새로 해야 함
-            ;
+            
             transform.LookAt(player);
             
 
@@ -306,7 +306,7 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
         {
             var stone = other.transform.root.transform;
             transform.LookAt(stone);
-            GetHit();
+            GetDie();
         }
     }
 

@@ -24,20 +24,20 @@ public class NPCManager : MonoBehaviourPunCallbacks, IPunObservable, ISingleton<
     private void Awake()
     {
         //ISingleton<NPCManager>.TrySetInstance(this);
-
+        ISingleton<NPCManager>.TrySetInstance(this);
         pool = new NPCPool();//풀 생성
         pool.SetPrefab(npc);
     }
 
     void Start()
     {
-        
-       //npcScriptList = new List<TestingNPC>();
-       //npcSpawnList = new List<GameObject>();
-       //
-       //SetSpawnPoint();//초기 스폰 메커니즘 -> 나중에 완성도를 끌어올릴때 다른 로직을 사용해 보자 -> 단점으로는 밀도가 높아져 빈 공간이 생길 수 밖에 없음
-        
-          
+        ISingleton<NPCManager>.TrySetInstance(this);
+        //npcScriptList = new List<TestingNPC>();
+        //npcSpawnList = new List<GameObject>();
+        //
+        //SetSpawnPoint();//초기 스폰 메커니즘 -> 나중에 완성도를 끌어올릴때 다른 로직을 사용해 보자 -> 단점으로는 밀도가 높아져 빈 공간이 생길 수 밖에 없음
+
+
     }
 
     private void OnDestroy()
