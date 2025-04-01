@@ -399,7 +399,52 @@ public class NPCIdle : INPCState
 
     
 }
+public class NPCDead : INPCState
+{
 
+    private TestingNPC nowNPC;
+    private Animator npcAnimator;
+    private NavMeshAgent npcAgent;
+    readonly int hashHit = Animator.StringToHash("isHit");
+    readonly int hashselfVel = Animator.StringToHash("selfVel");
+    public bool CheckStateEnd()
+    {
+        return false;
+    }
+
+    public void EnterState(TestingNPC npc)
+    {
+
+    }
+
+    public void EnterState(TestingNPC npc, float time)
+    {
+        nowNPC = npc;
+        npcAnimator = (npc as TestingNPC).animator;
+        npcAgent = (npc as TestingNPC).SelfAgent;
+        npcAgent.isStopped = true;
+    }
+
+    public bool ForceStateEnd()
+    {
+        return true;
+    }
+
+    public void PlayAnimation()
+    {
+
+    }
+
+    public void StateAction()
+    {
+
+    }
+
+    public void StopAnimation()
+    {
+
+    }
+}
 
 
 
