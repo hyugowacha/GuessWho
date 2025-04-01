@@ -10,7 +10,7 @@ using ZL.Unity.Pooling;
 
 namespace ZL.Unity.Server.Photon
 {
-    [AddComponentMenu("ZL/Server/Photon/Photon Player List")]
+    [AddComponentMenu("ZL/Server/Photon/Photon Player List (Singleton)")]
 
     [DisallowMultipleComponent]
 

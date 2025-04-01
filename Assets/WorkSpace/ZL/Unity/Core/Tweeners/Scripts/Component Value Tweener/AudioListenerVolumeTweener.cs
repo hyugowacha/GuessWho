@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ZL.Unity.Tweeners
 {
-    [AddComponentMenu("ZL/Tweeners/Audio Listener Volume Tweener")]
+    [AddComponentMenu("ZL/Tweeners/Audio Listener Volume Tweener (Singleton)")]
 
     [DisallowMultipleComponent]
 
