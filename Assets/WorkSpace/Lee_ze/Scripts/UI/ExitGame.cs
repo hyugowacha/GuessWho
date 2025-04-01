@@ -14,8 +14,10 @@ public class ExitGame : MonoBehaviourPunCallbacks
     [SerializeField]
     private Button exitButton;
 
-    private void Start()
+    IEnumerator Start()
     {
+        yield return new WaitUntil(() => PhotonNetwork.PlayerList.Length > 0);
+
         exitButton.SetActive(false);
 
         player.OnExitButton += OnExitButton; // 버튼 누르면 구독 해제 해야됨.
