@@ -86,6 +86,8 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
         exitGame = FindObjectOfType<ExitGame>();
 
+        SetIsHit(false);
+
         if (photonView.IsMine)
         {
             ChangeStateTo(new IdleState());

@@ -10,20 +10,26 @@ using UnityEngine.SceneManagement;
 public class ExitGame : MonoBehaviourPunCallbacks
 {
     [SerializeField]
-    private Button exitButton;
+    private GameObject exitButton;
+
+    private GameObject tempButton;
 
     IEnumerator Start()
     {
         yield return new WaitUntil(() => PhotonNetwork.PlayerList.Length > 0);
 
-        exitButton.SetActive(false);
+        tempButton = Instantiate(exitButton, this.transform);
 
-        exitButton.onClick.AddListener(ExitThisGame);
+        tempButton.SetActive(false);
+
+        Button bnt = tempButton.GetComponent<Button>();
+
+        bnt.onClick.AddListener(() => ExitThisGame());
     }
 
     public void OnExitButton()
     {
-        exitButton.SetActive(true);
+        tempButton.SetActive(true);
     }
 
     private void ExitThisGame()
