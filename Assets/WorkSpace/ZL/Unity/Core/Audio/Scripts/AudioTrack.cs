@@ -8,7 +8,9 @@ namespace ZL.Unity.Audio
 
     [RequireComponent(typeof(AudioSource))]
 
-    public sealed class AudioTrack : MonoBehaviour, IMonoSingleton<AudioTrack>
+    public sealed class AudioTrack :
+        
+        MonoBehaviour, IMonoSingleton<AudioTrack>
     {
         [Space]
 

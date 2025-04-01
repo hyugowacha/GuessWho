@@ -4,7 +4,7 @@ using UnityEngine;
 
 using ZL.Unity.IO;
 
-namespace ZL.Unity
+namespace ZL.Unity.Server.Photon
 {
     [AddComponentMenu("ZL/Server/Photon Player Manager (Singleton)")]
 
@@ -48,35 +48,6 @@ namespace ZL.Unity
             }
 
             nicknamePref.SaveValue(nickname);
-
-            return true;
-        }
-    }
-
-    public enum NicknameValidationException
-    {
-        None,
-
-        NullOrEmpty,
-    }
-
-    public static partial class StringExtensions
-    {
-        public static bool IsValidNickname(this string instance)
-        {
-            return IsValidNickname(instance, out var exception);
-        }
-
-        public static bool IsValidNickname(this string instance, out NicknameValidationException exception)
-        {
-            if (instance.IsNullOrEmpty() == true)
-            {
-                exception = NicknameValidationException.NullOrEmpty;
-
-                return false;
-            }
-
-            exception = NicknameValidationException.None;
 
             return true;
         }

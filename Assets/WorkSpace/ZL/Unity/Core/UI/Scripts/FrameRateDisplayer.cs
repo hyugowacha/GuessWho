@@ -6,11 +6,13 @@ using ZL.Unity.IO;
 
 namespace ZL.Unity.UI
 {
-    [AddComponentMenu("ZL/UI/Frame Rate Displayer")]
+    [AddComponentMenu("ZL/UI/Frame Rate Displayer (Singleton)")]
 
     [DisallowMultipleComponent]
 
-    public sealed class FrameRateDisplayer : MonoBehaviour, ISingleton<FrameRateDisplayer>
+    public sealed class FrameRateDisplayer :
+        
+        MonoBehaviour, ISingleton<FrameRateDisplayer>
     {
         [Space]
 
