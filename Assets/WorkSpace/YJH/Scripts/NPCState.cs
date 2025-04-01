@@ -232,10 +232,10 @@ public class NPCHit : INPCState
     public void PlayAnimation()
     {
         //animator관련
-        npcAnimator.SetBool(hashHit,true);
-        npcAnimator.SetBool(hashIdle,true);
-        npcAnimator.SetBool("isAnger", true);
-        npcAnimator.SetFloat(hashselfVel, 0f);
+        //npcAnimator.SetBool(hashHit,true);
+        //npcAnimator.SetBool(hashIdle,true);
+        //npcAnimator.SetBool("isAnger", true);
+        //npcAnimator.SetFloat(hashselfVel, 0f);
     }
     [PunRPC]
     public void StopAnimation()
@@ -243,7 +243,7 @@ public class NPCHit : INPCState
         //animator관련
         npcAnimator.SetBool("isAnger", false);
         npcAnimator.SetBool(hashHit, false);
-
+        npcAnimator.SetFloat(hashselfVel, 0f);
     }
 
     [PunRPC]
@@ -255,8 +255,8 @@ public class NPCHit : INPCState
         npcAgent= (npc as TestingNPC).SelfAgent;
         npcAgent.isStopped = true;
         npcAnimator.SetBool(hashHit, true);
-        npcAnimator.SetBool("isAnger", true);
-        npcAnimator.SetFloat(hashselfVel, 0f);
+        //npcAnimator.SetBool("isAnger", true);
+        //npcAnimator.SetFloat(hashselfVel, 0f);
 
     }
     public void NPCGetHit()
@@ -272,14 +272,15 @@ public class NPCHit : INPCState
     }
     public bool CheckStateEnd()
     {
-        if (npcAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime == 1)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        //if (npcAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime == 1)
+        //{
+        //    return true;
+        //}
+        //else
+        //{
+        //    return false;
+        //}
+        return false;
         
     }
     public bool ForceStateEnd()

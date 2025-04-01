@@ -28,8 +28,15 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
     private Vector3 npcDestination=new Vector3();
     readonly int hashselfVel = Animator.StringToHash("selfVel");
     public NavMeshAgent SelfAgent { get { return selfAgent; } set { selfAgent = value; } }
-
-
+    public INPCState NowState
+    {
+        get { return nowState; }
+        set { nowState = value; }
+    }
+    public Collider SelfCollider
+    {
+        get { return selfCollider; }
+    }
 
     
 
@@ -154,6 +161,20 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
 
 
     }
+    public void AfterHit()
+    {
+        if (nowState is NPCHit)
+        {
+            (nowState as NPCHit).StopAnimation();
+        }
+        else
+        {
+            return;
+        }
+        photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Idle, UnityEngine.Random.Range(0.2f, 1.0f));
+    }
+
+
     IEnumerator NPCAnimationControl()
     {
         while (true)
@@ -162,6 +183,9 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
             animator.SetFloat(hashselfVel, selfAgent.velocity.magnitude);
         }
     }
+
+    
+
 
     IEnumerator CheckState()//master client만 이걸 실행해야 함
     {
@@ -179,16 +203,16 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
             {
                 if(nowState is NPCHit)
                 {
-                    hitTime += Time.deltaTime;
-                    if (hitPenaltyTime <= hitTime)
-                    {
-                        
-                        (nowState as NPCHit).StopAnimation();
-                        photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Idle, UnityEngine.Random.Range(0.2f, 1.0f));
-                        //ChangeState(NPCStateName.Idle);//new NPCIdle());
-                        selfCollider.enabled = true;
-                        hitTime = 0;
-                    }
+                    //hitTime += Time.deltaTime;
+                    //if (hitPenaltyTime <= hitTime)
+                    //{
+                    //    
+                    //    (nowState as NPCHit).StopAnimation();
+                    //    photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Idle, UnityEngine.Random.Range(0.2f, 1.0f));
+                    //    //ChangeState(NPCStateName.Idle);//new NPCIdle());
+                    //    selfCollider.enabled = true;
+                    //    hitTime = 0;
+                    //}
                     
                 }else if (nowState.CheckStateEnd() == true)
                 {
@@ -208,7 +232,7 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
                         {
                             //Debug.Log("changetomove");
                             photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Idle,0.3f);
-                            Debug.Log(photonView.ViewID);
+                            //Debug.Log(photonView.ViewID);
                             //ChangeState(NPCStateName.Idle,true);
                             
                             //ChangeState(NPCStateName.Walk);
@@ -254,7 +278,7 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
     public void GetHit()//puncallback해야 함-> 애니메이션 상 로테이션을 변경해서 플레이어쪽을 보고 화내야 함 ->clear
     {
         hitSoundSource.Play();
-        selfCollider.enabled = false;
+        
 
 
         if (PhotonNetwork.IsConnected == false)
@@ -276,12 +300,16 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
     {
         if (other.transform.root.tag == "Player")
         {
+            selfCollider.enabled = false;
+            Debug.Log("hit");
             var player = other.transform.root.transform;//플레이어관련 변경 일어날 시에는 코딩 새로 해야 함
             //Debug.Log("detectplayer");
             transform.LookAt(player);
+            
 
 
-        }else if(other.transform.root.tag == "Stone")
+        }
+        else if(other.transform.root.tag == "Stone")
         {
             var stone = other.transform.root.transform;
             transform.LookAt(stone);
