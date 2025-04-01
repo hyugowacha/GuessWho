@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ZL.Unity.Server.Photon
 {
-    [AddComponentMenu("ZL/Server/Photon/Photon Scene Director")]
+    [AddComponentMenu("ZL/Server/Photon/Photon Scene Director (Singleton)")]
 
     public class PhotonSceneDirector : PhotonSceneDirector<PhotonSceneDirector> { }
 
@@ -20,7 +20,7 @@ namespace ZL.Unity.Server.Photon
 
         [GetComponent]
 
-        [Toggle(true)]
+        [ReadOnly(true)]
 
         private PhotonView photonView;
 

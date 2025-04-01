@@ -1,66 +1,11 @@
-using DG.Tweening;
-
-using DG.Tweening.Core;
-
 using DG.Tweening.Plugins.Options;
-
-using System;
-
-using System.Collections.Generic;
 
 using UnityEngine;
 
+using ZL.Unity.Collections;
+
 namespace ZL.Unity.Tweeners
 {
-    [Serializable]
-
-    public sealed class KeyFrames<T> : List<T>
-    {
-        [Space]
-
-        [SerializeField]
-
-        private int index = 0;
-
-        public int Index
-        {
-            get => index;
-
-            set
-            {
-                
-            }
-        }
-
-        private int delta = 0;
-
-        public T Current()
-        {
-            return this[index];
-        }
-
-        public T Current(int index)
-        {
-            Index = index;
-
-            return this[Index];
-        }
-
-        public T Next()
-        {
-            ++delta;
-
-            Index = delta;
-
-            return this[index];
-        }
-
-        public T Prev()
-        {
-            return this[--Index];
-        }
-    }
-
     public abstract class KeyFrameTweener<TComponentTweener, TValueTweener, T1, T2, TPlugOptions> : MonoBehaviour
 
         where TComponentTweener : ComponentValueTweener<TValueTweener, T1, T2, TPlugOptions>
@@ -75,47 +20,46 @@ namespace ZL.Unity.Tweeners
 
         [UsingCustomProperty]
 
-        [ReadOnly(true)]
-
         [GetComponent]
+
+        [ReadOnly(true)]
 
         protected TComponentTweener componentTweener;
 
-        [Space]
-
-        [SerializeField]
-
-        private float duration;
+#if UNITY_EDITOR
 
         [Space]
 
         [SerializeField]
 
-        protected KeyFrames<T2> keyFrames;
+        private bool preview = false;
+
+#endif
+
+        [Space]
+
+        [SerializeField]
+
+        protected LoopList<T2> keyFrames;
+
+#if UNITY_EDITOR
 
         private void OnValidate()
         {
-            if (keyFrames.Count != 0)
+            if (preview == true)
             {
-                SetKeyFrame(keyFrames.Index);
+                SetKeyFrame();
             }
         }
 
-        [Space]
+#endif
 
-        [SerializeField]
+        private void Awake()
+        {
+            SetKeyFrame();
+        }
 
-        private bool playOnStart = false;
-
-        [SerializeField]
-
-        [UsingCustomProperty]
-
-        [ToggleIf("loop", false)]
-
-        private LoopType loopType = LoopType.Restart;
-
-        public abstract void SetKeyFrame(int index);
+        public abstract void SetKeyFrame();
 
         public void TweenKeyFrameNext()
         {
@@ -138,9 +82,12 @@ namespace ZL.Unity.Tweeners
             TweenKeyFrame();
         }
 
-        protected virtual TweenerCore<T1, T2, TPlugOptions> TweenKeyFrame()
+        protected virtual void TweenKeyFrame()
         {
-            return componentTweener.Tween(keyFrames.Current(), duration);
+            if (keyFrames.TryGetCurrent(out T2 result) == true)
+            {
+                componentTweener.Tween(result);
+            }
         }
     }
 }

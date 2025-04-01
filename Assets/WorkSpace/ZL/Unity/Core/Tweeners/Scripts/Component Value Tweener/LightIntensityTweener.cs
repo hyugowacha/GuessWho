@@ -18,9 +18,9 @@ namespace ZL.Unity.Tweeners
 
         [UsingCustomProperty]
 
-        [ReadOnly(true)]
-
         [GetComponent]
+
+        [ReadOnly(true)]
 
 #pragma warning disable CS0108
 

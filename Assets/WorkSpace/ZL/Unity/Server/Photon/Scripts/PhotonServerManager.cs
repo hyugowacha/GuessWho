@@ -6,6 +6,8 @@ using System;
 
 using System.Collections;
 
+using System.Collections.Generic;
+
 using System.Diagnostics;
 
 using UnityEngine;
@@ -20,10 +22,18 @@ namespace ZL.Unity.Server.Photon
 
     [DisallowMultipleComponent]
 
-    public sealed class PhotonServerManager :
-        
-        MonoBehaviourPunCallbacks, ISingleton<PhotonServerManager>
+    public sealed class PhotonServerManager : MonoBehaviourPunCallbacks, ISingleton<PhotonServerManager>
     {
+        [Space]
+
+        [SerializeField]
+
+        [UsingCustomProperty]
+
+        [ReadOnlyWhenPlayMode]
+
+        private Wrapper<TypedLobby[]> lobbies;
+
         [Space]
 
         [SerializeField]
@@ -54,11 +64,23 @@ namespace ZL.Unity.Server.Photon
 
         public UnityEvent EventOnDisconnected => eventOnConnectedToMaster;
 
+        private Dictionary<string, TypedLobby> lobbyDictionary;
+
         private readonly Stopwatch loadingStopwatch = new();
 
         private void Awake()
         {
             ISingleton<PhotonServerManager>.TrySetInstance(this);
+
+            if (lobbies.value.Length != 0)
+            {
+                lobbyDictionary = new(lobbies.value.Length);
+
+                foreach (var lobby in lobbies.value)
+                {
+                    lobbyDictionary.Add(lobby.Name, lobby);
+                }
+            }
         }
 
         private void OnDestroy()
@@ -66,9 +88,19 @@ namespace ZL.Unity.Server.Photon
             ISingleton<PhotonServerManager>.Release(this);
         }
 
+        public void JoinLobby()
+        {
+            PhotonNetwork.JoinLobby();
+        }
+
+        public void JoinLobby(string name)
+        {
+            PhotonNetwork.JoinLobby(lobbyDictionary[name]);
+        }
+
         public void ConnectToMaster()
         {
-            eventOnConnectingToMaster.Invoke();
+            OnConnectingToMaster();
 
             loadingStopwatch.Restart();
 
@@ -85,15 +117,22 @@ namespace ZL.Unity.Server.Photon
             }
         }
 
+        public void OnConnectingToMaster()
+        {
+            FixedDebug.Log("Connecting To Master...");
+
+            eventOnConnectingToMaster.Invoke();
+        }
+
         public override void OnConnectedToMaster()
         {
             loadingStopwatch.Stop();
 
             float loadingTime = (float)loadingStopwatch.Elapsed.TotalSeconds;
 
-            StartCoroutine(FakeLoading(fakeLoadingTime - loadingTime, () =>
+            StartCoroutine(FakeLoading(loadingTime, () =>
             {
-                FixedDebug.Log("Connected to Photon server.");
+                FixedDebug.Log("Connected To Master.");
 
                 eventOnConnectedToMaster.Invoke();
             }));
@@ -105,19 +144,21 @@ namespace ZL.Unity.Server.Photon
 
             float loadingTime = (float)loadingStopwatch.Elapsed.TotalSeconds;
 
-            StartCoroutine(FakeLoading(fakeLoadingTime - loadingTime, () =>
+            StartCoroutine(FakeLoading(loadingTime, () =>
             {
-                FixedDebug.LogWarning($"Disconnected to Photon server: {cause}");
+                FixedDebug.LogWarning($"Disconnected: {cause}");
 
                 eventOnDisconnected.Invoke();
             }));
         }
 
-        private IEnumerator FakeLoading(float time, Action callback)
+        private IEnumerator FakeLoading(float loadingTime, Action callback)
         {
-            if (time > 0f)
+            loadingTime = fakeLoadingTime - loadingTime;
+
+            if (loadingTime > 0f)
             {
-                yield return WaitFor.Seconds(time);
+                yield return WaitFor.Seconds(loadingTime);
             }
 
             callback.Invoke();

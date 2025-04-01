@@ -6,10 +6,8 @@ namespace ZL.Unity
 {
     [CreateAfterSceneLoad]
 
-    public class ApplicationManager : MonoBehaviour
+    public class ApplicationManager : MonoBehaviour, IMonoSingleton<ApplicationManager>
     {
-        public static ApplicationManager Instance { get; private set; }
-
         [Space]
 
         [SerializeField]
@@ -20,29 +18,35 @@ namespace ZL.Unity
 
         [SerializeField]
 
-        private IntPrefs targetFrameRate = new("Target Frame Rate", 60);
-
-        private void Awake()
-        {
-            Instance = this;
-
-            Application.runInBackground = runInBackground;
-
-            targetFrameRate.TryLoadValue();
-
-            Application.targetFrameRate = targetFrameRate.Value;
-        }
+        private IntPref targetFrameRatePref = new("Target Frame Rate", 60);
 
         private void OnValidate()
         {
             Application.runInBackground = runInBackground;
         }
 
-        public static void TargetFrameRate(int value)
+        private void Awake()
         {
-            Instance.targetFrameRate.Value = value;
+            if (ISingleton<ApplicationManager>.TrySetInstance(this) == false)
+            {
+                return;
+            }
 
-            Application.targetFrameRate = value;
+            Application.runInBackground = runInBackground;
+
+            targetFrameRatePref.ActionOnValueChanged += (value) =>
+            {
+                Application.targetFrameRate = value;
+            };
+
+            targetFrameRatePref.TryLoadValue();
+
+            Application.targetFrameRate = targetFrameRatePref.Value;
+        }
+
+        private void OnDestroy()
+        {
+            ISingleton<ApplicationManager>.Release(this);
         }
     }
 }
