@@ -59,7 +59,7 @@ public class InGamePlayerList : MonoBehaviourPunCallbacks
         }
     }
 
-    private void UpdatePlayerList()
+    private void UpdatePlayerList() // 현재 같이 플레이 중인 플레이어 리스트 업데이트
     {
         foreach (Player player in PhotonNetwork.PlayerList)
         {
@@ -73,7 +73,6 @@ public class InGamePlayerList : MonoBehaviourPunCallbacks
 
     public void UpdateAlivePlayerCount() // 왼쪽 하단 생존 플레이어 표시
     {
-        int i = 0;
         aliveCount = 0;
 
         foreach (Player player in PhotonNetwork.PlayerList)

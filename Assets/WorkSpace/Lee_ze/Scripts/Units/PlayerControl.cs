@@ -15,8 +15,6 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     private ExitGame exitGame;
 
-    private bool isTeabagging = false;
-
 
     [Header("Move"), Space(10)]
 
