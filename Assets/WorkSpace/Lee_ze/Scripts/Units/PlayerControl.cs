@@ -15,6 +15,8 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     private ExitGame exitGame;
 
+    private bool isTeabagging = false;
+
 
     [Header("Move"), Space(10)]
 
@@ -138,7 +140,7 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     public void OnRun(InputAction.CallbackContext ctx)
     {
-        if (!photonView.IsMine)
+        if (photonView.IsMine == false)
         {
             return;
         }
@@ -155,7 +157,7 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     public void OnAttack(InputAction.CallbackContext ctx) // 좌클릭 바인딩
     {
-        if (!photonView.IsMine)
+        if (photonView.IsMine == false)
         {
             return;
         }
