@@ -1,11 +1,10 @@
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class WinnerChecker : MonoBehaviour
+public class WinnerChecker : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     private InGamePlayerList inGamePlayerList;
@@ -56,7 +55,7 @@ public class WinnerChecker : MonoBehaviour
         }
     }
 
-    IEnumerator ShowWinner()
+    private IEnumerator ShowWinner()
     {
         yield return new WaitForSeconds(1f);
 

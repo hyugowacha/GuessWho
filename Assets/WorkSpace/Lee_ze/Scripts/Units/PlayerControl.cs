@@ -86,6 +86,8 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     private void Start()
     {
+        photonView.Controller.CustomProperties.Clear();
+
         inGamePlayerList = FindObjectOfType<InGamePlayerList>();
 
         exitGame = FindObjectOfType<ExitGame>();
@@ -138,7 +140,7 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     public void OnRun(InputAction.CallbackContext ctx)
     {
-        if (!photonView.IsMine)
+        if (photonView.IsMine == false)
         {
             return;
         }
@@ -155,7 +157,7 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     public void OnAttack(InputAction.CallbackContext ctx) // 좌클릭 바인딩
     {
-        if (!photonView.IsMine)
+        if (photonView.IsMine == false)
         {
             return;
         }
