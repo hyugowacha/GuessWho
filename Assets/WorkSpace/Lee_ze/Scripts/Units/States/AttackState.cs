@@ -49,7 +49,6 @@ public class AttackState : IPlayerStates
 
             case (ItemType.Gun):
 
-                Debug.Log(player.canShoot);
                 player.StartCoroutine(AttackShoot());
 
                 break;

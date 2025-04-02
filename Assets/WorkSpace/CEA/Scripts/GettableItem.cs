@@ -127,7 +127,10 @@ public sealed class GettableItem : MonoBehaviourPun, IGetable
         {
             if(ItemInteractImage.gameObject != null)
             {
-                ItemInteractImage.gameObject.SetActive(false);
+                if (tempCollider.CompareTag("Player"))
+                {
+                    ItemInteractImage.gameObject.SetActive(false);
+                }
             }
         }
     }

@@ -15,6 +15,8 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     private ExitGame exitGame;
 
+    PlayerUI playerUI;
+
 
     [Header("Move"), Space(10)]
 
@@ -58,8 +60,6 @@ public class PlayerControl : MonoBehaviourPun, IHittable
     public Vector3 apologizeTo;
 
     public int leftBullet;
-
-    public bool canShoot = true;
 
 
     [Space(20), Header("Sound Control"), Space(10)]
@@ -191,7 +191,6 @@ public class PlayerControl : MonoBehaviourPun, IHittable
             {
                 nowWeaponArrayNum = 0;
                 holdingWeapon = nowHaveItems[nowWeaponArrayNum];
-
             }
 
             if(holdingWeapon != null)
@@ -203,6 +202,8 @@ public class PlayerControl : MonoBehaviourPun, IHittable
             {
                 UnityEngine.Debug.Log("null");
             }
+
+            playerUI.ChangeWeaponSelectUI(this);
         }
     }
 
