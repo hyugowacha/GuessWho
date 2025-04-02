@@ -189,12 +189,14 @@ public class PlayerControl : MonoBehaviourPun, IHittable
                 if (nowWeaponArrayNum < 2)
                 {
                     holdingWeapon = nowHaveItems[nowWeaponArrayNum];
+                    playerUI.ChangeWeaponSelectUI(this);
                 }
 
                 else if (nowWeaponArrayNum >= 2)
                 {
                     nowWeaponArrayNum = 0;
                     holdingWeapon = nowHaveItems[nowWeaponArrayNum];
+                    playerUI.ChangeWeaponSelectUI(this);
                 }
 
                 if (holdingWeapon != null)
@@ -208,7 +210,7 @@ public class PlayerControl : MonoBehaviourPun, IHittable
                 }
             }
 
-            playerUI.ChangeWeaponSelectUI(this);
+            
         }
     }
 
