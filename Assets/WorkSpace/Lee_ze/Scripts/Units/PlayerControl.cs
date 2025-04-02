@@ -41,7 +41,7 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     public GameObject[] weapons;
 
-    public ItemData[] nowHaveItems = new ItemData[3]; //현재 보유중인 아이템의 배열 
+    public ItemData[] nowHaveItems = new ItemData[2]; //현재 보유중인 아이템의 배열 
                                                       //아이템 인벤토리처럼 생각해주세요 [맨손][비어있음][비어있음] 이런느낌
     public ItemData footData;
 
@@ -182,12 +182,12 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         {
             nowWeaponArrayNum++;
 
-            if(nowWeaponArrayNum < 3)
+            if(nowWeaponArrayNum < 2)
             {
                 holdingWeapon = nowHaveItems[nowWeaponArrayNum];
             }
             
-            else if(nowWeaponArrayNum >= 3)
+            else if(nowWeaponArrayNum >= 2)
             {
                 nowWeaponArrayNum = 0;
                 holdingWeapon = nowHaveItems[nowWeaponArrayNum];
@@ -216,10 +216,10 @@ public class PlayerControl : MonoBehaviourPun, IHittable
             leftBullet = item.bulletAmount;
         }
 
-        else if (item.itemType == ItemType.Whistle)
-        {
-            nowHaveItems[2] = item;
-        }
+        //else if (item.itemType == ItemType.Whistle)
+        //{
+        //    nowHaveItems[2] = item;
+        //}
     }
 
     public void StonenOff()
