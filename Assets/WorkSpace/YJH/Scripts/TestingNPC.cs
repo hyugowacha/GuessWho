@@ -18,9 +18,6 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
     
     private INPCState nowState;
     
-    private float hitPenaltyTime=0.3f;
-    [SerializeField] float hitTime = 0;
-    
     public Animator animator;
    
     private Vector3 npcDestination=new Vector3();

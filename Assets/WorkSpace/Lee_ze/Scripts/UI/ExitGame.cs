@@ -1,10 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using TMPro;
 using UnityEngine.UI;
-using ZL.Unity;
 using UnityEngine.SceneManagement;
 
 public class ExitGame : MonoBehaviourPunCallbacks
@@ -14,6 +11,8 @@ public class ExitGame : MonoBehaviourPunCallbacks
 
     private GameObject tempButton;
 
+    private Button bnt;
+
     IEnumerator Start()
     {
         yield return new WaitUntil(() => PhotonNetwork.PlayerList.Length > 0);
@@ -22,13 +21,15 @@ public class ExitGame : MonoBehaviourPunCallbacks
 
         tempButton.SetActive(false);
 
-        Button bnt = tempButton.GetComponent<Button>();
+        bnt = tempButton.GetComponent<Button>();
 
-        bnt.onClick.AddListener(() => ExitThisGame());
+        bnt.onClick.AddListener(ExitThisGame);
     }
 
-    public void OnExitButton()
+    public IEnumerator OnExitButton()
     {
+        yield return new WaitForSeconds(1.5f);
+
         tempButton.SetActive(true);
     }
 
@@ -37,5 +38,7 @@ public class ExitGame : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
 
         SceneManager.LoadScene("Title Scene");
+
+        bnt.onClick.RemoveListener(ExitThisGame);
     }
 }

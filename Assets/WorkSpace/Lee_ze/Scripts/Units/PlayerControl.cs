@@ -140,7 +140,7 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     public void OnRun(InputAction.CallbackContext ctx)
     {
-        if (!photonView.IsMine)
+        if (photonView.IsMine == false)
         {
             return;
         }
@@ -157,7 +157,7 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     public void OnAttack(InputAction.CallbackContext ctx) // 좌클릭 바인딩
     {
-        if (!photonView.IsMine)
+        if (photonView.IsMine == false)
         {
             return;
         }
@@ -253,7 +253,7 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         {
             SetIsHit(true);
 
-            exitGame.OnExitButton();
+            StartCoroutine(exitGame.OnExitButton());
         }
 
         photonView.RPC("SyncHitState", RpcTarget.Others, true);
@@ -263,6 +263,8 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     public void SetIsHit(bool value)
     {
+        PhotonNetwork.LocalPlayer.CustomProperties.Clear();
+
         PhotonHashtable properties = new PhotonHashtable
         {
             {"isHit", value }
@@ -322,6 +324,7 @@ public class PlayerControl : MonoBehaviourPun, IHittable
                     Vector3 hitPosition = hit.point;
                     Quaternion hitRotation = Quaternion.LookRotation(hit.normal);
                     Instantiate(GunFire, hitPosition, hitRotation);
+                    hit.collider.gameObject.GetComponent<TestingNPC>().GetDie();
                 }
             }
 

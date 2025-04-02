@@ -1,11 +1,10 @@
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class WinnerChecker : MonoBehaviour
+public class WinnerChecker : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     private InGamePlayerList inGamePlayerList;
@@ -44,11 +43,9 @@ public class WinnerChecker : MonoBehaviour
 
                 if (isHit == false)
                 {
-                    tempWinnerIs.SetActive(true);
+                    StartCoroutine(ShowWinner());
 
-                    tempWinnerName.SetActive(true);
-
-                    exitButton.OnExitButton();
+                    StartCoroutine(exitButton.OnExitButton());
 
                     TextMeshProUGUI tmpText = tempWinnerName.GetComponent<TextMeshProUGUI>();
 
@@ -56,5 +53,16 @@ public class WinnerChecker : MonoBehaviour
                 }
             }
         }
+    }
+
+    private IEnumerator ShowWinner()
+    {
+        yield return new WaitForSeconds(1f);
+
+        tempWinnerIs.SetActive(true);
+
+        yield return new WaitForSeconds(1.5f);
+
+        tempWinnerName.SetActive(true);
     }
 }
