@@ -22712,7 +22712,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2948797402612013423, guid: ab21ec6caef59b84b8bef2260125ba6e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 450
       objectReference: {fileID: 0}
     - target: {fileID: 2948797402612013423, guid: ab21ec6caef59b84b8bef2260125ba6e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -22736,7 +22736,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2981075917852968108, guid: ab21ec6caef59b84b8bef2260125ba6e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 450
       objectReference: {fileID: 0}
     - target: {fileID: 2981075917852968108, guid: ab21ec6caef59b84b8bef2260125ba6e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -49438,7 +49438,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 19.799988, y: -37.799988}
+  m_AnchoredPosition: {x: 19.800049, y: -37.80005}
   m_SizeDelta: {x: 360, y: 10}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &3275690717457107064
@@ -50096,6 +50096,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e21a207a96ad38f47ac4abff885159c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1160807954787784038, guid: e521408836f4fbb48b56e533b9a799e7, type: 3}
   inGamePlayerList: {fileID: 2248982716158885559}
   exitButton: {fileID: 8481395779164798263}
   winnerIs: {fileID: 1092744291329310855, guid: 9c3d5473d4175da4a959dd5222e56631, type: 3}
