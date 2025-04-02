@@ -44,9 +44,7 @@ public class WinnerChecker : MonoBehaviour
 
                 if (isHit == false)
                 {
-                    tempWinnerIs.SetActive(true);
-
-                    tempWinnerName.SetActive(true);
+                    StartCoroutine(ShowWinner());
 
                     exitButton.OnExitButton();
 
@@ -56,5 +54,16 @@ public class WinnerChecker : MonoBehaviour
                 }
             }
         }
+    }
+
+    IEnumerator ShowWinner()
+    {
+        yield return new WaitForSeconds(1f);
+
+        tempWinnerIs.SetActive(true);
+
+        yield return new WaitForSeconds(1.5f);
+
+        tempWinnerName.SetActive(true);
     }
 }
