@@ -319,7 +319,6 @@ public class PlayerControl : MonoBehaviourPun, IHittable
                     Vector3 hitPosition = hit.point;
                     Quaternion hitRotation = Quaternion.LookRotation(hit.normal);
                     Instantiate(GunFire, hitPosition, hitRotation);
-                    hit.collider.gameObject.GetComponent<TestingNPC>().GetDie();
                 }
             }
 
