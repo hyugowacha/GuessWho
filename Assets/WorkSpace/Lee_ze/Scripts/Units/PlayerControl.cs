@@ -86,6 +86,8 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     private void Start()
     {
+        photonView.Controller.CustomProperties.Clear();
+
         inGamePlayerList = FindObjectOfType<InGamePlayerList>();
 
         exitGame = FindObjectOfType<ExitGame>();
