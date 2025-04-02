@@ -9,6 +9,7 @@ TagManager:
   - Stone
   - ItemSpawnPoint
   - Map
+  - PlayerUI
   layers:
   - Default
   - TransparentFX

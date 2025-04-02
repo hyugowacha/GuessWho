@@ -90,6 +90,8 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
         exitGame = FindObjectOfType<ExitGame>();
 
+        playerUI = GameObject.Find("PlayerUI").GetComponent<PlayerUI>();
+
         SetIsHit(false);
 
         if (photonView.IsMine)

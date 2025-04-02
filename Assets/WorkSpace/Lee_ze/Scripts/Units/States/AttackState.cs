@@ -12,9 +12,12 @@ public class AttackState : IPlayerStates
 
     ItemType itemType;
 
+    PlayerUI playerUI;
+
     public void EnterState(PlayerControl player)
     {
         // TOOD: PlayerControl에서 무기 바꾸는 로직. 여기서 하는거 아님
+        playerUI = GameObject.FindGameObjectWithTag("PlayerUI").GetComponent<PlayerUI>();
 
         this.player = player;
 
@@ -112,6 +115,7 @@ public class AttackState : IPlayerStates
             Debug.Log("돌 다씀");
             player.nowHaveItems[1] = null;
             player.holdingWeapon = null;
+            //playerUI.ChangeWeaponIconToNull(player);
         }
 
         player.isAttackTriggered = false;
@@ -133,6 +137,7 @@ public class AttackState : IPlayerStates
 
             player.nowHaveItems[1] = null;
             player.holdingWeapon = null;
+            //playerUI.ChangeWeaponIconToNull(player);
         }
 
         yield return new WaitForSeconds(1.0f);

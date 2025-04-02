@@ -36,21 +36,56 @@ public class PlayerUI : MonoBehaviour
     {
         if (player.holdingWeapon == player.footData || player.holdingWeapon == null)
         {
-            if (!normalSlotSelect.enabled)
-            {
-                normalSlotSelect.SetActive(true);
-                WeaponSlotSelect.SetActive(false);
-            }
+            normalSlotSelect.SetActive(true);
+            WeaponSlotSelect.SetActive(false);
+
         }
 
-        else if (player.holdingWeapon.itemType == ItemType.Stone || 
+        else if (player.holdingWeapon.itemType == ItemType.Stone ||
             player.holdingWeapon.itemType == ItemType.Gun)
         {
-            if (!WeaponSlotSelect.enabled)
-            {
-                WeaponSlotSelect.SetActive(true);
-                normalSlotSelect.SetActive(false);
-            }
+            WeaponSlotSelect.SetActive(true);
+            normalSlotSelect.SetActive(false);
         }
     }
+
+    public void ChangeWeaponIcon(PlayerControl player)
+    {
+        if(player.nowHaveItems[1].itemType == ItemType.Stone)
+        {
+            foreach(Image image in weaponImages)
+            {
+                image.gameObject.SetActive(false);
+            }
+
+            weaponImages[1].SetActive(true);
+            leftBulletText.text = player.nowHaveItems[1].bulletAmount.ToString();
+        }
+
+        else if(player.nowHaveItems[1].itemType == ItemType.Gun)
+        {
+            foreach (Image image in weaponImages)
+            {
+                image.gameObject.SetActive(false);
+            }
+
+            weaponImages[1].SetActive(true);
+            leftBulletText.text = player.nowHaveItems[1].bulletAmount.ToString();
+        }
+    }
+
+    public void ChangeWeaponIconToNull(PlayerControl player)
+    {
+        foreach (Image image in weaponImages)
+        {
+            image.gameObject.SetActive(false);
+        }
+
+        weaponImages[0].SetActive(true);
+        leftBulletText.text = "-";
+
+        normalSlotSelect.SetActive(true);
+        WeaponSlotSelect.SetActive(false);
+    }
+
 }
