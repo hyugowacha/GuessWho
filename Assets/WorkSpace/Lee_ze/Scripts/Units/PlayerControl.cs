@@ -15,6 +15,8 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     private ExitGame exitGame;
 
+    PlayerUI playerUI;
+
 
     [Header("Move"), Space(10)]
 
@@ -59,8 +61,6 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     public int leftBullet;
 
-    public bool canShoot = true;
-
 
     [Space(20), Header("Sound Control"), Space(10)]
 
@@ -89,6 +89,8 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         inGamePlayerList = FindObjectOfType<InGamePlayerList>();
 
         exitGame = FindObjectOfType<ExitGame>();
+
+        playerUI = GameObject.Find("PlayerUI").GetComponent<PlayerUI>();
 
         SetIsHit(false);
 
@@ -180,29 +182,35 @@ public class PlayerControl : MonoBehaviourPun, IHittable
     {
         if (ctx.phase == InputActionPhase.Performed)
         {
-            nowWeaponArrayNum++;
-
-            if(nowWeaponArrayNum < 2)
+            if (nowHaveItems[1]!=null)
             {
-                holdingWeapon = nowHaveItems[nowWeaponArrayNum];
+                nowWeaponArrayNum++;
+
+                if (nowWeaponArrayNum < 2)
+                {
+                    holdingWeapon = nowHaveItems[nowWeaponArrayNum];
+                    playerUI.ChangeWeaponSelectUI(this);
+                }
+
+                else if (nowWeaponArrayNum >= 2)
+                {
+                    nowWeaponArrayNum = 0;
+                    holdingWeapon = nowHaveItems[nowWeaponArrayNum];
+                    playerUI.ChangeWeaponSelectUI(this);
+                }
+
+                if (holdingWeapon != null)
+                {
+                    UnityEngine.Debug.Log(holdingWeapon.name);
+                }
+
+                else if (holdingWeapon == null)
+                {
+                    UnityEngine.Debug.Log("null");
+                }
             }
+
             
-            else if(nowWeaponArrayNum >= 2)
-            {
-                nowWeaponArrayNum = 0;
-                holdingWeapon = nowHaveItems[nowWeaponArrayNum];
-
-            }
-
-            if(holdingWeapon != null)
-            {
-                UnityEngine.Debug.Log(holdingWeapon.name);
-            }
-
-            else if(holdingWeapon == null)
-            {
-                UnityEngine.Debug.Log("null");
-            }
         }
     }
 

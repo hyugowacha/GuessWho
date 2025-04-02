@@ -12,9 +12,12 @@ public class AttackState : IPlayerStates
 
     ItemType itemType;
 
+    PlayerUI playerUI;
+
     public void EnterState(PlayerControl player)
     {
         // TOOD: PlayerControl에서 무기 바꾸는 로직. 여기서 하는거 아님
+        playerUI = GameObject.FindGameObjectWithTag("PlayerUI").GetComponent<PlayerUI>();
 
         this.player = player;
 
@@ -49,7 +52,6 @@ public class AttackState : IPlayerStates
 
             case (ItemType.Gun):
 
-                Debug.Log(player.canShoot);
                 player.StartCoroutine(AttackShoot());
 
                 break;
@@ -106,6 +108,7 @@ public class AttackState : IPlayerStates
         player.playerAnim.SetBool("IsThrow", false);
 
         player.leftBullet--;
+        playerUI.ChangeLeftBulletAmount(player);
         Debug.Log("탄창 감소");
 
         if (player.leftBullet <= 0)
@@ -125,6 +128,7 @@ public class AttackState : IPlayerStates
 
         player.weapons[2].SetActive(true);
         player.leftBullet--;
+        playerUI.ChangeLeftBulletAmount(player);
 
         Debug.Log("탄창 감소");
 
