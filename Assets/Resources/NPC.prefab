@@ -554,7 +554,6 @@ MonoBehaviour:
   selfAgent: {fileID: 8055318035863802900}
   selfCollider: {fileID: 5138219754656572060}
   hitSoundSource: {fileID: 1220664917276564810}
-  hitTime: 0
   animator: {fileID: 9083047734429414456}
 --- !u!114 &2689909880202221650
 MonoBehaviour:
