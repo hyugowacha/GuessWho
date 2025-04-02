@@ -260,4 +260,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee80977ceab829646996ae58cd045a43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  whoThrow: 0
+  stoneSoundPlayer: {fileID: 8992900067651498715, guid: c0c28feeae066754fa941a8aad98c6ce, type: 3}
   stoneDestroyEffect: {fileID: 8680598818964007281, guid: 5e5ddea45442e6d4d9f720fa8a186fae, type: 3}

@@ -66,6 +66,8 @@ MonoBehaviour:
   - RPC_StopRunningSound
   - ApplyDamage
   - GunActive
+  - RPC_PlayThrowSound
+  - RPC_PlayGunSound
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

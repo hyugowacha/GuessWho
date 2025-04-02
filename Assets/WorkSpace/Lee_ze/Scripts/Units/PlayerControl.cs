@@ -73,6 +73,10 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     public AudioClip getHit;
 
+    public AudioClip GunShoot;
+
+    public AudioClip stoneThrow;
+
     private void OnEnable()
     {
         nowHaveItems[0] = footData;
@@ -285,6 +289,26 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         inGamePlayerList.UpdateAlivePlayerCount();
     }
 
+    public void ThrowStoneSoundPlay()
+    {
+        if (photonView.IsMine)
+        {
+            audioSource.PlayOneShot(stoneThrow); 
+
+            photonView.RPC("RPC_PlayThrowSound", RpcTarget.Others, this.transform.position); // RPC로 kick 사운드 나게 함
+        }
+    }
+
+    public void GunShootingSoundPlay()
+    {
+        if (photonView.IsMine)
+        {
+            audioSource.PlayOneShot(GunShoot);
+
+            photonView.RPC("RPC_PlayGunSound", RpcTarget.Others, this.transform.position); // RPC로 kick 사운드 나게 함
+        }
+    }
+
     public void ShootPistol()
     {
         float gunRange = 20.0f;
@@ -373,8 +397,6 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         weapons[2].SetActive(true);
     }
 
-
-
     [PunRPC]
     void ApplyDamage(int targetViewID)
     {
@@ -394,6 +416,22 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         audioSource.transform.position = soundPosition; // 사운드 위치 설정
 
         audioSource.PlayOneShot(kick);
+    }
+
+    [PunRPC]
+    void RPC_PlayThrowSound(Vector3 soundPosition)
+    {
+        audioSource.transform.position = soundPosition; 
+
+        audioSource.PlayOneShot(stoneThrow);
+    }
+
+    [PunRPC]
+    void RPC_PlayGunSound(Vector3 soundPosition)
+    {
+        audioSource.transform.position = soundPosition;
+
+        audioSource.PlayOneShot(GunShoot);
     }
 
     [PunRPC]
@@ -427,4 +465,5 @@ public class PlayerControl : MonoBehaviourPun, IHittable
             audioSource.Stop();
         }
     }
+
 }

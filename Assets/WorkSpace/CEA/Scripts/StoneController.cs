@@ -12,7 +12,10 @@ public class StoneController : MonoBehaviour
     float maxLifetime = 4.0f;
     float elapsedLifetime = 0;
 
+    bool canCreateSoundPlayer = true;
+
     public int whoThrow;
+    public GameObject stoneSoundPlayer;
 
     [SerializeField]
     private GameObject stoneDestroyEffect;
@@ -38,23 +41,38 @@ public class StoneController : MonoBehaviour
             {
                 player = other.GetComponent<PlayerControl>();
                 player.GetHit();
-                Destroy(this.gameObject);
+
+                if (canCreateSoundPlayer)
+                {
+                    Instantiate(stoneSoundPlayer, transform.position, Quaternion.identity);
+                    canCreateSoundPlayer = false;
+                }
+                
 
                 Instantiate(stoneDestroyEffect, transform.position, Quaternion.identity);
+                Destroy(this.gameObject);
             }
         }
 
         else if (other.CompareTag("NPC"))
         {
             npc = other.GetComponent<TestingNPC>();
-            Destroy(this.gameObject);
+            Instantiate(stoneSoundPlayer, transform.position, Quaternion.identity);
+
             Instantiate(stoneDestroyEffect, transform.position, Quaternion.identity);
+            Destroy(this.gameObject);
         }
 
         else if (other.CompareTag("Map"))
         {
-            Destroy(this.gameObject);
+            if (canCreateSoundPlayer)
+            {
+                Instantiate(stoneSoundPlayer, transform.position, Quaternion.identity);
+                canCreateSoundPlayer = false;
+            }
+
             Instantiate(stoneDestroyEffect, transform.position, Quaternion.identity);
+            Destroy(this.gameObject);
         }
     }
 }

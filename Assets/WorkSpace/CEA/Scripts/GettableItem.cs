@@ -33,6 +33,8 @@ public sealed class GettableItem : MonoBehaviourPun, IGetable
 
     private Collider tempCollider;
 
+    public GameObject itemAudioPlayer;
+
     public void SendItem(PlayerControl player, ItemData itemData)
     {
         //플레이어가 아이템의 정보를 받아올 메서드
@@ -85,7 +87,11 @@ public sealed class GettableItem : MonoBehaviourPun, IGetable
             if (Input.GetKeyDown(KeyCode.F) && player.photonView.IsMine)
             {
                 SendItem(player, itemData);
+
+                Instantiate(itemAudioPlayer, transform.position, Quaternion.identity);
+
                 Instantiate(destroyParticle, transform.TransformPoint(0, 1.0f, 0), Quaternion.identity);
+
 
                 photonView.RPC("NoticeIsAllitemOff", RpcTarget.AllBuffered, myParent.name);
 
@@ -95,11 +101,13 @@ public sealed class GettableItem : MonoBehaviourPun, IGetable
                 {
                     case ItemType.Stone:
                         PlayerItemGetAndOff(1);
+
                         playerUI.ChangeWeaponIcon(player);
                         break;
 
                     case ItemType.Gun:
                         PlayerItemGetAndOff(2);
+
                         playerUI.ChangeWeaponIcon(player);
                         break;
 
