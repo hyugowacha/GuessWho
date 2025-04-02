@@ -99,9 +99,9 @@ public sealed class GettableItem : MonoBehaviourPun, IGetable
                         PlayerItemGetAndOff(2);
                         break;
 
-                    case ItemType.Whistle:
-                        PlayerItemGetAndOff(3);
-                        break;
+                    //case ItemType.Whistle:
+                    //    PlayerItemGetAndOff(3);
+                    //    break;
                 }
 
             }
