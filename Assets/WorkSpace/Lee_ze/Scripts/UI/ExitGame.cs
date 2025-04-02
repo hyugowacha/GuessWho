@@ -26,8 +26,10 @@ public class ExitGame : MonoBehaviourPunCallbacks
         bnt.onClick.AddListener(ExitThisGame);
     }
 
-    public void OnExitButton()
+    public IEnumerator OnExitButton()
     {
+        yield return new WaitForSeconds(1.5f);
+
         tempButton.SetActive(true);
     }
 

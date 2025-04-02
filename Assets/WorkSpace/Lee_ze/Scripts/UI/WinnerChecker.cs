@@ -45,7 +45,7 @@ public class WinnerChecker : MonoBehaviourPunCallbacks
                 {
                     StartCoroutine(ShowWinner());
 
-                    exitButton.OnExitButton();
+                    StartCoroutine(exitButton.OnExitButton());
 
                     TextMeshProUGUI tmpText = tempWinnerName.GetComponent<TextMeshProUGUI>();
 

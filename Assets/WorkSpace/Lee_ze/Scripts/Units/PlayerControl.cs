@@ -252,7 +252,7 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         {
             SetIsHit(true);
 
-            exitGame.OnExitButton();
+            StartCoroutine(exitGame.OnExitButton());
         }
 
         photonView.RPC("SyncHitState", RpcTarget.Others, true);
