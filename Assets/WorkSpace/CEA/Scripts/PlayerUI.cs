@@ -5,6 +5,7 @@ using Photon.Pun;
 using UnityEngine.UI;
 using TMPro;
 using ZL.Unity;
+using Photon.Realtime;
 
 public class PlayerUI : MonoBehaviour
 {
@@ -17,12 +18,12 @@ public class PlayerUI : MonoBehaviour
     public GameObject leftBullet;
     public Image[] weaponImages;
 
-    TextMeshPro leftBulletText;
+    TextMeshProUGUI leftBulletText;
 
 
     private void Awake()
     {
-        leftBulletText = leftBullet.GetComponent<TextMeshPro>();
+        leftBulletText = leftBullet.GetComponent<TextMeshProUGUI>();
     }
 
     IEnumerator Start()
@@ -69,8 +70,18 @@ public class PlayerUI : MonoBehaviour
                 image.gameObject.SetActive(false);
             }
 
-            weaponImages[1].SetActive(true);
+            weaponImages[2].SetActive(true);
             leftBulletText.text = player.nowHaveItems[1].bulletAmount.ToString();
+        }
+    }
+
+    public void ChangeLeftBulletAmount(PlayerControl player)
+    {
+        leftBulletText.text = player.leftBullet.ToString();
+
+        if(leftBulletText.text == "0")
+        {
+            ChangeWeaponIconToNull(player);
         }
     }
 
@@ -86,6 +97,9 @@ public class PlayerUI : MonoBehaviour
 
         normalSlotSelect.SetActive(true);
         WeaponSlotSelect.SetActive(false);
+
+        player.nowWeaponArrayNum = 0;
+        player.holdingWeapon = player.nowHaveItems[0];
     }
 
 }

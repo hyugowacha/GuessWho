@@ -182,27 +182,30 @@ public class PlayerControl : MonoBehaviourPun, IHittable
     {
         if (ctx.phase == InputActionPhase.Performed)
         {
-            nowWeaponArrayNum++;
+            if (nowHaveItems[1]!=null)
+            {
+                nowWeaponArrayNum++;
 
-            if(nowWeaponArrayNum < 2)
-            {
-                holdingWeapon = nowHaveItems[nowWeaponArrayNum];
-            }
-            
-            else if(nowWeaponArrayNum >= 2)
-            {
-                nowWeaponArrayNum = 0;
-                holdingWeapon = nowHaveItems[nowWeaponArrayNum];
-            }
+                if (nowWeaponArrayNum < 2)
+                {
+                    holdingWeapon = nowHaveItems[nowWeaponArrayNum];
+                }
 
-            if(holdingWeapon != null)
-            {
-                UnityEngine.Debug.Log(holdingWeapon.name);
-            }
+                else if (nowWeaponArrayNum >= 2)
+                {
+                    nowWeaponArrayNum = 0;
+                    holdingWeapon = nowHaveItems[nowWeaponArrayNum];
+                }
 
-            else if(holdingWeapon == null)
-            {
-                UnityEngine.Debug.Log("null");
+                if (holdingWeapon != null)
+                {
+                    UnityEngine.Debug.Log(holdingWeapon.name);
+                }
+
+                else if (holdingWeapon == null)
+                {
+                    UnityEngine.Debug.Log("null");
+                }
             }
 
             playerUI.ChangeWeaponSelectUI(this);

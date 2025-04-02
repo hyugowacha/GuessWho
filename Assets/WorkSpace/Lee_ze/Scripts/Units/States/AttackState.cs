@@ -108,6 +108,7 @@ public class AttackState : IPlayerStates
         player.playerAnim.SetBool("IsThrow", false);
 
         player.leftBullet--;
+        playerUI.ChangeLeftBulletAmount(player);
         Debug.Log("ÅºÃ¢ °¨¼Ò");
 
         if (player.leftBullet <= 0)
@@ -115,7 +116,6 @@ public class AttackState : IPlayerStates
             Debug.Log("µ¹ ´Ù¾¸");
             player.nowHaveItems[1] = null;
             player.holdingWeapon = null;
-            //playerUI.ChangeWeaponIconToNull(player);
         }
 
         player.isAttackTriggered = false;
@@ -128,6 +128,7 @@ public class AttackState : IPlayerStates
 
         player.weapons[2].SetActive(true);
         player.leftBullet--;
+        playerUI.ChangeLeftBulletAmount(player);
 
         Debug.Log("ÅºÃ¢ °¨¼Ò");
 
@@ -137,7 +138,6 @@ public class AttackState : IPlayerStates
 
             player.nowHaveItems[1] = null;
             player.holdingWeapon = null;
-            //playerUI.ChangeWeaponIconToNull(player);
         }
 
         yield return new WaitForSeconds(1.0f);

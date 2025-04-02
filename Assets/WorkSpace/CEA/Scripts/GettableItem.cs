@@ -43,7 +43,7 @@ public sealed class GettableItem : MonoBehaviourPun, IGetable
 
     private void Update()
     {
-        ItemModel.transform.rotation = Quaternion.Euler(ItemModel.transform.rotation.eulerAngles.x, 
+        ItemModel.transform.rotation = Quaternion.Euler(ItemModel.transform.rotation.eulerAngles.x,
             ItemModel.transform.rotation.eulerAngles.y + (rotSpeed * Time.deltaTime), ItemModel.transform.rotation.eulerAngles.z);
     }
 
@@ -56,16 +56,18 @@ public sealed class GettableItem : MonoBehaviourPun, IGetable
         {
             PlayerControl player = other.GetComponentInParent<PlayerControl>();
 
+            PlayerUI playerUI = GameObject.FindGameObjectWithTag("PlayerUI").GetComponent<PlayerUI>();
+
             if (player == null)
             {
                 return;
             }
 
             Image[] PlayerInteractImages = other.GetComponentsInChildren<Image>(true);
-            
-            foreach(Image image in PlayerInteractImages)
+
+            foreach (Image image in PlayerInteractImages)
             {
-                if(image.gameObject.name == "PressFImage")
+                if (image.gameObject.name == "PressFImage")
                 {
                     ItemInteractImage = image;
                     break;
@@ -89,19 +91,21 @@ public sealed class GettableItem : MonoBehaviourPun, IGetable
 
                 ItemInteractImage.gameObject.SetActive(false);
 
-                switch(itemData.itemType)
+                switch (itemData.itemType)
                 {
                     case ItemType.Stone:
                         PlayerItemGetAndOff(1);
+                        playerUI.ChangeWeaponIcon(player);
                         break;
 
                     case ItemType.Gun:
                         PlayerItemGetAndOff(2);
+                        playerUI.ChangeWeaponIcon(player);
                         break;
 
-                    //case ItemType.Whistle:
-                    //    PlayerItemGetAndOff(3);
-                    //    break;
+                        //case ItemType.Whistle:
+                        //    PlayerItemGetAndOff(3);
+                        //    break;
                 }
 
             }
@@ -123,16 +127,15 @@ public sealed class GettableItem : MonoBehaviourPun, IGetable
 
     private void OnDisable()
     {
-        if(tempCollider != null)
+        if (tempCollider != null)
         {
-            if(ItemInteractImage.gameObject != null)
+            if (tempCollider.CompareTag("Player"))
             {
-                if (tempCollider.CompareTag("Player"))
+                if (ItemInteractImage.gameObject != null)
                 {
                     ItemInteractImage.gameObject.SetActive(false);
                 }
             }
         }
     }
-
 }
