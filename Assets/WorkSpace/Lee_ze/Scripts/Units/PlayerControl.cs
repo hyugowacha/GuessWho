@@ -249,7 +249,6 @@ public class PlayerControl : MonoBehaviourPun, IHittable
     public void GunParameterOff()
     {
         playerAnim.SetBool("IsShoot", false);
-        //canShoot = true;
     }
 
     public void GetHit()
