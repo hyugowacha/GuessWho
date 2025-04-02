@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using Photon.Pun;
 using PhotonHashtable = ExitGames.Client.Photon.Hashtable; //Photon Hashtable
 using System;
+using Photon.Realtime;
 
 public class PlayerControl : MonoBehaviourPun, IHittable
 {
@@ -365,6 +366,14 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         Vector3 throwDirection = modelRotator.transform.TransformDirection(new Vector3(0, 5f, 10f));
         stoneRb.AddForce(throwDirection, ForceMode.Impulse);
     }
+
+    [PunRPC]
+    private void GunActive()
+    {
+        weapons[2].SetActive(true);
+    }
+
+
 
     [PunRPC]
     void ApplyDamage(int targetViewID)

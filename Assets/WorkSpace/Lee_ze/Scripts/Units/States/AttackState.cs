@@ -127,6 +127,8 @@ public class AttackState : IPlayerStates
         player.playerAnim.SetBool("IsShoot", true);
 
         player.weapons[2].SetActive(true);
+        player.photonView.RPC("GunActive",RpcTarget.Others);
+
         player.leftBullet--;
         playerUI.ChangeLeftBulletAmount(player);
 
