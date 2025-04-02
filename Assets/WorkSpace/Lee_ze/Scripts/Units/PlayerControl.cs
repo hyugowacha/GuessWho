@@ -86,8 +86,6 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     private void Start()
     {
-        photonView.Controller.CustomProperties.Clear();
-
         inGamePlayerList = FindObjectOfType<InGamePlayerList>();
 
         exitGame = FindObjectOfType<ExitGame>();
@@ -262,6 +260,8 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
     public void SetIsHit(bool value)
     {
+        PhotonNetwork.LocalPlayer.CustomProperties.Clear();
+
         PhotonHashtable properties = new PhotonHashtable
         {
             {"isHit", value }
