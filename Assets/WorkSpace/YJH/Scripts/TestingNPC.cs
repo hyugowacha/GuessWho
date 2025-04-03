@@ -277,6 +277,7 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
     }
     public void GetDie()
     {
+        selfCollider.enabled = false;
         hitSoundSource.Play();
         photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Dead);
     }
