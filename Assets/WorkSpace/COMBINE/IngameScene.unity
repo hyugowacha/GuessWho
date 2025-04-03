@@ -22847,11 +22847,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2948797402612013423, guid: ab21ec6caef59b84b8bef2260125ba6e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2948797402612013423, guid: ab21ec6caef59b84b8bef2260125ba6e, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2948797402612013423, guid: ab21ec6caef59b84b8bef2260125ba6e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -22867,15 +22867,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2948797402612013423, guid: ab21ec6caef59b84b8bef2260125ba6e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2981075917852968108, guid: ab21ec6caef59b84b8bef2260125ba6e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2981075917852968108, guid: ab21ec6caef59b84b8bef2260125ba6e, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2981075917852968108, guid: ab21ec6caef59b84b8bef2260125ba6e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -22891,7 +22891,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2981075917852968108, guid: ab21ec6caef59b84b8bef2260125ba6e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -300
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4644543585532005385, guid: ab21ec6caef59b84b8bef2260125ba6e, type: 3}
       propertyPath: m_Name
@@ -51062,7 +51062,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a028876e4df5a5345bef7b94688f1b16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winnerChecker: {fileID: 8481395779164798264}
   exitButton: {fileID: 4583748444024480033, guid: def5e84c2c35e164ba246afd68899809, type: 3}
 --- !u!114 &8481395779164798264
 MonoBehaviour:

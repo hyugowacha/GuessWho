@@ -24576,6 +24576,8 @@ MonoBehaviour:
   itemData: {fileID: 11400000, guid: 364e0f8b977bae4448b651402181ef0e, type: 2}
   destroyParticle: {fileID: 8919484260529707530, guid: 0abccd34622c009439e353bae5df7e67, type: 3}
   ItemInteractImage: {fileID: 0}
+  myParent: {fileID: 0}
+  itemAudioPlayer: {fileID: 7042310825811522505, guid: 310709208398ace4a9a6c63779ca81ca, type: 3}
 --- !u!65 &572951457578469766
 BoxCollider:
   m_ObjectHideFlags: 0

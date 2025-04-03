@@ -9,7 +9,7 @@ public class RPC_ItemSpawn : MonoBehaviour
     private void SetItem(int itemNum, string pointName)
     {
         GameObject.Find(pointName).GetComponent<ItemSpawnctrl>().ItemSpawn(itemNum);
-        Debug.Log("리스폰테스트");
+        Debug.Log("아이템리스폰");
     }
 
     [PunRPC]
@@ -17,7 +17,6 @@ public class RPC_ItemSpawn : MonoBehaviour
     {
         GameObject.Find(parentName).GetComponent<ItemSpawnctrl>().IsAllItemOff = true;
         //myParent.IsAllItemOff = true;
-        Debug.Log("RPC테스트");
     }
 
     [PunRPC]

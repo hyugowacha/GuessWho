@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using Photon.Pun;
 using PhotonHashtable = ExitGames.Client.Photon.Hashtable; //Photon Hashtable
 using System;
+using Photon.Realtime;
 
 public class PlayerControl : MonoBehaviourPun, IHittable
 {
@@ -71,6 +72,10 @@ public class PlayerControl : MonoBehaviourPun, IHittable
     public AudioClip kick;
 
     public AudioClip getHit;
+
+    public AudioClip GunShoot;
+
+    public AudioClip stoneThrow;
 
     private void OnEnable()
     {
@@ -249,7 +254,6 @@ public class PlayerControl : MonoBehaviourPun, IHittable
     public void GunParameterOff()
     {
         playerAnim.SetBool("IsShoot", false);
-        //canShoot = true;
     }
 
     public void GetHit()
@@ -283,6 +287,26 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         yield return new WaitForSeconds(1f); // RPC 처리 딜레이
 
         inGamePlayerList.UpdateAlivePlayerCount();
+    }
+
+    public void ThrowStoneSoundPlay()
+    {
+        if (photonView.IsMine)
+        {
+            audioSource.PlayOneShot(stoneThrow); 
+
+            photonView.RPC("RPC_PlayThrowSound", RpcTarget.Others, this.transform.position); // RPC로 kick 사운드 나게 함
+        }
+    }
+
+    public void GunShootingSoundPlay()
+    {
+        if (photonView.IsMine)
+        {
+            audioSource.PlayOneShot(GunShoot);
+
+            photonView.RPC("RPC_PlayGunSound", RpcTarget.Others, this.transform.position); // RPC로 kick 사운드 나게 함
+        }
     }
 
     public void ShootPistol()
@@ -368,6 +392,12 @@ public class PlayerControl : MonoBehaviourPun, IHittable
     }
 
     [PunRPC]
+    private void GunActive()
+    {
+        weapons[2].SetActive(true);
+    }
+
+    [PunRPC]
     void ApplyDamage(int targetViewID)
     {
         PhotonView targetView = PhotonView.Find(targetViewID);
@@ -386,6 +416,22 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         audioSource.transform.position = soundPosition; // 사운드 위치 설정
 
         audioSource.PlayOneShot(kick);
+    }
+
+    [PunRPC]
+    void RPC_PlayThrowSound(Vector3 soundPosition)
+    {
+        audioSource.transform.position = soundPosition; 
+
+        audioSource.PlayOneShot(stoneThrow);
+    }
+
+    [PunRPC]
+    void RPC_PlayGunSound(Vector3 soundPosition)
+    {
+        audioSource.transform.position = soundPosition;
+
+        audioSource.PlayOneShot(GunShoot);
     }
 
     [PunRPC]
@@ -419,4 +465,5 @@ public class PlayerControl : MonoBehaviourPun, IHittable
             audioSource.Stop();
         }
     }
+
 }
