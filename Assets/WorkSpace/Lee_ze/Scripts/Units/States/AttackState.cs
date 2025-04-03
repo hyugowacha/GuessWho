@@ -21,6 +21,8 @@ public class AttackState : IPlayerStates
 
         this.player = player;
 
+        this.player.moveSpeed = 0;
+
         if (player.holdingWeapon != null)
         {
             itemType = player.holdingWeapon.itemType;
@@ -30,10 +32,6 @@ public class AttackState : IPlayerStates
         {
             itemType = player.footData.itemType;
         }
-
-
-
-        player.moveSpeed = 0;
 
         // 공격 로직
         switch (itemType)
