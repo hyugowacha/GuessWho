@@ -37,8 +37,6 @@ namespace ZL.Unity.Server.Photon
 
         public void Refresh()
         {
-            Debug.Log(1);
-            
             playerListItemPool.CollectAll();
 
             foreach (var player in PhotonNetwork.PlayerList)

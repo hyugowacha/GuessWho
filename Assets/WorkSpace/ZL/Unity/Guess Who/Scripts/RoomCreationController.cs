@@ -47,7 +47,7 @@ namespace ZL.Unity.GuessWho
                 IsVisible = publicRoomToggle.isOn,
             };
 
-            ISingleton<PhotonLobbyManager>.Instance.CreateRoom(null, roomOptions);
+            ISingleton<PhotonServerManager>.Instance.CreateRoom(null, roomOptions);
         }
 
         public void UpdateRoomProperties()
