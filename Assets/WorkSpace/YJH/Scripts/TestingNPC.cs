@@ -283,7 +283,8 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
         {
             SelfAgent.enabled = true;
             StartCoroutine(CheckState());//상태 변화 코루틴을 시작하고
-            if(nowState is NPCMove)//이동 상태였을 경우
+            StartCoroutine(NPCAnimationControl());//애니메이션 코루틴을 시작하고
+            if (nowState is NPCMove)//이동 상태였을 경우
             {
                 (nowState as NPCMove).EnterState(this, npcDestination);//저장된 목적지로 다시 이동상태 진입
                 nowState.StateAction();
