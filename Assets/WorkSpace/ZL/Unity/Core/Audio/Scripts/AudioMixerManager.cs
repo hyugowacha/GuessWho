@@ -18,9 +18,9 @@ namespace ZL.Unity.Audio
 
     [DisallowMultipleComponent]
 
-    public sealed class AudioMixerManager :
+    public sealed class AudioMixerManager
         
-        MonoBehaviour, IMonoSingleton<AudioMixerManager>
+        : MonoBehaviour, IMonoSingleton<AudioMixerManager>
     {
         [Space]
 

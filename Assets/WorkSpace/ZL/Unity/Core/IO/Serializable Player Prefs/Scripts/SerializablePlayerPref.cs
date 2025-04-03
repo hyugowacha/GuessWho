@@ -6,15 +6,23 @@ using ZL.Unity.Collections;
 
 namespace ZL.Unity.IO
 {
-    public abstract class SerializablePlayerPref<T> :
+    public abstract class SerializablePlayerPref<T>
         
-        PlayerPrefs, IKeyValueContainer<string, T>
+        : PlayerPrefs, IKeyValueContainer<string, T>
     {
         [SerializeField]
 
         protected string key;
 
-        public string Key => key;
+        public string Key
+        {
+            get => key;
+
+            set
+            {
+
+            }
+        }
 
         [SerializeField]
 

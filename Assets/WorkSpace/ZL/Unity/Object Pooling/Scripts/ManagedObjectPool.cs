@@ -4,43 +4,115 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
+using ZL.Unity.Collections;
+
 namespace ZL.Unity.Pooling
 {
     [Serializable]
 
-    public sealed class ManagedObjectPool<T> : ObjectPool<T>
+    public sealed class ManagedObjectPool<TKey, TComponent>
+        
+        : ObjectPool<TComponent>
 
-        where T : Component
+        where TComponent : Component, IKeyValueContainer<TKey, TComponent>
     {
-        private readonly HashSet<T> clones = new();
+        private readonly Dictionary<TKey, TComponent> replicas = new();
 
-        public override T Generate()
+        public TComponent this[TKey key] => replicas[key];
+
+        public bool TryGenerate(TKey key, out TComponent replica)
+        {
+            if (replicas.ContainsKey(key) == true)
+            {
+                replica = replicas[key];
+
+                return false;
+            }
+
+            replica = Generate();
+
+            replica.Key = key;
+
+            replicas.Add(key, replica);
+
+            return true;
+        }
+
+        public TComponent Find(TKey key)
+        {
+            return replicas[key];
+        }
+
+        public override void Collect(TComponent replica)
+        {
+            replicas.Remove(replica.Key);
+
+            base.Collect(replica);
+        }
+
+        public void CollectAll()
+        {
+            foreach (var kvp in replicas)
+            {
+                kvp.Value.gameObject.SetActive(false);
+            }
+
+            replicas.Clear();
+        }
+
+        public void ReleaseAll()
+        {
+            foreach (var replica in replicas.Values)
+            {
+                replica.gameObject.Destroy();
+            }
+
+            replicas.Clear();
+        }
+    }
+
+    [Serializable]
+
+    public class ManagedObjectPool<TComponent> : ObjectPool<TComponent>
+
+        where TComponent : Component
+    {
+        private readonly HashSet<TComponent> replicas = new();
+
+        public override TComponent Generate()
         {
             var clone = base.Generate();
 
-            clones.Add(clone);
+            replicas.Add(clone);
 
             return clone;
         }
 
-        public void Recall()
+        public override void Collect(TComponent replica)
         {
-            foreach (var clone in clones)
-            {
-                clone.gameObject.SetActive(false);
-            }
+            replicas.Remove(replica);
 
-            clones.Clear();
+            base.Collect(replica);
         }
 
-        public void Clear()
+        public void CollectAll()
         {
-            foreach (var clone in clones)
+            foreach (var replica in replicas)
             {
-                clone.gameObject.Destroy();
+                replica.gameObject.SetActive(false);
             }
 
-            clones.Clear();
+            replicas.Clear();
+        }
+
+        public void ReleaseAll()
+        {
+            foreach (var replica in replicas)
+            {
+                replica.gameObject.Destroy();
+            }
+
+            replicas.Clear();
         }
     }
 }

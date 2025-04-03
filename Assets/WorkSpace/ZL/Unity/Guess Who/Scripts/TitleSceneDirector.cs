@@ -1,3 +1,5 @@
+using Photon.Pun;
+
 using System.Collections;
 
 using UnityEngine;
@@ -14,7 +16,10 @@ namespace ZL.Unity.GuessWho
         {
             yield return base.Start();
 
-            ISingleton<PhotonServerManager>.Instance.ConnectToMaster();
+            if (PhotonNetwork.IsConnected == false)
+            {
+                ISingleton<PhotonServerManager>.Instance.ConnectToMaster();
+            }
         }
     }
 }

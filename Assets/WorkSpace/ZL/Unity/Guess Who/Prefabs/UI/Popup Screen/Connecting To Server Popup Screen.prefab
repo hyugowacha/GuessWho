@@ -214,11 +214,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 989094065091301861, guid: 5575df95f10f6ed499e061de7c8397ca, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 769.66
       objectReference: {fileID: 0}
     - target: {fileID: 989094065091301861, guid: 5575df95f10f6ed499e061de7c8397ca, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 50
+      value: 102.01
       objectReference: {fileID: 0}
     - target: {fileID: 989094065091301861, guid: 5575df95f10f6ed499e061de7c8397ca, type: 3}
       propertyPath: m_LocalPosition.x
@@ -230,7 +230,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 989094065091301861, guid: 5575df95f10f6ed499e061de7c8397ca, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.00004251925
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 989094065091301861, guid: 5575df95f10f6ed499e061de7c8397ca, type: 3}
       propertyPath: m_LocalRotation.w
@@ -294,37 +294,27 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7447252281050014694, guid: 5575df95f10f6ed499e061de7c8397ca, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4285006743986404547}
+      addedObject: {fileID: 437990233486561781}
   m_SourcePrefab: {fileID: 100100000, guid: 5575df95f10f6ed499e061de7c8397ca, type: 3}
---- !u!114 &858670673422818725 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6716335369305163009, guid: 5575df95f10f6ed499e061de7c8397ca, type: 3}
-  m_PrefabInstance: {fileID: 6259910034625009828}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3568644743586790210}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3568644743586790210 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7447252281050014694, guid: 5575df95f10f6ed499e061de7c8397ca, type: 3}
   m_PrefabInstance: {fileID: 6259910034625009828}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4285006743986404547
+--- !u!114 &437990233486561781
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3568644743586790210}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 104b13ca98fe57c469fab3002cee09a2, type: 3}
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 858670673422818725}
+  m_HorizontalFit: 2
+  m_VerticalFit: 2
 --- !u!224 &6586053542166710593 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 989094065091301861, guid: 5575df95f10f6ed499e061de7c8397ca, type: 3}
@@ -338,6 +328,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 31930668838741612, guid: 436942ef15f207143add23ad1fe5d6fd, type: 3}
+      propertyPath: canvasGroup
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5037600968028591810, guid: 436942ef15f207143add23ad1fe5d6fd, type: 3}
       propertyPath: m_Name
       value: Connecting To Server Popup Screen
@@ -421,6 +415,14 @@ PrefabInstance:
     - target: {fileID: 8448291727760795756, guid: 436942ef15f207143add23ad1fe5d6fd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8934732892014482084, guid: 436942ef15f207143add23ad1fe5d6fd, type: 3}
+      propertyPath: canvasGroup
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8934732892014482084, guid: 436942ef15f207143add23ad1fe5d6fd, type: 3}
+      propertyPath: alphaTweener
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

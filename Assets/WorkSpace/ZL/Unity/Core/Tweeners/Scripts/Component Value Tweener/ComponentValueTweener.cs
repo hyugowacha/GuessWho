@@ -8,7 +8,11 @@ using UnityEngine;
 
 namespace ZL.Unity.Tweeners
 {
-    public abstract class ComponentValueTweener<TValueTweener, T1, T2, TPlugOptions> : MonoBehaviour
+    [DefaultExecutionOrder(-1)]
+
+    public abstract class ComponentValueTweener<TValueTweener, T1, T2, TPlugOptions>
+        
+        : MonoBehaviour
 
         where TValueTweener : ValueTweener<T1, T2, TPlugOptions>
 

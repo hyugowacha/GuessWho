@@ -10,13 +10,17 @@ namespace ZL.Unity.Server.Photon
 
     [DisallowMultipleComponent]
 
-    public sealed class PhotonPlayerManager :
+    public sealed class PhotonPlayerManager
         
-        MonoBehaviour, ISingleton<PhotonPlayerManager>
+        : MonoBehaviour, ISingleton<PhotonPlayerManager>
     {
         [Space]
 
         [SerializeField]
+
+        [UsingCustomProperty]
+
+        [ReadOnlyWhenPlayMode]
 
         private StringPref nicknamePref = new("Nickname", string.Empty);
 

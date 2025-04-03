@@ -10,6 +10,8 @@ namespace ZL.Unity.UI
 
     [DisallowMultipleComponent]
 
+    [ExecuteInEditMode]
+
     public sealed class SliderValueInputField : MonoBehaviour
     {
         [Space]
@@ -34,6 +36,52 @@ namespace ZL.Unity.UI
 
         private TMP_InputField valueInputField;
 
+#if UNITY_EDITOR
+
+        private string inputText = null;
+
+        private float sliderValue = 0;
+
+        private void Awake()
+        {
+            if (valueInputField != null)
+            {
+                inputText = valueInputField.text;
+            }
+
+            if (slider != null)
+            {
+                sliderValue = slider.value;
+            }
+        }
+
+        private void Update()
+        {
+            if (Application.isPlaying == true)
+            {
+                return;   
+            }
+
+            if (valueInputField != null && slider != null)
+            {
+                if (inputText != valueInputField.text)
+                {
+                    SetValueByInput();
+                }
+
+                else if (sliderValue != slider.value)
+                {
+                    Refresh();
+                }
+
+                inputText = valueInputField.text;
+
+                sliderValue = slider.value;
+            }
+        }
+
+#endif
+
         public void Refresh()
         {
             valueInputField.text = slider.value.ToString();
@@ -41,10 +89,12 @@ namespace ZL.Unity.UI
 
         public void SetValueByInput()
         {
-            if (float.TryParse(valueInputField.text, out float result) == true)
+            if (float.TryParse(valueInputField.text, out float value) == true)
             {
-                slider.value = result;
+                slider.value = value;
             }
+
+            Refresh();
         }
     }
 }

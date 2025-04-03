@@ -1,3 +1,5 @@
+using ExitGames.Client.Photon;
+
 using Photon.Pun;
 
 using Photon.Realtime;
@@ -8,62 +10,23 @@ using UnityEngine;
 
 using UnityEngine.Events;
 
-using ZL.Unity.Collections;
-
 namespace ZL.Unity.Server.Photon
 {
     [AddComponentMenu("ZL/Server/Photon/Photon Lobby Manager (Singleton)")]
 
     [DisallowMultipleComponent]
 
-    public sealed class PhotonLobbyManager :
+    public sealed class PhotonLobbyManager
         
-        MonoBehaviourPunCallbacks, ISingleton<PhotonLobbyManager>
+        : MonoBehaviourPunCallbacks, ISingleton<PhotonLobbyManager>
     {
         [Space]
 
         [SerializeField]
 
-        [UsingCustomProperty]
-
-        [ReadOnlyWhenPlayMode]
-
-        private int minPlayerCount = 2;
-
-        public int MinPlayerCount => minPlayerCount;
-
-        [SerializeField]
-
-        [UsingCustomProperty]
-
-        [ReadOnlyWhenPlayMode]
-
-        private int maxPlayerCount = 2;
-
-        public int MaxPlayerCount => maxPlayerCount;
-
-        [Space]
-
-        [SerializeField]
-
-        [UsingCustomProperty]
-
-        [ReadOnly(true)]
-
-        private Wrapper<List<RoomInfo>> roomList;
-
-        public List<RoomInfo> RoomList
-        {
-            get => roomList.value;
-
-            private set => roomList.value = value;
-        }
-
-        [Space]
-
-        [SerializeField]
-
         private UnityEvent eventOnJoinedLobby;
+
+        public UnityEvent EventOnJoinedLobby => eventOnJoinedLobby;
 
         [Space]
 
@@ -71,11 +34,15 @@ namespace ZL.Unity.Server.Photon
 
         private UnityEvent evenOnLeftLobby;
 
+        public UnityEvent EvenOnLeftLobby => evenOnLeftLobby;
+
         [Space]
 
         [SerializeField]
 
         private UnityEvent eventOnCreatedRoom;
+
+        public UnityEvent EventOnCreatedRoom => eventOnCreatedRoom;
 
         [Space]
 
@@ -83,11 +50,23 @@ namespace ZL.Unity.Server.Photon
 
         private UnityEvent<short> eventOnCreateRoomFailed;
 
+        public UnityEvent<short> EventOnCreateRoomFailed => eventOnCreateRoomFailed;
+
         [Space]
 
         [SerializeField]
 
-        private UnityEvent eventOnRoomListUpdate;
+        private UnityEvent<List<RoomInfo>> eventOnRoomListUpdate;
+
+        public UnityEvent<List<RoomInfo>> EventOnRoomListUpdate => eventOnRoomListUpdate;
+
+        [Space]
+
+        [SerializeField]
+
+        private UnityEvent<Hashtable> eventOnRoomPropertiesUpdate;
+
+        public UnityEvent<Hashtable> EventOnRoomPropertiesUpdate => eventOnRoomPropertiesUpdate;
 
         private void Awake()
         {
@@ -118,21 +97,6 @@ namespace ZL.Unity.Server.Photon
             evenOnLeftLobby.Invoke();
         }
 
-        public void CreateRoom()
-        {
-            CreateRoom(null, null);
-        }
-
-        public void CreateRoom(RoomOptions roomOptions)
-        {
-            CreateRoom(null, roomOptions);
-        }
-
-        public void CreateRoom(string roomName)
-        {
-            CreateRoom(roomName, null);
-        }
-
         public void CreateRoom(string roomName, RoomOptions roomOptions)
         {
             PhotonNetwork.CreateRoom(roomName, roomOptions);
@@ -156,9 +120,14 @@ namespace ZL.Unity.Server.Photon
         {
             FixedDebug.Log($"Room list update.");
 
-            RoomList = roomList;
+            eventOnRoomListUpdate.Invoke(roomList);
+        }
 
-            eventOnRoomListUpdate.Invoke();
+        public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
+        {
+            FixedDebug.Log("Room Properties Update.");
+
+            eventOnRoomPropertiesUpdate.Invoke(propertiesThatChanged);
         }
 
         public void JoinRoom(string roomName)

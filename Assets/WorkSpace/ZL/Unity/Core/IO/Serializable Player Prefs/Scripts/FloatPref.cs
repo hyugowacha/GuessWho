@@ -6,7 +6,10 @@ namespace ZL.Unity.IO
 
     public sealed class FloatPref : SerializablePlayerPref<float>
     {
-        public FloatPref(string key, float value) : base(key, value) { }
+        public FloatPref(string key, float value) : base(key, value)
+        {
+
+        }
 
         public override void LoadValue()
         {

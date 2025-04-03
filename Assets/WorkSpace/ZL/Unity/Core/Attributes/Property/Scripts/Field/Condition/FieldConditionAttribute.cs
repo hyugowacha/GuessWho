@@ -14,7 +14,10 @@ namespace ZL.Unity
 
         protected readonly bool condition;
 
-        public FieldConditionAttribute(string fieldName, bool targetValue) : this(fieldName, targetValue, true) { }
+        public FieldConditionAttribute(string fieldName, bool targetValue) : this(fieldName, targetValue, true)
+        {
+
+        }
 
         public FieldConditionAttribute(string fieldName, object targetValue, bool condition)
         {

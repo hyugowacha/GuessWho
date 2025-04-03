@@ -14,7 +14,15 @@ namespace ZL.Unity.Collections
 
         private TKey key;
 
-        public TKey Key => key;
+        public TKey Key
+        {
+            get => key;
+
+            set
+            {
+
+            }
+        }
 
         [SerializeField]
 

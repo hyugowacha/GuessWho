@@ -22,9 +22,9 @@ namespace ZL.Unity.Server.Photon
 
     [DisallowMultipleComponent]
 
-    public sealed class PhotonServerManager :
+    public sealed class PhotonServerManager
         
-        MonoBehaviourPunCallbacks, ISingleton<PhotonServerManager>
+        : MonoBehaviourPunCallbacks, ISingleton<PhotonServerManager>
     {
         [Space]
 
@@ -108,7 +108,7 @@ namespace ZL.Unity.Server.Photon
 
             if (PhotonNetwork.IsConnected == false)
             {
-                PhotonNetwork.GameVersion = Application.unityVersion;
+                PhotonNetwork.GameVersion = Application.version;
 
                 PhotonNetwork.ConnectUsingSettings();
             }
@@ -134,7 +134,7 @@ namespace ZL.Unity.Server.Photon
 
             StartCoroutine(FakeLoading(loadingTime, () =>
             {
-                FixedDebug.Log("Connected To Master.");
+                FixedDebug.Log($"Connected To Master. (Version: {PhotonNetwork.GameVersion})");
 
                 eventOnConnectedToMaster.Invoke();
             }));
