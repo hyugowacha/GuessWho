@@ -105,11 +105,6 @@ public class PlayerControl : MonoBehaviourPun, IHittable
 
             GetComponent<RotateView>().SetTarget(this.transform);
         }
-
-        if (photonView.IsMine)
-        {
-            ChangeStateTo(new IdleState());
-        }
     }
 
     private void Update()
@@ -377,7 +372,6 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         }
     }
 
-
     [PunRPC]
     private void InstantiateStone(int whoThrow)
     {
@@ -465,5 +459,4 @@ public class PlayerControl : MonoBehaviourPun, IHittable
             audioSource.Stop();
         }
     }
-
 }
