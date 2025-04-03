@@ -12,6 +12,20 @@ namespace ZL.Unity.GuessWho
 
     public sealed class TitleSceneDirector : PhotonSceneDirector
     {
+        [Space]
+
+        [SerializeField]
+
+        [UsingCustomProperty]
+
+        [Alias("Click SFX Clip")]
+
+        private AudioClip clickSFXClip;
+
+        [SerializeField]
+
+        private AudioSource audioSource;
+
         protected override IEnumerator Start()
         {
             yield return base.Start();
@@ -19,6 +33,14 @@ namespace ZL.Unity.GuessWho
             if (PhotonNetwork.IsConnected == false)
             {
                 ISingleton<PhotonServerManager>.Instance.ConnectToMaster();
+            }
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse0) == true)
+            {
+                audioSource.PlayOneShot(clickSFXClip);
             }
         }
     }

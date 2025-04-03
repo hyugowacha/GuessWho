@@ -164,6 +164,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e3b883a7b9af6449acbad1bd465f64e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nicknamePref:
+    key: Nickname
+    value: 
   lobbies:
     value:
     - Name: Default
@@ -226,6 +229,42 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  eventOnJoinedLobby:
+    m_PersistentCalls:
+      m_Calls: []
+  evenOnLeftLobby:
+    m_PersistentCalls:
+      m_Calls: []
+  eventOnRoomListUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  eventOnCreatedRoom:
+    m_PersistentCalls:
+      m_Calls: []
+  eventOnCreateRoomFailed:
+    m_PersistentCalls:
+      m_Calls: []
+  eventOnRoomPropertiesUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  eventOnJoinedRoom:
+    m_PersistentCalls:
+      m_Calls: []
+  evenOnJoinRoomFailed:
+    m_PersistentCalls:
+      m_Calls: []
+  eventOnLeftRoom:
+    m_PersistentCalls:
+      m_Calls: []
+  eventOnPlayerEnteredRoom:
+    m_PersistentCalls:
+      m_Calls: []
+  eventOnPlayerLeftRoom:
+    m_PersistentCalls:
+      m_Calls: []
+  eventOnMasterClientSwitched:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &4384443849312103540
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -334,6 +373,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: Connecting To Server Popup Screen
       objectReference: {fileID: 0}
+    - target: {fileID: 4475684393644270984, guid: f051b0ca4ced5d948b5dcb726a72d61f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4475684393644270984, guid: f051b0ca4ced5d948b5dcb726a72d61f, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4475684393644270984, guid: f051b0ca4ced5d948b5dcb726a72d61f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4475684393644270984, guid: f051b0ca4ced5d948b5dcb726a72d61f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586053542166710593, guid: f051b0ca4ced5d948b5dcb726a72d61f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586053542166710593, guid: f051b0ca4ced5d948b5dcb726a72d61f, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586053542166710593, guid: f051b0ca4ced5d948b5dcb726a72d61f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586053542166710593, guid: f051b0ca4ced5d948b5dcb726a72d61f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9150376735823867849, guid: f051b0ca4ced5d948b5dcb726a72d61f, type: 3}
       propertyPath: canvasGroup
       value: 
@@ -435,9 +506,41 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6214112768327598587, guid: af3381be7059b644cb381fa9f5480e09, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6214112768327598587, guid: af3381be7059b644cb381fa9f5480e09, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6214112768327598587, guid: af3381be7059b644cb381fa9f5480e09, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6214112768327598587, guid: af3381be7059b644cb381fa9f5480e09, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6306923491949382035, guid: af3381be7059b644cb381fa9f5480e09, type: 3}
       propertyPath: m_Name
       value: Server Disconnected Popup Screen
+      objectReference: {fileID: 0}
+    - target: {fileID: 6309021902643092536, guid: af3381be7059b644cb381fa9f5480e09, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6309021902643092536, guid: af3381be7059b644cb381fa9f5480e09, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6309021902643092536, guid: af3381be7059b644cb381fa9f5480e09, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6309021902643092536, guid: af3381be7059b644cb381fa9f5480e09, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6790526442164451630, guid: af3381be7059b644cb381fa9f5480e09, type: 3}
       propertyPath: m_Alpha

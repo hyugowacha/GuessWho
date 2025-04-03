@@ -59,7 +59,7 @@ namespace ZL.Unity.GuessWho
 
         public void TryConfirm()
         {
-            if (ISingleton<PhotonPlayerManager>.Instance.TrySetNickname(nicknameInputField.text, out var exception) == false)
+            if (ISingleton<PhotonServerManager>.Instance.TrySetNickname(nicknameInputField.text, out var exception) == false)
             {
                 switch (exception)
                 {
