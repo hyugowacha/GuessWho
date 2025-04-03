@@ -125,7 +125,6 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
     [PunRPC]
     public void ChangeState(NPCStateName stateName, float time)//RPC용
     {
-        //forDebug = stateName.ToString();
         switch (stateName)
         {
             case NPCStateName.None:
@@ -139,16 +138,13 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
                 nowState = new NPCIdle();
                 nowState.EnterState(this,time);
                 nowState.StateAction();
-                
                 break;
             case NPCStateName.Walk:
                 nowState = new NPCMove();
-                
-                (nowState as NPCMove).EnterState(this, ISingleton<NPCManager>.Instance.RandomDestination(this));
+                (nowState as NPCMove).EnterState(this, ISingleton<NPCManager>.Instance.RandomDestination(this));//목적지 지정 및 상태 진입
                 nowState.StateAction();
-                npcDestination = (nowState as NPCMove).ReturnDestination();
+                npcDestination = (nowState as NPCMove).ReturnDestination();//목적지 저장
                 break;
-
             case NPCStateName.Dead:
                 nowState = new NPCDead();
                 nowState.EnterState(this,0);
@@ -158,8 +154,6 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
                 break;
         }
         PhotonNetwork.SendAllOutgoingCommands();
-
-
     }
     public void AfterHit()
     {
@@ -187,78 +181,50 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
     
 
 
-    IEnumerator CheckState()//master client만 이걸 실행해야 함
+    IEnumerator CheckState()//master client만 실행하고 있는 상태의 변화 필요 여부를 감지하는 코루틴
     {
-        
-
         while (true)
-        {
-            
+        {            
             yield return new WaitForSeconds(0.1f);
-            if (PhotonNetwork.IsMasterClient == false)
+            if (PhotonNetwork.IsMasterClient == false)//혹시 모를 예외처리로 마스터 클라이언트가 아니면 작동 안함
             {
 
             }
-            else if (nowState != null)
+            else if (nowState != null)//마스터 클라이언트이면서 nowstate가 정상적으로 할당되어 있다면
             {
-                if(nowState is NPCHit)
+                if(nowState is NPCHit)//NPC가 피격 판정이 아니면 
                 {
                     
-                    
-                }else if (nowState.CheckStateEnd() == true)
+                }else if (nowState.CheckStateEnd() == true)//상태가 종료되면 
                 {
                     
-                    if(nowState is NPCIdle)
+                    if(nowState is NPCIdle)//대기였으면 이동으로
                     {
                         photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Walk, 0f);
-
-
                     }
-                    else if(nowState is NPCMove)
+                    else if(nowState is NPCMove)//이동이었으면
                     {
-                        
-                        if (Random.Range(0, 100) < 70)
+                        if (Random.Range(0, 100) < 70)//70퍼확률로
                         {
-                            
-                            photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Idle,0.3f);
-                            
-
+                            photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Idle,0.3f);//0.3초 대기 또는
                         }
                         else
                         {
-                            
-                            photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Idle, UnityEngine.Random.Range(0.8f, 1.5f));
-                            
+                            photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Idle, UnityEngine.Random.Range(0.8f, 1.5f));//대기상태 진입
                         }
                     }
                 }
-                
-
             }
-
-
-
         }
     }
 
     #endregion
-    public bool CheckNPCPlacedRight()//구현해놨지만 사용하지는 않는중 
-    {
-        if(selfAgent.isOnNavMesh)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
+    
     
 
     #region 피격 관련 코드
     [PunRPC]
-    public void GetHit()//puncallback해야 함-> 애니메이션 상 로테이션을 변경해서 플레이어쪽을 보고 화내야 함 ->clear
+    public void GetHit()//플레이어에게 맞거나 돌에 맞으면 작동하는 함수
     {
         hitSoundSource.Play();
         
@@ -275,7 +241,7 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
         }
 
     }
-    public void GetDie()
+    public void GetDie()//총에 맞아 죽을 때 호출되는 함수
     {
         hitSoundSource.Play();
         photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Dead);
@@ -309,25 +275,19 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
 
     #endregion
     
-    public override void OnMasterClientSwitched(Player newMasterClient)
+    public override void OnMasterClientSwitched(Player newMasterClient)//마스터 클라이언트가 변경되면
     {
         
-        if(PhotonNetwork.IsMasterClient)
+        if(PhotonNetwork.IsMasterClient)//새로운 마스터 클라이언트는
         {
             SelfAgent.enabled = true;
-            StartCoroutine(CheckState());
-            if(nowState is NPCMove)
+            StartCoroutine(CheckState());//상태 변화 코루틴을 시작하고
+            if(nowState is NPCMove)//이동 상태였을 경우
             {
-                (nowState as NPCMove).EnterState(this, npcDestination);
+                (nowState as NPCMove).EnterState(this, npcDestination);//저장된 목적지로 다시 이동상태 진입
                 nowState.StateAction();
-               
-
             }
         }
-
-
-
-
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
