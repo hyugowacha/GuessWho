@@ -8,15 +8,19 @@ namespace ZL.Unity.GuessWho
 
     [DisallowMultipleComponent]
 
-    public sealed class PlayerSpawnManager :
+    public sealed class PlayerSpawnManager
         
-        MonoBehaviour, ISingleton<PlayerSpawnManager>
+        : MonoBehaviour, ISingleton<PlayerSpawnManager>
     {
         [Space]
 
         [SerializeField]
 
         private GameObject playerPrefab;
+
+        [SerializeField]
+
+        private Transform parent;
 
         [Space]
 
@@ -34,16 +38,18 @@ namespace ZL.Unity.GuessWho
             ISingleton<PlayerSpawnManager>.Release(this);
         }
 
-        public void Spawn(Vector3 position, Quaternion rotation)
-        {
-            PhotonNetwork.Instantiate(playerPrefab.name, position, rotation);
-        }
-
         public void SpawnRandom()
         {
-            int randomPoint = Random.Range(0, playerSpawnPoints.Length);
+            int index = Random.Range(0, playerSpawnPoints.Length);
 
-            Spawn(playerSpawnPoints[randomPoint].position, Quaternion.identity);
+            Spawn(playerSpawnPoints[index].position, Quaternion.identity);
+        }
+
+        public void Spawn(Vector3 position, Quaternion rotation)
+        {
+            var player = PhotonNetwork.Instantiate(playerPrefab.name, position, rotation);
+
+            player.transform.SetParent(parent, true);
         }
     }
 }

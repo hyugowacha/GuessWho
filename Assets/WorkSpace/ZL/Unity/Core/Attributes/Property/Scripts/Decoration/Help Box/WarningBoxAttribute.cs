@@ -6,7 +6,12 @@ namespace ZL.Unity
 
     public sealed class WarningBoxAttribute : MessageBoxAttribute
     {
-        public WarningBoxAttribute(string message) : base(message) { }
+        public WarningBoxAttribute(string message) :
+            
+            base(message)
+        {
+
+        }
 
 
 #if UNITY_EDITOR

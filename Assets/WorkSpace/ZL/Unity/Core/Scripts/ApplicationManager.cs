@@ -10,9 +10,9 @@ namespace ZL.Unity
 
     [DisallowMultipleComponent]
 
-    public class ApplicationManager :
+    public class ApplicationManager
         
-        MonoBehaviour, IMonoSingleton<ApplicationManager>
+        : MonoBehaviour, IMonoSingleton<ApplicationManager>
     {
         [Space]
 

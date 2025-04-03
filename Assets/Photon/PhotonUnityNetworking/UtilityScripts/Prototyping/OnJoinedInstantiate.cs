@@ -8,6 +8,8 @@
 // <author>developer@exitgames.com</author>
 // --------------------------------------------------------------------------------------------------------------------
 
+#pragma warning disable CS0618
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;

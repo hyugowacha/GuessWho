@@ -109,6 +109,22 @@ namespace ZL.Unity.Tweeners
             set => loopType = value;
         }
 
+        [Space]
+
+        [SerializeField]
+
+        private UnityEvent eventOnStart = new();
+
+        public UnityEvent EventOnStart => eventOnStart;
+
+        [Space]
+
+        [SerializeField]
+
+        private UnityEvent eventOnComplete = new();
+
+        public UnityEvent EventOnComplete => eventOnComplete;
+
         protected DOGetter<T1> getter = null;
 
         public DOGetter<T1> Getter
@@ -125,21 +141,6 @@ namespace ZL.Unity.Tweeners
             get => setter;
 
             set => setter = value;
-        }
-
-        [SerializeField]
-
-        private UnityEvent eventOnStart = null;
-
-        [SerializeField]
-
-        private UnityEvent eventOnComplete = null;
-
-        public UnityEvent EventOnComplete
-        {
-            get => eventOnComplete;
-
-            set => eventOnComplete = value;
         }
 
         public TweenerCore<T1, T2, TPlugOptions> Current { get; private set; }
@@ -173,12 +174,12 @@ namespace ZL.Unity.Tweeners
                 Current.SetLoops(loopCount, loopType);
             }
 
-            if (eventOnStart != null)
+            if (eventOnStart.GetPersistentEventCount() != 0)
             {
                 Current.OnStart(eventOnStart.Invoke);
             }
 
-            if (eventOnComplete != null)
+            if (eventOnComplete.GetPersistentEventCount() != 0)
             {
                 Current.OnComplete(eventOnComplete.Invoke);
             }

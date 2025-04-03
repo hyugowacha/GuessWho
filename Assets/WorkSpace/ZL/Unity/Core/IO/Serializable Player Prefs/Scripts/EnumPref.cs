@@ -10,7 +10,10 @@ namespace ZL.Unity.IO
 
         where TEnum : Enum
     {
-        public EnumPref(string key, TEnum value) : base(key, value) { }
+        public EnumPref(string key, TEnum value) : base(key, value)
+        {
+
+        }
 
         public override void LoadValue()
         {

@@ -6,15 +6,15 @@ namespace ZL.Unity.Pooling
 {
     [Serializable]
 
-    public class ObjectPool<T> : Pool<T>
+    public class ObjectPool<TComponent> : Pool<TComponent>
 
-        where T : Component
+        where TComponent : Component
     {
         [SerializeField]
 
-        protected T original;
+        protected TComponent original;
 
-        public T Original => original;
+        public TComponent Original => original;
 
         [SerializeField]
 
@@ -26,13 +26,13 @@ namespace ZL.Unity.Pooling
         {
             while (count-- > 0)
             {
-                Clone().SetActive(false);
+                Replicate().SetActive(false);
             }
         }
 
-        public override T Clone()
+        public override TComponent Replicate()
         {
-            return PoolCollector.Clone(this);
+            return PooledObject.Replicate(this);
         }
     }
 }

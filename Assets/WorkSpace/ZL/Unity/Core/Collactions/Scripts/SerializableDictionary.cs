@@ -10,13 +10,18 @@ namespace ZL.Unity.Collections
 {
     [Serializable]
 
-    public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
+    public class SerializableDictionary<TKey, TValue>
+        
+        : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
     {
         [SerializeField]
 
         protected List<SerializableKeyValuePair<TKey, TValue>> elements = new();
 
-        void ISerializationCallbackReceiver.OnBeforeSerialize() { }
+        void ISerializationCallbackReceiver.OnBeforeSerialize()
+        {
+
+        }
 
         void ISerializationCallbackReceiver.OnAfterDeserialize()
         {
@@ -51,7 +56,9 @@ namespace ZL.Unity.Collections
 
     [Serializable]
 
-    public class SerializableDictionary<TKey, TValue, TKeyValueContainer> : IEnumerable<TKeyValueContainer>, ISerializationCallbackReceiver
+    public class SerializableDictionary<TKey, TValue, TKeyValueContainer>
+        
+        : IEnumerable<TKeyValueContainer>, ISerializationCallbackReceiver
 
         where TKeyValueContainer : IKeyValueContainer<TKey, TValue>
     {
@@ -78,7 +85,10 @@ namespace ZL.Unity.Collections
             return @base.Values.GetEnumerator();
         }
 
-        void ISerializationCallbackReceiver.OnBeforeSerialize() { }
+        void ISerializationCallbackReceiver.OnBeforeSerialize()
+        {
+
+        }
 
         void ISerializationCallbackReceiver.OnAfterDeserialize()
         {

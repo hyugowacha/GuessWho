@@ -10,9 +10,9 @@ namespace ZL.Unity.UI
 
     [DisallowMultipleComponent]
 
-    public sealed class FrameRateDisplayer :
+    public sealed class FrameRateDisplayer
         
-        MonoBehaviour, ISingleton<FrameRateDisplayer>
+        : MonoBehaviour, ISingleton<FrameRateDisplayer>
     {
         [Space]
 

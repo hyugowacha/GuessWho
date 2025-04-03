@@ -6,7 +6,9 @@ using ZL.Unity.Collections;
 
 namespace ZL.Unity.Tweeners
 {
-    public abstract class KeyFrameTweener<TComponentTweener, TValueTweener, T1, T2, TPlugOptions> : MonoBehaviour
+    public abstract class KeyFrameTweener<TComponentTweener, TValueTweener, T1, T2, TPlugOptions>
+        
+        : MonoBehaviour
 
         where TComponentTweener : ComponentValueTweener<TValueTweener, T1, T2, TPlugOptions>
 

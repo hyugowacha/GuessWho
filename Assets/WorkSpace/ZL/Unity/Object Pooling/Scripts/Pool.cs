@@ -4,32 +4,32 @@ using ZL.Unity.Collections;
 
 namespace ZL.Unity.Pooling
 {
-    public abstract class Pool<T>
+    public abstract class Pool<TClass>
 
-        where T : class
+        where TClass : class
     {
-        private readonly LinkedList<T> stock = new();
+        private readonly LinkedList<TClass> stock = new();
 
-        public virtual T Generate()
+        public virtual TClass Generate()
         {
             if (stock.Count == 0)
             {
-                return Clone();
+                return Replicate();
             }
 
             return stock.PopLast();
         }
 
-        public abstract T Clone();
+        public abstract TClass Replicate();
 
-        public virtual void Collect(T value)
+        public virtual void Collect(TClass replica)
         {
-            stock.AddLast(value);
+            stock.AddLast(replica);
         }
 
-        public void Release(T value)
+        public void Release(TClass replica)
         {
-            stock.Remove(value);
+            stock.Remove(replica);
         }
     }
 }

@@ -8,5 +8,8 @@ namespace ZL.Unity
 
     [Conditional("UNITY_EDITOR")]
 
-    public sealed class UsingCustomPropertyAttribute : CustomPropertyAttribute { }
+    public sealed class UsingCustomPropertyAttribute : CustomPropertyAttribute
+    {
+
+    }
 }

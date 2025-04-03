@@ -4,5 +4,8 @@ namespace ZL.Unity
 {
     [Conditional("UNITY_EDITOR")]
 
-    public sealed class EmptyFieldAttribute : FieldAttribute { }
+    public sealed class EmptyFieldAttribute : FieldAttribute
+    {
+
+    }
 }

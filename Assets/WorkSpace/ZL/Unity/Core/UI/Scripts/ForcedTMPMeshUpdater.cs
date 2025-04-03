@@ -32,15 +32,20 @@ namespace ZL.Unity
 
         private TextMeshProUGUI text;
 
-        private IEnumerator Start()
+        private void OnEnable()
         {
-            yield return null;
-        
             ForceMeshUpdate();
         }
 
         public void ForceMeshUpdate()
         {
+            StartCoroutine(ForceMeshUpdateRoutine());
+        }
+
+        private IEnumerator ForceMeshUpdateRoutine()
+        {
+            yield return null;
+
             text.ForceMeshUpdate();
         }
     }

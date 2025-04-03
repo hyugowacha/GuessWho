@@ -1,3 +1,7 @@
+using ExitGames.Client.Photon;
+
+using Photon.Pun;
+
 using Photon.Realtime;
 
 using UnityEngine;
@@ -18,33 +22,37 @@ namespace ZL.Unity.GuessWho
 
         [SerializeField]
 
-        private Slider maxPlayerCountSlider;
+        private Slider maxPlayersSlider;
 
         [SerializeField]
 
         private Toggle publicRoomToggle;
 
-        private void Start()
+        private Hashtable roomProperties;
+
+        private void Awake()
         {
-            var photonLobbyManager = ISingleton<PhotonLobbyManager>.Instance;
-
-            maxPlayerCountSlider.minValue = photonLobbyManager.MinPlayerCount;
-
-            maxPlayerCountSlider.maxValue = photonLobbyManager.MaxPlayerCount;
-
-            maxPlayerCountSlider.value = photonLobbyManager.MaxPlayerCount;
+            roomProperties = new()
+            {
+                ["minPlayers"] = (int)maxPlayersSlider.minValue
+            };
         }
 
         public void CreateRoom()
         {
             RoomOptions roomOptions = new()
             {
-                MaxPlayers = (int)maxPlayerCountSlider.value,
+                MaxPlayers = (int)maxPlayersSlider.value,
 
                 IsVisible = publicRoomToggle.isOn,
             };
 
-            ISingleton<PhotonLobbyManager>.Instance.CreateRoom(roomOptions);
+            ISingleton<PhotonLobbyManager>.Instance.CreateRoom(null, roomOptions);
+        }
+
+        public void UpdateRoomProperties()
+        {
+            PhotonNetwork.CurrentRoom.SetCustomProperties(roomProperties);
         }
     }
 }

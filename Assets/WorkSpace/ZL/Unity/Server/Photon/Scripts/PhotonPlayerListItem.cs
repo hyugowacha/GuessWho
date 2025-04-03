@@ -1,28 +1,22 @@
-using TMPro;
-
 using UnityEngine;
+
+using ZL.Unity.Pooling;
 
 namespace ZL.Unity.Server.Photon
 {
     [AddComponentMenu("ZL/Server/Photon/Photon Player List Item")]
 
-    [DisallowMultipleComponent]
-
-    public sealed class PhotonPlayerListItem : MonoBehaviour
+    public sealed class PhotonPlayerListItem : ManagedPooledObject<int, PhotonPlayerListItem>
     {
-        [Space]
 
-        [SerializeField]
+    }
 
-        [UsingCustomProperty]
+    public abstract class PhotonPlayerListItem<TPhotonPlayerListItem>
 
-        [Essential]
+        : ManagedPooledObject<int, TPhotonPlayerListItem>
 
-        private TextMeshProUGUI nicknameText;
+        where TPhotonPlayerListItem : PhotonPlayerListItem<TPhotonPlayerListItem>
+    {
 
-        public void Initialize(string nickname)
-        {
-            nicknameText.text = nickname;
-        }
     }
 }

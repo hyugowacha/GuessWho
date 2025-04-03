@@ -18,7 +18,10 @@ namespace ZL.Unity
 
         private float deltaV;
 
-        public Discolorator(ColorPalette color) : this(color.ToColor()) { }
+        public Discolorator(ColorPalette color) : this(color.ToColor())
+        {
+
+        }
 
         public Discolorator(Color color)
         {

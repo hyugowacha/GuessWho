@@ -1,31 +1,31 @@
 namespace ZL.Unity.Pooling
 {
-    public static class ClassPool<T>
+    public static class ClassPool<TClass>
 
-        where T : class, new()
+        where TClass : class, new()
     {
         private static readonly Pool pool = new();
 
-        public static T Generate()
+        public static TClass Generate()
         {
             return pool.Generate();
         }
 
-        public static T Clone()
+        public static TClass Replicate()
         {
-            return pool.Clone();
+            return pool.Replicate();
         }
 
-        public static void Collect(T value)
+        public static void Collect(TClass value)
         {
             pool.Collect(value);
         }
 
-        private sealed class Pool : Pool<T>
+        private sealed class Pool : Pool<TClass>
         {
-            public override T Clone()
+            public override TClass Replicate()
             {
-                return new T();
+                return new TClass();
             }
         }
     }

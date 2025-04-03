@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/WorkSpace/COMBINE/Title Scene.unity
     guid: a1186228075c9974780f161bcc3753cc
   - enabled: 1
-    path: Assets/WorkSpace/COMBINE/IngameScene.unity
+    path: Assets/WorkSpace/COMBINE/Ingame Scene.unity
     guid: bf4daf350da61ab439b0a460d8834c3e
   m_configObjects: {}

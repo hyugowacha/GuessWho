@@ -31,6 +31,8 @@ namespace ZL.Unity.UI
         private void Start()
         {
             ForceRebuildLayout();
+
+            enabled = false;
         }
 
         public void ForceRebuildLayout()

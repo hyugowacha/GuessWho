@@ -12,9 +12,9 @@ namespace ZL.Unity.Server.Photon
 
     [DisallowMultipleComponent]
 
-    public sealed class PhotonRoomManager :
+    public sealed class PhotonRoomManager
         
-        MonoBehaviourPunCallbacks, ISingleton<PhotonRoomManager>
+        : MonoBehaviourPunCallbacks, ISingleton<PhotonRoomManager>
     {
         [Space]
 
@@ -22,11 +22,15 @@ namespace ZL.Unity.Server.Photon
 
         private UnityEvent eventOnJoinedRoom;
 
+        public UnityEvent EventOnJoinedRoom => eventOnJoinedRoom;
+
         [Space]
 
         [SerializeField]
 
         private UnityEvent<short> evenOnJoinRoomFailed;
+
+        public UnityEvent<short> EvenOnJoinRoomFailed => evenOnJoinRoomFailed;
 
         [Space]
 
@@ -34,17 +38,39 @@ namespace ZL.Unity.Server.Photon
 
         private UnityEvent eventOnLeftRoom;
 
+        public UnityEvent EventOnLeftRoom => eventOnLeftRoom;
+
         [Space]
 
         [SerializeField]
 
         private UnityEvent eventOnMasterClientLeftRoom;
 
+        public UnityEvent EventOnMasterClientLeftRoom => eventOnMasterClientLeftRoom;
+
         [Space]
 
         [SerializeField]
 
         private UnityEvent eventOnMasterClientSwitched;
+
+        public UnityEvent EventOnMasterClientSwitched => eventOnMasterClientSwitched;
+
+        [Space]
+
+        [SerializeField]
+
+        private UnityEvent<Player> eventOnPlayerEnteredRoom;
+
+        public UnityEvent<Player> EventOnPlayerEnteredRoom => eventOnPlayerEnteredRoom;
+
+        [Space]
+
+        [SerializeField]
+
+        private UnityEvent<Player> eventOnPlayerLeftRoom;
+
+        public UnityEvent<Player> EventOnPlayerLeftRoom => eventOnPlayerLeftRoom;
 
         private void Awake()
         {
@@ -72,7 +98,7 @@ namespace ZL.Unity.Server.Photon
 
         public override void OnJoinRandomFailed(short returnCode, string message)
         {
-            FixedDebug.LogWarning($"Join random failed: ({returnCode}) {message}");
+            FixedDebug.Log($"Join random failed: ({returnCode}) {message}");
 
             evenOnJoinRoomFailed.Invoke(returnCode);
         }
@@ -96,7 +122,7 @@ namespace ZL.Unity.Server.Photon
 
         public void OnMasterClientLeftRoom()
         {
-            ISingleton<PhotonManager>.Instance.RPCLog(RpcTarget.All, "Master client left room.");
+            FixedDebug.Log("Master client left room.");
 
             eventOnMasterClientLeftRoom.Invoke();
         }
@@ -128,9 +154,30 @@ namespace ZL.Unity.Server.Photon
 
         public override void OnMasterClientSwitched(Player newMasterClient)
         {
-            FixedDebug.Log($"Master client switched: {newMasterClient.NickName}");
+            FixedDebug.Log($"Master client switched to Player {newMasterClient.ActorNumber} '{newMasterClient.NickName}'");
 
             eventOnMasterClientSwitched.Invoke();
+        }
+
+        public override void OnPlayerEnteredRoom(Player newPlayer)
+        {
+            FixedDebug.Log($"Player {newPlayer.ActorNumber} '{newPlayer.NickName}' entered room.");
+
+            eventOnPlayerEnteredRoom.Invoke(newPlayer);
+
+            if (PhotonNetwork.IsMasterClient == true)
+            {
+                var roomProperties = PhotonNetwork.CurrentRoom.CustomProperties;
+
+                PhotonNetwork.CurrentRoom.SetCustomProperties(roomProperties);
+            }
+        }
+
+        public override void OnPlayerLeftRoom(Player otherPlayer)
+        {
+            FixedDebug.Log($"Player {otherPlayer.ActorNumber} '{otherPlayer.NickName}' left room.");
+
+            eventOnPlayerLeftRoom.Invoke(otherPlayer);
         }
     }
 }

@@ -1,14 +1,12 @@
-using Photon.Pun;
+using ExitGames.Client.Photon.StructWrapping;
 
-using Photon.Realtime;
+using Photon.Pun;
 
 using TMPro;
 
 using UnityEngine;
 
 using UnityEngine.UI;
-
-using ZL.Unity.Server.Photon;
 
 namespace ZL.Unity.GuessWho
 {
@@ -28,35 +26,31 @@ namespace ZL.Unity.GuessWho
 
         private Button startGameButton;
 
-        private PhotonLobbyManager lobbyManager;
-
-        private Room room;
-
-        private void Start()
-        {
-            lobbyManager = ISingleton<PhotonLobbyManager>.Instance;
-        }
+        private int minPlayers;
 
         public void Initialize()
         {
-            room = PhotonNetwork.CurrentRoom;
+            var room = PhotonNetwork.CurrentRoom;
 
             roomCodeInputField.text = room.Name;
 
-            //startGameButton.interactable = false;
+            startGameButton.interactable = false;
+
+            room.CustomProperties.TryGetValue("minPlayers", out int minPlayers);
+
+            this.minPlayers = minPlayers;
+
+            Refresh();
         }
 
         public void Refresh()
         {
-            if (PhotonNetwork.PlayerList.Length >= lobbyManager.MinPlayerCount)
+            if (PhotonNetwork.IsMasterClient == false)
             {
-                startGameButton.interactable = true;
+                return;
             }
 
-            else
-            {
-                startGameButton.interactable = false;
-            }
+            startGameButton.interactable = PhotonNetwork.PlayerList.Length >= minPlayers;
         }
     }
 }

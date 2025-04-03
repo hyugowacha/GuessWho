@@ -6,7 +6,10 @@ namespace ZL.Unity.Server.Photon
 {
     [AddComponentMenu("ZL/Server/Photon/Photon Scene Director (Singleton)")]
 
-    public class PhotonSceneDirector : PhotonSceneDirector<PhotonSceneDirector> { }
+    public class PhotonSceneDirector : PhotonSceneDirector<PhotonSceneDirector>
+    {
+
+    }
 
     [RequireComponent(typeof(PhotonView))]
 

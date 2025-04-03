@@ -4,7 +4,10 @@ namespace ZL.Unity
 {
     [AddComponentMenu("ZL/Scene Director Receiver")]
 
-    public sealed class SceneDirectorReceiver : SceneDirectorReceiver<SceneDirector> { }
+    public sealed class SceneDirectorReceiver : SceneDirectorReceiver<SceneDirector>
+    {
+
+    }
 
     public abstract class SceneDirectorReceiver<T> : SingletonReceiver<T>
 

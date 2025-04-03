@@ -10,7 +10,9 @@ namespace ZL.Unity.Tweeners
 {
     [Serializable]
 
-    public sealed class FloatTweener : ValueTweener<float, float, FloatOptions>
+    public sealed class FloatTweener
+        
+        : ValueTweener<float, float, FloatOptions>
     {
         protected override TweenerCore<float, float, FloatOptions> To
             
