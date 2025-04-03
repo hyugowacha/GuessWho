@@ -35,6 +35,8 @@ public class ExitGame : MonoBehaviourPunCallbacks
 
     private void ExitThisGame()
     {
+        PhotonNetwork.LocalPlayer.CustomProperties.Clear();
+
         PhotonNetwork.LeaveRoom();
 
         SceneManager.LoadScene("Title Scene");

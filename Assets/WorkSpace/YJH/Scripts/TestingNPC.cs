@@ -243,6 +243,7 @@ public class TestingNPC : MonoBehaviourPunCallbacks,IHittable,IPunObservable
     }
     public void GetDie()//총에 맞아 죽을 때 호출되는 함수
     {
+        selfCollider.enabled = false;
         hitSoundSource.Play();
         photonView.RPC("ChangeState", Photon.Pun.RpcTarget.All, NPCStateName.Dead);
     }
