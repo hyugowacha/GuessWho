@@ -322,20 +322,21 @@ public class PlayerControl : MonoBehaviourPun, IHittable
         {
             RaycastHit hit;
 
-            if (Physics.Raycast(rayPosition, rayDirection, out hit, gunRange))
+            if (Physics.Raycast(rayPosition, rayDirection, out hit, gunRange)) //Raycast 발사
             {
-                if (hit.collider.CompareTag("Player"))
+                if (hit.collider.CompareTag("Player")) //맞은 collider의 태그가 Player라면
                 {
-                    PhotonView photonView = hit.collider.GetComponent<PhotonView>();
+                    PhotonView photonView = hit.collider.GetComponent<PhotonView>(); 
 
-                    if (photonView != null)
+                    if (photonView != null) //포톤뷰 유무 판별
                     {
                         Debug.Log("플레이어 총 맞음"); 
-                        Vector3 hitPosition = hit.point;
+                        Vector3 hitPosition = hit.point; 
                         Quaternion hitRotation = Quaternion.LookRotation(hit.normal);
                         photonView.RPC("ApplyDamage", RpcTarget.AllBuffered, photonView.ViewID);
+                        //타격 적용
 
-                        Instantiate(GunFire, hitPosition, hitRotation);
+                        Instantiate(GunFire, hitPosition, hitRotation); //맞은 위치에 피격 효과 출력
                     }
                 }
 
@@ -431,7 +432,7 @@ public class PlayerControl : MonoBehaviourPun, IHittable
     {
         audioSource.transform.position = soundPosition;
 
-        audioSource.PlayOneShot(GunShoot);
+        audioSource.PlayOneShot(GunShoot, 0.7f);
     }
 
     [PunRPC]
