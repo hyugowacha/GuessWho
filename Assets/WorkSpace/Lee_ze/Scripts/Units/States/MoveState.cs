@@ -1,7 +1,4 @@
-using JetBrains.Annotations;
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveState : IPlayerStates
@@ -14,6 +11,45 @@ public class MoveState : IPlayerStates
     }
 
     public void UpdatePerState()
+    {
+        PlayerMovement();
+
+        // V State 전환
+        if (player.direction == Vector2.zero)
+        {
+            player.ChangeStateTo(new IdleState());
+
+            return;
+        }
+
+        if (player.isAttackTriggered == true)
+        {
+            player.ChangeStateTo(new AttackState());
+
+            return;
+        }
+
+        if (player.isHit == true)
+        {
+            player.ChangeStateTo(new KnockDownState());
+
+            return;
+        }
+
+        if (player.isNPC == true)
+        {
+            player.ChangeStateTo(new ApologizeState());
+
+            return;
+        }
+    }
+
+    public void ExitState()
+    {
+        player.photonView.RPC("RPC_StopRunningSound", RpcTarget.All, player.transform.position);
+    }
+
+    private void PlayerMovement()
     {
         Vector3 camForward = Camera.main.transform.forward;
 
@@ -58,38 +94,5 @@ public class MoveState : IPlayerStates
 
         player.playerAnim.SetFloat("Speed", player.moveSpeed / 0.12f);
 
-        // V State 전환
-        if (player.direction == Vector2.zero)
-        {
-            player.ChangeStateTo(new IdleState());
-
-            return;
-        }
-
-        if (player.isAttackTriggered == true)
-        {
-            player.ChangeStateTo(new AttackState());
-
-            return;
-        }
-
-        if (player.isHit == true)
-        {
-            player.ChangeStateTo(new KnockDownState());
-
-            return;
-        }
-
-        if (player.isNPC == true)
-        {
-            player.ChangeStateTo(new ApologizeState());
-
-            return;
-        }
-    }
-
-    public void ExitState()
-    {
-        player.photonView.RPC("RPC_StopRunningSound", RpcTarget.All, player.transform.position);
     }
 }
