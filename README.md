@@ -1,4 +1,4 @@
-<img width="448" height="145" alt="image" src="https://github.com/user-attachments/assets/e9b7b896-a5a8-4625-9eba-966e4b91ff3c" /># Guess Who?
+# Guess Who?
 ## Unity 3D 네트워크 팀 프로젝트
 
 <img width="267" height="150" alt="image" src="https://github.com/user-attachments/assets/97cc6d33-e332-4994-acca-75477247c447" />
