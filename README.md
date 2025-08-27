@@ -1,8 +1,8 @@
 # Guess Who?
 ## Unity 3D 네트워크 팀 프로젝트
 
-<img width="267" height="150" alt="image" src="https://github.com/user-attachments/assets/97cc6d33-e332-4994-acca-75477247c447" />
-<img width="294" height="156" alt="image" src="https://github.com/user-attachments/assets/33c8c83e-f9d4-47fc-99bf-ff26060e16b6" />
+<img width="479" height="265" alt="image" src="https://github.com/user-attachments/assets/159fe990-f610-4fec-a1a0-0008c83300cd" />
+<img width="479" height="265" alt="image" src="https://github.com/user-attachments/assets/de5f03d0-3c77-4844-8576-1e6955bcde41" />
 
 ------
 
